@@ -1,0 +1,431 @@
+{
+    "facts": [
+      {
+        "info": "likes to smile a lot."
+      },
+      {
+        "info": "loves walking."
+      },
+      {
+        "info": "is hungry."
+      },
+      {
+        "info": "sleeps on the bus."
+      },
+      {
+        "info": "likes dope digital vibes."
+      },
+      {
+        "info": "sleeps with the mouth wide open."
+      },
+      {
+        "info": "is a good listener."
+      },
+      {
+        "info": "is a Creative Developer."
+      },
+      {
+        "info": "loves cats."
+      },
+      {
+        "info": "codes like they dance."
+      },
+      {
+        "info": "never misses a meal."
+      },
+      {
+        "info": "loves free Wi-Fi."
+      },
+      {
+        "info": "drinks coffee like water."
+      },
+      {
+        "info": "talks to cats."
+      },
+      {
+        "info": "catches naps on the go."
+      },
+      {
+        "info": "has pixels on the brain."
+      },
+      {
+        "info": "walks for creativity."
+      },
+      {
+        "info": "gets lost in code."
+      },
+      {
+        "info": "dreams in color."
+      },
+      {
+        "info": "makes pixels dance."
+      },
+      {
+        "info": "thrives on caffeine."
+      },
+      {
+        "info": "loves rainy days."
+      },
+      {
+        "info": "listens to silence."
+      },
+      {
+        "info": "winks at the screen."
+      },
+      {
+        "info": "designs in the shower."
+      },
+      {
+        "info": "laughs at bugs."
+      },
+      {
+        "info": "codes at midnight."
+      },
+      {
+        "info": "always finds the Wi-Fi."
+      },
+      {
+        "info": "loves digital sunsets."
+      },
+      {
+        "info": "wears mismatched socks."
+      }, 
+      {
+        "info": "is fueled by creativity."
+      },
+      {
+        "info": "writes poetry in code."
+      },
+      {
+        "info": "saves room for dessert."
+      },
+      {
+        "info": "is a night owl."
+      },
+      {
+        "info": "loves the smell of fresh code."
+      },
+      {
+        "info": "eats ideas for breakfast."
+      },
+      {
+        "info": "snoozes alarms."
+      },
+      {
+        "info": "thinks in 1s and 0s."
+      },
+      {
+        "info": "sings in the shower."
+      },
+      {
+        "info": "loves a good meme."
+      },
+      {
+        "info": "has messy hair."
+      },
+      {
+        "info": "is a morning grump."
+      },
+      {
+        "info": "codes with music on."
+      },
+      {
+        "info": "makes tea and forgets it."
+      },
+      {
+        "info": "doodles on napkins."
+      },
+      {
+        "info": "daydreams in meetings."
+      },
+      {
+        "info": "likes cereal for dinner."
+      },
+      {
+        "info": "is allergic to boredom."
+      },
+      {
+        "info": "chats with strangers."
+      },
+      {
+        "info": "follows the stars."
+      },
+      {
+        "info": "loves cozy sweaters."
+      },
+      {
+        "info": "makes lists and loses them."
+      },
+      {
+        "info": "is a professional procrastinator."
+      },
+      {
+        "info": "makes wishes at 11:11."
+      },
+      {
+        "info": "loves urban jungles."
+      },
+      {
+        "info": "never says no to cake."
+      },
+      {
+        "info": "codes in pajamas."
+      },
+      {
+        "info": "seeks the perfect gif."
+      },
+      {
+        "info": "has an endless to-do list."
+      },
+      {
+        "info": "is a creative mess."
+      },
+      {
+        "info": "loves midnight snacks."
+      },
+      {
+        "info": "bakes cookies from scratch."
+      },
+      {
+        "info": "writes code like poetry."
+      },
+      {
+        "info": "loves minimalist design."
+      },
+      {
+        "info": "smiles at random thoughts."
+      },
+      {
+        "info": "always carries a notebook."
+      },
+      {
+        "info": "has paint-stained clothes."
+      },
+      {
+        "info": "eats breakfast for dinner."
+      },
+      {
+        "info": "loves handwritten notes."
+      },
+      {
+        "info": "takes photos of clouds."
+      },
+      {
+        "info": "believes in magic."
+      },
+      {
+        "info": "collects inspiring quotes."
+      },
+      {
+        "info": "has a sweet tooth."
+      },
+      {
+        "info": "codes with passion."
+      },
+      {
+        "info": "draws on foggy windows."
+      },
+      {
+        "info": "thinks outside the box."
+      },
+      {
+        "info": "loves random facts."
+      },
+      {
+        "info": "is a doodle enthusiast."
+      },
+      {
+        "info": "has a messy desk."
+      },
+      {
+        "info": "enjoys people-watching."
+      },
+      {
+        "info": "is a coffee connoisseur."
+      },
+      {
+        "info": "loves surprise adventures."
+      },
+      {
+        "info": "sketches ideas at night."
+      },
+      {
+        "info": "gets inspired by chaos."
+      },
+      {
+        "info": "likes to get lost in cities."
+      },
+      {
+        "info": "finds joy in small things."
+      },
+      {
+        "info": "loves movie marathons."
+      },
+      {
+        "info": "wears oversized hoodies."
+      },
+      {
+        "info": "skips small talk."
+      },
+      {
+        "info": "loves spontaneous plans."
+      },
+      {
+        "info": "is a plant parent."
+      },
+      {
+        "info": "eats dessert first."
+      },
+      {
+        "info": "loves rainy-day naps."
+      },
+      {
+        "info": "listens to music on repeat."
+      },
+      {
+        "info": "sneaks snacks at night."
+      },
+      {
+        "info": "has a quirky playlist."
+      },
+      {
+        "info": "eats pizza for breakfast."
+      },
+      {
+        "info": "forgets why they walked into a room."
+      },
+      {
+        "info": "has a PhD in napping."
+      },
+      {
+        "info": "laughs at their own jokes."
+      },
+      {
+        "info": "snoozes alarms five times."
+      },
+      {
+        "info": "dances in the grocery store."
+      },
+      {
+        "info": "sings karaoke solo."
+      },
+      {
+        "info": "talks to their plants."
+      },
+      {
+        "info": "has a secret cookie stash."
+      },
+      {
+        "info": "high-fives themselves."
+      },
+      {
+        "info": "is a cereal offender."
+      },
+      {
+        "info": "counts cats before sleeping."
+      },
+      {
+        "info": "doesn't share fries."
+      },
+      {
+        "info": "is a professional overthinker."
+      },
+      {
+        "info": "speaks fluent sarcasm."
+      },
+      {
+        "info": "fist bumps the air."
+      },
+      {
+        "info": "wears sunglasses indoors."
+      },
+      {
+        "info": "tries to pet every dog."
+      },
+      {
+        "info": "keeps calm and snacks on."
+      },
+      {
+        "info": "has a resting thinking face."
+      },
+      {
+        "info": "runs on coffee and good vibes."
+      },
+      {
+        "info": "forgets to adult sometimes."
+      },
+      {
+        "info": "gets lost in their own thoughts."
+      },
+      {
+        "info": "knows all the cat memes."
+      },
+      {
+        "info": "counts sheep to code."
+      },
+      {
+        "info": "wants to live in a hoodie."
+      },
+      {
+        "info": "brings snacks to meetings."
+      },
+      {
+        "info": "can nap anywhere, anytime."
+      },
+      {
+        "info": "forgets to blink when coding."
+      },
+      {
+        "info": "can't resist a 'free samples' sign."
+      },
+      {
+        "info": "speaks emoji fluently."
+      },
+      {
+        "info": "daydreams about pizza."
+      },
+      {
+        "info": "is on a first-name basis with delivery guys."
+      },
+      {
+        "info": "likes their humor like their coffee: dark."
+      },
+      {
+        "info": "has a PhD in Googling."
+      },
+      {
+        "info": "could be a professional bed tester."
+      },
+      {
+        "info": "thinks naps should be mandatory."
+      },
+      {
+        "info": "counts napping as a hobby."
+      },
+      {
+        "info": "has an alarm for everything."
+      },
+      {
+        "info": "gives pep talks to themselves."
+      },
+      {
+        "info": "buys things just for the box."
+      },
+      {
+        "info": "tells jokes to the mirror."
+      },
+      {
+        "info": "is an expert at awkward silences."
+      },
+      {
+        "info": "can't resist a pun."
+      },
+      {
+        "info": "brings their own snacks to the movies."
+      },
+      {
+        "info": "counts coding as therapy."
+      }
+    ]
+  }
+  
