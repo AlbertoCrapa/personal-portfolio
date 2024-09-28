@@ -57,6 +57,7 @@ const Smile = () => {
   const faceHurt = () => {
     setIsHurt(true);
     setCanBlink(false);
+    
     eyeDxRef.current.src = "/img/smile-parts/eye-hurt.svg";
     eyeSxRef.current.src = "/img/smile-parts/eye-hurt-sx.svg";
     setTimeout(() => {
@@ -113,15 +114,15 @@ const Smile = () => {
         onDragEnd={handleDragEnd}
         drag
         dragConstraints={constraintsRef}
-        className="logo__navbar fixed z-50 right-0 top-0 flex h-[150px] w-[150px] cursor-pointer "
+        className="logo__navbar animate-squiggly fixed z-50 right-0 top-0 flex h-[150px] w-[150px] cursor-pointer "
         onClick={handleSmileClick}
       >
         <p ref={smileTextRef} className="absolute text-2xl transform -translate-x-36 translate-y-4 -rotate-30" />
         <img draggable="false" src="/img/smile-parts/circle.svg" alt="circle" className="relative pointer-events-none" />
         <div ref={faceRef} style={{ transition: 'all 3.7s cubic-bezier(0.075, 0.82, 0.165, 1)' }} className="absolute w-10 h-10  origin-center">
-          <img draggable="false" ref={eyeSxRef} src="/img/smile-parts/eye.svg" alt="left eye" className="absolute h-[19px] translate-x-[29px] translate-y-[42px]" />
+          <img draggable="false" ref={eyeSxRef} src="/img/smile-parts/eye.svg" alt="left eye" className="absolute h-[30px] translate-x-[24px] translate-y-[42px] " />
           <img draggable="false" src="/img/smile-parts/mouth.svg" alt="mouth" className="absolute h-[20px] translate-x-[46px] translate-y-[60px]" />
-          <img draggable="false" ref={eyeDxRef} src="/img/smile-parts/eye.svg" alt="right eye" className="absolute h-[19px] translate-x-[85px] translate-y-[40px]" />
+          <img draggable="false" ref={eyeDxRef} src="/img/smile-parts/eye.svg" alt="right eye" className="absolute h-[30px] translate-x-[85px] translate-y-[40px]" />
         </div>
       </motion.div>
     </>

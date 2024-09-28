@@ -7,6 +7,9 @@ export default {
       fontFamily: {
         sans: [  "Clash Grotesk",  "Inter var", "system-ui"],
       },
+      animation: {
+        'squiggly': 'squiggly-anim .34s linear infinite;',
+      }
     },
   },
   plugins: [],

@@ -1,0 +1,48 @@
+
+
+::-moz-selection {
+  /* Code for Firefox */
+  color:rgb(221, 221, 217);
+  background: rgb(83, 83, 83);
+}
+
+::selection {
+    color:rgb(221, 221, 217);
+    background: rgb(54, 53, 53);
+}
+
+
+
+
+@media only screen and (min-width: 768px) {
+    .works_element:nth-child(4n + 2),
+.works_element:nth-child(4n + 3) {
+  width: 30%;
+}
+.works_element:nth-child(4n + 3) {
+  margin-left: auto;
+}
+}
+
+
+@keyframes squiggly-anim {
+  0% {
+      filter: url(#squiggly-0)
+  }
+
+  25% {
+      filter: url(#squiggly-1)
+  }
+
+  50% {
+      filter: url(#squiggly-2)
+  }
+
+  71% {
+      filter: url(#squiggly-3)
+  }
+
+  to {
+      filter: url(#squiggly-4)
+  }
+}

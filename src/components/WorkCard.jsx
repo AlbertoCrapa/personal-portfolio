@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 const WorkCard = ({id}) => {
 
   return (
-    <div className="font-sans"  >
-      <div className=" md:w-96  w-full aspect-[4/3]  aspect-video bg-white rounded-2xl transition-transform transform hover:-translate-y-1 active:scale-95 hover:scale-105 flex items-center justify-center text-2xl font-bold">
+    <div className="font-sans works_element md:w-2/5  w-full  "  >
+      <div className=" btn-primary w-full aspect-[4/3]  aspect-video bg-white rounded-2xl  flex items-center justify-center text-2xl font-bold  ">
         WorkCard
       </div>
       <h1 className="mt-3  text-3xl text-white font-bold ">Juan The Game</h1>
