@@ -1,0 +1,102 @@
+{
+    "nickname": "Albyeah",
+    "fullname": "Alberto Crapanzano",
+    "title": "Boh dai che ne so",
+    "about": {
+      "description": "Creative Developer based near Milan, specializing in game technical design and tech art for video games. Combining strong programming skills with artistic vision, I create innovative and engaging digital experiences. ",
+      "description2": " Passionate about pushing the boundaries of technology and art, I thrive on challenges that require both technical expertise ",
+      "location": "Milan, Italy",
+      "birthdate": "2004-06-05",
+      "profileImage": "path/to/your/profile-image.jpg"
+    },
+    "skills": [
+      {
+        "category": "Frontend",
+        "items": ["React", "HTML5", "CSS3", "JavaScript", "TypeScript"]
+      },
+      {
+        "category": "Backend",
+        "items": ["Node.js", "Express", "GraphQL", "RESTful APIs"]
+      },
+      {
+        "category": "Database",
+        "items": ["MongoDB", "PostgreSQL", "MySQL"]
+      },
+      {
+        "category": "Other",
+        "items": ["Git", "Docker", "CI/CD", "AWS"]
+      }
+    ],
+    "projects": {
+      "project1": {
+        "slug": "deadly-nightshade",
+        "title": "Deadly Nightshade",
+        "favourite": true,
+        "cover": "./works/deadly/cover.jpg",
+        "videocover": "./works/deadly/videoLow.mp4",
+        "descriptions": [
+          "A Video",
+          "Game Technical Design"
+          ],
+        "images": [
+          "./works/deadly/1.jpg",
+          "./works/deadly/2.jpg",
+          "./works/deadly/3.jpg",
+          "./works/deadly/4.jpg"
+        ],
+        "url": "",
+        "technologies": ["Unreal Engine", "C++", "Faceware", "FMOD", "Blueprints"]
+      },
+      "project2": {
+        "slug": "juan-game",
+        "title": "Juan The Game",
+        "description": "Help a cloud mom rescue her lost cloudlets.",
+        "cover": "./works/juan/cover.jpg",
+        "videocover": "./works/juan/video.mp4",
+        "url": "https://github.com/yourusername/ecommerce-platform",
+        "technologies": ["Unity", "C#"]
+      },
+      "project3": {
+        "slug": "cloudy-game",
+        "title": "Cloudy",
+        "description": "Help a cloud mom rescue her lost cloudlets.",
+        "cover": "path/to/ecommerce-image.jpg",
+        "videocover": "path/to/ecommerce-video.mp4",
+        "url": "https://github.com/yourusername/ecommerce-platform",
+        "technologies": ["PyCharm", "Python", "Photoshop"]
+      },
+      "project4": {
+        "slug": "echoes-tablegame",
+        "title": "Echoes",
+        "description": "board game for 2-4 players",
+        "cover": "path/to/fitness-tracker-image.jpg",
+        "videocover": "path/to/fitness-tracker-video.mp4",
+        "url": "",
+        "technologies": ["Adobe Suite"]
+      },
+      "project5": {
+        "slug": "too-poop-to-go",
+        "title": "Too Poop To Go",
+        "description": "Explore the toiletes around you",
+        "image": "",
+        "url": "",
+        "technologies": ["Adobe Suite"]
+      },
+
+      "project6": {
+        "slug": "music-matcher",
+        "title": "Music Matcher",
+        "description": "board game for 2-4 players",
+        "image": "path/to/fitness-tracker-image.jpg",
+        "url": "",
+        "technologies": ["Adobe Suite"]
+      }
+    },
+    "contact": {
+      "email": "your.email@example.com",
+      "phone": "+1234567890",
+      "linkedin": "https://linkedin.com/in/yourusername",
+      "github": "https://github.com/yourusername"
+    }
+  }
+  

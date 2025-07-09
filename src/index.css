@@ -5,6 +5,36 @@
 
 @layer components {
   .btn-primary {
-    @apply transition active:scale-95 hover:scale-105 hover:animate-squiggly cursor-pointer hover:shadow-[0_0_30px_8px_rgba(255,255,255,0.2)] active:shadow-[0_0_30px_8px_rgba(0,0,0,0.2)] select-none;
+    @apply transition active:scale-95 hover:scale-[1.03] hover:animate-squiggly cursor-pointer hover:shadow-[0_0_30px_8px_rgba(0,0,0,0.2)] active:shadow-[0_0_30px_8px_rgba(0,0,0,0.2)] select-none;
+  }
+}
+
+:root {
+  --primary-color: #3490dc;
+  --secondary-color: #ffed4a;
+  --accent-color: #e3342f;
+  --background-color: #f8fafc;
+  --text-color: #2d3748;
+}
+
+@keyframes squiggly-anim {
+  0% {
+      filter: url(#squiggly-0)
+  }
+
+  25% {
+      filter: url(#squiggly-1)
+  }
+
+  50% {
+      filter: url(#squiggly-2)
+  }
+
+  71% {
+      filter: url(#squiggly-3)
+  }
+
+  to {
+      filter: url(#squiggly-4)
   }
 }

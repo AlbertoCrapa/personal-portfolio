@@ -1,0 +1,31 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const Navbar = () => (
+  <nav className="border-b">
+    <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+      <Link to="/" className="text-2xl font-bold hover:text-blue-600 transition-colors duration-200"> </Link>
+      <NavLinks />
+    </div>
+  </nav>
+);
+
+
+const NavLinks = () => (
+  <div className="space-x-6 text-lg">
+    <NavLinkButton href="#about">About</NavLinkButton>
+    <NavLinkButton href="#projects">Projects</NavLinkButton>
+    <NavLinkButton href="#contact">Contact</NavLinkButton>
+  </div>
+);
+
+const NavLinkButton = ({ href, children }) => (
+  <a
+    href={href}
+    className="text-white bg-zinc-900 px-2 py-1 transition-all hover:bg-zinc-700 hover:font-black hover:text-white  text-xl  duration-200 active:scale-95 active:bg-zinc-600"
+  >
+    {children}
+  </a>
+);
+
+export default Navbar;
