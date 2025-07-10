@@ -258,7 +258,7 @@ const Smile = () => {
         onDragEnd={handleDragEnd}
         drag
         dragConstraints={constraintsRef}
-        className="logo__navbar animate-squiggly fixed z-50 sm:right-0 sm:top-16 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
+        className="logo__navbar animate-squiggly fixed z-50 sm:right-12 sm:top-14 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
         onClick={handleSmileClick}
       >
         <p ref={smileTextRef} className="absolute font-script text-4xl transform -translate-x-16 translate-y-4 -rotate-30 z-10" />

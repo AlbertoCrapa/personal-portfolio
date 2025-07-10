@@ -14,17 +14,6 @@
 
 
 
-@media only screen and (min-width: 768px) {
-    .works_element:nth-child(4n + 2),
-.works_element:nth-child(4n + 3) {
-  width: 30%;
-}
-.works_element:nth-child(4n + 3) {
-  margin-left: auto;
-}
-}
-
-
 @keyframes squiggly-anim {
   0% {
       filter: url(#squiggly-0)

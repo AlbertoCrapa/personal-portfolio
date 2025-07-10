@@ -40,7 +40,8 @@ const Home = () => {
           <h1  className="text-8xl font-extrabold mb-2 animate-squiggly">{nickname}</h1>
           <RotatingText
             texts={facts}
-            mainClassName="text-3xl text-gray-500 mb-6"
+            mainClassName="text-3xl text-gray-500 mb-6 notranslate"
+            translate="no"
             staggerFrom={"first"}
             initial={{ y: "120%" }}
             animate={{ y: 0 }}
@@ -74,7 +75,7 @@ const Home = () => {
 
       <section id="projects" className="py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-semibold mb-8 text-center">Projects</h2>
+          <h2 className="text-4xl font-semibold mb-8 text-center">my Projects</h2>
           <ResponsiveGrid>
             {Object.values(projects).map(project => (
               <WorkCard key={project.slug} work={project} />
@@ -83,11 +84,15 @@ const Home = () => {
         </div>
       </section>
 
-      <section id="contact" className="py-16 bg-black/90 ">
+      <section id="contact" className="py-4 pt-32  bg-zinc-900 ">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-semibold mb-6">Get In Touch</h2>
+          <h2 className="text-4xl font-semibold mb-6 text-zinc-200">Get In Touch</h2>
           <MailCTA contact={contact} />
         </div>
+
+        <p className="w-fit mx-auto bottom-0 pt-32 text-zinc-300 ">
+          © 2025 Alberto Crapanzano
+        </p>
       </section>
     </div>
   );

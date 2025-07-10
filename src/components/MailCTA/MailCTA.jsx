@@ -3,9 +3,10 @@ import React from "react";
 const MailCTA = ({ contact }) => (
   <a
     href={`mailto:${contact.email}`}
-    className="inline-block px-8 py-4 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition"
+    className="block w-full mx-auto py-4 bg-white text-3xl md:text-8xl lg:text-8xl text-black font-medium rounded-xl hover:scale-[1.03] active:scale-[0.95] transition"
+    style={{ maxWidth: "100%", wordBreak: "break-word" }}
   >
-    Email Me
+    hello@albyeah.com
   </a>
 );
 

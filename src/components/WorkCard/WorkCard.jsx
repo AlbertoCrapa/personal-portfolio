@@ -24,7 +24,7 @@ const WorkCard = ({ work }) => {
       >
         <img
           src={imgSrc}
-          alt={work.title}
+          alt={`Image of my project ${work.title}`}
           onError={(e) => (e.currentTarget.src = "https://placehold.co/400x300")}
           className={`w-full h-48 object-cover transition-opacity duration-500 ${hovered && work.videocover ? "opacity-0" : "opacity-100"}`}
         />
