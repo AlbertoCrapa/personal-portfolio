@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import data from "../../data/data.json";
 import Button from "../../components/Button/Button";
+import LinkButton from "../../components/Button/LinkButton";
 
 const placeholderImage = "https://placehold.co/800x600";
 
@@ -16,7 +17,7 @@ const Work = () => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [slug]);
 
-  
+
 
 
   const project = projectList[currentIndex];
@@ -37,7 +38,7 @@ const Work = () => {
     fullscreen: idx % 3 === 0, // Every 3rd item is fullscreen
     textOnRight: idx % 2 === 0, // Alternate text positioning
   });
-  
+
   if (currentIndex === -1) {
     return (
       <div className="py-16 text-center text-xl text-gray-600">
@@ -48,21 +49,38 @@ const Work = () => {
 
 
   return (
-    <div 
+    <div
       {...(project.favourite ? { "data-smile-loving": true } : {})}
       className="container mx-auto px-4 py-16 ">
       <Button onClick={() => navigate(`/`)}>
         &larr; Back
       </Button>
 
-      <h1 className="text-5xl font-bold mb-6 text-center" >{project.title}</h1>
+      <section>
+        <h1 className="text-5xl font-bold mb-6 text-center" >{project.title}</h1>
+        <div>
+          <p className="text-gray-800 mb-4">
+            <strong>Technologies:</strong> {project.technologies?.join(", ")}
+          </p>
+          <LinkButton href={project.url} className="mt-8">
+            SeeMore
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+              xmlns="http://www.w3.org/2000/svg" className="inline-block">
+              <path d="M7 13L13 7M13 7H7M13 7V13" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </LinkButton>
+
+        </div>
+
+      </section>
+
 
       {/* Responsive Composition with Controller */}
       <div className="flex flex-col gap-12">
         {project.images && project.images.length > 0 && project.descriptions && project.descriptions.length > 0 ? (
           project.images.map((media, idx) => {
             const variant = getLayoutVariant(idx);
-            
+
             if (variant.fullscreen) {
               return (
                 <div key={idx} className="w-full">
@@ -72,14 +90,14 @@ const Work = () => {
                       <video
                         src={media}
                         controls
-                        className="rounded-lg shadow w-full h-auto max-h-[80vh] object-cover"
+                        className=" shadow w-full h-auto max-h-[80vh] object-cover"
                       />
                     ) : (
                       <img
                         src={media}
                         alt={`${project.title} ${idx + 1}`}
                         onError={handleImageError}
-                        className="rounded-lg shadow w-full h-auto max-h-[80vh] object-cover"
+                        className=" shadow w-full h-auto max-h-[80vh] object-cover"
                       />
                     )}
                   </div>
@@ -92,13 +110,12 @@ const Work = () => {
                 </div>
               );
             }
-            
+
             return (
               <div
                 key={idx}
-                className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${
-                  variant.textOnRight ? "" : "md:flex-row-reverse"
-                }`}
+                className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${variant.textOnRight ? "" : "md:flex-row-reverse"
+                  }`}
               >
                 {/* Media */}
                 <div className="flex-1 w-full">
@@ -106,14 +123,14 @@ const Work = () => {
                     <video
                       src={media}
                       controls
-                      className="rounded-lg shadow w-full object-cover max-h-96"
+                      className=" shadow w-full object-cover max-h-96"
                     />
                   ) : (
                     <img
                       src={media}
                       alt={`${project.title} ${idx + 1}`}
                       onError={handleImageError}
-                      className="rounded-lg shadow w-full object-cover max-h-96"
+                      className=" shadow w-full object-cover max-h-96"
                     />
                   )}
                 </div>
@@ -133,21 +150,7 @@ const Work = () => {
         )}
       </div>
 
-      <div className="mt-12 text-center">
-        <p className="text-gray-800 mb-4">
-          <strong>Technologies:</strong> {project.technologies?.join(", ")}
-        </p>
-        {project.url && (
-          <a
-            href={project.url}
-            className="text-blue-600 hover:underline text-lg"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View on GitHub
-          </a>
-        )}
-      </div>
+
 
       <div className="mt-16 flex justify-between">
         <Button onClick={() => navigate(`/work/${projectList[prevIndex].slug}`)}>
@@ -157,6 +160,12 @@ const Work = () => {
           Next
         </Button>
       </div>
+      <section id="contact" className=" py-0 pt-0   ">
+        <p className="w-fit mx-auto bottom-0 pt-8 text-zinc-800 ">
+          © 2025 Alberto Crapanzano. All rights reserved.
+        </p>
+      </section>
+
     </div>
   );
 };
