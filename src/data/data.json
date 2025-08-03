@@ -63,8 +63,8 @@
         "slug": "cloudy-game",
         "title": "Cloudy",
         "description": "Help a cloud mom rescue her lost cloudlets.",
-        "cover": "path/to/ecommerce-image.jpg",
-        "videocover": "path/to/ecommerce-video.mp4",
+        "cover":"./works/cloudy/cover.jpg",
+        "videocover": "./works/cloudy/video.mp4",
         "url": "https://github.com/yourusername/ecommerce-platform",
         "technologies": ["PyCharm", "Python", "Photoshop"],
         "type": "videogame"
@@ -82,6 +82,7 @@
       "project5": {
         "slug": "too-poop-to-go",
         "title": "Too Poop To Go",
+        "cover": "./works/poop/cover.jpg",
         "descriptions": [
           "In this iOS application, users can quickly find the best restroom to suit their needs. The map, managed with MapBox, allows users to view a wide range of points of interest that can be filtered according to various parameters. For each restroom, users can read reviews left by others. If a user discovers a new restroom to share with the community, they can submit a request to add it, and it will be included only after careful verification by the administrators. ",
           "I was responsible for the entire design of the application, from the user interface to the user experience. I created the wireframes and prototypes using Figma, ensuring a user-friendly and intuitive design. I also implemented the front-end using React Native, ensuring a smooth and responsive experience across different devices. Additionally, I integrated the MapBox API to display restroom locations and manage user interactions with the map.",
@@ -97,11 +98,12 @@
       "project6": {
         "slug": "music-matcher",
         "title": "Music Matcher",
+        "cover": "./works/music/cover.jpg",
         "description": "board game for 2-4 players",
         "image": "path/to/fitness-tracker-image.jpg",
         "url": "",
         "technologies": ["Adobe Suite"],
-        "type": "webapp"
+        "type": "Webapp "
       }
     },
     "contact": {

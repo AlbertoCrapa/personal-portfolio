@@ -52,8 +52,8 @@ const WorkCard = ({ work }) => {
                 onMouseLeave={() => setIconHovered(false)}
               />
               {iconHovered && (
-                <div className="absolute origin-left left-14  top-14 inset-0 flex items-center text-left justify-center pointer-events-none">
-                  <div className="bg-white/70 shadow-lg px-[13.6px] py-1 text-black text-base font-semibold animate-fade-in">
+                <div className="absolute  origin-left left-14  top-14 inset-0 flex items-center text-left justify-center pointer-events-none">
+                  <div className="bg-white/70 min-w-[110px] max-w-[111px] shadow-lg px-[13.6px] py-1 text-black text-base font-semibold animate-fade-in">
                    {capitalizeFirst(work.type)}
                   </div>
                 </div>
