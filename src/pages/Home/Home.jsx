@@ -38,7 +38,7 @@ const Home = () => {
       /> */}
       <header className="bg-gray-100 ">
         <div className="container mx-auto text-left px-4">
-          <h1 className="min-[390px]:text-9xl  text-7xl font-extrabold mb-2 animate-squiggly">{nickname}</h1>
+          <h1 className="min-[532px]:text-9xl  text-7xl font-extrabold mb-2 animate-squiggly">{nickname}</h1>
 
           <RotatingText
             texts={facts}
