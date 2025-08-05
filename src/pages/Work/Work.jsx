@@ -5,6 +5,7 @@ import data from "../../data/data.json";
 import Button from "../../components/Button/Button";
 import LinkButton from "../../components/Button/LinkButton";
 import SplitText from "../../utils/ReactBits/SplitText/SplitText";
+import { motion } from "framer-motion";
 
 const placeholderImage = "https://placehold.co/800x600";
 
@@ -72,14 +73,28 @@ const Work = () => {
   });
 
   return (
-    <div
+    <motion.div
       {...(project?.favourite ? { "data-smile-loving": true } : {})}
-      className="container mx-auto px-4 py-16 ">
-      <Button onClick={() => navigate(`/`)}>
-        &larr; Back
-      </Button>
+      className="container mx-auto px-4 py-16 "
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
+      <motion.div
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+      >
+        <Button onClick={() => navigate(`/`)}>
+          &larr; Back
+        </Button>
+      </motion.div>
 
-      <section>
+      <motion.section
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+      >
         <h1 className="text-5xl font-bold mb-6 text-center" >{project?.title || 'Untitled Project'}</h1>
         <div>
           <p className="text-gray-800 mb-4">
@@ -96,7 +111,7 @@ const Work = () => {
           )}
         </div>
 
-      </section>
+      </motion.section>
 
 
       {/* Responsive Composition with Controller */}
@@ -190,7 +205,7 @@ const Work = () => {
         </p>
       </section>
 
-    </div>
+    </motion.div>
   );
 };
 

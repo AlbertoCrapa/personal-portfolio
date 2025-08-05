@@ -13,21 +13,105 @@ import ScrambledText from "../../utils/ReactBits/ScrambleText/ScrambleText";
 import { SplitText } from "gsap/all";
 import SplitTextAnim from "../../utils/ReactBits/SplitText/SplitText";
 import RotatingText from "../../utils/RotatingText/RotatingText";
-import Folder from "../../utils/ReactBits/Folder/Folder";
+import { motion, AnimatePresence } from "framer-motion";
+import { useAnimation } from "../../contexts/AnimationContext";
+
 
 const Home = () => {
   const { nickname, fullname, title, about, skills, projects, contact } = data;
   const factsTextRef = useRef();
   const [currentFact, setCurrentFact] = useState('');
+  const [isAnimationComplete, setIsAnimationComplete] = useState(false);
+  const [showCenterAnimation, setShowCenterAnimation] = useState(false);
+  const { hasPlayedInitialAnimation, setHasPlayedInitialAnimation } = useAnimation();
   const facts = require('../../data/facts.json').facts;
 
   useEffect(() => {
-  }, []);
+    // Only play animation if it hasn't been played before
+    if (!hasPlayedInitialAnimation) {
+      setShowCenterAnimation(true);
+
+      // Disable scrolling during animation
+      document.body.style.overflow = 'hidden';
+
+      // Start the normal animation after initial center animation
+      const timer = setTimeout(() => {
+        setShowCenterAnimation(false);
+        setTimeout(() => {
+          setIsAnimationComplete(true);
+          setHasPlayedInitialAnimation(true);
+          // Re-enable scrolling after animation
+          document.body.style.overflow = 'unset';
+        }, 300); // Short delay for normal fade transition
+      }, 1000); // Show center animation for 1.5 seconds
+
+      return () => {
+        clearTimeout(timer);
+        // Cleanup: re-enable scrolling
+        document.body.style.overflow = 'unset';
+      };
+    } else {
+      // If animation has already played, show everything immediately
+      setIsAnimationComplete(true);
+      // Ensure scrolling is enabled
+      document.body.style.overflow = 'unset';
+    }
+  }, [hasPlayedInitialAnimation, setHasPlayedInitialAnimation]);
 
 
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
-      <Navbar />
+      {/* Center Animation Overlay - only on first visit */}
+      <AnimatePresence>
+        {showCenterAnimation && !hasPlayedInitialAnimation && (
+          <motion.div
+            className="fixed inset-0 z-40 bg-white flex items-center justify-center"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+          >
+            <motion.div
+              className="inline-block" // Use inline-block instead of full width h1
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.2, 
+                ease: "easeOut",
+                delay: 0.1 
+              }}
+            >
+              {/* <span className="min-[532px]:text-9xl text-7xl font-extrabold animate-squiggly">
+                {nickname}
+              </span> */}
+              <SplitTextAnim
+                text="Hi there!"
+                className="min-[532px]:text-9xl text-7xl font"
+                delay={50}
+                duration={0.6}
+                ease="power3.out"
+                splitType="chars"
+                from={{ opacity: 0, y: 40 }}
+                to={{ opacity: 1, y: 0 }}
+                threshold={0.1}
+                rootMargin="-100px"
+                textAlign="center"
+              />
+
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content */}
+      <motion.div
+        className="relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: hasPlayedInitialAnimation ? 0 : 0.6, ease: "easeInOut" }}
+      >
+        <Navbar />
+      </motion.div>
+
       {/* <CurvedLoop
         marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦"
         speed={3}
@@ -36,27 +120,67 @@ const Home = () => {
         interactive={true}
         className="custom-text-style "
       /> */}
-      <header className="bg-gray-100 ">
+
+      <motion.header
+        className="bg-gray-100"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: hasPlayedInitialAnimation ? 0 : 0.5, ease: "easeInOut" }}
+      >
         <div className="container mx-auto text-left px-4">
-          <h1 className="min-[532px]:text-9xl  text-7xl font-extrabold mb-2 animate-squiggly">{nickname}</h1>
+          {/* Nickname that appears after center animation */}
+          <motion.div
+            className="inline-block"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.8, 
+              delay: hasPlayedInitialAnimation ? 0.1 : 0.6,
+              ease: "easeOut"
+            }}
+          >
+            <h1 className="min-[532px]:text-9xl text-7xl font-extrabold mb-2 animate-squiggly">
+              {nickname}
+            </h1>
+          </motion.div>
 
-          <RotatingText
-            texts={facts}
-            mainClassName="text-3xl text-gray-500 mb-6 notranslate"
-            translate="no"
-            staggerFrom={"first"}
-            initial={{ y: "120%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "-120%" }}
-            staggerDuration={0.025}
-            splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={5000}
-          />
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: hasPlayedInitialAnimation ? 0.2 : 0.7,
+              ease: "easeOut"
+            }}
+          >
+            <RotatingText
+              texts={facts}
+              mainClassName="text-3xl text-gray-500 mb-6 notranslate"
+              translate="no"
+              staggerFrom={"first"}
+              initial={{ y: "120%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={5000}
+            />
+          </motion.div>
         </div>
-      </header>
+      </motion.header>
 
-      <section id="about" className="py-20">
+      <motion.section
+        id="about"
+        className="py-20"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.6, 
+          delay: hasPlayedInitialAnimation ? 0.3 : 0.8,
+          ease: "easeOut"
+        }}
+      >
         <div className="container mx-auto px-4 w-full md:w-2/4 mr-0 md:mr-12">
           <h2 className="text-4xl font-semibold sm:mb-1 mb-4 text-left md:ml-none  ml-auto md:max-w-none max-w-[210px]">{fullname}</h2>
           <p className="max-w-full md:max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
@@ -76,20 +200,52 @@ const Home = () => {
             <Folder size={2} color="#3b3a3cff" className="custom-folder" />
           </div> */}
         </div>
-      </section>
+      </motion.section>
 
-      <section id="projects" className="py-32 ">
+      <motion.section
+        id="projects"
+        className="py-32"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.6, 
+          delay: hasPlayedInitialAnimation ? 0.4 : 0.9,
+          ease: "easeOut"
+        }}
+      >
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-semibold mb-8 text-center">my Projects</h2>
           <ResponsiveGrid>
-            {Object.values(projects).map(project => (
-              <WorkCard key={project.slug} work={project} />
+            {Object.values(projects).map((project, index) => (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: index * 0.1,
+                  ease: "easeOut"
+                }}
+              >
+                <WorkCard work={project} />
+              </motion.div>
             ))}
           </ResponsiveGrid>
         </div>
-      </section>
+      </motion.section>
 
-      <section id="contact" className="py-4 pt-32  bg-zinc-900 ">
+      <motion.section
+        id="contact"
+        className="py-4 pt-32 bg-zinc-900"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.6, 
+          delay: hasPlayedInitialAnimation ? 0.6 : 1.1,
+          ease: "easeOut"
+        }}
+      >
         <div className="container max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-semibold mb-6 text-zinc-200">Get In Touch</h2>
           <MailCTA contact={contact} />
@@ -98,8 +254,9 @@ const Home = () => {
         <p className="w-fit mx-auto bottom-0 pt-32 text-zinc-300 ">
           © 2025 Alberto Crapanzano. All rights reserved.
         </p>
-      </section>
+      </motion.section>
     </div>
+
   );
 };
 

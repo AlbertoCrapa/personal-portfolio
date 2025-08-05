@@ -34,6 +34,7 @@
         "favourite": true,
         "cover": "./works/deadly/cover.jpg",
         "videocover": "./works/deadly/videoLow.mp4",
+        "bg-color": "#af24dc",
         "descriptions": [
           "Is a narrative game set in a future where nature and technology intertwine in unsettling ways. The story follows Alice, a young scientist, and Rusty, a small robot she secretly builds. After escaping from the lab, they uncover dark truths about the company they once trusted, forming a deep bond along the way.",
           "As the Technical Designer, I played a crucial role in shaping the gameplay mechanics and user experience. I designed and implemented the core game systems, including the health system, power-ups, and gas mechanics for both the protagonist and enemies. My responsibilities also included creating the user interface using Figma and Common UI, which encompassed the inventory, settings, and main menu.",
@@ -55,6 +56,7 @@
         "description": "Help a cloud mom rescue her lost cloudlets.",
         "cover": "./works/juan/cover.jpg",
         "videocover": "./works/juan/video.mp4",
+        "bg-color": "#0f3eb8",
         "url": "https://github.com/yourusername/ecommerce-platform",
         "technologies": ["Unity", "C#"],
         "type": "videogame"
@@ -65,6 +67,7 @@
         "description": "Help a cloud mom rescue her lost cloudlets.",
         "cover":"./works/cloudy/cover.jpg",
         "videocover": "./works/cloudy/video.mp4",
+        "bg-color": "#87ceeb",
         "url": "https://github.com/yourusername/ecommerce-platform",
         "technologies": ["PyCharm", "Python", "Photoshop"],
         "type": "videogame"
@@ -73,8 +76,9 @@
         "slug": "echoes-tablegame",
         "title": "Echoes",
         "description": "board game for 2-4 players",
-        "cover": "path/to/fitness-tracker-image.jpg",
-        "videocover": "path/to/fitness-tracker-video.mp4",
+        "cover":"./works/echoes/cover.jpg",
+        
+        "bg-color": "#8b5a3c",
         "url": "",
         "technologies": ["Adobe Suite"],
         "type": "boardgame"
@@ -83,6 +87,7 @@
         "slug": "too-poop-to-go",
         "title": "Too Poop To Go",
         "cover": "./works/poop/cover.jpg",
+        "bg-color": "#a74e18",
         "descriptions": [
           "In this iOS application, users can quickly find the best restroom to suit their needs. The map, managed with MapBox, allows users to view a wide range of points of interest that can be filtered according to various parameters. For each restroom, users can read reviews left by others. If a user discovers a new restroom to share with the community, they can submit a request to add it, and it will be included only after careful verification by the administrators. ",
           "I was responsible for the entire design of the application, from the user interface to the user experience. I created the wireframes and prototypes using Figma, ensuring a user-friendly and intuitive design. I also implemented the front-end using React Native, ensuring a smooth and responsive experience across different devices. Additionally, I integrated the MapBox API to display restroom locations and manage user interactions with the map.",
@@ -99,6 +104,7 @@
         "slug": "music-matcher",
         "title": "Music Matcher",
         "cover": "./works/music/cover.jpg",
+        "bg-color": "#56e048",
         "description": "board game for 2-4 players",
         "image": "path/to/fitness-tracker-image.jpg",
         "url": "",

@@ -4,19 +4,23 @@ import Work from "./pages/Work/Work";
 
 import Smile from "./components/Smile/Smile";
 import Simple404 from "./pages/NotFound/Simple404";
+import { AnimationProvider } from "./contexts/AnimationContext";
+
 
 
 
 function App() {
   return (
-    <>
+    <AnimationProvider>
       <Smile />
+
+   
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/work/:slug" element={<Work />} />
         <Route path="*" element={<Simple404 />} />
       </Routes>
-    </>
+    </AnimationProvider>
   );
 }
 

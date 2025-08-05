@@ -20,7 +20,7 @@ const WorkCard = ({ work }) => {
     >
       <div
         {...(work.favourite ? { "data-smile-loving": true } : {})}
-        className="relative overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 active:scale-95 "
+        className="relative overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 active:scale-95 bg-white "
       >
         <img
           src={imgSrc}
