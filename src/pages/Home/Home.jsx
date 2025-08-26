@@ -6,6 +6,7 @@ import ResponsiveGrid from "../../components/ResponsiveGrid/ResponsiveGrid";
 import WorkCard from "../../components/WorkCard/WorkCard";
 import MailCTA from "../../components/MailCTA/MailCTA";
 import Smile from "../../components/Smile/Smile";
+import FloatingSocialPanel from "../../components/FloatingSocialPanel/FloatingSocialPanel";
 import { useState, useRef } from "react";
 import { randomWithoutRepetition } from "../../utils/utils";
 import CurvedLoop from "../../utils/ReactBits/CurvedLoop/CurverdLoop";
@@ -61,11 +62,14 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
+      {/* Floating Social Panel */}
+      <FloatingSocialPanel contact={contact} />
+      
       {/* Center Animation Overlay - only on first visit */}
       <AnimatePresence>
         {showCenterAnimation && !hasPlayedInitialAnimation && (
           <motion.div
-            className="fixed inset-0 z-40 bg-white flex items-center justify-center"
+            className="fixed inset-0 z-40 bg-white flex items-center justify-center md:pt-0 pt-32"
             initial={{ opacity: 1 }}
             exit={{ opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -203,7 +207,7 @@ const Home = () => {
       </motion.section>
 
       <motion.section
-        id="projects"
+        id="main-projects"
         className="py-32"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -214,23 +218,64 @@ const Home = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-semibold mb-8 text-center">my Projects</h2>
+          <h2 className="text-4xl font-semibold mb-8 text-center">my Pprojects</h2>
+          
+          {/* Important Projects - 2 per row, bigger */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
+            {Object.values(projects)
+              .filter(project => project.important === true)
+              .map((project, index) => (
+                <motion.div
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: index * 0.1,
+                    ease: "easeOut"
+                  }}
+                  className="h-full"
+                >
+                  <WorkCard work={project} />
+                </motion.div>
+              ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Other Projects Section */}
+      <motion.section
+        id="other-projects"
+        className="py-16  pt-0 md:pb-32   pb-12 "
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ 
+          duration: 0.6, 
+          ease: "easeOut"
+        }}
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-semibold mb-8 text-center">my other projects</h2>
           <ResponsiveGrid>
-            {Object.values(projects).map((project, index) => (
-              <motion.div
-                key={project.slug}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: index * 0.1,
-                  ease: "easeOut"
-                }}
-              >
-                <WorkCard work={project} />
-              </motion.div>
-            ))}
+            {Object.values(projects)
+              .filter(project => project.important !== true)
+              .map((project, index) => (
+                <motion.div
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ 
+                    duration: 0.8, 
+                    delay: index * 0.1,
+                    ease: "easeOut"
+                  }}
+                >
+                  <WorkCard work={project} />
+                </motion.div>
+              ))}
           </ResponsiveGrid>
         </div>
       </motion.section>

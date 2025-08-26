@@ -11,6 +11,9 @@ const WorkCard = ({ work }) => {
 
   const capitalizeFirst = (str) => str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
+  // Determine height class based on importance
+  const heightClass = work.important ? "md:h-80" : "h-48"; // Taller for important projects
+
   return (
     <Link
       to={`/work/${work.slug}`}
@@ -26,12 +29,12 @@ const WorkCard = ({ work }) => {
           src={imgSrc}
           alt={`Image of my project ${work.title}`}
           onError={(e) => (e.currentTarget.src = "https://placehold.co/400x300")}
-          className={`w-full h-48 object-cover transition-opacity duration-500 ${hovered && work.videocover ? "opacity-0" : "opacity-100"}`}
+          className={`w-full ${heightClass} h-48 object-cover transition-opacity duration-500 ${hovered && work.videocover ? "opacity-0" : "opacity-100"}`}
         />
         {work.videocover && (
           <video
             src={work.videocover}
-            className={`absolute top-0 left-0 w-full h-48 object-cover transition-opacity duration-500 ${hovered ? "opacity-100" : "opacity-0"}`}
+            className={`absolute top-0 left-0 w-full ${heightClass} h-48 object-cover transition-opacity duration-500 ${hovered ? "opacity-100" : "opacity-0"}`}
             autoPlay
             loop
             muted
