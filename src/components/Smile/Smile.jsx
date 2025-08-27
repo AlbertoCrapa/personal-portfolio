@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { preloadImages } from "../../utils/imagePreloader";
-import { usePerformanceMonitor } from "../../utils/performanceMonitor";
 
 const Smile = React.memo(() => {
   const location = useLocation();
@@ -161,11 +160,11 @@ const Smile = React.memo(() => {
 
   const handleSmileClick = useCallback(() => {
     setClicks((prev) => {
-      const newClicks = prev + 1;
-      if (newClicks >= 20) displaySmileText("please stop");
-      else if (newClicks >= 12) displaySmileText("leave me");
-      else if (newClicks >= 4) displaySmileText("ouch");
-      return newClicks;
+      // const newClicks = prev + 1;
+      // if (newClicks >= 20) displaySmileText("please stop");
+      // else if (newClicks >= 12) displaySmileText("leave me");
+      // else if (newClicks >= 4) displaySmileText("ouch");
+      // return newClicks;
     });
     faceHurt();
   }, [displaySmileText, faceHurt]);

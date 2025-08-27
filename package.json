@@ -51,8 +51,8 @@
     "postcss": "^8.4.41",
     "tailwindcss": "^3.4.10"
   },
-  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "description": "Personal portfolio website for Alberto Crapanzano - Game Technical Designer & Creative Developer",
   "main": "postcss.config.js",
-  "author": "",
-  "license": "ISC"
+  "author": "Alberto Crapanzano <crapaalbi03@gmail.com>",
+  "license": "MIT"
 }

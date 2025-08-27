@@ -1,9 +1,9 @@
 {
     "nickname": "Albyeah",
     "fullname": "Alberto Crapanzano",
-    "title": "Boh dai che ne so",
+    "title": "Game Technical Designer & Creative Developer",
     "about": {
-      "description": "Creative Developer based near Milan, specializing  in game Technical Design and tech art for video games. Combining strong programming skills with artistic vision, I create innovative and engaging digital experiences. ",
+      "description": "Creative Developer based near Milan, specializing in Technical Design and Programming for video games. Combining strong programming skills with artistic vision, I create innovative and engaging digital experiences. ",
       "description2": " Passionate about pushing the boundaries of technology and art, I thrive on challenges that require both technical expertise and creative problem-solving. ",
       "location": "Milan, Italy",
       "birthdate": "2004-06-05",
@@ -33,8 +33,8 @@
         "title": "Deadly Nightshade",
         "important": true,
         "favourite": true,
-        "cover": "./works/deadly/cover.jpg",
-        "videocover": "./works/deadly/videoLow.mp4",
+        "cover": "/works/deadly/cover.jpg",
+        "videocover": "/works/deadly/videoLow.mp4",
         "bg-color": "#af24dc",
         "descriptions": [
           "Is a narrative game set in a future where nature and technology intertwine in unsettling ways. The story follows Alice, a young scientist, and Rusty, a small robot she secretly builds. After escaping from the lab, they uncover dark truths about the company they once trusted, forming a deep bond along the way.",
@@ -42,10 +42,10 @@
           " I was mainly responsible for the health system and power-ups for both the protagonist and the enemies, using gas mechanics. I designed and programmed the UI with Figma and Common UI, creating the inventory, settings, and main menu. I also handled level design and environmental puzzles."
           ],
         "images": [
-          "./works/deadly/cover.jpg",
-          "./works/deadly/2.jpg",
-          "./works/deadly/enemies.mp4",
-          "./works/deadly/videoLow.mp4"
+          "/works/deadly/cover.jpg",
+          "/works/deadly/interaction.mp4",
+          "/works/deadly/enemies.mp4",
+          "/works/deadly/bosscomp.mp4"
         ],
         "url": "https://deadlynightshade.netlify.app/",
         "technologies": ["Unreal Engine", "C++", "Faceware", "FMOD", "Blueprints"],
@@ -55,10 +55,17 @@
         "slug": "juan-game",
         "title": "Juan The Game",
         "important": true,
-        
         "description": "Help a cloud mom rescue her lost cloudlets.",
-        "cover": "./works/juan/cover.jpg",
-        "videocover": "./works/juan/video.mp4",
+        "descriptions": [
+          "Juan The Game is an exciting adventure where players help a cloud mom rescue her lost cloudlets. The game features innovative mechanics and engaging gameplay that creates a unique gaming experience.",
+          "As a developer on this project, I focused on creating smooth gameplay mechanics and ensuring the game runs optimally across different platforms. The project involved extensive testing and refinement to achieve the perfect balance between challenge and fun."
+        ],
+        "images": [
+          "/works/juan/cover.jpg",
+          "/works/juan/video.mp4"
+        ],
+        "cover": "/works/juan/cover.jpg",
+        "videocover": "/works/juan/video.mp4",
         "bg-color": "#0f3eb8",
         "url": "https://github.com/yourusername/ecommerce-platform",
         "technologies": ["Unity", "C#"],
@@ -68,8 +75,16 @@
         "slug": "cloudy-game",
         "title": "Cloudy",
         "description": "Help a cloud mom rescue her lost cloudlets.",
-        "cover":"./works/cloudy/cover.jpg",
-        "videocover": "./works/cloudy/video.mp4",
+        "descriptions": [
+          "Cloudy is a charming game where players guide a cloud mom on her journey to rescue her lost cloudlets. The game combines beautiful visuals with engaging puzzle mechanics.",
+          "This project was developed using Python and showcases creative problem-solving through game design. The focus was on creating an intuitive user experience while maintaining visual appeal throughout the gameplay."
+        ],
+        "images": [
+          "/works/cloudy/cover.jpg",
+          "/works/cloudy/video.mp4"
+        ],
+        "cover":"/works/cloudy/cover.jpg",
+        "videocover": "/works/cloudy/video.mp4",
         "bg-color": "#87ceeb",
         "url": "https://github.com/yourusername/ecommerce-platform",
         "technologies": ["PyCharm", "Python", "Photoshop"],
@@ -79,7 +94,7 @@
         "slug": "echoes-tablegame",
         "title": "Echoes",
         "description": "board game for 2-4 players",
-        "cover":"./works/echoes/cover.jpg",
+        "cover":"/works/echoes/cover.jpg",
         
         "bg-color": "#8b5a3c",
         "url": "",
@@ -89,7 +104,7 @@
       "project5": {
         "slug": "too-poop-to-go",
         "title": "Too Poop To Go",
-        "cover": "./works/poop/cover.jpg",
+        "cover": "/works/poop/cover.jpg",
         "bg-color": "#a74e18",
         "descriptions": [
           "In this iOS application, users can quickly find the best restroom to suit their needs. The map, managed with MapBox, allows users to view a wide range of points of interest that can be filtered according to various parameters. For each restroom, users can read reviews left by others. If a user discovers a new restroom to share with the community, they can submit a request to add it, and it will be included only after careful verification by the administrators. ",
@@ -106,7 +121,7 @@
       "project6": {
         "slug": "music-matcher",
         "title": "Music Matcher",
-        "cover": "./works/music/cover.jpg",
+        "cover": "/works/music/cover.jpg",
         "bg-color": "#56e048",
         "description": "board game for 2-4 players",
         "image": "path/to/fitness-tracker-image.jpg",

@@ -63,7 +63,41 @@ const Work = () => {
       ? [project.image]
       : [];
 
-  const handleImageError = e => (e.currentTarget.src = placeholderImage);
+  const handleImageError = (e) => {
+    console.error("Failed to load media:", e.currentTarget.src);
+    e.currentTarget.src = placeholderImage;
+  };
+
+  const getMediaComponent = (media, idx, isFullscreen = false) => {
+    if (!media) return null;
+
+    const baseClasses = "shadow-lg rounded-lg";
+    const aspectClasses = isFullscreen 
+      ? "w-full h-auto max-h-[80vh] object-contain" 
+      : "w-full h-auto max-h-96 object-contain";
+
+    if (media.endsWith(".mp4") || media.endsWith(".webm") || media.endsWith(".mov")) {
+      return (
+        <video
+          src={media}
+          controls
+          className={`${baseClasses} ${aspectClasses}`}
+          onError={(e) => console.error("Failed to load video:", media)}
+        >
+          Your browser does not support the video tag.
+        </video>
+      );
+    } else {
+      return (
+        <img
+          src={media}
+          alt={`${project?.title || 'Project'} ${idx + 1}`}
+          onError={handleImageError}
+          className={`${baseClasses} ${aspectClasses}`}
+        />
+      );
+    }
+  };
 
 
   // Procedural layout composition
@@ -124,21 +158,8 @@ const Work = () => {
               return (
                 <div key={idx} className="w-full">
                   {/* Fullscreen Media */}
-                  <div className="w-full mb-8">
-                    {media?.endsWith?.(".mp4") || media?.endsWith?.(".webm") ? (
-                      <video
-                        src={media}
-                        controls
-                        className=" shadow w-full h-auto max-h-[80vh] object-cover"
-                      />
-                    ) : (
-                      <img
-                        src={media}
-                        alt={`${project?.title || 'Project'} ${idx + 1}`}
-                        onError={handleImageError}
-                        className=" shadow w-full h-auto max-h-[80vh] object-cover"
-                      />
-                    )}
+                  <div className="w-full mb-8 flex justify-center">
+                    {getMediaComponent(media, idx, true)}
                   </div>
                   {/* Description below fullscreen media */}
                   <div className="max-w-4xl mx-auto">
@@ -157,21 +178,8 @@ const Work = () => {
                   }`}
               >
                 {/* Media */}
-                <div className="flex-1 w-full">
-                  {media?.endsWith?.(".mp4") || media?.endsWith?.(".webm") ? (
-                    <video
-                      src={media}
-                      controls
-                      className=" shadow w-full object-cover max-h-96"
-                    />
-                  ) : (
-                    <img
-                      src={media}
-                      alt={`${project?.title || 'Project'} ${idx + 1}`}
-                      onError={handleImageError}
-                      className=" shadow w-full object-cover max-h-96"
-                    />
-                  )}
+                <div className="flex-1 w-full flex justify-center">
+                  {getMediaComponent(media, idx, false)}
                 </div>
                 {/* Description */}
                 <div className="flex-1 w-full">

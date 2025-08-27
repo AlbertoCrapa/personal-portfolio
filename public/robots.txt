@@ -1,3 +1,19 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap location
+Sitemap: https://albyeah.com/sitemap.xml
+
+# Crawl delay (optional - helps prevent server overload)
+Crawl-delay: 1
+
+# Specific rules for different bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block unnecessary paths (if any)
+# Disallow: /private/

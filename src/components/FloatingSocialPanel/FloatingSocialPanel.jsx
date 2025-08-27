@@ -3,13 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import SocialIcon from "../SocialIcon/SocialIcon";
 
 const FloatingSocialPanel = ({ contact }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isUp, setIsUp] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const threshold = 300; // Show after scrolling 300px
-      setIsVisible(scrollY > threshold);
+      //const threshold = 1400; // Show after scrolling 300px
+        
+    setIsVisible(scrollY < (document.documentElement.scrollHeight - window.innerHeight - 130));
+      setIsUp(scrollY > 200);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -36,9 +39,9 @@ const FloatingSocialPanel = ({ contact }) => {
             damping: 35, //25
             duration: 0.5 
           }}
-          className="fixed top-4 left-4 z-10 bg-black/90 backdrop-blur-sm  shadow-[10px_10px_30px_rgba(255,255,255,0.5)] border border-gray-700"
+          className={`fixed top-4 left-4 z-10  bg-zinc-900 ${isUp ? "shadow-[10px_10px_30px_rgba(255,255,255,0.2)]" : ""}  border border-gray-700`}
         >
-          <div className="flex flex-row p-2 gap-1">
+          <div className="flex flex-row p-0 gap-1">
             {socialLinks.map((link, index) => (
               <motion.div
                 key={link.platform}

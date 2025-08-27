@@ -1,18 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FloatingSocialPanel from "../FloatingSocialPanel/FloatingSocialPanel";
 
-const Navbar = () => (
+const Navbar = ({cont}) => (
   <nav className="border-b">
     <div className="container mx-auto px-4 py-6 flex justify-between items-center">
+      <FloatingSocialPanel contact={cont} />
       <Link to="/" className="text-2xl font-bold hover:text-blue-600 transition-colors duration-200"> </Link>
-      <NavLinks />
+      <NavLinks  />
     </div>
   </nav>
 );
 
 
 const NavLinks = () => (
+  
   <div className="min-[390px]:space-x-6 space-x-2 text-lg">
+
     <NavLinkButton href="#about">About</NavLinkButton>
     <NavLinkButton href="#projects">Projects</NavLinkButton>
     <NavLinkButton href="#contact">Contact</NavLinkButton>

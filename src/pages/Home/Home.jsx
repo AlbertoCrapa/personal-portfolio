@@ -1,17 +1,13 @@
-import React from "react";
+
 import { useEffect } from "react";
 import data from "../../data/data.json";
 import Navbar from "../../components/Navbar/Navbar";
 import ResponsiveGrid from "../../components/ResponsiveGrid/ResponsiveGrid";
 import WorkCard from "../../components/WorkCard/WorkCard";
 import MailCTA from "../../components/MailCTA/MailCTA";
-import Smile from "../../components/Smile/Smile";
-import FloatingSocialPanel from "../../components/FloatingSocialPanel/FloatingSocialPanel";
+
+import SocialPanel from "../../components/SocialPanel/SocialPanel";
 import { useState, useRef } from "react";
-import { randomWithoutRepetition } from "../../utils/utils";
-import CurvedLoop from "../../utils/ReactBits/CurvedLoop/CurverdLoop";
-import ScrambledText from "../../utils/ReactBits/ScrambleText/ScrambleText";
-import { SplitText } from "gsap/all";
 import SplitTextAnim from "../../utils/ReactBits/SplitText/SplitText";
 import RotatingText from "../../utils/RotatingText/RotatingText";
 import { motion, AnimatePresence } from "framer-motion";
@@ -63,7 +59,7 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
       {/* Floating Social Panel */}
-      <FloatingSocialPanel contact={contact} />
+    
       
       {/* Center Animation Overlay - only on first visit */}
       <AnimatePresence>
@@ -113,7 +109,7 @@ const Home = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: hasPlayedInitialAnimation ? 0 : 0.6, ease: "easeInOut" }}
       >
-        <Navbar />
+        <Navbar  cont={contact}/>
       </motion.div>
 
       {/* <CurvedLoop
@@ -207,7 +203,7 @@ const Home = () => {
       </motion.section>
 
       <motion.section
-        id="main-projects"
+        id="projects"
         className="py-32"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -218,7 +214,7 @@ const Home = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-semibold mb-8 text-center">my Pprojects</h2>
+          <h2 className="text-4xl font-semibold mb-8 text-center">main Projects</h2>
           
           {/* Important Projects - 2 per row, bigger */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 ">
@@ -257,7 +253,7 @@ const Home = () => {
         }}
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-semibold mb-8 text-center">my other projects</h2>
+          <h2 className="text-4xl font-semibold mb-8 text-center">my others Projects</h2>
           <ResponsiveGrid>
             {Object.values(projects)
               .filter(project => project.important !== true)
@@ -294,9 +290,13 @@ const Home = () => {
         <div className="container max-w-5xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-semibold mb-6 text-zinc-200">Get In Touch</h2>
           <MailCTA contact={contact} />
+          
+          {/* Social Panel - Normal positioned variant */}
+          <SocialPanel contact={contact} className="mt-8 mb-8" />
+          
         </div>
 
-        <p className="w-fit mx-auto bottom-0 pt-32 text-zinc-300 ">
+        <p className="w-fit mx-auto bottom-0 pt-8 text-zinc-300 ">
           © 2025 Alberto Crapanzano. All rights reserved.
         </p>
       </motion.section>
