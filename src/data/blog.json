@@ -1,0 +1,32 @@
+{
+  "blogs": [
+    {
+      "slug": "my-first-blog",
+      "title": "My First Blog Post",
+      "date": "2025-08-01",
+      "author": "Alberto Crapanzano",
+      "cover": "/img/blog/first-cover.jpg",
+      "excerpt": "This is a short summary of my first blog post.",
+      "content": [
+        "Welcome to my first blog post! This is where I share my journey.",
+        "Here is a second paragraph with more details and insights.",
+        "Thank you for reading!"
+      ],
+      "tags": ["personal", "introduction"]
+    },
+    {
+      "slug": "react-portfolio-tips",
+      "title": "Tips for a Modern React Portfolio",
+      "date": "2025-08-15",
+      "author": "Alberto Crapanzano",
+      "cover": "/img/blog/react-tips.jpg",
+      "excerpt": "Best practices and ideas for building a React portfolio.",
+      "content": [
+        "React is a powerful tool for building modern portfolios.",
+        "Use components, hooks, and good design for best results.",
+        "Stay tuned for more tips!"
+      ],
+      "tags": ["react", "portfolio", "tips"]
+    }
+  ]
+}

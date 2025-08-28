@@ -17,9 +17,11 @@ const NavLinks = () => (
   
   <div className="min-[390px]:space-x-6 space-x-2 text-lg sm:block hidden">
 
-    <NavLinkButton href="#about">About</NavLinkButton>
-    <NavLinkButton href="#projects">Projects</NavLinkButton>
-    <NavLinkButton href="#contact">Contact</NavLinkButton>
+  <NavLinkButton href="#about">About</NavLinkButton>
+  <NavLinkButton href="#projects">Projects</NavLinkButton>
+  {/* <NavLinkButton href="/blog">Blog</NavLinkButton> */}
+  <NavLinkButton href="#contact">Contact</NavLinkButton>
+  
   </div>
 );
 
