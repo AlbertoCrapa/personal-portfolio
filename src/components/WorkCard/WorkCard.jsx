@@ -58,7 +58,7 @@ const WorkCard = ({ work }) => {
                   return (
                     <span title="Unity">
                       <img
-                        src={ "/img/icons/unity.png"}
+                        src={ "./img/icons/unity.png"}
                         alt="Unity icon"
                         width={22}
                         height={22}
@@ -72,7 +72,7 @@ const WorkCard = ({ work }) => {
                   return (
                     <span title="Unreal Engine">
                       <img
-                        src={ "/img/icons/unreal.png"}
+                        src={ "./img/icons/unreal.png"}
                         alt="Unreal Engine icon"
                         width={22}
                         height={22}
