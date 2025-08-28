@@ -71,7 +71,7 @@ const Work = () => {
   const getMediaComponent = (media, idx, isFullscreen = false) => {
     if (!media) return null;
 
-    const baseClasses = "shadow-lg rounded-lg";
+    const baseClasses = "shadow-lg ";
     const aspectClasses = isFullscreen 
       ? "w-full h-auto max-h-[80vh] object-contain" 
       : "w-full h-auto max-h-96 object-contain";
@@ -80,7 +80,9 @@ const Work = () => {
       return (
         <video
           src={media}
-          controls
+          autoPlay
+          loop
+          muted
           className={`${baseClasses} ${aspectClasses}`}
           onError={(e) => console.error("Failed to load video:", media)}
         >
