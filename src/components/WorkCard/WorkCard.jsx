@@ -58,7 +58,7 @@ const WorkCard = ({ work }) => {
                   return (
                     <span title="Unity">
                       <img
-                        src={ "./img/icons/unity.png"}
+                        src={ "./img/icons/unityengine.png"}
                         alt="Unity icon"
                         width={22}
                         height={22}
@@ -72,7 +72,7 @@ const WorkCard = ({ work }) => {
                   return (
                     <span title="Unreal Engine">
                       <img
-                        src={ "./img/icons/unreal.png"}
+                        src={ "./img/icons/unrealengine.png"}
                         alt="Unreal Engine icon"
                         width={22}
                         height={22}
@@ -97,7 +97,7 @@ const WorkCard = ({ work }) => {
                   return (
                     <span title="Unity">
                       <img
-                        src={process.env.PUBLIC_URL + "/img/icons/unity.svg"}
+                        src={process.env.PUBLIC_URL + "/img/icons/unityengine.png"}
                         alt="Unity icon"
                         width={22}
                         height={22}
@@ -110,7 +110,7 @@ const WorkCard = ({ work }) => {
                   return (
                     <span title="Unreal Engine">
                       <img
-                        src={process.env.PUBLIC_URL + "/img/icons/unreal.svg"}
+                        src={process.env.PUBLIC_URL + "/img/icons/unrealengine.png"}
                         alt="Unreal Engine icon"
                         width={22}
                         height={22}
