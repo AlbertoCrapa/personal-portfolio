@@ -6,6 +6,7 @@ import Button from "../../components/Button/Button";
 import Footer from "../../components/Footer/Footer";
 import dataMain from "../../data/data.json";
 import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
+import RichText from "../../utils/RichText";
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -53,11 +54,11 @@ const BlogPage = () => {
                 return ( 
                   <div key={idx} className={`w-full `}>
                     <div className="w-full mb-2 flex justify-center">
-                      <MediaWithDescription mediaObj={idx === 1 ? mediaObj: null} size="big" />
+                      <MediaWithDescription mediaObj={idx !== 0 ? mediaObj: null} size="big" />
                     </div>
                     <div className="max-w-4xl mx-auto">
                       {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
-                      <p>{section.text || ""}</p>
+                      <RichText text={section.text || ""} />
                     </div>
                   </div>
                 );
@@ -72,7 +73,7 @@ const BlogPage = () => {
                   </div>
                   <div className="flex-1 w-full">
                     {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
-                    <p>{section.text || ""}</p>
+                    <RichText text={section.text || ""} />
                   </div>
                 </div>
               );
@@ -83,7 +84,7 @@ const BlogPage = () => {
             {blog.content.map((section, i) => (
               <div key={i}>
                 {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
-                <p>{section.text || section}</p>
+                <RichText text={section.text || section} />
               </div>
             ))}
           </div>

@@ -40,18 +40,6 @@
         {
           "src": "/works/deadly/bosscomp.mp4",
           "description": "Boss fight composition and effects."
-        },
-        {
-          "src": "/works/deadly/cover.jpg"
-        },
-        {
-          "src": "/works/deadly/interaction.mp4"
-        },
-        {
-          "src": "/works/deadly/enemies.mp4"
-        },
-        {
-          "src": "/works/deadly/bosscomp.mp4"
         }
       ],
       "url": "https://deadlynightshade.netlify.app/",
@@ -68,96 +56,288 @@
       "slug": "juan-game",
       "title": "Juan The Game",
       "important": true,
-      "description": "Help a cloud mom rescue her lost cloudlets.",
-      "date": "2023-11",
+      "description": "A physics-based mobile puzzle game featuring 60+ handcrafted levels and custom horse character designs.",
+      "date": "2023-2024",
       "teamSize": 2,
       "content": [
-        { "text": "Juan The Game is an exciting adventure where players help a cloud mom rescue her lost cloudlets. The game features innovative mechanics and engaging gameplay that creates a unique gaming experience." },
-        { "text": "As a developer on this project, I focused on creating smooth gameplay mechanics and ensuring the game runs optimally across different platforms. The project involved extensive testing and refinement to achieve the perfect balance between challenge and fun." }
+        {
+          "title": "Overview",
+          "text": "**Juan The Game** is a physics-based mobile puzzle game where players guide a whimsical horse through challenging levels by making it fall precisely into balconies. What started as a fun project with a friend has evolved into a comprehensive mobile experience with over **60 unique levels** and continues to grow with new content regularly added."
+        },
+        {
+          "title": "Technical Implementation",
+          "text": "Built in **Unity** using **C#**, the game leverages Unity's built-in physics system with custom **Rigidbody** components applied to different parts of the horse character - including legs, tail, and body segments. This approach creates realistic and entertaining physics interactions that form the core gameplay mechanic. The precision required in physics tuning taught me valuable lessons about balancing realism with playability."
+        },
+        {
+          "title": "My Development Role",
+          "text": "I handled multiple critical aspects of development: **Programming** the core gameplay mechanics and physics interactions, **Level Design** for all 60+ levels with careful attention to difficulty progression, **Visual Design** including custom horse skins and character illustrations, and **UI/UX Design** to ensure intuitive mobile controls and clear visual feedback systems."
+        },
+        {
+          "title": "Level Design & Player Experience",
+          "text": "Each level was meticulously crafted to provide a unique challenge while maintaining an intuitive learning curve. Through extensive **player feedback collection**, I learned crucial lessons about what makes challenges enjoyable versus frustrating. This feedback loop led me to redesign and continuously refine many levels, teaching me the importance of **iterative design** and **user-centered development**."
+        },
+        {
+          "title": "Art & Visual Identity",
+          "text": "Beyond programming, I created all the **custom horse skins** and character designs, giving players various personalization options. This aspect of the project allowed me to develop my skills in **digital illustration** and **character design**, while learning how to integrate artwork seamlessly into Unity's rendering pipeline."
+        },
+        {
+          "title": "Learning Outcomes",
+          "text": "This year-long project taught me invaluable lessons about **mobile game development**, **physics programming**, and most importantly, **how to interpret and implement player feedback**. I learned when to provide guidance to players versus when to let them discover mechanics naturally, and how to distinguish between engaging challenges and frustrating obstacles."
+        }
       ],
-
       "media": [
         {
           "src": "/works/juan/cover.jpg",
-          "description": "Main cover art for Deadly Nightshade."
+          "description": "Juan The Game main menu showcasing custom horse character."
         },
         {
-          "src": "/works/juan/video.mp4",
-          "description": "Main cover art for Deadly Nightshade."
-        }],
+          "src": "/works/juan/gameplay.mp4",
+          "description": "Physics-based gameplay demonstration across multiple levels."
+        },
+        {
+          "src": "/works/juan/skins.jpg",
+          "description": "Collection of custom horse skins and character designs."
+        }
+      ],
       "cover": "/works/juan/cover.jpg",
-      "videocover": "/works/juan/video.mp4",
+      "videocover": "/works/juan/gameplay.mp4",
       "bgColor": "#0f3eb8",
-      "url": "https://github.com/yourusername/ecommerce-platform",
-      "technologies": ["Unity", "C#"],
+      "url": "https://play.google.com/store/apps/details?id=com.example.juan",
+      "technologies": ["Unity", "C#", "Android SDK", "Photoshop", "Physics Systems"],
       "type": "videogame"
     },
     "project3": {
       "slug": "cloudy-game",
       "title": "Cloudy",
-      "description": "Help a cloud mom rescue her lost cloudlets.",
+      "description": "A hand-illustrated platformer adventure where a small cloud journeys to reunite with its mother cloud.",
+      "date": "2023",
+      "teamSize": 2,
       "content": [
-        { "text": "Cloudy is a charming game where players guide a cloud mom on her journey to rescue her lost cloudlets. The game combines beautiful visuals with engaging puzzle mechanics." },
-        { "text": "This project was developed using Python and showcases creative problem-solving through game design. The focus was on creating an intuitive user experience while maintaining visual appeal throughout the gameplay." }
+        {
+          "title": "Overview",
+          "text": "**Cloudy** is a charming 2D platformer that tells the heartwarming story of a small cloud's journey to climb a treacherous mountain and reunite with its great mother cloud. The game combines traditional platforming mechanics with a fixed camera perspective, creating focused and carefully designed level experiences."
+        },
+        {
+          "title": "Technical Development",
+          "text": "Developed using **Python** in **PyCharm**, the game showcases clean, object-oriented programming principles. I implemented all core gameplay systems including **player movement mechanics**, **collision detection**, **level progression systems**, and **camera management**. The technical foundation was built with scalability in mind, allowing for smooth addition of new levels and features."
+        },
+        {
+          "title": "Level Design & Tools",
+          "text": "Level creation was streamlined using **Tiled** for tile placement and level architecture. This workflow allowed for rapid prototyping and iteration of level designs. Each stage was crafted to present unique platforming challenges while maintaining the game's whimsical atmosphere. Players must navigate through increasingly complex environments to reach the exit door that leads to the next level."
+        },
+        {
+          "title": "Art Direction & Visual Identity",
+          "text": "All **illustrations and animations** were created by me using **Adobe Photoshop**. The art style emphasizes soft, cloud-like textures and dreamy atmospheric elements that complement the narrative. Each character animation was hand-drawn to maintain consistency with the overall visual theme, from the small cloud's movement cycles to environmental elements."
+        },
+        {
+          "title": "Narrative Structure",
+          "text": "The game follows a classic hero's journey structure, with each level representing a step closer to the emotional reunion. The adventure culminates in a touching finale featuring a **custom-illustrated cutscene sequence** that provides narrative closure to the cloud's journey, rewarding players with a satisfying emotional payoff."
+        },
+        {
+          "title": "Collaborative Development",
+          "text": "Working alongside another developer, I managed the **programming responsibilities** while also handling all **visual assets creation**. This dual role taught me valuable lessons about **project coordination**, **asset pipeline management**, and balancing technical implementation with creative vision. The collaboration required constant communication about technical constraints and artistic possibilities."
+        },
+        {
+          "title": "Technical Skills Developed",
+          "text": "This project strengthened my **Python programming** abilities, particularly in **game loop implementation**, **sprite animation systems**, and **file I/O operations** for level loading. I also gained experience with **digital art workflows**, **animation principles**, and **integrating visual assets** into code-based game engines."
+        }
       ],
-      "media": ["/works/cloudy/cover.jpg", "/works/cloudy/video.mp4"],
+      "media": [
+        {
+          "src": "/works/cloudy/cover.jpg",
+          "description": "Cloudy main character against mountain backdrop."
+        },
+        {
+          "src": "/works/cloudy/gameplay.mp4",
+          "description": "Platforming gameplay demonstration showing movement and level design."
+        },
+        {
+          "src": "/works/cloudy/art.jpg",
+          "description": "Collection of hand-illustrated game assets and animations."
+        }
+      ],
       "cover": "/works/cloudy/cover.jpg",
-      "videocover": "/works/cloudy/video.mp4",
+      "videocover": "/works/cloudy/gameplay.mp4",
       "bgColor": "#87ceeb",
-      "url": "https://github.com/yourusername/ecommerce-platform",
-      "technologies": ["PyCharm", "Python", "Photoshop"],
+      "url": "https://github.com/example/cloudy-game",
+      "technologies": ["Python", "PyCharm", "Tiled", "Adobe Photoshop", "Sprite Animation"],
       "type": "videogame"
     },
     "project4": {
       "slug": "echoes-tablegame",
       "title": "Echoes",
-      "description": "board game for 2-4 players",
+      "description": "An innovative card game that reimagines the classic Memory formula with strategic disruption mechanics.",
+      "date": "2023",
+      "teamSize": 2,
+      "content": [
+        {
+          "title": "Game Design Innovation",
+          "text": "**Echoes** transforms the traditional Memory card game by introducing **strategic disruption mechanics** that add depth and player interaction. Unlike classic Memory, players can actively interfere with their opponents' progress through special effect cards, creating a more engaging and competitive experience for 2-4 players."
+        },
+        {
+          "title": "Core Mechanics",
+          "text": "The game maintains the familiar foundation of matching pairs while adding **special effect cards** that can be played to shuffle the field, making it significantly more difficult for other players to complete their matches. This creates a delicate balance between memory skills and tactical card play, where timing your disruptions becomes as important as remembering card locations."
+        },
+        {
+          "title": "Victory Conditions & Strategy",
+          "text": "Players win by being the **first to eliminate all their cards** through successful matching. However, the addition of interference mechanics means that pure memory skills aren't enough - players must also develop **timing strategies**, **risk assessment abilities**, and learn to read their opponents' progress to deploy disruption cards effectively."
+        },
+        {
+          "title": "Design Process & Iteration",
+          "text": "As a university project developed with a collaborative partner, Echoes went through multiple design iterations. We focused heavily on **game balance testing**, ensuring that the disruption mechanics enhanced rather than frustrated the core experience. The design process taught me valuable lessons about **playtesting methodology** and **iterative game design**."
+        },
+        {
+          "title": "Production & Manufacturing",
+          "text": "The game was fully realized as a **physical product**, requiring careful attention to **print design**, **component quality**, and **packaging considerations**. Using **Adobe Creative Suite**, I handled the visual design elements, learning about **print production workflows** and how digital designs translate to physical game components."
+        },
+        {
+          "title": "User Reception & Validation",
+          "text": "After production, Echoes was extensively playtested and **received overwhelmingly positive feedback** from our peer group. The success validated our design decisions and demonstrated the effectiveness of our innovative approach to reimagining a classic game format. This experience taught me the importance of **user feedback** in game design validation."
+        },
+        {
+          "title": "Skills Developed",
+          "text": "This project developed my abilities in **game system design**, **balance testing**, **collaborative development**, and **print design production**. I learned how to take a concept from initial brainstorming through multiple iterations to final physical production, gaining valuable experience in the complete product development lifecycle."
+        }
+      ],
+      "media": [
+        {
+          "src": "/works/echoes/cover.jpg",
+          "description": "Echoes card game box and complete component set."
+        },
+        {
+          "src": "/works/echoes/cards.jpg",
+          "description": "Sample of effect cards showing disruption mechanics."
+        },
+        {
+          "src": "/works/echoes/gameplay.jpg",
+          "description": "Game in progress showing card layout and player interaction."
+        }
+      ],
       "cover": "/works/echoes/cover.jpg",
       "bgColor": "#8b5a3c",
       "url": "",
-      "technologies": ["Adobe Suite"],
+      "technologies": [ "GameDesign",   "Playtesting"],
       "type": "boardgame"
     },
     "project5": {
       "slug": "too-poop-to-go",
       "title": "Too Poop To Go",
+      "description": "A comprehensive restroom finder platform featuring mobile apps and a complete administrative web management system.",
+      "date": "2024",
+      "teamSize": 3,
+      "content": [
+        {
+          "title": "Project Overview",
+          "text": "**Too Poop To Go** is a comprehensive platform designed to help users locate the best public restrooms for their needs. This multi-platform project consists of **Android and iOS mobile applications** developed by teammates, complemented by a **sophisticated web management system** that I developed from the ground up. The platform creates a complete ecosystem for crowdsourced restroom information."
+        },
+        {
+          "title": "My Technical Role",
+          "text": "I was responsible for developing the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive and intuitive administrative interface. Additionally, I **collaborated on the backend development** using **Django**, contributing to API design, database schema planning, and server-side logic implementation."
+        },
+        {
+          "title": "Administrative Dashboard Features",
+          "text": "The web management system provides comprehensive administrative control: **User management** with capabilities to view, ban, or remove users; **Review moderation** allowing administrators to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user-submitted locations; **Interactive map interface** displaying all existing restrooms; and **Tag management** for categorizing and organizing restroom features."
+        },
+        {
+          "title": "Authentication & Security",
+          "text": "I implemented a robust **user authentication system** with **OTP (One-Time Password) verification** for enhanced security. The system includes **secure login flows**, **session management**, and **role-based access control** to ensure that only authorized administrators can access sensitive platform data and controls."
+        },
+        {
+          "title": "Map Integration & User Experience",
+          "text": "The platform leverages **MapBox APIs** across all components - mobile applications and web management system - providing consistent and reliable mapping functionality. I designed the web interface to seamlessly integrate map interactions, allowing administrators to visualize restroom locations, review geographical distribution, and manage location-based data efficiently."
+        },
+        {
+          "title": "Approval Workflow System",
+          "text": "One of the key features I developed is the **restroom approval workflow**, where user submissions from mobile apps appear in the admin dashboard for review. This system includes **detailed submission information**, **image verification capabilities**, **location accuracy checking**, and **streamlined approval/rejection processes** with notification systems back to the mobile applications."
+        },
+        {
+          "title": "Cross-Platform Integration",
+          "text": "Working in a team of three, I ensured seamless integration between the mobile applications and web management system through **RESTful API design** and **consistent data structures**. This required constant communication with mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
+        },
+        {
+          "title": "Technical Skills Developed",
+          "text": "This project significantly advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development methodologies** while working in a multi-developer environment."
+        }
+      ],
+      "media": [
+        {
+          "src": "/works/poop/cover.jpg",
+          "description": "Too Poop To Go web management dashboard overview."
+        },
+        {
+          "src": "/works/poop/management.jpg",
+          "description": "Administrative interface showing approval workflow."
+        },
+        {
+          "src": "/works/poop/mobile.jpg",
+          "description": "Mobile app integration with web management system."
+        }
+      ],
       "cover": "/works/poop/cover.jpg",
       "bgColor": "#a74e18",
-      "content": [
-        { "text": "In this iOS application, users can quickly find the best restroom to suit their needs. The map, managed with MapBox, allows users to view a wide range of points of interest that can be filtered according to various parameters. For each restroom, users can read reviews left by others. If a user discovers a new restroom to share with the community, they can submit a request to add it, and it will be included only after careful verification by the administrators. " },
-        { "text": "I was responsible for the entire design of the application, from the user interface to the user experience. I created the wireframes and prototypes using Figma, ensuring a user-friendly and intuitive design. I also implemented the front-end using React Native, ensuring a smooth and responsive experience across different devices. Additionally, I integrated the MapBox API to display restroom locations and manage user interactions with the map." },
-        { "text": "The application is designed to be user-friendly and intuitive, allowing users to quickly find the best restroom for their needs." }
-      ],
-      "media": [""],
       "url": "",
-      "technologies": ["Adobe Suite"],
-      "type": "website"
+      "technologies": ["React", "Scss", "Django", "MapBox API", "OTP Authentication", "RESTful APIs"],
+      "type": "webapp"
     },
     "project6": {
       "slug": "ai_demo",
-      "title": "Ai Demo",
-      "cover": "/works/poop/cover.jpg",
-      "bgColor": "#a74e18",
+      "title": "AI Demo",
+      "description": "A personal C++ exploration of artificial intelligence behaviors featuring pathfinding, wandering, and interactive AI systems.",
+      "date": "2024-ongoing",
+      "teamSize": 1,
       "content": [
-        { "text": "**AI Demo** is a showcase of next-generation artificial intelligence in action. __Experience the future__ of interactive technology with this hands-on project." },
-        { "text": "**Key Features:**\n* **Real-time** image recognition\n* __Natural language__ understanding\n* *Interactive* chatbot interface\n* **__Hybrid formatting__** supported everywhere!" },
-        { "text": "Try the demo and see how AI can transform your workflow. __Note:__ This is a research prototype.\n\n**How it works:**\n* Upload an image and get instant predictions.\n* Type a question and get a smart response.\n* All powered by a custom C++ backend and SDL2 graphics." }
+        {
+          "title": "Project Philosophy",
+          "text": "**AI Demo** represents my ongoing exploration into artificial intelligence programming using **C++**, **SDL2**, and **CMake**. This personal project serves as both a **learning laboratory** and a **technical showcase** where I experiment with various AI behaviors and algorithms. The project emphasizes **clean code architecture** and **readable implementation** as core principles."
+        },
+        {
+          "title": "Pathfinding Implementation",
+          "text": "At the heart of the project lies a **custom A* pathfinding algorithm** that I implemented from scratch following algorithmic principles and adapting it to my specific needs. The pathfinding system enables entities to navigate complex environments efficiently, demonstrating my understanding of **graph theory**, **heuristic algorithms**, and **optimization techniques** in real-time applications."
+        },
+        {
+          "title": "AI Behavior Systems",
+          "text": "The demo showcases multiple sophisticated AI behaviors: **Wander behavior** creates natural-looking random movement patterns that avoid repetitive motion; **Patrol systems** implement structured movement along predefined waypoints with smooth transitions; **Seek behavior** enables entities to intelligently pursue targets (such as mouse cursor) with realistic acceleration and deceleration patterns."
+        },
+        {
+          "title": "Technical Architecture",
+          "text": "Built using **SDL2** for graphics rendering and input handling, the project demonstrates modern **C++ programming practices** including **object-oriented design**, **memory management**, and **modular architecture**. The use of **CMake** ensures cross-platform compatibility and maintainable build processes, skills essential for professional C++ development."
+        },
+        {
+          "title": "Continuous Development Approach",
+          "text": "This project is **continuously evolving** as I discover new AI concepts and refine existing implementations. Each iteration focuses on improving **code quality**, **performance optimization**, and **feature expansion**. This iterative approach has taught me valuable lessons about **software maintenance**, **version control**, and **incremental improvement strategies**."
+        },
+        {
+          "title": "Code Quality Standards",
+          "text": "A primary focus throughout development has been maintaining **clean, readable, and well-documented code**. I strive to write code that not only functions correctly but also serves as a learning resource for others exploring AI programming. This emphasis on quality has improved my **software engineering practices** and **technical communication skills**."
+        },
+        {
+          "title": "Learning Outcomes",
+          "text": "Through this project, I've deepened my understanding of **C++ programming**, **game engine architecture**, **artificial intelligence algorithms**, and **real-time system optimization**. The hands-on approach has provided practical experience with **debugging complex systems**, **performance profiling**, and **algorithmic problem-solving** in interactive applications."
+        },
+        {
+          "title": "Future Expansion",
+          "text": "The modular design allows for easy integration of new AI behaviors and systems. Planned additions include **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination systems**. This forward-thinking approach demonstrates my commitment to **continuous learning** and **skill development** in artificial intelligence."
+        }
       ],
-      "media": [""],
-      "url": "",
-      "technologies": ["C++", "SDL2", "CMake"],
-      "type": "Tool"
-    },
-    "project7": {
-      "slug": "music-matcher",
-      "title": "Music Matcher",
-      "cover": "/works/music/cover.jpg",
-      "bgColor": "#56e048",
-      "description": "board game for 2-4 players",
-      "media": ["path/to/fitness-tracker-image.jpg"],
-      "url": "",
-      "technologies": ["Adobe Suite"],
-      "type": "Webapp "
+      "media": [
+        {
+          "src": "/works/ai/cover.jpg",
+          "description": "AI Demo pathfinding visualization showing A* algorithm in action."
+        },
+        {
+          "src": "/works/ai/behaviors.mp4",
+          "description": "Demonstration of wander, patrol, and seek behaviors."
+        },
+        {
+          "src": "/works/ai/architecture.jpg",
+          "description": "Code architecture overview showing modular design."
+        }
+      ],
+      "cover": "/works/ai/cover.jpg",
+      "bgColor": "#4a90e2",
+      "url": "https://github.com/example/ai-demo",
+      "technologies": ["C++", "SDL2", "CMake", "A* Algorithm", "Object-Oriented Design", "Cross-Platform Development"],
+      "type": "tool"
     }
   }
 }

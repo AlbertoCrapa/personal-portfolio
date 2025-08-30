@@ -1,49 +1,214 @@
 {
   "blogs": [
     {
-      "slug": "my-first-blog",
-      "title": "My First Blog Post",
-      "date": "2025-08-01",
+      "slug": "building-controller-aim-assist",
+      "title": "Building a Controller Aim-Assist in Unreal (From Thesis Prototype to C++ Rewrite)",
+      "date": "2025-08-30",
       "author": "Alberto Crapanzano",
-      "excerpt": "This is a short summary of my first blog post.",
+      "excerpt": "In this post, I explain how I built a custom controller aim-assist system for my thesis project Deadly Nightshade, first prototyping it in Blueprints and then rewriting it in C++ for performance and maintainability.",
       "content": [
-        { "title": "Welcome", "text": "Welcome to my first blog post! This is where I share my journey." },
-        { "title": "Details", "text": "Here is a second paragraph with more details and insights." },
-        { "title": "Thanks", "text": "Thank you for reading!" }
+        {
+          "title": "Introduction",
+          "text": "When I worked on my thesis project, Deadly Nightshade, one of the features I really wanted to explore was how to make aiming with a controller feel smoother and more satisfying.\n\nPC shooters usually rely on the precision of a mouse, but with analog sticks you lose some accuracy. That’s where aim-assist comes in.\n\nThis post covers:\n\n- Prototyping the system in Blueprints\n- Translating it into C++ after my thesis\n- What I learned about development, iteration, and polish\n\nFor more info, visit [Unreal Engine](https://www.unrealengine.com/) or check my [GitHub](https://github.com/AlbertoCrapa).\n\n---"
+        },
+        {
+          "title": "The Input Gate: Knowing When to Assist",
+          "text": "The first step was deciding when the system should activate. I didn’t want aim assist always running, because it feels like losing control.\n\nInstead, I bound it to the aim button (L2/LT). Only when the player holds aim does the system activate.\n\nThis makes the intent clear:\n\n> “I want precision now, help me.”\n\n---"
+        },
+        {
+          "title": "Broad-Phase Detection: Sphere Trace",
+          "text": "With aiming active, the system checks for possible targets using a Sphere Trace.\n\n- The trace is projected forward from the camera\n- It acts like a 'bubble' to catch potential enemies\n- For performance, it only detects enemies, not walls or props\n\nThis keeps detection cheap and focused.\n\n---"
+        },
+        {
+          "title": "Narrow-Phase Verification: Line Trace",
+          "text": "Sphere Trace alone isn’t enough — it may hit enemies even behind walls.\n\nTo fix this, I added a Line Trace:\n\n1. Start from the camera\n2. Aim directly at the detected enemy\n3. If the line hits the enemy → valid target\n4. If the line hits a wall → discard\n\nThis ensures the assist only helps when the enemy is visible.\n\n---"
+        },
+        {
+          "title": "From World to Screen",
+          "text": "Now that a valid target is found, the system measures how far the crosshair is from the enemy.\n\nSteps:\n\n- Use Project World to Screen to convert enemy position\n- Compare with the screen center (crosshair)\n- Calculate the offset vector in pixels\n\nThat offset tells me how 'off' the aim is.\n\n---"
+        },
+        {
+          "title": "Deadzone and Window",
+          "text": "Aim assist must feel natural, not intrusive. I added two limits:\n\n- Deadzone → if offset < threshold, do nothing\n- Assist window → maximum radius; beyond this, ignore\n\nThis creates three zones:\n\n1. Inside deadzone → no correction\n2. Between deadzone and max → apply correction\n3. Beyond max → ignored\n\n---"
+        },
+        {
+          "title": "Curves for Natural Feeling",
+          "text": "Instead of linear correction, I used a CurveFloat asset.\n\n- Input: normalized distance (0 = deadzone, 1 = max radius)\n- Output: correction strength\n\nThis allowed fine-tuning:\n\n- Gentle help near the deadzone\n- Stronger nudges near the edge\n\nThe result: subtle assistance that supports, not overrides, the player.\n\n---"
+        },
+        {
+          "title": "From Blueprints to C++",
+          "text": "After my thesis (July 2025), I rewrote the system in C++.\n\nChallenges I faced:\n\n- Structuring logic → in Blueprints flow is visual, in C++ it requires a clean update loop\n- Exposing parameters → in C++ I had to mark variables as editable and decide what designers should tweak (sphere radius, curve strength, deadzone, etc.)\n- Performance & debugging → controlling when traces run, caching data, toggling debug draws\n\nThe final result: a clean, reusable component that can be dropped into any character class.\n\n---"
+        },
+        {
+          "title": "What I Learned",
+          "text": "This project taught me a lot:\n\n- Blueprints are perfect for prototyping – fast, visual, great for iteration\n- C++ is essential for maintainability – it forces clean design and scalability\n- Polish matters – a few lines of math and curves can completely change player experience\n- Transitioning from school to production mindset – rewriting in C++ made me think like a developer building systems for others, not just myself\n\nOverall, I realized that even a small invisible feature like aim assist can demand deep thought and have a huge impact on gameplay.\n\n---"
+        },
+        {
+          "title": "Wrapping Up",
+          "text": "What began as a thesis prototype became a fully tunable aim-assist system.\n\nIf I had to summarize the experience in one line:\n\n“The smallest mechanics often demand the deepest thought and deliver the biggest impact on player experience.”\n\n---"
+        }
       ],
-
       "media": [
         {
           "src": "/works/deadly/cover.jpg",
           "description": "Main cover art for Deadly Nightshade."
         },
         {
-          "src": "/works/deadly/interaction.mp4",
-          "description": "Gameplay interaction demo video."
+          "src": "/works/deadly/input-gate.jpg",
+          "description": "Screenshot of Blueprint Input Action Aim node."
         },
         {
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
+          "src": "/works/deadly/sphere-trace.jpg",
+          "description": "Diagram of a sphere trace intersecting an enemy."
         },
         {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
+          "src": "/works/deadly/line-trace.jpg",
+          "description": "Blueprint example showing Line Trace check with debug lines."
+        },
+        {
+          "src": "/works/deadly/world-to-screen.jpg",
+          "description": "Schema showing world-to-screen projection and delta vector."
+        },
+        {
+          "src": "/works/deadly/deadzone.jpg",
+          "description": "Illustration of deadzone and assist window around crosshair."
+        },
+        {
+          "src": "/works/deadly/curve.jpg",
+          "description": "Screenshot of CurveFloat asset used to drive assist strength."
+        },
+        {
+          "src": "/works/deadly/overview.jpg",
+          "description": "Overview diagram of the whole aim assist pipeline."
         }
       ],
-      "tags": ["personal", "introduction"]
+      "tags": [
+        "unreal",
+        "gameplay",
+        "c++",
+        "blueprints",
+        "aim-assist",
+        "thesis-project"
+      ]
     },
     {
-      "slug": "react-portfolio-tips",
-      "title": "Tips for a Modern React Portfolio",
-      "date": "2025-08-15",
+      "slug": "developers-heaven-hollow-knight-silksong",
+      "title": "Developer’s Heaven: Lessons from Hollow Knight Silksong",
+      "date": "2025-08-30",
       "author": "Alberto Crapanzano",
-      "excerpt": "Best practices and ideas for building a React portfolio.",
+      "excerpt": "In this post, I reflect on the development climate behind Hollow Knight: Silksong and what we can learn from it as aspiring developers. Even though my own experience is limited to a university thesis and small projects, there are powerful lessons about pacing, mindset, and creative freedom.",
       "content": [
-        "React is a powerful tool for building modern portfolios.",
-        "Use components, hooks, and good design for best results.",
-        "Stay tuned for more tips!"
+        {
+          "title": "Introduction",
+          "text": "When we think about game development, we often picture tight deadlines, long crunch periods, and massive teams. But sometimes, the opposite approach delivers outstanding results. One of the most inspiring recent examples is **Hollow Knight: Silksong**, the highly anticipated sequel by Team Cherry.\n\nWhat fascinates me is not just the art or the gameplay, but the *climate of development*. From recent interviews, it’s clear that Team Cherry worked at their own pace, treating development almost like an **extended creative hobby** rather than a pressure-driven race.\n\nThis post is about what I, as a junior developer with only academic and personal projects, learned from that story.\n\n---"
+        },
+        {
+          "title": "Taking Their Time",
+          "text": "One of the striking aspects of Silksong’s development is how much freedom the team gave themselves.\n\n- No rigid deadlines forced by publishers\n- Iterations allowed to naturally evolve\n- Features polished until they felt right\n\nThis is far from the typical industrial model. And yet, it shows that **time is a multiplier of quality**.\n\nFor someone like me, used to semester-long deadlines at university, this mindset feels almost like a dream. But it teaches an important truth: _good work needs space to breathe_.\n\n---"
+        },
+        {
+          "title": "Development as a Hobby (Even When It’s Work)",
+          "text": "In interviews, the developers described working on Silksong with the same passion and curiosity you’d expect from a side project.\n\n> “We just kept making what we loved, and eventually it became Silksong.”\n\nThis approach blurs the line between **work** and **hobby**. Of course, not every job allows that luxury, but it reveals something valuable:\n\n- Treating work with a hobbyist’s curiosity makes challenges less stressful\n- Experimentation leads to more authentic results\n- Passion sustains long-term motivation\n\nAs someone who built my thesis project *Deadly Nightshade*, I know that spark of curiosity was what kept me going through debugging and sleepless nights.\n\n---"
+        },
+        {
+          "title": "Contrasting with My Own Experience",
+          "text": "Let’s be real: I’ve never worked on a world-famous indie title. My experience is limited to:\n\n1. A university thesis project (*Deadly Nightshade*)\n2. A few personal prototypes\n\nThese projects had fixed deadlines and were far from the relaxed, hobby-driven climate of Silksong. Still, reflecting on Team Cherry’s approach, I see clear lessons I can apply:\n\n- Don’t just chase completion → chase **polish and fun**\n- Deadlines are real, but mindset can be chosen\n- Curiosity is the best fuel for innovation\n\n---"
+        },
+        {
+          "title": "What I Learned",
+          "text": "Silksong’s development climate may sound utopian, but it translates into practical lessons even for newcomers like me:\n\n- **Respect the process** → rushing rarely produces quality; even in small projects, pacing matters\n- **Curiosity is key** → treating tasks like experiments keeps motivation high\n- **Passion drives polish** → when you enjoy the work, you naturally push for a better result\n- **Not every job is a hobby** → but you can still bring that hobbyist mindset into professional environments\n- **Creative freedom is relative** → even under constraints, you can carve out areas where you work with passion and ownership\n\nUltimately, what I learned is that development isn’t only about tools, languages, or pipelines. It’s about **creating an environment—internal or external—that allows you to enjoy the process as much as the outcome**.\n\n---"
+        },
+        {
+          "title": "Wrapping Up",
+          "text": "Hollow Knight: Silksong is more than a highly anticipated game. For me, it’s a case study in how the right development climate produces extraordinary results.\n\nEven though I haven’t worked in large studios yet, I take this as a guiding principle: _development should feel like a space where curiosity and quality thrive_.\n\nIf I bring even a fraction of that spirit into my future roles, I know I’ll build not just projects, but experiences worth sharing.\n\n---"
+        }
       ],
-      "tags": ["react", "portfolio", "tips"]
+      "media": [
+        {
+          "src": "/works/silksong/cover.jpg",
+          "description": "Official artwork of Hollow Knight: Silksong."
+        },
+        {
+          "src": "/works/silksong/interview.jpg",
+          "description": "Snapshot from the latest developer interview about Silksong."
+        },
+        {
+          "src": "/works/silksong/mindset.jpg",
+          "description": "Diagram illustrating the difference between deadline-driven vs. passion-driven development."
+        }
+      ],
+      "tags": [
+        "silksong",
+        "indie-development",
+        "team-cherry",
+        "developer-mindset",
+        "case-study",
+        "learning"
+      ]
+    },
+    {
+      "slug": "implementing-als-deadly-nightshade",
+      "title": "Implementing ALS Community C++ in Deadly Nightshade",
+      "date": "2025-08-30",
+      "author": "Alberto Crapanzano",
+      "excerpt": "How we integrated and customized the Advanced Locomotion System Community C++ Edition into our thesis project Deadly Nightshade, retargeting animations and adapting gameplay for our protagonist Alice.",
+      "content": [
+        {
+          "title": "Introduction",
+          "text": "One of the most ambitious parts of our thesis project, **Deadly Nightshade**, was implementing the __Advanced Locomotion System (ALS) Community C++ Edition__. Working on this wasn’t just a technical necessity; it was also a huge learning opportunity for me.\n\nI wasn’t alone in this task. My teammate **Christian Catenacci** worked with me on the C++ implementation, while **Giulia Insolera** supported us during the animation retargeting phase. Together, we pushed through the challenges of bringing our custom protagonist, *Alice*, to life.\n\n---"
+        },
+        {
+          "title": "Step 1 – Importing and Implementing ALS",
+          "text": "The first step was straightforward but crucial: integrating the ALS Community C++ Edition into our project.\n\n* **Importing ALS** – we pulled the full system into our Deadly Nightshade project.\n* **Setting up C++ dependencies** – making sure our build settings aligned so the ALS classes compiled cleanly.\n* **Testing the default AnimMan** – before even thinking of Alice, we verified that the default ALS mannequin behaved as expected.\n\nThis gave us a stable foundation before making any deeper customizations.\n\n---"
+        },
+        {
+          "title": "Step 2 – Retargeting Animations",
+          "text": "With ALS running, the next challenge was __retargeting__.\n\nThis is where **Giulia Insolera** helped us enormously. Retargeting in Unreal Engine 5.4.4 allowed us to map the skeleton of ALS’s *AnimMan* to our protagonist *Alice*.\n\n* **Skeleton Alignment** – making sure bone hierarchies matched.\n* **IK Adjustments** – correcting small offsets so Alice’s limbs aligned correctly.\n* **Verifying Animations** – ensuring idle, walking, and running cycles transferred smoothly.\n\nAfter this, Alice was officially standing in our world, moving with the full locomotion features of ALS.\n\n---"
+        },
+        {
+          "title": "Step 3 – Custom Animation Blueprint",
+          "text": "To make Alice feel unique, we built her own **Animation Blueprint** on top of the retargeted animations.\n\nHere’s what we did:\n* Used the **Linked Anim Graph node** to pull retargeted ALS animations into Alice’s Animation Blueprint.\n* Added __overlay layers__ for her custom moves.\n* Controlled transitions so Alice could seamlessly mix ALS locomotion with Deadly Nightshade–specific actions.\n\nThis layering approach allowed us to benefit from the robustness of ALS while still giving Alice her distinctive gameplay feel.\n\n---"
+        },
+        {
+          "title": "Step 4 – Customizing C++ for Gameplay",
+          "text": "This is where things got tricky. ALS Community’s default implementation allowed shooting even when facing in a different direction. For Alice, that broke immersion — because she doesn’t fire directly. Instead, she has a small **robot companion mounted on her shoulder** that aims forward.\n\nSo together with __Christian Catenacci__, we modified the ALS C++ source:\n* **Stopped projectiles from passing through Alice** when idle and looking away.\n* Forced a __quick rotation__ of the character’s torso when shooting while standing still.\n* Preserved ALS’s default behavior when moving (camera and character already rotate together in this case).\n\nThis small but crucial change made Alice’s combat feel responsive and believable.\n\n---"
+        },
+        {
+          "title": "What I Learned",
+          "text": "Looking back, this implementation was one of the richest learning experiences of my thesis. Here are the big takeaways:\n\n* **Teamwork scales learning** – I couldn’t have done this without Christian’s C++ expertise and Giulia’s retargeting guidance.\n* __Digging into C++ is empowering__ – Unreal’s Blueprints are great, but modifying ALS at the C++ level gave us far more control.\n* **Animation retargeting is both art and science** – you can follow steps, but small details in bone alignment make a massive difference.\n* **Game feel comes from iteration** – we didn’t get Alice’s shooting mechanic right the first time. We refined it until it felt natural.\n* __Confidence boost__ – before this project, editing a community C++ framework felt intimidating. After this, I feel ready to dive deeper into engine-level systems.\n\n---"
+        },
+        {
+          "title": "Conclusion",
+          "text": "Integrating **ALS Community C++ Edition** into Deadly Nightshade was far more than just a technical task. It was a journey in collaboration, problem solving, and understanding how professional-grade systems can be adapted to unique gameplay visions.\n\nFor me, it reinforced a simple truth: *you don’t need to reinvent locomotion systems to innovate*. Sometimes the smartest move is to stand on the shoulders of giants like ALS — and then carefully shape it to fit your own creative world.\n\n---"
+        }
+      ],
+      "media": [
+        {
+          "src": "/works/deadly/als_import.jpg",
+          "description": "Screenshot of ALS Community C++ imported into Deadly Nightshade."
+        },
+        {
+          "src": "/works/deadly/retargeting.jpg",
+          "description": "The retargeting process: mapping ALS AnimMan animations to Alice’s skeleton."
+        },
+        {
+          "src": "/works/deadly/animblueprint.jpg",
+          "description": "Alice’s custom Animation Blueprint with overlay logic."
+        },
+        {
+          "src": "/works/deadly/cpp_modifications.jpg",
+          "description": "Modified ALS C++ code handling Alice’s shooting logic."
+        }
+      ],
+      "tags": [
+        "ALS",
+        "Unreal Engine",
+        "C++",
+        "Animation",
+        "Game Development",
+        "Deadly Nightshade",
+        "Thesis Project"
+      ]
     }
   ]
 }

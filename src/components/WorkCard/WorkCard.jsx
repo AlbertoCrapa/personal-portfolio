@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 
-const WorkCard = ({ work }) => {
+const WorkCard = ({ work , sizeBig = false }) => {
   const [hovered, setHovered] = React.useState(false);
   const [iconHovered, setIconHovered] = React.useState(false);
   if (!work) return null;
@@ -126,7 +126,7 @@ const WorkCard = ({ work }) => {
             </div>
           )}
           {/* Date: only visible on lg+ */}
-          {work.date && (
+          {(work.date && sizeBig ) && (
               <div className="hidden lg:flex bg-white/80 mt-2 px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
                 <span className="text-base text-black/60 font-semibold px-1" style={{lineHeight: '1.1'}} title="Date">
                 {(() => {
@@ -137,7 +137,7 @@ const WorkCard = ({ work }) => {
             </div>
           )}
           {/* Team size: only visible on lg+ */}
-          {work.teamSize && (
+          {(work.teamSize && sizeBig ) &&  (
               <div className="hidden lg:flex bg-white/80 mt-2 px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
                 <span className="flex items-center gap-1 text-base text-black/60 font-semibold px-1" style={{lineHeight: '1.1'}} title="Team size">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="#222" d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" /><circle cx="12" cy="7" r="4" fill="#222" /></svg>

@@ -134,7 +134,7 @@ const Home = () => {
               ease: "easeOut"
             }}
           >
-            <h1 className="min-[532px]:text-9xl 2xl:pt-24 pt-0  text-7xl font-extrabold mb-2 animate-squiggly">
+            <h1 className="min-[532px]:text-9xl 2xl:pt-24 xl:pt-8 pt-0 2xl:pb-12 text-7xl font-extrabold mb-2 animate-squiggly">
               {nickname}
             </h1>
           </motion.div>
@@ -225,7 +225,7 @@ const Home = () => {
                   }}
                   className="h-full"
                 >
-                  <WorkCard work={project} />
+                  <WorkCard work={project} sizeBig={true} />
                 </motion.div>
               ))}
           </div>
