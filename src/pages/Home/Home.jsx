@@ -134,7 +134,7 @@ const Home = () => {
               ease: "easeOut"
             }}
           >
-            <h1 className="min-[532px]:text-9xl xl:pt-0 pt-24  text-7xl font-extrabold mb-2 animate-squiggly">
+            <h1 className="min-[532px]:text-9xl 2xl:pt-24 pt-0  text-7xl font-extrabold mb-2 animate-squiggly">
               {nickname}
             </h1>
           </motion.div>

@@ -101,7 +101,7 @@ const Work = () => {
   return (
     <motion.div
       {...(project?.favourite ? { "data-smile-loving": true } : {})}
-      className="container mx-auto px-4 py-16 "
+      className="container mx-auto px-4 md:py-16 py-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
@@ -111,7 +111,7 @@ const Work = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.2, delay: 0.1, ease: "easeOut" }}
       >
-        <Button onClick={() => navigate(`/`)}>
+        <Button className={"md:mb-0 mb-8"} onClick={() => navigate(`/`)}>
           &larr; Back
         </Button>
       </motion.div>
