@@ -1,5 +1,6 @@
 
 import { useEffect } from "react";
+import RichText from "../../utils/RichText";
 import data from "../../data/data.json";
 import Navbar from "../../components/Navbar/Navbar";
 import ResponsiveGrid from "../../components/ResponsiveGrid/ResponsiveGrid";
@@ -183,13 +184,10 @@ const Home = () => {
       >
         <div className="container mx-auto px-4 w-full md:w-2/4 mr-0 md:mr-12">
           <h2 className="text-4xl font-semibold sm:mb-1 mb-4 text-left md:ml-none  ml-auto md:max-w-none max-w-[210px]">{fullname}</h2>
-          <p className="max-w-full md:max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
-            {about.description}
-          </p>
-          <p className="max-w-full md:max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed">
-            <br />
-            {about.description2}
-          </p>
+          <div className="max-w-full md:max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed space-y-2">
+            <RichText text={about.description} />
+            <RichText text={about.description2} />
+          </div>
           <div className="absolute bottom-[10px] right-[10px] opacity-25 items-center mt-6 animate-bounce">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <line x1="12" y1="5" x2="12" y2="19" />

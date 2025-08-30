@@ -6,6 +6,8 @@ import Button from "../../components/Button/Button";
 import LinkButton from "../../components/Button/LinkButton";
 import SplitText from "../../utils/ReactBits/SplitText/SplitText";
 import { motion } from "framer-motion";
+import RichText from "../../utils/RichText";
+import Footer from "../../components/Footer/Footer";
 
 const placeholderImage = "https://placehold.co/800x600";
 
@@ -33,8 +35,8 @@ const Work = () => {
   const getMediaComponent = (media, idx, isFullscreen = false) => {
     if (!media) return null;
     const baseClasses = "shadow-lg ";
-    const aspectClasses = isFullscreen 
-      ? "w-full h-auto max-h-[80vh] object-contain" 
+    const aspectClasses = isFullscreen
+      ? "w-full h-auto max-h-[80vh] object-contain"
       : "w-full h-auto max-h-96 object-contain";
     if (media.endsWith(".mp4") || media.endsWith(".webm") || media.endsWith(".mov")) {
       return (
@@ -139,9 +141,9 @@ const Work = () => {
             project.technologies.map((tech, i) => (
               <span key={tech + i} className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
                 {/unity/i.test(tech) ? (
-                  <img src={process.env.PUBLIC_URL + "/img/icons/unity.png"} alt="Unity icon" className="w-7 h-7 object-contain" />
+                  <img src={process.env.PUBLIC_URL + "/img/icons/unityengine.png"} alt="Unity icon" className="w-7 h-7 object-contain" />
                 ) : /unreal/i.test(tech) ? (
-                  <img src={process.env.PUBLIC_URL + "/img/icons/unreal.png"} alt="Unreal Engine icon" className="w-7 h-7 object-contain" />
+                  <img src={process.env.PUBLIC_URL + "/img/icons/unrealengine.png"} alt="Unreal Engine icon" className="w-7 h-7 object-contain" />
                 ) : null}
                 <span className="text-base font-semibold text-zinc-700 capitalize">{tech}</span>
               </span>
@@ -152,7 +154,7 @@ const Work = () => {
           {/* Team size */}
           {project?.teamSize ? (
             <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
-              <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#222" d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/><circle cx="12" cy="7" r="4" fill="#222"/></svg>
+              <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#222" d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" /><circle cx="12" cy="7" r="4" fill="#222" /></svg>
               <span className="text-base font-semibold text-zinc-700">{project.teamSize}</span>
             </span>
           ) : (
@@ -161,7 +163,7 @@ const Work = () => {
           {/* Date */}
           {project?.date && (
             <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#888" strokeWidth="2"/><path d="M8 12h4V8" stroke="#888" strokeWidth="2" strokeLinecap="round"/></svg>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#888" strokeWidth="2" /><path d="M8 12h4V8" stroke="#888" strokeWidth="2" strokeLinecap="round" /></svg>
               <span className="text-base font-semibold text-zinc-700">{(() => { const d = new Date(project.date); return d.toLocaleString('default', { month: 'short', year: 'numeric' }); })()}</span>
             </span>
           )}
@@ -194,9 +196,7 @@ const Work = () => {
                   </div>
                   {/* Description below fullscreen media */}
                   <div className="max-w-4xl mx-auto">
-                    <p className="text-lg text-gray-700 leading-relaxed text-center">
-                      {project?.descriptions?.[idx] || ""}
-                    </p>
+                    <RichText text={project?.descriptions?.[idx] || ""} />
                   </div>
                 </div>
               );
@@ -214,9 +214,7 @@ const Work = () => {
                 </div>
                 {/* Description */}
                 <div className="flex-1 w-full">
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    {project?.descriptions?.[idx] || ""}
-                  </p>
+                  <RichText text={project?.descriptions?.[idx] || ""} />
                 </div>
               </div>
             );
@@ -238,13 +236,18 @@ const Work = () => {
           Next
         </Button>
       </div>
+      {/* <Footer contact={data.contact} showMailCTA={false} /> */}
       <section id="contact" className=" py-0 pt-0   ">
         <p className="w-fit mx-auto bottom-0 pt-8 text-zinc-800 ">
           © 2025 Alberto Crapanzano. All rights reserved.
         </p>
       </section>
 
+
+
+
     </motion.div>
+
   );
 };
 

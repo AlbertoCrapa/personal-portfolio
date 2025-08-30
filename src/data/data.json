@@ -1,164 +1,165 @@
 {
-    "nickname": "Albyeah",
-    "fullname": "Alberto Crapanzano",
-    "title": "Game Technical Designer & Creative Developer",
-    "about": {
-      "description": "Creative Developer based near Milan, specializing in Technical Design and Programming for video games. Combining strong programming skills with artistic vision, I create innovative and engaging digital experiences. ",
-      "description2": " Passionate about pushing the boundaries of technology and art, I thrive on challenges that require both technical expertise and creative problem-solving. ",
-      "location": "Milan, Italy",
-      "birthdate": "2004-06-05",
-      "profileImage": "path/to/your/profile-image.jpg"
+  "nickname": "Albyeah",
+  "fullname": "Alberto Crapanzano",
+  "title": "Game Technical Designer & Creative Developer",
+  "about": {
+  "description": "Creative Developer based near Milan, specializing in **Technical Design** and __Programming__ for video games. Combining strong programming skills with artistic vision, I create innovative and engaging digital experiences. __Always learning, always building.__",
+    "description2": " Passionate about pushing the boundaries of technology and art, I thrive on challenges that require both technical expertise and creative problem-solving. ",
+    "location": "Milan, Italy",
+    "birthdate": "2004-06-05",
+    "profileImage": "path/to/your/profile-image.jpg"
+  },
+  "skills": [
+    {
+      "category": "Frontend",
+      "items": ["React", "HTML5", "CSS3", "JavaScript", "TypeScript"]
     },
-    "skills": [
-      {
-        "category": "Frontend",
-        "items": ["React", "HTML5", "CSS3", "JavaScript", "TypeScript"]
-      },
-      {
-        "category": "Backend",
-        "items": ["Node.js", "Express", "GraphQL", "RESTful APIs"]
-      },
-      {
-        "category": "Database",
-        "items": ["MongoDB", "PostgreSQL", "MySQL"]
-      },
-      {
-        "category": "Other",
-        "items": ["Git", "Docker", "CI/CD", "AWS"]
-      }
-    ],
-    "projects": {
-      "project1": {
-        "slug": "deadly-nightshade",
-        "title": "Deadly Nightshade",
-        "important": true,
-        "favourite": true,
-        "cover": "/works/deadly/cover.jpg",
-        "videocover": "/works/deadly/videoLow.mp4",
-        "bgColor": "#af24dc",
-        "date": "2024-05",
-        "teamSize": 6,
-        "descriptions": [
-          "Is a narrative game set in a future where nature and technology intertwine in unsettling ways. The story follows Alice, a young scientist, and Rusty, a small robot she secretly builds. After escaping from the lab, they uncover dark truths about the company they once trusted, forming a deep bond along the way.",
-          "As the Technical Designer, I played a crucial role in shaping the gameplay mechanics and user experience. I designed and implemented the core game systems, including the health system, power-ups, and gas mechanics for both the protagonist and enemies. My responsibilities also included creating the user interface using Figma and Common UI, which encompassed the inventory, settings, and main menu.",
-          " I was mainly responsible for the health system and power-ups for both the protagonist and the enemies, using gas mechanics. I designed and programmed the UI with Figma and Common UI, creating the inventory, settings, and main menu. I also handled level design and environmental puzzles."
-          ],
-        "images": [
-          "/works/deadly/cover.jpg",
-          "/works/deadly/interaction.mp4",
-          "/works/deadly/enemies.mp4",
-          "/works/deadly/bosscomp.mp4",
-
-          "/works/deadly/cover.jpg",
-          "/works/deadly/interaction.mp4",
-          "/works/deadly/enemies.mp4",
-          "/works/deadly/bosscomp.mp4"
-        ],
-        "url": "https://deadlynightshade.netlify.app/",
-        "technologies": ["Unreal Engine", "C++", "Faceware", "FMOD", "Blueprints"],
-        "type": "videogame"
-      },
-      "project2": {
-        "slug": "juan-game",
-        "title": "Juan The Game",
-        "important": true,
-        "description": "Help a cloud mom rescue her lost cloudlets.",
-        "date": "2023-11",
-        "teamSize": 2,
-        "descriptions": [
-          "Juan The Game is an exciting adventure where players help a cloud mom rescue her lost cloudlets. The game features innovative mechanics and engaging gameplay that creates a unique gaming experience.",
-          "As a developer on this project, I focused on creating smooth gameplay mechanics and ensuring the game runs optimally across different platforms. The project involved extensive testing and refinement to achieve the perfect balance between challenge and fun."
-        ],
-        "images": [
-          "/works/juan/cover.jpg",
-          "/works/juan/video.mp4"
-        ],
-        "cover": "/works/juan/cover.jpg",
-        "videocover": "/works/juan/video.mp4",
-        "bgColor": "#0f3eb8",
-        "url": "https://github.com/yourusername/ecommerce-platform",
-        "technologies": ["Unity", "C#"],
-        "type": "videogame"
-      },
-      "project3": {
-        "slug": "cloudy-game",
-        "title": "Cloudy",
-        "description": "Help a cloud mom rescue her lost cloudlets.",
-        "descriptions": [
-          "Cloudy is a charming game where players guide a cloud mom on her journey to rescue her lost cloudlets. The game combines beautiful visuals with engaging puzzle mechanics.",
-          "This project was developed using Python and showcases creative problem-solving through game design. The focus was on creating an intuitive user experience while maintaining visual appeal throughout the gameplay."
-        ],
-        "images": [
-          "/works/cloudy/cover.jpg",
-          "/works/cloudy/video.mp4"
-        ],
-        "cover":"/works/cloudy/cover.jpg",
-        "videocover": "/works/cloudy/video.mp4",
-        "bgColor": "#87ceeb",
-        "url": "https://github.com/yourusername/ecommerce-platform",
-        "technologies": ["PyCharm", "Python", "Photoshop"],
-        "type": "videogame"
-      },
-      "project4": {
-        "slug": "echoes-tablegame",
-        "title": "Echoes",
-        "description": "board game for 2-4 players",
-        "cover":"/works/echoes/cover.jpg",
-        
-        "bgColor": "#8b5a3c",
-        "url": "",
-        "technologies": ["Adobe Suite"],
-        "type": "boardgame"
-      },
-      "project5": {
-        "slug": "too-poop-to-go",
-        "title": "Too Poop To Go",
-        "cover": "/works/poop/cover.jpg",
-        "bgColor": "#a74e18",
-        "descriptions": [
-          "In this iOS application, users can quickly find the best restroom to suit their needs. The map, managed with MapBox, allows users to view a wide range of points of interest that can be filtered according to various parameters. For each restroom, users can read reviews left by others. If a user discovers a new restroom to share with the community, they can submit a request to add it, and it will be included only after careful verification by the administrators. ",
-          "I was responsible for the entire design of the application, from the user interface to the user experience. I created the wireframes and prototypes using Figma, ensuring a user-friendly and intuitive design. I also implemented the front-end using React Native, ensuring a smooth and responsive experience across different devices. Additionally, I integrated the MapBox API to display restroom locations and manage user interactions with the map.",
-          "The application is designed to be user-friendly and intuitive, allowing users to quickly find the best restroom for their needs."
-
-        ],
-        "image": "",
-        "url": "",
-        "technologies": ["Adobe Suite"],
-        "type": "website"
-      },
-      "project6": {
-        "slug": "ai_demo",
-        "title": "Ai Demo",
-        "cover": "/works/poop/cover.jpg",
-        "bgColor": "#a74e18",
-        "descriptions": [
-          "e",
-          "e",
-          "e"
-        ],
-        "image": "",
-        "url": "",
-        "technologies": ["C++", "SDL2", "CMake"],
-        "type": "Tool"
-      },
-
-      "project7": {
-        "slug": "music-matcher",
-        "title": "Music Matcher",
-        "cover": "/works/music/cover.jpg",
-        "bgColor": "#56e048",
-        "description": "board game for 2-4 players",
-        "image": "path/to/fitness-tracker-image.jpg",
-        "url": "",
-        "technologies": ["Adobe Suite"],
-        "type": "Webapp "
-      }
+    {
+      "category": "Backend",
+      "items": ["Node.js", "Express", "GraphQL", "RESTful APIs"]
     },
-    "contact": {
-      "email": "hello@albyeah.com",
-      "linkedin": "https://www.linkedin.com/in/alberto-c-905a69232/",
-      "github": "https://github.com/AlbertoCrapa",
-      "cv": "/AlbertoCrapanzano_CV_ENG.pdf"
+    {
+      "category": "Database",
+      "items": ["MongoDB", "PostgreSQL", "MySQL"]
+    },
+    {
+      "category": "Other",
+      "items": ["Git", "Docker", "CI/CD", "AWS"]
     }
+  ],
+  "projects": {
+    "project1": {
+      "slug": "deadly-nightshade",
+      "title": "Deadly Nightshade",
+      "important": true,
+      "favourite": true,
+      "cover": "/works/deadly/cover.jpg",
+      "videocover": "/works/deadly/videoLow.mp4",
+      "bgColor": "#af24dc",
+      "date": "2024-05",
+      "teamSize": 6,
+      "descriptions": [
+        "Deadly Nightshade is a narrative-driven student thesis project developed at IED Istituto Europeo di Design in Milano. Set in a future where nature and technology intertwine in unsettling ways, the story follows Alice, a young scientist, and Rusty, a small robot she secretly builds. After escaping from the lab, they uncover dark truths about the company they once trusted, forming a deep bond along the way.",
+
+        "As the **Technical Designer**, I was responsible for developing and implementing the core gameplay systems. My role spanned gameplay programming, artificial intelligence systems, and level design, ensuring that mechanics, pacing, and interactions supported the narrative experience. I also designed the user interface, combining functionality and visual clarity to create inventory, settings, and menu systems.",
+
+        "Beyond the technical side, I contributed as co-director and co-writer, collaborating closely on the story, characters, and in-game content. This project, built in Unreal Engine 5.4, served both as our official thesis and as a fully playable experience of over half an hour of gameplay. Completing Deadly Nightshade as part of my graduation in July 2025 was both a huge learning opportunity and a rewarding creative challenge."
+      ],
+
+      "images": [
+        "/works/deadly/cover.jpg",
+        "/works/deadly/interaction.mp4",
+        "/works/deadly/enemies.mp4",
+        "/works/deadly/bosscomp.mp4",
+
+        "/works/deadly/cover.jpg",
+        "/works/deadly/interaction.mp4",
+        "/works/deadly/enemies.mp4",
+        "/works/deadly/bosscomp.mp4"
+      ],
+      "url": "https://deadlynightshade.netlify.app/",
+      "technologies": [
+        "Unreal Engine",
+        "C++",
+        "Faceware",
+        "FMOD",
+        "Blueprints"
+      ],
+      "type": "videogame"
+    },
+    "project2": {
+      "slug": "juan-game",
+      "title": "Juan The Game",
+      "important": true,
+      "description": "Help a cloud mom rescue her lost cloudlets.",
+      "date": "2023-11",
+      "teamSize": 2,
+      "descriptions": [
+        "Juan The Game is an exciting adventure where players help a cloud mom rescue her lost cloudlets. The game features innovative mechanics and engaging gameplay that creates a unique gaming experience.",
+        "As a developer on this project, I focused on creating smooth gameplay mechanics and ensuring the game runs optimally across different platforms. The project involved extensive testing and refinement to achieve the perfect balance between challenge and fun."
+      ],
+      "images": ["/works/juan/cover.jpg", "/works/juan/video.mp4"],
+      "cover": "/works/juan/cover.jpg",
+      "videocover": "/works/juan/video.mp4",
+      "bgColor": "#0f3eb8",
+      "url": "https://github.com/yourusername/ecommerce-platform",
+      "technologies": ["Unity", "C#"],
+      "type": "videogame"
+    },
+    "project3": {
+      "slug": "cloudy-game",
+      "title": "Cloudy",
+      "description": "Help a cloud mom rescue her lost cloudlets.",
+      "descriptions": [
+        "Cloudy is a charming game where players guide a cloud mom on her journey to rescue her lost cloudlets. The game combines beautiful visuals with engaging puzzle mechanics.",
+        "This project was developed using Python and showcases creative problem-solving through game design. The focus was on creating an intuitive user experience while maintaining visual appeal throughout the gameplay."
+      ],
+      "images": ["/works/cloudy/cover.jpg", "/works/cloudy/video.mp4"],
+      "cover": "/works/cloudy/cover.jpg",
+      "videocover": "/works/cloudy/video.mp4",
+      "bgColor": "#87ceeb",
+      "url": "https://github.com/yourusername/ecommerce-platform",
+      "technologies": ["PyCharm", "Python", "Photoshop"],
+      "type": "videogame"
+    },
+    "project4": {
+      "slug": "echoes-tablegame",
+      "title": "Echoes",
+      "description": "board game for 2-4 players",
+      "cover": "/works/echoes/cover.jpg",
+
+      "bgColor": "#8b5a3c",
+      "url": "",
+      "technologies": ["Adobe Suite"],
+      "type": "boardgame"
+    },
+    "project5": {
+      "slug": "too-poop-to-go",
+      "title": "Too Poop To Go",
+      "cover": "/works/poop/cover.jpg",
+      "bgColor": "#a74e18",
+      "descriptions": [
+        "In this iOS application, users can quickly find the best restroom to suit their needs. The map, managed with MapBox, allows users to view a wide range of points of interest that can be filtered according to various parameters. For each restroom, users can read reviews left by others. If a user discovers a new restroom to share with the community, they can submit a request to add it, and it will be included only after careful verification by the administrators. ",
+        "I was responsible for the entire design of the application, from the user interface to the user experience. I created the wireframes and prototypes using Figma, ensuring a user-friendly and intuitive design. I also implemented the front-end using React Native, ensuring a smooth and responsive experience across different devices. Additionally, I integrated the MapBox API to display restroom locations and manage user interactions with the map.",
+        "The application is designed to be user-friendly and intuitive, allowing users to quickly find the best restroom for their needs."
+      ],
+      "image": "",
+      "url": "",
+      "technologies": ["Adobe Suite"],
+      "type": "website"
+    },
+    "project6": {
+      "slug": "ai_demo",
+      "title": "Ai Demo",
+      "cover": "/works/poop/cover.jpg",
+      "bgColor": "#a74e18",
+      "descriptions": [
+        "**AI Demo** is a showcase of next-generation artificial intelligence in action. __Experience the future__ of interactive technology with this hands-on project.",
+        "**Key Features:**\n* **Real-time** image recognition\n* __Natural language__ understanding\n* *Interactive* chatbot interface\n* **__Hybrid formatting__** supported everywhere!",
+        "Try the demo and see how AI can transform your workflow. __Note:__ This is a research prototype.\n\n**How it works:**\n* Upload an image and get instant predictions.\n* Type a question and get a smart response.\n* All powered by a custom C++ backend and SDL2 graphics."
+      ],
+      "image": "",
+      "url": "",
+      "technologies": ["C++", "SDL2", "CMake"],
+      "type": "Tool"
+    },
+
+    "project7": {
+      "slug": "music-matcher",
+      "title": "Music Matcher",
+      "cover": "/works/music/cover.jpg",
+      "bgColor": "#56e048",
+      "description": "board game for 2-4 players",
+      "image": "path/to/fitness-tracker-image.jpg",
+      "url": "",
+      "technologies": ["Adobe Suite"],
+      "type": "Webapp "
+    }
+  },
+  "contact": {
+    "email": "hello@albyeah.com",
+    "linkedin": "https://www.linkedin.com/in/alberto-c-905a69232/",
+    "github": "https://github.com/AlbertoCrapa",
+    "cv": "/AlbertoCrapanzano_CV_ENG.pdf"
   }
-  
+}

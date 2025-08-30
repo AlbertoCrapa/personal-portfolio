@@ -1,7 +1,10 @@
 import React from "react";
 import data from "../../data/blog.json";
 import { useParams, useNavigate } from "react-router-dom";
+
 import Button from "../../components/Button/Button";
+import Footer from "../../components/Footer/Footer";
+import dataMain from "../../data/data.json";
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -24,9 +27,11 @@ const BlogPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
-      <div className="max-w-3xl mx-auto">
-        <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
+    <>
+      <div className="container mx-auto px-4 py-16">
+        <div className="mb-6">
+          <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
+        </div>
         <img src={blog.cover} alt={blog.title} className="w-full h-72 object-cover rounded mb-8" />
         <h1 className="text-5xl font-extrabold mb-2 tracking-tight">{blog.title}</h1>
         <p className="text-zinc-500 text-sm mb-4">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
@@ -49,7 +54,8 @@ const BlogPage = () => {
           </Button>
         </div>
       </div>
-    </div>
+      <Footer contact={dataMain.contact} showMailCTA={false} />
+    </>
   );
 };
 

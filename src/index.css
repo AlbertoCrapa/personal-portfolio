@@ -17,6 +17,12 @@
   --text-color: #2d3748;
 }
 
+.strongText {
+  color: var(--text-color);
+  font-weight: 600;
+  font-style: normal;
+}
+
 @keyframes squiggly-anim {
   0% {
       filter: url(#squiggly-0)
