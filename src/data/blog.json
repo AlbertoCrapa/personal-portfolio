@@ -5,12 +5,30 @@
       "title": "My First Blog Post",
       "date": "2025-08-01",
       "author": "Alberto Crapanzano",
-      "cover": "/img/blog/first-cover.jpg",
       "excerpt": "This is a short summary of my first blog post.",
       "content": [
-        "Welcome to my first blog post! This is where I share my journey.",
-        "Here is a second paragraph with more details and insights.",
-        "Thank you for reading!"
+        { "title": "Welcome", "text": "Welcome to my first blog post! This is where I share my journey." },
+        { "title": "Details", "text": "Here is a second paragraph with more details and insights." },
+        { "title": "Thanks", "text": "Thank you for reading!" }
+      ],
+
+      "media": [
+        {
+          "src": "/works/deadly/cover.jpg",
+          "description": "Main cover art for Deadly Nightshade."
+        },
+        {
+          "src": "/works/deadly/interaction.mp4",
+          "description": "Gameplay interaction demo video."
+        },
+        {
+          "src": "/works/deadly/enemies.mp4",
+          "description": "Showcase of enemy AI and behaviors."
+        },
+        {
+          "src": "/works/deadly/bosscomp.mp4",
+          "description": "Boss fight composition and effects."
+        }
       ],
       "tags": ["personal", "introduction"]
     },
@@ -19,7 +37,6 @@
       "title": "Tips for a Modern React Portfolio",
       "date": "2025-08-15",
       "author": "Alberto Crapanzano",
-      "cover": "/img/blog/react-tips.jpg",
       "excerpt": "Best practices and ideas for building a React portfolio.",
       "content": [
         "React is a powerful tool for building modern portfolios.",

@@ -1,20 +1,21 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import data from "../../data/data.json";
+import projectData from "../../data/projects.json";
 import Button from "../../components/Button/Button";
 import LinkButton from "../../components/Button/LinkButton";
 import SplitText from "../../utils/ReactBits/SplitText/SplitText";
 import { motion } from "framer-motion";
 import RichText from "../../utils/RichText";
 import Footer from "../../components/Footer/Footer";
+import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
 
 const placeholderImage = "https://placehold.co/800x600";
 
 const Work = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const projectList = Object.values(data.projects);
+  const projectList = Object.values(projectData.projects);
   const currentIndex = projectList.findIndex(p => p.slug === slug);
 
 
@@ -32,21 +33,21 @@ const Work = () => {
     console.error("Failed to load media:", e.currentTarget.src);
     e.currentTarget.src = placeholderImage;
   };
-  const getMediaComponent = (media, idx, isFullscreen = false) => {
-    if (!media) return null;
+  const getMediaComponent = (mediaObj, idx, isFullscreen = false) => {
+    if (!mediaObj) return null;
     const baseClasses = "shadow-lg ";
     const aspectClasses = isFullscreen
       ? "w-full h-auto max-h-[80vh] object-contain"
       : "w-full h-auto max-h-96 object-contain";
-    if (media.endsWith(".mp4") || media.endsWith(".webm") || media.endsWith(".mov")) {
+    if (mediaObj.src && (mediaObj.src.endsWith(".mp4") || mediaObj.src.endsWith(".webm") || mediaObj.src.endsWith(".mov"))) {
       return (
         <video
-          src={media}
+          src={mediaObj.src}
           autoPlay
           loop
           muted
           className={`${baseClasses} ${aspectClasses}`}
-          onError={(e) => console.error("Failed to load video:", media)}
+          onError={(e) => console.error("Failed to load video:", mediaObj.src)}
         >
           Your browser does not support the video tag.
         </video>
@@ -54,7 +55,7 @@ const Work = () => {
     } else {
       return (
         <img
-          src={media}
+          src={mediaObj.src}
           alt={`${project?.title || 'Project'} ${idx + 1}`}
           onError={handleImageError}
           className={`${baseClasses} ${aspectClasses}`}
@@ -183,38 +184,35 @@ const Work = () => {
 
       {/* Responsive Composition with Controller */}
       <div className="flex flex-col gap-12">
-        {project?.images && project.images.length > 0 && project?.descriptions && project.descriptions.length > 0 ? (
-          project.images.map((media, idx) => {
+        {project?.media && project.media.length > 0 && project?.content && project.content.length > 0 ? (
+          project.media.map((mediaObj, idx) => {
             const variant = getLayoutVariant(idx);
-
+            const size = variant.fullscreen ? "big" : "small";
+            const section = project.content[idx] || {};
             if (variant.fullscreen) {
               return (
                 <div key={idx} className="w-full">
-                  {/* Fullscreen Media */}
-                  <div className="w-full mb-8 flex justify-center">
-                    {getMediaComponent(media, idx, true)}
+                  <div className="w-full mb-2 flex justify-center">
+                    <MediaWithDescription mediaObj={mediaObj} size="big" />
                   </div>
-                  {/* Description below fullscreen media */}
                   <div className="max-w-4xl mx-auto">
-                    <RichText text={project?.descriptions?.[idx] || ""} />
+                    {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                    <RichText text={section.text || ""} />
                   </div>
                 </div>
               );
             }
-
             return (
               <div
                 key={idx}
-                className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${variant.textOnRight ? "" : "md:flex-row-reverse"
-                  }`}
+                className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${variant.textOnRight ? "" : "md:flex-row-reverse"}`}
               >
-                {/* Media */}
-                <div className="flex-1 w-full flex justify-center">
-                  {getMediaComponent(media, idx, false)}
+                <div className="flex-1 w-full flex flex-col items-center">
+                  <MediaWithDescription mediaObj={mediaObj} size="small" />
                 </div>
-                {/* Description */}
-                <div className="flex-1 w-full">
-                  <RichText text={project?.descriptions?.[idx] || ""} />
+                <div className="flex-1 w-full pb-10">
+                  {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                  <RichText text={section.text || ""} />
                 </div>
               </div>
             );

@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Footer from "../../components/Footer/Footer";
 import dataMain from "../../data/data.json";
+import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -32,7 +33,9 @@ const BlogPage = () => {
         <div className="mb-6">
           <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
         </div>
-        <img src={blog.cover} alt={blog.title} className="w-full h-72 object-cover rounded mb-8" />
+        {blog.media && blog.media.length > 0 && blog.media[0].src ? (
+          <img src={blog.media[0].src} alt={blog.title} className="w-full h-72 object-cover rounded mb-8" />
+        ) : null}
         <h1 className="text-5xl font-extrabold mb-2 tracking-tight">{blog.title}</h1>
         <p className="text-zinc-500 text-sm mb-4">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
         <div className="flex flex-wrap gap-2 mb-4">
@@ -40,11 +43,51 @@ const BlogPage = () => {
             <span key={tag} className="bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded text-xs font-semibold">{tag}</span>
           ))}
         </div>
-        <div className="prose prose-zinc max-w-none mb-8">
-          {blog.content.map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
+        {blog.media && blog.media.length > 0 && blog.content && blog.content.length > 0 ? (
+          <div className="flex flex-col gap-12">
+            {blog.media.map((mediaObj, idx) => {
+              const fullscreen = idx % 3 === 0;
+              const textOnRight = idx % 2 === 0;
+              const section = blog.content[idx] || {};
+              if (fullscreen)  {
+                return ( 
+                  <div key={idx} className={`w-full `}>
+                    <div className="w-full mb-2 flex justify-center">
+                      <MediaWithDescription mediaObj={idx === 1 ? mediaObj: null} size="big" />
+                    </div>
+                    <div className="max-w-4xl mx-auto">
+                      {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                      <p>{section.text || ""}</p>
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div
+                  key={idx}
+                  className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${textOnRight ? "" : "md:flex-row-reverse"}`}
+                >
+                  <div className="flex-1 w-full flex flex-col items-center">
+                    <MediaWithDescription mediaObj={mediaObj} size="small" />
+                  </div>
+                  <div className="flex-1 w-full">
+                    {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                    <p>{section.text || ""}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="prose prose-zinc max-w-none mb-8">
+            {blog.content.map((section, i) => (
+              <div key={i}>
+                {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                <p>{section.text || section}</p>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="mt-16 flex justify-between">
           <Button onClick={() => navigate(`/blog/${blogList[prevIndex].slug}`)}>
             Previous

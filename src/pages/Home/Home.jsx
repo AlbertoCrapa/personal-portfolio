@@ -1,7 +1,9 @@
 
+
 import { useEffect } from "react";
 import RichText from "../../utils/RichText";
 import data from "../../data/data.json";
+import projectData from "../../data/projects.json";
 import Navbar from "../../components/Navbar/Navbar";
 import ResponsiveGrid from "../../components/ResponsiveGrid/ResponsiveGrid";
 import WorkCard from "../../components/WorkCard/WorkCard";
@@ -16,7 +18,8 @@ import { useAnimation } from "../../contexts/AnimationContext";
 
 
 const Home = () => {
-  const { nickname, fullname, title, about, skills, projects, contact } = data;
+  const { nickname, fullname, title, about, skills, contact } = data;
+  const projects = projectData.projects;
   const factsTextRef = useRef();
   const [currentFact, setCurrentFact] = useState('');
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
@@ -113,15 +116,6 @@ const Home = () => {
         <Navbar  cont={contact}/>
       </motion.div>
 
-      {/* <CurvedLoop
-        marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦"
-        speed={3}
-        curveAmount={500}
-        direction="right"
-        interactive={true}
-        className="custom-text-style "
-      /> */}
-
       <motion.header
         className="bg-gray-100"
         initial={{ opacity: 0 }}
@@ -140,7 +134,7 @@ const Home = () => {
               ease: "easeOut"
             }}
           >
-            <h1 className="min-[532px]:text-9xl text-7xl font-extrabold mb-2 animate-squiggly">
+            <h1 className="min-[532px]:text-9xl xl:pt-0 pt-24  text-7xl font-extrabold mb-2 animate-squiggly">
               {nickname}
             </h1>
           </motion.div>
@@ -182,7 +176,7 @@ const Home = () => {
           ease: "easeOut"
         }}
       >
-        <div className="container mx-auto px-4 w-full md:w-2/4 mr-0 md:mr-12">
+        <div className="container mx-auto px-4  w-full md:w-2/4 mr-0 md:mr-12">
           <h2 className="text-4xl font-semibold sm:mb-1 mb-4 text-left md:ml-none  ml-auto md:max-w-none max-w-[210px]">{fullname}</h2>
           <div className="max-w-full md:max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed space-y-2">
             <RichText text={about.description} />
