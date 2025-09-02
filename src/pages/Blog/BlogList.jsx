@@ -11,17 +11,24 @@ const BlogList = () => {
     const navigate = useNavigate();
     return (
         <>
-            <div className="container mx-auto px-4 py-16">
+            <div className="container mx-auto px-4 md:py-16 py-8">
                 <div className="mb-6">
-                    <Button onClick={() => navigate("/")}> &larr; Back to Home </Button>
+                    <Button  onClick={() => navigate("/")}> &larr; Back to Home </Button>
                 </div>
-                <h1 className="text-5xl font-extrabold mb-10 text-center tracking-tight">Blog</h1>
+                <h1 className="text-5xl font-extrabold mb-2 text-center tracking-tight">Blog</h1>
+                <p className="text-xl text-center mb-10 text-zinc-500 italic">More useful than a sticky note, less boring than a technical manual. </p>
                 <div className="grid md:grid-cols-2 gap-10">
                     {data.blogs.map((blog) => (
                         <Link key={blog.slug} to={`/blog/${blog.slug}`} className="block group">
                             <div className="bg-white/90 transition-all active:scale-95 border overflow-hidden hover:shadow-xl transition outline hover:outline-4 outline-2 outline-black">
                                 {blog.media && blog.media.length > 0 && blog.media[0].src ? (
-                                    <img src={blog.media[0].src} alt={blog.title} className="w-full h-56 object-cover" />
+                                    <div className="w-full h-56 overflow-hidden">
+                                        <img
+                                            src={blog.media[0].src}
+                                            alt={blog.title}
+                                            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                                        />
+                                    </div>
                                 ) : null}
                                 <div className="p-6">
                                     <h2 className="text-2xl font-bold mb-2 group-hover:text-blue-700 transition-colors">{blog.title}</h2>
@@ -32,7 +39,7 @@ const BlogList = () => {
                                         ))}
                                     </div>
                                     <p className="text-zinc-700 mb-2">{blog.excerpt}</p>
-                                    <span className="text-blue-600 font-semibold">Read more &rarr;</span>
+                                    {/* <span className="text-blue-600 font-semibold">Read more &rarr;</span> */}
                                 </div>
                             </div>
                         </Link>

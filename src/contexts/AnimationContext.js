@@ -43,6 +43,7 @@ export const AnimationProvider = ({ children }) => {
       hasPlayedInitialAnimation, 
       setHasPlayedInitialAnimation 
     }}>
+      
       {children}
     </AnimationContext.Provider>
   );

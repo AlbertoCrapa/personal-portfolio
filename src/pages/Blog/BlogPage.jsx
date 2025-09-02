@@ -30,7 +30,7 @@ const BlogPage = () => {
 
   return (
     <>
-      <div className="container mx-auto px-4 py-16">
+      <div className="container mx-auto px-4 md:py-16 py-8">
         <div className="mb-6">
           <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
         </div>

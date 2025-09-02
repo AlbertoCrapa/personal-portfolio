@@ -17,6 +17,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAnimation } from "../../contexts/AnimationContext";
 
 
+
 const Home = () => {
   const { nickname, fullname, title, about, skills, contact } = data;
   const projects = projectData.projects;
@@ -62,9 +63,9 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
-      {/* Floating Social Panel */}
-    
-      
+      {/* /* Floating Social Panel */ }
+
+
       {/* Center Animation Overlay - only on first visit */}
       <AnimatePresence>
         {showCenterAnimation && !hasPlayedInitialAnimation && (

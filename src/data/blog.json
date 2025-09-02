@@ -3,7 +3,7 @@
     {
       "slug": "building-controller-aim-assist",
       "title": "Building a Controller Aim-Assist in Unreal (From Thesis Prototype to C++ Rewrite)",
-      "date": "2025-08-30",
+      "date": "2025-07-30",
       "author": "Alberto Crapanzano",
       "excerpt": "In this post, I explain how I built a custom controller aim-assist system for my thesis project Deadly Nightshade, first prototyping it in Blueprints and then rewriting it in C++ for performance and maintainability.",
       "content": [
@@ -50,7 +50,7 @@
       ],
       "media": [
         {
-          "src": "/works/deadly/cover.jpg",
+          "src": "/blog/aimassist/aimcover.jpg",
           "description": "Main cover art for Deadly Nightshade."
         },
         {
@@ -80,6 +80,14 @@
         {
           "src": "/works/deadly/overview.jpg",
           "description": "Overview diagram of the whole aim assist pipeline."
+        },
+        {
+          "src": "/works/deadly/curve.jpg",
+          "description": "Screenshot of CurveFloat asset used to drive assist strength."
+        },
+        {
+          "src": "/works/deadly/overview.jpg",
+          "description": "Overview diagram of the whole aim assist pipeline."
         }
       ],
       "tags": [
@@ -96,7 +104,7 @@
       "title": "Developer’s Heaven: Lessons from Hollow Knight Silksong",
       "date": "2025-08-30",
       "author": "Alberto Crapanzano",
-      "excerpt": "In this post, I reflect on the development climate behind Hollow Knight: Silksong and what we can learn from it as aspiring developers. Even though my own experience is limited to a university thesis and small projects, there are powerful lessons about pacing, mindset, and creative freedom.",
+      "excerpt": "In this post, I reflect on the development climate behind Hollow Knight: Silksong and what we can learn from it as aspiring developers. Even though my own experience is limited  there are powerful lessons about pacing, mindset, and creative freedom.",
       "content": [
         {
           "title": "Introduction",
@@ -125,7 +133,19 @@
       ],
       "media": [
         {
-          "src": "/works/silksong/cover.jpg",
+          "src": "/blog/silksong/silksongcover.webp",
+          "description": "Official artwork of Hollow Knight: Silksong."
+        },
+        {
+          "src": "/works/silksong/interview.jpg",
+          "description": "Snapshot from the latest developer interview about Silksong."
+        },
+        {
+          "src": "/works/silksong/mindset.jpg",
+          "description": "Diagram illustrating the difference between deadline-driven vs. passion-driven development."
+        },
+        {
+          "src": "/blog/silksong/silksongcover.webp",
           "description": "Official artwork of Hollow Knight: Silksong."
         },
         {
@@ -142,8 +162,7 @@
         "indie-development",
         "team-cherry",
         "developer-mindset",
-        "case-study",
-        "learning"
+        "case-study"
       ]
     },
     {
@@ -184,8 +203,20 @@
       ],
       "media": [
         {
-          "src": "/works/deadly/als_import.jpg",
+          "src": "/blog/als/aimcover.jpg",
           "description": "Screenshot of ALS Community C++ imported into Deadly Nightshade."
+        },
+        {
+          "src": "/works/deadly/retargeting.jpg",
+          "description": "The retargeting process: mapping ALS AnimMan animations to Alice’s skeleton."
+        },
+        {
+          "src": "/works/deadly/animblueprint.jpg",
+          "description": "Alice’s custom Animation Blueprint with overlay logic."
+        },
+        {
+          "src": "/works/deadly/cpp_modifications.jpg",
+          "description": "Modified ALS C++ code handling Alice’s shooting logic."
         },
         {
           "src": "/works/deadly/retargeting.jpg",

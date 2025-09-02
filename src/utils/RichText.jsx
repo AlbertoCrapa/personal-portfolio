@@ -88,7 +88,7 @@ function parseInlineSimple(str) {
     if (match.index > lastIndex) {
       result.push(str.slice(lastIndex, match.index));
     }
-    result.push(<strong key={match.index}>{match[1]}</strong>);
+    result.push(<strong  className="strongText" key={match.index}>{match[1]}</strong>);
     lastIndex = match.index + match[0].length;
   }
   if (lastIndex < str.length) {
