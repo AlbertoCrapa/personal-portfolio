@@ -305,85 +305,7 @@
       ],
       "type": "tool"
     },
-    "project4": {
-      "slug": "cloudy-game",
-      "title": "Cloudy",
-      "description": "A hand-illustrated platformer adventure where a small cloud journeys to reunite with its mother cloud.",
-      "date": "2023",
-      "teamSize": 2,
-      "content": [
-        {
-          "title": "Overview",
-          "text": "**Cloudy** is a charming 2D platformer that tells the heartwarming story of a small cloud's journey to climb a treacherous mountain and reunite with its great mother cloud. The game combines traditional platforming mechanics with a fixed camera perspective, creating focused and carefully designed level experiences."
-        },
-        {
-          "title": "Technical Development",
-          "text": "Developed using **Python** in **PyCharm**, the game showcases clean, object-oriented programming principles. I implemented all core gameplay systems including **player movement mechanics**, **collision detection**, **level progression systems**, and **camera management**. The technical foundation was built with scalability in mind, allowing for smooth addition of new levels and features."
-        },
-        {
-          "title": "Level Design & Tools",
-          "text": "Level creation was streamlined using **Tiled** for tile placement and level architecture. This workflow allowed for rapid prototyping and iteration of level designs. Each stage was crafted to present unique platforming challenges while maintaining the game's whimsical atmosphere. Players must navigate through increasingly complex environments to reach the exit door that leads to the next level."
-        },
-        {
-          "title": "Art Direction & Visual Identity",
-          "text": "All **illustrations and animations** were created by me using **Adobe Photoshop**. The art style emphasizes soft, cloud-like textures and dreamy atmospheric elements that complement the narrative. Each character animation was hand-drawn to maintain consistency with the overall visual theme, from the small cloud's movement cycles to environmental elements."
-        },
-        {
-          "title": "Narrative Structure",
-          "text": "The game follows a classic hero's journey structure, with each level representing a step closer to the emotional reunion. The adventure culminates in a touching finale featuring a **custom-illustrated cutscene sequence** that provides narrative closure to the cloud's journey, rewarding players with a satisfying emotional payoff."
-        },
-        {
-          "title": "Collaborative Development",
-          "text": "Working alongside another developer, I managed the **programming responsibilities** while also handling all **visual assets creation**. This dual role taught me valuable lessons about **project coordination**, **asset pipeline management**, and balancing technical implementation with creative vision. The collaboration required constant communication about technical constraints and artistic possibilities."
-        },
-        {
-          "title": "Technical Skills Developed",
-          "text": "This project strengthened my **Python programming** abilities, particularly in **game loop implementation**, **sprite animation systems**, and **file I/O operations** for level loading. I also gained experience with **digital art workflows**, **animation principles**, and **integrating visual assets** into code-based game engines."
-        }
-      ],
-      "media": [
-        {
-          "src": "/works/cloudy/cover.jpg",
-          "description": "Cloudy main character against mountain backdrop."
-        },
-        {
-          "src": "/works/cloudy/gameplay.mp4",
-          "description": "Platforming gameplay demonstration showing movement and level design."
-        },
-        {
-          "src": "/works/cloudy/art.jpg",
-          "description": "Collection of hand-illustrated game assets and animations."
-        },
-        {
-          "src": "/works/cloudy/cover.jpg",
-          "description": "Cloudy main character against mountain backdrop."
-        },
-        {
-          "src": "/works/cloudy/gameplay.mp4",
-          "description": "Platforming gameplay demonstration showing movement and level design."
-        },
-        {
-          "src": "/works/cloudy/art.jpg",
-          "description": "Collection of hand-illustrated game assets and animations."
-        },
-        {
-          "src": "/works/cloudy/art.jpg",
-          "description": "Collection of hand-illustrated game assets and animations."
-        }
-      ],
-      "cover": "/works/cloudy/cover.jpg",
-      "videocover": "/works/cloudy/gameplay.mp4",
-      "bgColor": "#87ceeb",
-      "url": "https://github.com/example/cloudy-game",
-      "technologies": [
-        "Python",
-        "PyCharm",
-        "Tiled",
-        "Adobe Photoshop",
-        "Sprite Animation"
-      ],
-      "type": "videogame"
-    },
+    
     "project5": {
       "slug": "echoes-tablegame",
       "title": "Echoes",
@@ -422,31 +344,30 @@
       ],
       "media": [
         {
-          "src": "/works/echoes/cover.jpg",
+          "src": "/works/echoes/cardall.webp",
           "description": "Echoes card game box and complete component set."
         },
         {
-          "src": "/works/echoes/cards.jpg",
+          "src": "/works/echoes/cardfront.webp",
           "description": "Sample of effect cards showing disruption mechanics."
         },
         {
-          "src": "/works/echoes/gameplay.jpg",
+          "src": "/works/echoes/cardpaper.webp",
           "description": "Game in progress showing card layout and player interaction."
         },{
-          "src": "/works/echoes/cover.jpg",
+          "src": "/works/echoes/cardcards.webp",
           "description": "Echoes card game box and complete component set."
         },
         {
-          "src": "/works/echoes/cards.jpg",
-          "description": "Sample of effect cards showing disruption mechanics."
+           "src": "/works/echoes/cardfront.webp",
+          "description": "Box front design showcasing logo and artwork."
         },
         {
-          "src": "/works/echoes/gameplay.jpg",
-          "description": "Game in progress showing card layout and player interaction."
+          "src": "/works/echoes/group.webp",
+          "description": "Developing the game in team"
         },
         {
-          "src": "/works/echoes/cover.jpg",
-          "description": "Echoes card game box and complete component set."
+        
         }
       ],
       "cover": "/works/echoes/cover.jpg",
@@ -471,15 +392,15 @@
           "text": "I was responsible for developing the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive and intuitive administrative interface. Additionally, I **collaborated on the backend development** using **Django**, contributing to API design, database schema planning, and server-side logic implementation."
         },
         {
-          "title": "Administrative Dashboard Features",
+     
           "text": "The web management system provides comprehensive administrative control: **User management** with capabilities to view, ban, or remove users; **Review moderation** allowing administrators to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user-submitted locations; **Interactive map interface** displaying all existing restrooms; and **Tag management** for categorizing and organizing restroom features."
         },
         {
           "title": "Authentication & Security",
-          "text": "I implemented a robust **user authentication system** with **OTP (One-Time Password) verification** for enhanced security. The system includes **secure login flows**, **session management**, and **role-based access control** to ensure that only authorized administrators can access sensitive platform data and controls."
+          "text": "We implemented a robust **user authentication system** with **OTP (One-Time Password) verification** for enhanced security. The system includes **secure login flows**, **session management**, and **role-based access control** to ensure that only authorized administrators can access sensitive platform data and controls."
         },
         {
-          "title": "Map Integration & User Experience",
+
           "text": "The platform leverages **MapBox APIs** across all components - mobile applications and web management system - providing consistent and reliable mapping functionality. I designed the web interface to seamlessly integrate map interactions, allowing administrators to visualize restroom locations, review geographical distribution, and manage location-based data efficiently."
         },
         {
@@ -487,7 +408,7 @@
           "text": "One of the key features I developed is the **restroom approval workflow**, where user submissions from mobile apps appear in the admin dashboard for review. This system includes **detailed submission information**, **image verification capabilities**, **location accuracy checking**, and **streamlined approval/rejection processes** with notification systems back to the mobile applications."
         },
         {
-          "title": "Cross-Platform Integration",
+
           "text": "Working in a team of three, I ensured seamless integration between the mobile applications and web management system through **RESTful API design** and **consistent data structures**. This required constant communication with mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
         },
         {
@@ -497,16 +418,33 @@
       ],
       "media": [
         {
-          "src": "/works/poop/cover.jpg",
+          "src": "/works/poop/tptgmobile.webp",
           "description": "Too Poop To Go web management dashboard overview."
         },
         {
-          "src": "/works/poop/management.jpg",
-          "description": "Administrative interface showing approval workflow."
+          "src": "/works/poop/tptgfire.webp",
+          "description": "Poop streak feature."
         },
         {
-          "src": "/works/poop/mobile.jpg",
-          "description": "Mobile app integration with web management system."
+          
+        },
+        {
+          "src": "/works/poop/tptgdesktop.webp",
+          "description": "Too Poop To Go web management dashboard overview."
+        },
+        {
+          "src": "/works/poop/tptgotp.webp",
+          "description": "Otp Mail verification system."
+        },
+        {
+          
+        },
+        {
+        
+        },
+        {
+          "src": "/works/poop/tptgcross.webp",
+          "description": "Cross platform simple diagram."
         }
       ],
       "cover": "/works/poop/cover.jpg",

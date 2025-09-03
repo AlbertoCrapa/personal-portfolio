@@ -15,7 +15,7 @@ const WorkCard = ({ work , sizeBig = false }) => {
   const heightClass = work.important ? "md:h-80" : "h-48"; // Taller for important projects
   // Use inline style for dynamic shadow color
   const shadowStyle = hovered && work.bgColor
-    ? { boxShadow: `0 0 900px 100px ${work.bgColor}30` } // 33 is hex for ~0.2 opacity
+    ? { boxShadow: `0 0 900px 100px ${work.bgColor}10` } // 33 is hex for ~0.2 opacity
     : {};
 
 

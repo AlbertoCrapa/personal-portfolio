@@ -184,11 +184,11 @@ const Work = () => {
 
       {/* Responsive Composition with Controller */}
       <div className="flex flex-col gap-12">
-        {project?.media && project.media.length > 0 && project?.content && project.content.length > 0 ? (
-          project.media.map((mediaObj, idx) => {
+        {project?.content && project.content.length > 0 ? (
+          project.content.map((section, idx) => {
+            const mediaObj = (project.media && project.media.length > idx) ? project.media[idx] : {};
             const variant = getLayoutVariant(idx);
             const size = variant.fullscreen ? "big" : "small";
-            const section = project.content[idx] || {};
             if (variant.fullscreen) {
               return (
                 <div key={idx} className="w-full">
@@ -202,6 +202,17 @@ const Work = () => {
                 </div>
               );
             }
+            // If no media, make text full width
+            const hasMedia = mediaObj && mediaObj.src;
+            if (!hasMedia) {
+              return (
+                <div key={idx} className="w-full max-w-4xl mx-auto">
+                  {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                  <RichText text={section.text || ""} />
+                </div>
+              );
+            }
+            // Default: media + text side by side
             return (
               <div
                 key={idx}

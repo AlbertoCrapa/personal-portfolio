@@ -44,22 +44,31 @@ const BlogPage = () => {
             <span key={tag} className="bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded text-xs font-semibold">{tag}</span>
           ))}
         </div>
-        {blog.media && blog.media.length > 0 && blog.content && blog.content.length > 0 ? (
+        {blog.content && blog.content.length > 0 ? (
           <div className="flex flex-col gap-12">
-            {blog.media.map((mediaObj, idx) => {
+            {blog.content.map((section, idx) => {
+              const mediaObj = (blog.media && blog.media.length > idx) ? blog.media[idx] : {};
               const fullscreen = idx % 3 === 0;
               const textOnRight = idx % 2 === 0;
-              const section = blog.content[idx] || {};
-              if (fullscreen)  {
-                return ( 
-                  <div key={idx} className={`w-full `}>
+              if (fullscreen) {
+                return (
+                  <div key={idx} className={`w-full`}>
                     <div className="w-full mb-2 flex justify-center">
-                      <MediaWithDescription mediaObj={idx !== 0 ? mediaObj: null} size="big" />
+                      <MediaWithDescription mediaObj={mediaObj} size="big" />
                     </div>
                     <div className="max-w-4xl mx-auto">
                       {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
                       <RichText text={section.text || ""} />
                     </div>
+                  </div>
+                );
+              }
+              const hasMedia = mediaObj && mediaObj.src;
+              if (!hasMedia) {
+                return (
+                  <div key={idx} className="w-full max-w-4xl mx-auto">
+                    {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
+                    <RichText text={section.text || ""} />
                   </div>
                 );
               }
