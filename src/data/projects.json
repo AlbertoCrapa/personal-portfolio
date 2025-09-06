@@ -66,64 +66,38 @@
           "description": "Gameplay interaction demo video."
         },
         {
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
+          "src": "/works/deadly/tree.webp",
+          "description": "Behavior tree example for enemy AI."
         },
         {
           "src": "/works/deadly/bosscomp.mp4",
           "description": "Boss fight composition and effects."
         },
         {
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
+          "src": "/works/deadly/audio.webp",
+          "description": "Audio trigger in editor for FMOD integration."
         },
         {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
-        },
-        {
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
-        },
-        {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
-        },
-        {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
+          "src": "/works/deadly/UI.webp",
+          "description": "In game UI design."
         },
         {
           "src": "/works/deadly/enemies.mp4",
           "description": "Showcase of enemy AI and behaviors."
         },
         {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
+          "src": "/works/deadly/map.webp",
+          "description": "Map zones and level design overview."
         },
         {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
+          
         },
         {
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
+          "src": "/works/deadly/vfx.webm",
+          "description": "Showcase of final boss VFX and effects."
         },
         {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
-        },
-        {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
-        },
-        {
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
-        },
-        {
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
+          
         }
       ],
       "url": "https://deadlynightshade.netlify.app/",
@@ -225,7 +199,7 @@
           "text": "**AI Demo** represents my ongoing exploration into artificial intelligence programming using **C++**, **SDL2**, and **CMake**. This personal project serves as both a **learning laboratory** and a **technical showcase** where I experiment with various AI behaviors and algorithms. The project emphasizes **clean code architecture** and **readable implementation** as core principles."
         },
         {
-          "title": "Pathfinding Implementation",
+
           "text": "At the heart of the project lies a **custom A* pathfinding algorithm** that I implemented from scratch following algorithmic principles and adapting it to my specific needs. The pathfinding system enables entities to navigate complex environments efficiently, demonstrating my understanding of **graph theory**, **heuristic algorithms**, and **optimization techniques** in real-time applications."
         },
         {
@@ -237,7 +211,7 @@
           "text": "Built using **SDL2** for graphics rendering and input handling, the project demonstrates modern **C++ programming practices** including **object-oriented design**, **memory management**, and **modular architecture**. The use of **CMake** ensures cross-platform compatibility and maintainable build processes, skills essential for professional C++ development."
         },
         {
-          "title": "Continuous Development Approach",
+
           "text": "This project is **continuously evolving** as I discover new AI concepts and refine existing implementations. Each iteration focuses on improving **code quality**, **performance optimization**, and **feature expansion**. This iterative approach has taught me valuable lessons about **software maintenance**, **version control**, and **incremental improvement strategies**."
         },
         {
@@ -245,54 +219,48 @@
           "text": "A primary focus throughout development has been maintaining **clean, readable, and well-documented code**. I strive to write code that not only functions correctly but also serves as a learning resource for others exploring AI programming. This emphasis on quality has improved my **software engineering practices** and **technical communication skills**."
         },
         {
-          "title": "Learning Outcomes",
+          "title": "Learning Outcomes and Future Expansion",
           "text": "Through this project, I've deepened my understanding of **C++ programming**, **game engine architecture**, **artificial intelligence algorithms**, and **real-time system optimization**. The hands-on approach has provided practical experience with **debugging complex systems**, **performance profiling**, and **algorithmic problem-solving** in interactive applications."
         },
         {
-          "title": "Future Expansion",
           "text": "The modular design allows for easy integration of new AI behaviors and systems. Planned additions include **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination systems**. This forward-thinking approach demonstrates my commitment to **continuous learning** and **skill development** in artificial intelligence."
         }
       ],
       "media": [
         {
-          "src": "/works/ai/cover.jpg",
+          "src":"/works/aidemo/path.webp",
           "description": "AI Demo pathfinding visualization showing A* algorithm in action."
         },
         {
-          "src": "/works/ai/behaviors.mp4",
-          "description": "Demonstration of wander, patrol, and seek behaviors."
+          
         },
         {
-          "src": "/works/ai/architecture.jpg",
-          "description": "Code architecture overview showing modular design."
+          "src": "/works/aidemo/patrol.webp",
+          "description": "Visualization of patrol behavior with waypoints."
         },
         {
-          "src": "/works/ai/cover.jpg",
-          "description": "AI Demo pathfinding visualization showing A* algorithm in action."
+          
         },
         {
-          "src": "/works/ai/behaviors.mp4",
-          "description": "Demonstration of wander, patrol, and seek behaviors."
+          "src": "/works/aidemo/singleAgent.webp",
+          "description": "Single agent demonstrating seek behavior towards mouse cursor."
         },
         {
-          "src": "/works/ai/architecture.jpg",
-          "description": "Code architecture overview showing modular design."
+          "src": "/works/aidemo/code.webp",
+          "description": "VS Code showing some C++ code architecture."
         },
         {
-          "src": "/works/ai/cover.jpg",
-          "description": "AI Demo pathfinding visualization showing A* algorithm in action."
+       
         },
         {
-          "src": "/works/ai/behaviors.mp4",
-          "description": "Demonstration of wander, patrol, and seek behaviors."
+           
         },
         {
-          "src": "/works/ai/architecture.jpg",
-          "description": "Code architecture overview showing modular design."
+          
         }
         
       ],
-      "cover": "/works/ai/cover.jpg",
+      "cover": "/works/aidemo/path.webp",
       "bgColor": "#4a90e2",
       "url": "https://github.com/example/ai-demo",
       "technologies": [
@@ -300,8 +268,7 @@
         "SDL2",
         "CMake",
         "A* Algorithm",
-        "Object-Oriented Design",
-        "Cross-Platform Development"
+        "Object-Oriented Design"
       ],
       "type": "tool"
     },
@@ -348,8 +315,8 @@
           "description": "Echoes card game box and complete component set."
         },
         {
-          "src": "/works/echoes/cardfront.webp",
-          "description": "Sample of effect cards showing disruption mechanics."
+          "src": "/works/echoes/draw.webp",
+          "description": "Drawings and sketches from the design process."
         },
         {
           "src": "/works/echoes/cardpaper.webp",

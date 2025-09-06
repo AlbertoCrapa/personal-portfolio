@@ -127,17 +127,18 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
       {fullscreen && !isYouTube && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in"
-          style={{ backdropFilter: "blur(2px)" }}
+          style={{ backdropFilter: "blur(2px)", position: "fixed" }}
         >
+          {/* Close button with highest z-index and pointer-events */}
           <button
-            className="absolute top-6 right-8 z-60 bg-white/90 hover:bg-white text-zinc-900 rounded-full p-2 shadow-lg text-2xl"
-            style={{ border: "none", outline: "none", cursor: "pointer" }}
+            className="absolute top-6 right-8 z-[100] bg-white/90 hover:bg-white text-zinc-900 rounded-full p-2 shadow-lg text-2xl"
+            style={{ border: "none", outline: "none", cursor: "pointer", zIndex: 100, pointerEvents: "auto" }}
             onClick={() => setFullscreen(false)}
             aria-label="Close fullscreen"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
-          <div className="w-full flex justify-center items-center" style={{ minHeight: 0, minWidth: 0, height: "100vh", width: "100vw", maxWidth: "100vw", maxHeight: "100vh", padding: 0 }}>
+          <div className="w-full flex justify-center items-center" style={{ minHeight: 0, minWidth: 0, height: "100vh", width: "100vw", maxWidth: "100vw", maxHeight: "100vh", padding: 0, position: "relative", zIndex: 10 }}>
             {isVideo ? (
               <video
                 src={mediaObj.src}
@@ -146,14 +147,14 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
                 muted
                 controls
                 className="object-contain rounded"
-                style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto" }}
+                style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}
               />
             ) : (
               <img
                 src={mediaObj.src}
                 alt={mediaObj.alt || `media`}
                 className="object-contain rounded"
-                style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto" }}
+                style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}
               />
             )}
           </div>
