@@ -137,24 +137,23 @@
           "description": "Official artwork of Hollow Knight: Silksong."
         },
         {
-          "src": "/works/silksong/interview.jpg",
-          "description": "Snapshot from the latest developer interview about Silksong."
+          "src": "/blog/silksong/boh.webp",
+          "description": "Boss fight screenshot from Hollow Knight: Silksong."
         },
         {
-          "src": "/works/silksong/mindset.jpg",
-          "description": "Diagram illustrating the difference between deadline-driven vs. passion-driven development."
+          "src": "/blog/silksong/team.webp",
+          "description": "Team Cherry developers."
         },
         {
-          "src": "/blog/silksong/silksongcover.webp",
+          "src": "/blog/silksong/boss.webp",
           "description": "Official artwork of Hollow Knight: Silksong."
         },
         {
-          "src": "/works/silksong/interview.jpg",
-          "description": "Snapshot from the latest developer interview about Silksong."
+          "src": "/blog/silksong/char.webp",
+          "description": "All Hollow Knight characters in a fan art."
         },
         {
-          "src": "/works/silksong/mindset.jpg",
-          "description": "Diagram illustrating the difference between deadline-driven vs. passion-driven development."
+          
         }
       ],
       "tags": [

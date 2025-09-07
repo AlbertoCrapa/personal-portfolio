@@ -150,32 +150,31 @@
       ],
       "media": [
         {
-          "src": "/works/juan/cover.jpg",
-          "description": "Juan The Game main menu showcasing custom horse character."
+          "src": "/works/juan/video.webm",
+          "description": "Juan The Game Trailer showcasing gameplay and mechanics."
         },
         {
-          "src": "/works/juan/video.mp4",
+          "src": "/works/juan/physics.webm",
           "description": "Physics-based gameplay demonstration across multiple levels."
         },
         {
-          "src": "/works/juan/skins.jpg",
-          "description": "Collection of custom horse skins and character designs."
+          "src": "/works/juan/ingame.webp",
+          "description": "Unity editor showing level design and horse rig."
         },
         {
-          "src": "/works/juan/cover.jpg",
+          "src": "/works/juan/snow.webp",
           "description": "Juan The Game main menu showcasing custom horse character."
         },
         {
-          "src": "/works/juan/video.mp4",
-          "description": "Physics-based gameplay demonstration across multiple levels."
+          "src":  "/works/juan/skins.mp4",
+          "description": "Shop showing different horse skins available."
         },
         {
-          "src": "/works/juan/skins.jpg",
-          "description": "Collection of custom horse skins and character designs."
+          
         }
       ],
       "cover": "/works/juan/cover.jpg",
-      "videocover": "/works/juan/video.mp4",
+      "videocover": "/works/juan/video.webm",
       "bgColor": "#0f3eb8",
       "url": "https://play.google.com/store/apps/details?id=com.example.juan",
       "technologies": [
