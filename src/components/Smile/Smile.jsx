@@ -181,7 +181,7 @@ const Smile = React.memo(() => {
   const handleDragEnd = useCallback(() => {
     if (draggingInterval) clearInterval(draggingInterval);
     setDraggingInterval(null);
-    console.log(`Dragging time: ${draggingTime} seconds`);
+    //console.log(`Dragging time: ${draggingTime} seconds`);
   }, [draggingInterval, draggingTime]);
 
 
@@ -295,7 +295,7 @@ const Smile = React.memo(() => {
   // Handle page changes using React Router's useLocation
   useEffect(() => {
     const handlePageChange = () => {
-      console.log("Page changed to:", location.pathname);
+      //console.log("Page changed to:", location.pathname);
       
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);

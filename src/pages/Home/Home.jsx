@@ -10,37 +10,36 @@ import ResponsiveGrid from "../../components/ResponsiveGrid/ResponsiveGrid";
 import WorkCard from "../../components/WorkCard/WorkCard";
 import MailCTA from "../../components/MailCTA/MailCTA";
 import Button from "../../components/Button/Button";
-
 import SocialPanel from "../../components/SocialPanel/SocialPanel";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import SplitTextAnim from "../../utils/ReactBits/SplitText/SplitText";
 import RotatingText from "../../utils/RotatingText/RotatingText";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAnimation } from "../../contexts/AnimationContext";
 import { useNavigate } from "react-router-dom";
+import SEO from "../../components/SEO/SEO";
 
 
 
 const Home = () => {
-  const { nickname, fullname, title, about, skills, contact } = data;
+  const { nickname, fullname, about, contact } = data;
   const projects = projectData.projects;
   const blogs = blogData.blogs;
   const navigate = useNavigate();
-  const factsTextRef = useRef();
-  const [currentFact, setCurrentFact] = useState('');
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [showCenterAnimation, setShowCenterAnimation] = useState(false);
   const { hasPlayedInitialAnimation, setHasPlayedInitialAnimation } = useAnimation();
   const facts = require('../../data/facts.json').facts;
+      
 
   useEffect(() => {
     // Only play animation if it hasn't been played before
     if (!hasPlayedInitialAnimation) {
       setShowCenterAnimation(true);
-
+        
       // Disable scrolling during animation
       document.body.style.overflow = 'hidden';
-
+  
       // Start the normal animation after initial center animation
       const timer = setTimeout(() => {
         setShowCenterAnimation(false);
@@ -68,14 +67,22 @@ const Home = () => {
 
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
+      <SEO 
+        title="Alberto Crapanzano - Game Technical Designer & Creative Developer"
+        description="Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences."
+        keywords="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer"
+        url="/"
+      />
       {/* /* Floating Social Panel */ }
-
+      
+      { isAnimationComplete && < >   </> }
+    
 
       {/* Center Animation Overlay - only on first visit */}
       <AnimatePresence>
         {showCenterAnimation && !hasPlayedInitialAnimation && (
           <motion.div
-            className="fixed inset-0 z-40 bg-white flex items-center justify-center md:pt-0 pt-32"
+            className="fixed inset-0 md:z-40 z-[100] bg-zinc-100 flex items-center justify-center "
             initial={{ opacity: 1 }}
             exit={{ opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -123,7 +130,7 @@ const Home = () => {
       </motion.div>
 
       <motion.header
-        className="bg-gray-100"
+        className="bg-zinc-200"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: hasPlayedInitialAnimation ? 0 : 0.5, ease: "easeInOut" }}
@@ -277,7 +284,7 @@ const Home = () => {
       {/* Blog Section */}
       <motion.section
         id="blog"
-        className="py-8 md:py-2 pb-16 md:pb-32 bg-gray-100"
+        className="py-8 md:py-2 pb-16 md:pb-32 bg-zinc-200"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
@@ -314,7 +321,7 @@ const Home = () => {
             {blogs.slice(0, 1).map((blog, index) => (
               <motion.article
                 key={blog.slug}
-                className="bg-white overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 active:scale-95 transition-all duration-300 cursor-pointer group max-w-2xl w-full"
+                className="bg-zinc-100 overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 active:scale-95 transition-all duration-300 cursor-pointer group max-w-2xl w-full"
                 onClick={() => navigate(`/blog/${blog.slug}`)}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -341,7 +348,7 @@ const Home = () => {
                       {blog.tags.slice(0, 3).map((tag) => (
                         <span 
                           key={tag} 
-                          className="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-1 rounded"
+                          className="text-xs font-medium bg-zinc-200 text-gray-600 px-2 py-1 rounded"
                         >
                           {tag}
                         </span>
