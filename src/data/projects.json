@@ -93,7 +93,7 @@
           
         },
         {
-          "src": "/works/deadly/vfx.webm",
+          "src": "/works/deadly/vfxvideo.webm",
           "description": "Showcase of final boss VFX and effects."
         },
         {
@@ -158,7 +158,7 @@
           "description": "Physics-based gameplay demonstration across multiple levels."
         },
         {
-          "src": "/works/juan/ingame.webp",
+          "src": "/works/juan/ngame.webp",
           "description": "Unity editor showing level design and horse rig."
         },
         {
