@@ -6,6 +6,16 @@ import Button from "../../components/Button/Button";
 import LinkButton from "../../components/Button/LinkButton";
 import SplitText from "../../utils/ReactBits/SplitText/SplitText";
 import { motion } from "framer-motion";
+import RichText from "../../utils/RichText.jsx";
+import Footer from "../../components/Footer/Footer";
+import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
+import SEO from "../../components/SEO/SEO";
+import { useParams, useNavigate } from "react-router-dom";
+import projectData from "../../data/projects.json";
+import Button from "../../components/Button/Button";
+import LinkButton from "../../components/Button/LinkButton";
+import SplitText from "../../utils/ReactBits/SplitText/SplitText";
+import { motion } from "framer-motion";
 import RichText from "../../utils/RichText";
 import Footer from "../../components/Footer/Footer";
 import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
@@ -99,13 +109,22 @@ const Work = () => {
   });
 
   return (
-    <motion.div
-      {...(project?.favourite ? { "data-smile-loving": true } : {})}
-      className="container mx-auto px-4 md:py-16 py-8"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, ease: "easeOut" }}
-    >
+    <>
+      <SEO 
+        title={`${project?.title || 'Project'} - Alberto Crapanzano`}
+        description={project?.content?.[0]?.text?.substring(0, 160) || `${project?.title || 'Project'} by Alberto Crapanzano - Game Technical Designer & Creative Developer`}
+        keywords={`${project?.title}, ${project?.technologies?.join(', ') || ''}, Alberto Crapanzano, Game Development, ${project?.type || ''}`}
+        url={`/work/${slug}`}
+        image={project?.cover ? `https://albyeah.com${project.cover}` : "https://albyeah.com/img/profile.jpg"}
+        type="article"
+      />
+      <motion.div
+        {...(project?.favourite ? { "data-smile-loving": true } : {})}
+        className="container mx-auto px-4 md:py-16 py-8"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+      >
       <motion.div
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -256,7 +275,7 @@ const Work = () => {
 
 
     </motion.div>
-
+    </>
   );
 };
 

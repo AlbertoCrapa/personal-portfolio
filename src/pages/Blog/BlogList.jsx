@@ -5,12 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Footer from "../../components/Footer/Footer";
 import dataMain from "../../data/data.json";
+import SEO from "../../components/SEO/SEO";
 
 
 const BlogList = () => {
     const navigate = useNavigate();
     return (
         <>
+            <SEO 
+                title="Blog - Alberto Crapanzano"
+                description="Game development tutorials, insights, and project updates by Alberto Crapanzano - Game Technical Designer & Creative Developer"
+                keywords="Game Development Blog, Unity, Unreal Engine, C++, Technical Design, Alberto Crapanzano"
+                url="/blog"
+            />
             <div className="container mx-auto px-4 md:py-16 py-8">
                 <div className="mb-6">
                     <Button  onClick={() => navigate("/")}> &larr; Back to Home </Button>

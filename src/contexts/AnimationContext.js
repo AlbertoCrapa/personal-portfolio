@@ -12,23 +12,23 @@ export const useAnimation = () => {
 
 export const AnimationProvider = ({ children }) => {
   const [hasPlayedInitialAnimation, setHasPlayedInitialAnimationState] = useState(() => {
-    // Read from localStorage on first load
+    // Read from sessionStorage on first load
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('hasPlayedInitialAnimation') === 'true';
+      return sessionStorage.getItem('hasPlayedInitialAnimation') === 'true';
     }
     return false;
   });
 
-  // Wrap setter to also update localStorage
+  // Wrap setter to also update sessionStorage
   const setHasPlayedInitialAnimation = (value) => {
     setHasPlayedInitialAnimationState(value);
     if (typeof window !== 'undefined') {
-      localStorage.setItem('hasPlayedInitialAnimation', value ? 'true' : 'false');
+      sessionStorage.setItem('hasPlayedInitialAnimation', value ? 'true' : 'false');
     }
   };
 
   useEffect(() => {
-    // Sync state with localStorage if it changes elsewhere
+    // Sync state with sessionStorage if it changes elsewhere
     const handleStorage = (e) => {
       if (e.key === 'hasPlayedInitialAnimation') {
         setHasPlayedInitialAnimationState(e.newValue === 'true');

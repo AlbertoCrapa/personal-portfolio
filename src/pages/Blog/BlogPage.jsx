@@ -7,6 +7,7 @@ import Footer from "../../components/Footer/Footer";
 import dataMain from "../../data/data.json";
 import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
 import RichText from "../../utils/RichText";
+import SEO from "../../components/SEO/SEO";
 
 const BlogPage = () => {
   const { slug } = useParams();
@@ -30,6 +31,14 @@ const BlogPage = () => {
 
   return (
     <>
+      <SEO 
+        title={`${blog.title} - Alberto Crapanzano Blog`}
+        description={blog.excerpt || blog.content?.[0]?.text?.substring(0, 160) || `${blog.title} by Alberto Crapanzano - Game Technical Designer & Creative Developer`}
+        keywords={`${blog.title}, ${blog.tags?.join(', ') || ''}, Alberto Crapanzano, Game Development, Blog`}
+        url={`/blog/${slug}`}
+        image={blog.media?.[0]?.src ? `https://albyeah.com${blog.media[0].src}` : "https://albyeah.com/img/profile.jpg"}
+        type="article"
+      />
       <div className="container mx-auto px-4 md:py-16 py-8">
         <div className="mb-6">
           <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
