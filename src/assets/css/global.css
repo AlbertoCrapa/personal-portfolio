@@ -11,6 +11,18 @@
     background: rgb(54, 53, 53);
 }
 
+/* Prevent image dragging and selection */
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  pointer-events: auto;
+}
 
 
 

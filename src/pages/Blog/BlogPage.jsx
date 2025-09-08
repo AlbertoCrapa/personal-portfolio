@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import data from "../../data/blog.json";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -17,6 +17,11 @@ const BlogPage = () => {
   const blog = blogList[currentIndex];
   const prevIndex = (currentIndex - 1 + blogList.length) % blogList.length;
   const nextIndex = (currentIndex + 1) % blogList.length;
+
+  // Scroll to top when component mounts or slug changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
 
   if (!blog) {
     return (

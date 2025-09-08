@@ -28,14 +28,18 @@ const WorkCard = ({ work , sizeBig = false }) => {
     >
       <div
         {...(work.favourite ? { "data-smile-loving": true } : {})}
-        className={"relative overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 active:scale-95 bg-white "}
+        className={"relative overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 hover:scale-[1.01] active:scale-95 bg-white "}
         style={shadowStyle}
       >
         <img
           src={imgSrc}
           alt={`Image of my project ${work.title}`}
           onError={(e) => (e.currentTarget.src = "https://placehold.co/400x300")}
-          className={`w-full ${heightClass} h-48 object-cover transition-opacity duration-500 ${hovered && work.videocover ? "opacity-0" : "opacity-100"}`}
+          className={`w-full ${heightClass} h-48 object-cover transition-all duration-500 ${
+            hovered && work.videocover ? "opacity-0" : "opacity-100"
+          } ${
+            hovered && !work.videocover ? "scale-[1.04]" : "scale-100"
+          }`}
         />
         {work.videocover && (
           <video

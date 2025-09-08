@@ -330,14 +330,14 @@ const Smile = React.memo(() => {
       <motion.div ref={constraintsRef} className="fixed top-0 w-full h-dvh pointer-events-none " />
       <motion.div
        
-        whileHover={{ scale: 0.85 }}
-        whileTap={{ scale: 0.7 }}
-        whileInView={{ scale: 0.8 }}
+        whileHover={{ scale: 0.8 }} //8.5
+        whileTap={{ scale: 0.7 }} //7
+        whileInView={{ scale: 0.75 }} //8
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         drag
         dragConstraints={constraintsRef}
-        className="logo__navbar animate-squiggly fixed z-50 sm:right-12 sm:top-14 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
+        className="logo__navbar animate-squiggly fixed z-50 sm:right-12 sm:top-20 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
         onClick={handleSmileClick}
       >
         <p ref={smileTextRef} className="absolute font-script text-4xl transform -translate-x-16 translate-y-4 -rotate-30 z-10" />

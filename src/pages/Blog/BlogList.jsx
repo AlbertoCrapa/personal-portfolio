@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import data from "../../data/blog.json";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -10,6 +10,12 @@ import SEO from "../../components/SEO/SEO";
 
 const BlogList = () => {
     const navigate = useNavigate();
+    
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             <SEO 
