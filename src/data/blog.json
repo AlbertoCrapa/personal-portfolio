@@ -42,52 +42,39 @@
         {
           "title": "What I Learned",
           "text": "This project taught me a lot:\n\n- Blueprints are perfect for prototyping – fast, visual, great for iteration\n- C++ is essential for maintainability – it forces clean design and scalability\n- Polish matters – a few lines of math and curves can completely change player experience\n- Transitioning from school to production mindset – rewriting in C++ made me think like a developer building systems for others, not just myself\n\nOverall, I realized that even a small invisible feature like aim assist can demand deep thought and have a huge impact on gameplay.\n\n---"
-        },
-        {
-          "title": "Wrapping Up",
-          "text": "What began as a thesis prototype became a fully tunable aim-assist system.\n\nIf I had to summarize the experience in one line:\n\n“The smallest mechanics often demand the deepest thought and deliver the biggest impact on player experience.”\n\n---"
         }
       ],
       "media": [
         {
           "src": "/blog/aimassist/aimcover.jpg",
-          "description": "Main cover art for Deadly Nightshade."
+          "description": "Official artwork of Hollow Knight: Silksong."
         },
         {
-          "src": "/works/deadly/input-gate.jpg",
-          "description": "Screenshot of Blueprint Input Action Aim node."
+          "src": "/blog/aimassist/blueprint.webp",
+          "description": "Blueprint showing sphere trace logic."
         },
         {
-          "src": "/works/deadly/sphere-trace.jpg",
-          "description": "Diagram of a sphere trace intersecting an enemy."
+          "src": "/blog/aimassist/scheme.webp",
+          "description": "Graphical scheme of the aim-assist logic."
         },
         {
-          "src": "/works/deadly/line-trace.jpg",
-          "description": "Blueprint example showing Line Trace check with debug lines."
+          "src": "/blog/aimassist/schddeme.webp",
+          "description": "Graphical scheme of the aim-asdddnndndwujdnwsist logic."
         },
         {
-          "src": "/works/deadly/world-to-screen.jpg",
-          "description": "Schema showing world-to-screen projection and delta vector."
+          "src": "/blog/aimassist/aim.webp",
+          "description": "Graph of the aim distance zones."
         },
         {
-          "src": "/works/deadly/deadzone.jpg",
-          "description": "Illustration of deadzone and assist window around crosshair."
+          "src": "/blog/aimassist/graph.webp",
+          "description": "Graph of the aim assist force curve."
         },
         {
-          "src": "/works/deadly/curve.jpg",
-          "description": "Screenshot of CurveFloat asset used to drive assist strength."
+          
         },
         {
-          "src": "/works/deadly/overview.jpg",
-          "description": "Overview diagram of the whole aim assist pipeline."
-        },
-        {
-          "src": "/works/deadly/curve.jpg",
-          "description": "Screenshot of CurveFloat asset used to drive assist strength."
-        },
-        {
-          "src": "/works/deadly/overview.jpg",
-          "description": "Overview diagram of the whole aim assist pipeline."
+          "src": "/blog/aimassist/code.webp",
+          "description": "C++ code. "
         }
       ],
       "tags": [
@@ -206,28 +193,22 @@
           "description": "Screenshot of ALS Community C++ imported into Deadly Nightshade."
         },
         {
-          "src": "/works/deadly/retargeting.jpg",
-          "description": "The retargeting process: mapping ALS AnimMan animations to Alice’s skeleton."
+          
         },
         {
-          "src": "/works/deadly/animblueprint.jpg",
-          "description": "Alice’s custom Animation Blueprint with overlay logic."
+         
         },
         {
-          "src": "/works/deadly/cpp_modifications.jpg",
-          "description": "Modified ALS C++ code handling Alice’s shooting logic."
+          
         },
         {
-          "src": "/works/deadly/retargeting.jpg",
-          "description": "The retargeting process: mapping ALS AnimMan animations to Alice’s skeleton."
+         
         },
         {
-          "src": "/works/deadly/animblueprint.jpg",
-          "description": "Alice’s custom Animation Blueprint with overlay logic."
+          
         },
         {
-          "src": "/works/deadly/cpp_modifications.jpg",
-          "description": "Modified ALS C++ code handling Alice’s shooting logic."
+          
         }
       ],
       "tags": [

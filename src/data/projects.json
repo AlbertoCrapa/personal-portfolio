@@ -120,7 +120,7 @@
       "title": "Juan The Game",
       "important": true,
       "description": "A physics-based mobile puzzle game featuring 60+ handcrafted levels and custom horse character designs.",
-      "date": "2023-2024",
+      "date": "2023-02",
       "teamSize": 2,
       "content": [
         {
@@ -176,7 +176,6 @@
       "cover": "/works/juan/cover.jpg",
       "videocover": "/works/juan/video.webm",
       "bgColor": "#0f3eb8",
-      "url": "https://play.google.com/store/apps/details?id=com.example.juan",
       "technologies": [
         "Unity",
         "C#",
@@ -261,7 +260,7 @@
       ],
       "cover": "/works/aidemo/path.webp",
       "bgColor": "#4a90e2",
-      "url": "https://github.com/example/ai-demo",
+      "url": "https://github.com/AlbertoCrapa/ai-demo",
       "technologies": [
         "C++",
         "SDL2",
