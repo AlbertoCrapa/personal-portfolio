@@ -10,15 +10,6 @@ import RichText from "../../utils/RichText.jsx";
 import Footer from "../../components/Footer/Footer";
 import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
 import SEO from "../../components/SEO/SEO";
-import { useParams, useNavigate } from "react-router-dom";
-import projectData from "../../data/projects.json";
-import Button from "../../components/Button/Button";
-import LinkButton from "../../components/Button/LinkButton";
-import SplitText from "../../utils/ReactBits/SplitText/SplitText";
-import { motion } from "framer-motion";
-import RichText from "../../utils/RichText";
-import Footer from "../../components/Footer/Footer";
-import MediaWithDescription from "../../components/MediaWithDescription/MediaWithDescription";
 
 const placeholderImage = "https://placehold.co/800x600";
 
