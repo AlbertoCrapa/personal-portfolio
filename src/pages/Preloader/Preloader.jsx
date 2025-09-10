@@ -35,7 +35,7 @@ const Preloader = ({ setLoading }) => {
     <AnimatePresence>
       {!fadeOut && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center bg-zinc-900 z-50 font-sans"
+          className="fixed inset-0 flex items-center justify-center bg-black z-50 font-sans"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

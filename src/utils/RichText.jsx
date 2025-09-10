@@ -47,32 +47,89 @@ export default function RichText({ text }) {
 
 
 function parseInline(str) {
-  // Parse [text](url) links first
-  const linkRegex = /\[([^\]]+)\]\(([^\)]+)\)/g;
   let result = [];
-  let lastIndex = 0;
-  let match;
-  while ((match = linkRegex.exec(str))) {
-    if (match.index > lastIndex) {
-      result.push(parseInlineSimple(str.slice(lastIndex, match.index)));
+  let remaining = str;
+  
+  // Process all patterns in a single pass
+  while (remaining.length > 0) {
+    // Look for the earliest match among all patterns
+    const patterns = [
+      { regex: /\[([^\]]+)\]\(([^\)]+)\)\{([^\}]+)\}/, type: 'linkWithHover' },
+      { regex: /\[([^\]]+)\]\{([^\}]+)\}/, type: 'hoverOnly' },
+      { regex: /\[([^\]]+)\]\(([^\)]+)\)/, type: 'linkOnly' }
+    ];
+    
+    let earliestMatch = null;
+    let earliestIndex = remaining.length;
+    
+    for (const pattern of patterns) {
+      const match = pattern.regex.exec(remaining);
+      if (match && match.index < earliestIndex) {
+        earliestMatch = { ...pattern, match };
+        earliestIndex = match.index;
+      }
     }
-    result.push(
-      <a
-        key={match.index}
-        href={match[2]}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ textDecoration: 'underline', color: '#2563eb', cursor: 'pointer' }}
-        className="richtext-link"
-      >
-        {match[1]}
-      </a>
-    );
-    lastIndex = match.index + match[0].length;
+    
+    if (!earliestMatch) {
+      // No more matches, add remaining text
+      result.push(parseInlineSimple(remaining));
+      break;
+    }
+    
+    // Add text before the match
+    if (earliestMatch.match.index > 0) {
+      result.push(parseInlineSimple(remaining.slice(0, earliestMatch.match.index)));
+    }
+    
+    // Add the matched element
+    const match = earliestMatch.match;
+    const key = result.length;
+    
+    if (earliestMatch.type === 'linkWithHover') {
+      result.push(
+        <a
+          key={key}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor-text={match[3]}
+          style={{ textDecoration: 'underline', color: '#4d7de5ff', cursor: 'pointer' }}
+          className="richtext-link script"
+        >
+          {match[1]}
+        </a>
+      );
+    } else if (earliestMatch.type === 'hoverOnly') {
+      result.push(
+        <span
+          key={key}
+          data-cursor-text={match[2]}
+          style={{ cursor: 'pointer', color: '#2563eb' }}
+          className="richtext-hover-text script"
+        >
+          {match[1]}
+        </span>
+      );
+    } else if (earliestMatch.type === 'linkOnly') {
+      result.push(
+        <a
+          key={key}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-cursor-text="Visit Link"
+          style={{ textDecoration: 'underline', color: '#2563eb', cursor: 'pointer' }}
+          className="richtext-link script"
+        >
+          {match[1]}
+        </a>
+      );
+    }
+    
+    // Continue with remaining string
+    remaining = remaining.slice(earliestMatch.match.index + earliestMatch.match[0].length);
   }
-  if (lastIndex < str.length) {
-    result.push(parseInlineSimple(str.slice(lastIndex)));
-  }
+  
   return result.flat();
 }
 

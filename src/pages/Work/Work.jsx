@@ -67,11 +67,11 @@ const Work = () => {
 
   if (currentIndex === -1) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+  <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
         <div className="text-center">
           <SplitText
             text="Oops!"
-            className="text-7xl font-extrabold text-gray-400 mb-4"
+            className="text-7xl font-extrabold text-gray-dark mb-4"
             delay={100}
             duration={0.5}
             ease="power3.out"
@@ -81,8 +81,8 @@ const Work = () => {
             threshold={0.1}
             rootMargin="-100px"
           />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Project Not Found</h2>
-          <p className="text-gray-600 mb-8">The project you're looking for doesn't exist.</p>
+          <h2 className="text-2xl font-bold text-black mb-2">Project Not Found</h2>
+          <p className="text-gray-dark mb-8">The project you're looking for doesn't exist.</p>
           <div className="space-x-4">
             <Button onClick={() => navigate("/")}> &larr; Go Home </Button>
             <Button onClick={() => window.history.back()}> Go Back </Button>
@@ -135,44 +135,44 @@ const Work = () => {
         <div className="flex flex-wrap justify-center items-center gap-3 mb-8">
           {/* Type icon */}
           {project?.type && (
-            <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
+            <span className="bg-gray-40 rounded-2xl rounded-bl-none px-3 py-1 flex items-center gap-2 shadow-sm">
               <img
                 src={process.env.PUBLIC_URL + `/img/worktype-icons/${project.type}.svg`}
                 alt={project.type + ' icon'}
                 className="w-7 h-7 object-contain"
               />
-              <span className="text-base font-semibold text-zinc-700 capitalize">{project.type}</span>
+              <span className="text-base font-semibold text-gray-dark capitalize">{project.type}</span>
             </span>
           )}
           {/* Technologies (all) */}
           {project?.technologies && project.technologies.length > 0 ? (
             project.technologies.map((tech, i) => (
-              <span key={tech + i} className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
+              <span key={tech + i} className="bg-gray-40 rounded-2xl rounded-bl-none px-3 py-1 flex items-center gap-2 ">
                 {/unity/i.test(tech) ? (
                   <img src={process.env.PUBLIC_URL + "/img/icons/unityengine.png"} alt="Unity icon" className="w-7 h-7 object-contain" />
                 ) : /unreal/i.test(tech) ? (
                   <img src={process.env.PUBLIC_URL + "/img/icons/unrealengine.png"} alt="Unreal Engine icon" className="w-7 h-7 object-contain" />
                 ) : null}
-                <span className="text-base font-semibold text-zinc-700 capitalize">{tech}</span>
+                <span className="text-base font-semibold text-gray-dark capitalize">{tech}</span>
               </span>
             ))
           ) : (
-            <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm text-zinc-400">No technologies specified</span>
+            <span className="bg-gray-40 rounded-2xl rounded-bl-none px-3 py-1 flex items-center gap-2  text-gray-dark">No technologies specified</span>
           )}
           {/* Team size */}
           {project?.teamSize ? (
-            <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
+            <span className="bg-gray-40 rounded-2xl rounded-bl-none px-3 py-1 flex items-center gap-2 ">
               <svg width="22" height="22" fill="none" viewBox="0 0 24 24"><path fill="#222" d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" /><circle cx="12" cy="7" r="4" fill="#222" /></svg>
-              <span className="text-base font-semibold text-zinc-700">{project.teamSize}</span>
+              <span className="text-base font-semibold text-gray-dark">{project.teamSize}</span>
             </span>
           ) : (
-            <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm text-zinc-400">No team size</span>
+            <span className="bg-gray-40 rounded-2xl rounded-bl-none px-3 py-1 flex items-center gap-2  text-gray-dark">No team size</span>
           )}
           {/* Date */}
           {project?.date && (
-            <span className="bg-white/90 border border-zinc-200 px-3 py-1 flex items-center gap-2 shadow-sm">
+            <span className="bg-gray-40 rounded-2xl rounded-bl-none px-3 py-1 flex items-center gap-2 ">
               <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#888" strokeWidth="2" /><path d="M8 12h4V8" stroke="#888" strokeWidth="2" strokeLinecap="round" /></svg>
-              <span className="text-base font-semibold text-zinc-700">{(() => { const d = new Date(project.date); return d.toLocaleString('default', { month: 'short', year: 'numeric' }); })()}</span>
+              <span className="text-base font-semibold text-gray-dark">{(() => { const d = new Date(project.date); return d.toLocaleString('default', { month: 'short', year: 'numeric' }); })()}</span>
             </span>
           )}
           {/* Open Link Button */}
@@ -202,7 +202,7 @@ const Work = () => {
                   <div className="w-full mb-2 flex justify-center">
                     <MediaWithDescription mediaObj={mediaObj} size="big" />
                   </div>
-                  <div className="max-w-4xl mx-auto">
+                  <div className="max-w-5xl mx-auto">
                     {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
                     <RichText text={section.text || ""} />
                   </div>
@@ -213,7 +213,7 @@ const Work = () => {
             const hasMedia = mediaObj && mediaObj.src;
             if (!hasMedia) {
               return (
-                <div key={idx} className="w-full max-w-4xl mx-auto">
+                <div key={idx} className="w-full max-w-5xl mx-auto">
                   {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
                   <RichText text={section.text || ""} />
                 </div>
@@ -223,7 +223,7 @@ const Work = () => {
             return (
               <div
                 key={idx}
-                className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${variant.textOnRight ? "" : "md:flex-row-reverse"}`}
+                className={`flex flex-col md:flex-row items-center gap-8 max-w-5xl mx-auto ${variant.textOnRight ? "" : "md:flex-row-reverse"}`}
               >
                 <div className="flex-1 w-full flex flex-col items-center">
                   <MediaWithDescription mediaObj={mediaObj} size="small" />
@@ -236,7 +236,7 @@ const Work = () => {
             );
           })
         ) : (
-          <div className="text-center text-gray-600">
+          <div className="text-center text-gray-dark">
             <p>No media or descriptions available.</p>
           </div>
         )}
@@ -254,7 +254,7 @@ const Work = () => {
       </div>
       {/* <Footer contact={data.contact} showMailCTA={false} /> */}
       <section id="contact" className=" py-0 pt-0   ">
-        <p className="w-fit mx-auto bottom-0 pt-8 text-zinc-800 ">
+  <p className="w-fit mx-auto bottom-0 pt-8 text-gray-dark ">
           © 2025 Alberto Crapanzano. All rights reserved.
         </p>
       </section>

@@ -94,11 +94,28 @@ const SocialIcon = ({ platform, url, className = "" }) => {
   const colors = getPlatformColors(platform);
   const isCV = platform.toLowerCase() === 'cv' || platform.toLowerCase() === 'download';
 
+  const getCursorText = (platform) => {
+    switch (platform.toLowerCase()) {
+      case 'github':
+        return 'View GitHub';
+      case 'linkedin':
+        return 'Visit LinkedIn';
+      case 'email':
+        return 'Send Email';
+      case 'cv':
+      case 'download':
+        return 'Download CV';
+      default:
+        return `Visit ${platform}`;
+    }
+  };
+
   return (
     <button
       onClick={handleClick}
       className={`p-3 ${colors.base} transition-all duration-300 hover:scale-110 ${colors.glow} cursor-pointer ${className} ${isCV ? 'flex items-center gap-2' : ''}`}
       aria-label={isCV ? 'Download CV' : `Visit ${platform}`}
+      data-cursor-text={getCursorText(platform)}
     >
       {getIcon(platform)}
       {isCV && (

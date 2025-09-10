@@ -23,13 +23,14 @@ const WorkCard = ({ work , sizeBig = false }) => {
     <Link
       to={`/work/${work.slug}`}
       className="block group"
+      data-cursor-text="Explore"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       <div
         {...(work.favourite ? { "data-smile-loving": true } : {})}
-        className={"relative overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 hover:scale-[1.01] active:scale-95 bg-white "}
-        style={shadowStyle}
+        className={"relative overflow-hidden shadow-sm hover:shadow-lg rounded-3xl rounded-bl-none transition e transition-all hover:outline-4 hover:scale-[1.01] active:scale-95"}
+        style={{ ...shadowStyle, backgroundColor: "rgba(255,255,255,0.7)" }}
       >
         <img
           src={imgSrc}
@@ -51,7 +52,7 @@ const WorkCard = ({ work , sizeBig = false }) => {
             playsInline
           />
         )}
-        <div className="absolute bottom-2 right-2 flex flex-row gap-2 items-center">
+        <div className="absolute bottom-0 right-0 flex flex-row gap-2 items-center">
           {/* Info boxes */}
           {/* First technology: always visible */}
           {work.technologies && work.technologies[0] && (
@@ -142,19 +143,19 @@ const WorkCard = ({ work , sizeBig = false }) => {
           )}
           {/* Team size: only visible on lg+ */}
           {(work.teamSize && sizeBig ) &&  (
-              <div className="hidden lg:flex bg-white/80 mt-2 px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
+              <div className="hidden lg:flex bg-white/80  px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
                 <span className="flex items-center gap-1 text-base text-black/60 font-semibold px-1" style={{lineHeight: '1.1'}} title="Team size">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="#222" d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" /><circle cx="12" cy="7" r="4" fill="#222" /></svg>
                 {work.teamSize}
               </span>
             </div>
           )}
-          <h3 className="bg-white/80 text-black/80 px-2 py-0.5 text-xl font-semibold group-hover:text-black transition-colors h-[2.2em] flex items-center">
+          <h3 className="bg-white opacity-80 text-black/80 px-4  text-xl rounded-tl-3xl font-semibold group-hover:text-black transition-colors h-[3rem] flex items-center">
             {capitalizeFirst(work.title)}
           </h3>
 
         </div>
-        <div className="absolute top-2 left-2 bg-white/70 text-black/80 px-2 py-0.5 text-sm font-semibold group-hover:text-black transition-colors">
+  <div className="absolute top-2 left-2 bg-white/70 text-black/80 px-2 py-0.5 text-sm font-semibold group-hover:text-black transition-colors">
           {work.type && (
             <>
               <img

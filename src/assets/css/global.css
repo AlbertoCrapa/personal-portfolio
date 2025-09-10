@@ -1,14 +1,101 @@
+/* Site Variables */
+:root {
+  --color-bg: #E0E0E0;
+  --color-black: #2D2D2D;
+  --color-white: #ffffff;
+  --color-gray: #B0B0B0;
+  --color-dark-gray: #545454;
+  --color-light-gray: #E0E0E0;
+  --color-primary: #FFC15D;
+  --color-secondary: #5129c0;
+  --color-accent: #34C759;
+  --color-error: #FF3B30;
+  --color-warning: #FFD60A;
+  --color-success: #4CD964;
+  --color-info: #5AC8FA;
+  --color-text: #2D2D2D;
+  --color-heading: #1A1A1A;
+  --color-border: #E0E0E0;
 
-
-::-moz-selection {
-  /* Code for Firefox */
-  color:rgb(221, 221, 217);
-  background: rgb(83, 83, 83);
 }
 
+/* Hide default cursor completely across all browsers */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video,
+button, input, textarea, select, option {
+  cursor: none !important;
+}
+
+/* Force hide cursor on all interactive elements */
+button, input[type="button"], input[type="submit"], input[type="reset"],
+input[type="file"], input[type="color"], input[type="range"],
+a, link, area, [role="button"], [tabindex], [onclick],
+[onmousedown], [onmouseup], [onmouseover], [onmouseout] {
+  cursor: none !important;
+}
+
+/* Force hide cursor on hover states */
+*:hover, *:focus, *:active, *:visited, *:link {
+  cursor: none !important;
+}
+
+/* Browser-specific cursor hiding */
+/* Safari */
+*::-webkit-any-link {
+  cursor: none !important;
+}
+
+/* Firefox */
+@-moz-document url-prefix() {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* Edge */
+@supports (-ms-ime-align: auto) {
+  * {
+    cursor: none !important;
+  }
+}
+/* Site Variables Responsive */
+@media (min-width: 640px) {
+  :root {
+    --spacing: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --spacing: 4rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  :root {
+    --spacing: 6rem;
+  }
+}
+
+/* Selection */
+::-moz-selection {
+  color: var(--color-white);
+  background: var(--color-dark-gray);
+}
 ::selection {
-    color:rgb(221, 221, 217);
-    background: rgb(54, 53, 53);
+  color: var(--color-white);
+  background: var(--color-dark-gray);
 }
 
 /* Prevent image dragging and selection */
@@ -24,6 +111,35 @@ img {
   pointer-events: auto;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+
+.serif {
+  font-family: 'Epilogue', serif;
+}
+
+.script {
+  font-family: 'Lora', cursive;
+}
+
+@layer components {
+  .btn-primary {
+    @apply transition active:scale-95 hover:scale-[1.03] hover:animate-squiggly cursor-pointer hover:shadow-[0_0_30px_8px_rgba(0,0,0,0.2)] active:shadow-[0_0_30px_8px_rgba(0,0,0,0.2)] select-none;
+  }
+}
+
+.strongText {
+  color: var(--text-color);
+  font-weight: 600;
+  font-style: normal;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
 
 
 @keyframes squiggly-anim {

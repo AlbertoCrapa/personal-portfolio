@@ -54,9 +54,9 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
 
   return (
     <>
-      <div className={`w-full flex flex-col items-center ${className}`}>
+      <div className={`w-full flex flex-col  items-center ${className}`}>
         <div
-          className={`w-full flex justify-center items-center bg-zinc-900 rounded shadow-lg relative group`}
+          className={`w-full flex justify-center items-center bg-zinc-900 rounded shadow-lg relative group rounded-[26px] rounded-bl-none overflow-hidden `}
           style={{ aspectRatio, minHeight, maxHeight, position: "relative" }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
@@ -78,6 +78,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
               onClick={() => setFullscreen(true)}
               tabIndex={-1}
               aria-label="Open fullscreen"
+              data-cursor-text="Fullscreen"
             >
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m0 8v3a2 2 0 0 0 2 2h3m8-18h3a2 2 0 0 1 2 2v3m0 8v3a2 2 0 0 1-2 2h-3"/></svg>
             </button>
@@ -99,7 +100,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
               autoPlay
               loop
               muted
-              className={`w-full h-full object-cover`}
+              className={`w-full h-full object-cover `}
               style={{ minHeight, background: "#222" }}
               onLoadedData={() => setLoading(false)}
               onError={e => { setLoading(false); setError(true); e.currentTarget.style.background = "#222"; }}
@@ -110,7 +111,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
             <img
               src={mediaObj.src}
               alt={mediaObj.alt || `media`}
-              className={`w-full h-full object-cover`}
+              className={`w-full h-full object-cover `}
               style={{ minHeight, background: "#222" }}
               onLoad={() => setLoading(false)}
               onError={e => { setLoading(false); setError(true); e.currentTarget.src = "https://placehold.co/800x600"; e.currentTarget.style.background = "#222"; }}
@@ -118,7 +119,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
           )}
         </div>
         {mediaObj.description && (
-          <div className="text-left text-xs text-zinc-500 mt-2 mb-2 w-full">
+          <div className="text-left text-xs text-zinc-500 mt-2 mb-2 w-full ">
             {mediaObj.description}
           </div>
         )}
@@ -126,7 +127,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
       {/* Fullscreen Modal */}
       {fullscreen && !isYouTube && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in "
           style={{ backdropFilter: "blur(2px)", position: "fixed" }}
         >
           {/* Close button with highest z-index and pointer-events */}
@@ -135,6 +136,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
             style={{ border: "none", outline: "none", cursor: "pointer", zIndex: 100, pointerEvents: "auto" }}
             onClick={() => setFullscreen(false)}
             aria-label="Close fullscreen"
+            data-cursor-text="Close"
           >
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
@@ -146,14 +148,14 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
                 loop
                 muted
                 controls
-                className="object-contain rounded"
+                className="object-contain rounded "
                 style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}
               />
             ) : (
               <img
                 src={mediaObj.src}
                 alt={mediaObj.alt || `media`}
-                className="object-contain rounded"
+                className="object-contain rounded "
                 style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}
               />
             )}

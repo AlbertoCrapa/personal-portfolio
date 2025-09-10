@@ -337,8 +337,9 @@ const Smile = React.memo(() => {
         onDragEnd={handleDragEnd}
         drag
         dragConstraints={constraintsRef}
-        className="logo__navbar animate-squiggly fixed z-50 sm:right-12 sm:top-20 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
+        className="logo__navbar animate-squiggly fixed z-[99998] sm:right-12 sm:top-20 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
         onClick={handleSmileClick}
+        data-cursor-text="Drag me around!"
       >
         <p ref={smileTextRef} className="absolute font-script text-4xl transform -translate-x-16 translate-y-4 -rotate-30 z-10" />
         <img 

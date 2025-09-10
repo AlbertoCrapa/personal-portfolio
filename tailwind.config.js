@@ -4,34 +4,66 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Clash Grotesk", "Inter var", "system-ui"],
-        crazy: ["MiniMochi", "Inter var", "system-ui"],
-        script: ["Kalam", "Inter var", "system-ui"]
+        sans: ["DM Sans", "system-ui", "sans-serif"],
+        serif: ["Epilogue", "serif"],
+        script: ["Lora", "cursive"],
+        crazy: ["MiniMochi", "Inter var", "system-ui"]
       },
       colors: {
-        primary: {
-          DEFAULT: "#1E40AF", // Default primary color
-          light: "#3B82F6",   // Lighter shade
-          dark: "#1E3A8A",    // Darker shade
+        bg: 'var(--color-bg)',
+        black: 'var(--color-black)',
+        white: 'var(--color-white)',
+        gray: {
+          DEFAULT: 'var(--color-gray)',
+          dark: 'var(--color-dark-gray)',
+          light: 'var(--color-light-gray)',
+          '10': 'rgb(176 176 176 / 0.1)',
+          '20': 'rgb(176 176 176 / 0.2)',
+          '30': 'rgb(176 176 176 / 0.3)',
+          '40': 'rgb(176 176 176 / 0.4)',
+          '50': 'rgb(176 176 176 / 0.5)',
         },
-        secondary: {
-          DEFAULT: "#9333EA",
-          light: "#C084FC",
-          dark: "#7E22CE",
-        },
-        accent: {
-          DEFAULT: "#F59E0B",
-          light: "#FCD34D",
-          dark: "#B45309",
-        },
-        neutral: {
-          light: "#F3F4F6",
-          DEFAULT: "#D1D5DB",
-          dark: "#6B7280",
-        },
+        'gray-dark': 'var(--color-dark-gray)',
+        'gray-light': 'var(--color-light-gray)',
+        primary: 'var(--color-primary)',
+        secondary: 'var(--color-secondary)',
+        accent: 'var(--color-accent)',
+        error: 'var(--color-error)',
+        warning: 'var(--color-warning)',
+        success: 'var(--color-success)',
+        info: 'var(--color-info)',
+        text: 'var(--color-text)',
+        heading: 'var(--color-heading)',
+        border: 'var(--color-border)',
+      },
+      spacing: {
+        '--spacing': ':var(--spacing)',
       },
       animation: {
         squiggly: 'squiggly-anim .34s linear infinite;',
+      },
+      opacity: {
+        '0': '0',
+        '5': '0.05',
+        '10': '0.1',
+        '15': '0.15',
+        '20': '0.2',
+        '25': '0.25',
+        '30': '0.3',
+        '35': '0.35',
+        '40': '0.4',
+        '45': '0.45',
+        '50': '0.5',
+        '55': '0.55',
+        '60': '0.6',
+        '65': '0.65',
+        '70': '0.7',
+        '75': '0.75',
+        '80': '0.8',
+        '85': '0.85',
+        '90': '0.9',
+        '95': '0.95',
+        '100': '1',
       },
     },
   },

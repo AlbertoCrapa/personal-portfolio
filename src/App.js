@@ -13,6 +13,7 @@ import BlogPage from "./pages/Blog/BlogPage";
 import Smile from "./components/Smile/Smile";
 import Simple404 from "./pages/NotFound/Simple404";
 import { AnimationProvider } from "./contexts/AnimationContext";
+import Cursor from "./components/Cursor/Cursor";
 
 
 
@@ -20,6 +21,7 @@ import { AnimationProvider } from "./contexts/AnimationContext";
 function App() {
   return (
     <AnimationProvider>
+      <Cursor />
       <Smile />
 
    
