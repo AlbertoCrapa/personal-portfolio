@@ -1,6 +1,6 @@
 import React from "react";
 
-const SocialIcon = ({ platform, url, className = "" }) => {
+const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
   const getIcon = (platform) => {
     switch (platform.toLowerCase()) {
       case 'github':
@@ -37,40 +37,73 @@ const SocialIcon = ({ platform, url, className = "" }) => {
     }
   };
 
-  const getPlatformColors = (platform) => {
-    switch (platform.toLowerCase()) {
-      case 'github':
-        return {
+  const getPlatformColors = (platform, theme) => {
+    const colors = {
+      github: {
+        light: {
+          base: 'text-gray-600 hover:text-gray-800',
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(45,45,45,0.5)]',
+          cursorColor: '#333333'
+        },
+        dark: {
           base: 'text-gray-300 hover:text-white',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
-        };
-      case 'linkedin':
-        return {
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]',
+          cursorColor: '#333333'
+        }
+      },
+      linkedin: {
+        light: {
+          base: 'text-blue-600 hover:text-blue-700',
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(37,99,235,0.6)]',
+          cursorColor: '#0A66C2'
+        },
+        dark: {
           base: 'text-blue-300 hover:text-blue-400',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.6)]'
-        };
-      case 'email':
-        return {
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.6)]',
+          cursorColor: '#0A66C2'
+        }
+      },
+      email: {
+        light: {
+          base: 'text-red-500 hover:text-red-600',
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(239,68,68,0.6)]',
+          cursorColor: '#DC2626'
+        },
+        dark: {
           base: 'text-red-300 hover:text-red-400',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(248,113,113,0.6)]'
-        };
-      case 'cv':
-        return {
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(248,113,113,0.6)]',
+          cursorColor: '#DC2626'
+        }
+      },
+      cv: {
+        light: {
+          base: 'text-green-600 hover:text-green-700 mr-1',
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(34,197,94,0.6)]',
+          cursorColor: '#059669'
+        },
+        dark: {
           base: 'text-green-300 hover:text-green-400 mr-1',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]'
-        };
-        
-      case 'download':
-        return {
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]',
+          cursorColor: '#059669'
+        }
+      },
+      download: {
+        light: {
+          base: 'text-green-600 hover:text-green-700',
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(34,197,94,0.6)]',
+          cursorColor: '#059669'
+        },
+        dark: {
           base: 'text-green-300 hover:text-green-400',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]'
-        };
-      default:
-        return {
-          base: 'text-gray-300 hover:text-white ',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]'
-        };
-    }
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]',
+          cursorColor: '#059669'
+        }
+      }
+    };
+
+    const platformKey = platform.toLowerCase();
+    const colorSet = colors[platformKey] || colors.github;
+    return colorSet[theme] || colorSet.dark;
   };
 
   const handleClick = () => {
@@ -91,7 +124,7 @@ const SocialIcon = ({ platform, url, className = "" }) => {
     }
   };
 
-  const colors = getPlatformColors(platform);
+  const colors = getPlatformColors(platform, theme);
   const isCV = platform.toLowerCase() === 'cv' || platform.toLowerCase() === 'download';
 
   const getCursorText = (platform) => {
@@ -116,6 +149,7 @@ const SocialIcon = ({ platform, url, className = "" }) => {
       className={`p-3 ${colors.base} transition-all duration-300 hover:scale-110 ${colors.glow} cursor-pointer ${className} ${isCV ? 'flex items-center gap-2' : ''}`}
       aria-label={isCV ? 'Download CV' : `Visit ${platform}`}
       data-cursor-text={getCursorText(platform)}
+      data-cursor-color={colors.cursorColor}
     >
       {getIcon(platform)}
       {isCV && (

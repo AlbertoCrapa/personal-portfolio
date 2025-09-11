@@ -14,24 +14,40 @@ const FloatingSocialPanel = ({ contact }) => {
     let initialOffset = null;
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      setIsVisible(scrollY < (document.documentElement.scrollHeight - window.innerHeight - 130));
+      const viewportHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      
+      // Responsive bottom offset based on viewport height
+      const bottomOffset = Math.max(100, viewportHeight * 0.15); // 15% of viewport or 100px minimum
+      setIsVisible(scrollY < (documentHeight - viewportHeight - bottomOffset));
 
       if (!panelRef.current) return;
       const rect = panelRef.current.getBoundingClientRect();
       if (initialOffset === null) {
         initialOffset = rect.bottom + window.scrollY;
       }
-      // Fixed at top only when scrolled up past original position, returns to relative when scrolled down past original position
-      if (window.scrollY > initialOffset - 96) {
+      
+      // Responsive trigger offset based on viewport height
+      const triggerOffset = Math.max(60, viewportHeight * 0.1); // 10% of viewport or 60px minimum
+      if (window.scrollY > initialOffset - triggerOffset) {
         setIsFixed(true);
         setPanelHeight(panelRef.current.offsetHeight);
       } else {
         setIsFixed(false);
       }
     };
+    const handleResize = () => {
+      // Reset initialOffset on resize so it recalculates
+      initialOffset = null;
+    };
+
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
     setTimeout(handleScroll, 0);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const socialLinks = [
@@ -51,10 +67,8 @@ const FloatingSocialPanel = ({ contact }) => {
           ref={panelRef}
           style={
             isFixed
-              ? { position: "fixed", top: 24, left: `fixed ml-[calc(var(--spacing))]`, zIndex: 50, width: "fit-content" }
-
-
-              : { position: "relative", left: 0, bottom: 0, zIndex: 50, width: "fit-content" }
+              ? { position: "fixed", top: 24, left: "calc(var(--spacing) / 2)", zIndex: -1, width: "fit-content" }
+              : { position: "relative", left: 0, bottom: 0, zIndex: -1, width: "fit-content" }
           }
           className={`bg-white rounded-2xl rounded-bl-none pointer-events-all`}
         >
@@ -65,7 +79,7 @@ const FloatingSocialPanel = ({ contact }) => {
               exit={{ y: 100, opacity: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 35, duration: 0.5 }}
             >
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 ">
                 {socialLinks.map((link, index) => (
                   <motion.div
                     key={link.platform}
@@ -77,6 +91,7 @@ const FloatingSocialPanel = ({ contact }) => {
                     <SocialIcon
                       platform={link.platform}
                       url={link.url}
+                      theme="light"
                       className="hover:bg-white/10 transition-all"
                     />
                   </motion.div>

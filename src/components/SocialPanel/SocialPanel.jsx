@@ -31,6 +31,7 @@ const SocialPanel = ({ contact, className = "" }) => {
             <SocialIcon 
               platform={link.platform} 
               url={link.url}
+              theme="dark"
               className="mx-2 text-gray-dark hover:text-white transition-colors hover:bg-white/10 rounded-md transition-all"
             />
           </motion.div>

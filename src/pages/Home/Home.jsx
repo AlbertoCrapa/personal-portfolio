@@ -162,7 +162,7 @@ const Home = () => {
       </section>
 
       {/* Sticky at top when scrolled */}
-      <div className="sticky pointer-events-none  ml-[calc(var(--spacing)/2)] py-[calc((100vh-(75vh+66px+48px))-1.5rem)] left-4 top-4 z-50 ">
+      <div className="sticky w-fit ml-[calc(var(--spacing)/2)] py-4 sm:py-4 md:py-6 lg:py-8 left-4 top-4 z-50 ">
         <FloatingSocialPanel contact={contact} />
       </div>
 

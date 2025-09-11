@@ -6,11 +6,11 @@
   --color-gray: #B0B0B0;
   --color-dark-gray: #545454;
   --color-light-gray: #E0E0E0;
-  --color-primary: #FFC15D;
+  --color-primary: #e0ac00;
   --color-secondary: #5129c0;
   --color-accent: #34C759;
   --color-error: #FF3B30;
-  --color-warning: #FFD60A;
+  --color-warning: #ff780a;
   --color-success: #4CD964;
   --color-info: #5AC8FA;
   --color-text: #2D2D2D;
@@ -162,4 +162,15 @@ body {
   to {
       filter: url(#squiggly-4)
   }
+}
+
+/* Cursor haptic feedback classes */
+.cursor-haptic-feedback {
+  filter: brightness(1.1) !important;
+  transition: filter 0.15s ease-out !important;
+}
+
+.cursor-click-feedback {
+  filter: brightness(0.9) !important;
+  transition: filter 0.1s ease-out !important;
 }

@@ -32,7 +32,7 @@ const BlogList = () => {
                 <p className="text-xl text-center mb-10 text-gray-dark italic">More useful than a sticky note, less boring than a technical manual. </p>
                 <div className="grid md:grid-cols-2 gap-10">
                     {data.blogs.map((blog) => (
-                        <Link key={blog.slug} to={`/blog/${blog.slug}`} className="block group" data-cursor-text="Read Article">
+                        <Link key={blog.slug} to={`/blog/${blog.slug}`} className="block group" data-cursor-text="Read Article" data-cursor-color="#34C759">
                             <div className="bg-bg transition-all active:scale-95 border overflow-hidden hover:shadow-xl transition outline hover:outline-4 outline-2 outline-black">
                                 {blog.media && blog.media.length > 0 && blog.media[0].src ? (
                                     <div className="w-full h-56 overflow-hidden">

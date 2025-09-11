@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 
-const WorkCard = ({ work , sizeBig = false }) => {
+const WorkCard = ({ work, sizeBig = false }) => {
   const [hovered, setHovered] = React.useState(false);
   const [iconHovered, setIconHovered] = React.useState(false);
   if (!work) return null;
@@ -24,6 +24,7 @@ const WorkCard = ({ work , sizeBig = false }) => {
       to={`/work/${work.slug}`}
       className="block group"
       data-cursor-text="Explore"
+      data-cursor-color="#e0ac00ff"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -36,11 +37,9 @@ const WorkCard = ({ work , sizeBig = false }) => {
           src={imgSrc}
           alt={`Image of my project ${work.title}`}
           onError={(e) => (e.currentTarget.src = "https://placehold.co/400x300")}
-          className={`w-full ${heightClass} h-48 object-cover transition-all duration-500 ${
-            hovered && work.videocover ? "opacity-0" : "opacity-100"
-          } ${
-            hovered && !work.videocover ? "scale-[1.04]" : "scale-100"
-          }`}
+          className={`w-full ${heightClass} h-48 object-cover transition-all duration-500 ${hovered && work.videocover ? "opacity-0" : "opacity-100"
+            } ${hovered && !work.videocover ? "scale-[1.04]" : "scale-100"
+            }`}
         />
         {work.videocover && (
           <video
@@ -52,18 +51,18 @@ const WorkCard = ({ work , sizeBig = false }) => {
             playsInline
           />
         )}
-        <div className="absolute bottom-0 right-0 flex flex-row gap-2 items-center">
+        <div id="work-icons-technologies" className="absolute bg-white rounded-br-3xl opacity-80 px-4 top-0 left-0 flex flex-row gap-2 items-center">
           {/* Info boxes */}
           {/* First technology: always visible */}
           {work.technologies && work.technologies[0] && (
-              <div className="bg-white/80 mt-2 px-1 py-0 flex items-center justify-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
+            <div className="bg-white/80 flex items-center justify-center h-[2.2em] min-w-[2.2em] shadow-sm ">
               {(() => {
                 const tech = work.technologies[0];
                 if (/unity/i.test(tech)) {
                   return (
                     <span title="Unity">
                       <img
-                        src={ "./img/icons/unityengine.png"}
+                        src={"./img/icons/unityengine.png"}
                         alt="Unity icon"
                         width={22}
                         height={22}
@@ -77,7 +76,7 @@ const WorkCard = ({ work , sizeBig = false }) => {
                   return (
                     <span title="Unreal Engine">
                       <img
-                        src={ "./img/icons/unrealengine.png"}
+                        src={"./img/icons/unrealengine.png"}
                         alt="Unreal Engine icon"
                         width={22}
                         height={22}
@@ -95,7 +94,7 @@ const WorkCard = ({ work , sizeBig = false }) => {
           )}
           {/* Second technology: hidden on small, visible md+ */}
           {work.technologies && work.technologies[1] && (
-              <div className="hidden md:flex bg-white/80 mt-2 px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
+            <div className="hidden md:flex bg-white/80 items-center h-[2.2em] min-w-[2.2em] shadow-sm ">
               {(() => {
                 const tech = work.technologies[1];
                 if (/unity/i.test(tech)) {
@@ -131,9 +130,9 @@ const WorkCard = ({ work , sizeBig = false }) => {
             </div>
           )}
           {/* Date: only visible on lg+ */}
-          {(work.date && sizeBig ) && (
-              <div className="hidden lg:flex bg-white/80 mt-2 px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
-                <span className="text-base text-black/60 font-semibold px-1" style={{lineHeight: '1.1'}} title="Date">
+          {(work.date && sizeBig) && (
+            <div className="hidden lg:flex bg-white/80  items-center h-[2.2em] min-w-[2.2em] shadow-sm ">
+              <span className="text-base text-black/60 font-semibold px-1" style={{ lineHeight: '1.1' }} title="Date">
                 {(() => {
                   const d = new Date(work.date);
                   return d.toLocaleString('default', { month: 'short', year: 'numeric' });
@@ -142,20 +141,21 @@ const WorkCard = ({ work , sizeBig = false }) => {
             </div>
           )}
           {/* Team size: only visible on lg+ */}
-          {(work.teamSize && sizeBig ) &&  (
-              <div className="hidden lg:flex bg-white/80  px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm border border-white/60">
-                <span className="flex items-center gap-1 text-base text-black/60 font-semibold px-1" style={{lineHeight: '1.1'}} title="Team size">
+          {(work.teamSize && sizeBig) && (
+            <div className="hidden lg:flex bg-white/80  px-1 py-0 items-center h-[2.2em] min-w-[2.2em] shadow-sm ">
+              <span className="flex items-center gap-1 text-base text-black/60 font-semibold px-1" style={{ lineHeight: '1.1' }} title="Team size">
                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path fill="#222" d="M7 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2" /><circle cx="12" cy="7" r="4" fill="#222" /></svg>
                 {work.teamSize}
               </span>
             </div>
           )}
-          <h3 className="bg-white opacity-80 text-black/80 px-4  text-xl rounded-tl-3xl font-semibold group-hover:text-black transition-colors h-[3rem] flex items-center">
+        </div>
+        <div className="absolute bottom-0 right-0 flex flex-row gap-2 items-center">
+          <h3 className="bg-white opacity-80 text-black/80 px-4  text-2xl rounded-tl-3xl font-semibold group-hover:text-black transition-colors h-[3rem] flex items-center">
             {capitalizeFirst(work.title)}
           </h3>
-
         </div>
-  <div className="absolute top-2 left-2 bg-white/70 text-black/80 px-2 py-0.5 text-sm font-semibold group-hover:text-black transition-colors">
+        {/* <div className="absolute top-2 left-2 bg-white/70 text-black/80 px-2 py-0.5 text-sm font-semibold group-hover:text-black transition-colors">
           {work.type && (
             <>
               <img
@@ -175,7 +175,7 @@ const WorkCard = ({ work , sizeBig = false }) => {
             </>
 
           )}
-        </div>
+        </div> */}
 
 
       </div>
