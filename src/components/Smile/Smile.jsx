@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { preloadImages } from "../../utils/imagePreloader";
+import { deviceDetection } from "../../utils/utils";
 
 const Smile = React.memo(() => {
   const location = useLocation();
@@ -48,6 +49,16 @@ const Smile = React.memo(() => {
     "/img/smile-parts/eye-love-sx.svg",
     "/img/smile-parts/mouth.svg"
   ], []);
+
+  // Device-specific scale values
+  const scaleValues = useMemo(() => {
+    const isMobile = deviceDetection.isMobile();
+    return {
+      hover: isMobile ? 0.75 : 0.8,
+      tap: isMobile ? 0.65 : 0.7,
+      inView: isMobile ? 0.7 : 0.75
+    };
+  }, []);
   
 
   const eyeClasses = useMemo(() => ({
@@ -330,14 +341,14 @@ const Smile = React.memo(() => {
       <motion.div ref={constraintsRef} className="fixed top-0 w-full h-dvh pointer-events-none " />
       <motion.div
        
-        whileHover={{ scale: 0.8 }} //8.5
-        whileTap={{ scale: 0.7 }} //7
-        whileInView={{ scale: 0.75 }} //8
+        whileHover={{ scale: scaleValues.hover }}
+        whileTap={{ scale: scaleValues.tap }}
+        whileInView={{ scale: scaleValues.inView }}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
         drag
         dragConstraints={constraintsRef}
-        className="logo__navbar animate-squiggly fixed z-[99998] sm:right-12 sm:top-20 right-[100% - 100px] top-[15rem] flex h-[150px] w-[150px] cursor-pointer "
+        className="logo__navbar animate-squiggly fixed z-[99998] sm:right-12 sm:top-20 right-[1rem] top-[10rem] flex h-[150px] w-[150px] cursor-pointer "
         onClick={handleSmileClick}
      
       >

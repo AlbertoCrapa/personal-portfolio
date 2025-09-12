@@ -1,11 +1,11 @@
 /* Site Variables */
 :root {
-  --color-bg: #E0E0E0;
+  --color-bg: #ECE9E6;
   --color-black: #2D2D2D;
   --color-white: #ffffff;
   --color-gray: #B0B0B0;
   --color-dark-gray: #545454;
-  --color-light-gray: #E0E0E0;
+  --color-light-gray: #ECE9E6;
   --color-primary: #e0ac00;
   --color-secondary: #5129c0;
   --color-accent: #34C759;
@@ -16,7 +16,9 @@
   --color-text: #2D2D2D;
   --color-heading: #1A1A1A;
   --color-border: #E0E0E0;
-
+  
+  /* Default spacing for mobile devices */
+  --spacing: 1.5rem;
 }
 
 /* Hide default cursor completely - DESKTOP WITH FINE POINTER ONLY */

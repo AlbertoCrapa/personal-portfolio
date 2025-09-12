@@ -29,6 +29,7 @@ const Home = () => {
   const navigate = useNavigate();
   const [isAnimationComplete, setIsAnimationComplete] = useState(false);
   const [showCenterAnimation, setShowCenterAnimation] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
   const { hasPlayedInitialAnimation, setHasPlayedInitialAnimation } = useAnimation();
   const facts = require('../../data/facts.json').facts;
 
@@ -65,6 +66,20 @@ const Home = () => {
     }
   }, [hasPlayedInitialAnimation, setHasPlayedInitialAnimation]);
 
+  // Handle scroll position for scroll indicator
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setIsAtTop(scrollTop < 100); // Show indicator when within 100px of top
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
 
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
@@ -74,6 +89,35 @@ const Home = () => {
         keywords="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer"
         url="/"
       />
+
+      {/* Scroll Down Indicator */}
+      <AnimatePresence>
+        {isAtTop && isAnimationComplete && (
+          <motion.div
+            className="fixed bottom-6 right-6 z-50  pointer-events-none"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 0.7, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            <motion.div
+              className="flex flex-col items-center text-gray-dark"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <span className="text-sm md:text-base  script mb-2 whitespace-nowrap">
+                <span className="md:hidden text-xl">Scroll</span>
+                <span className="hidden md:inline text-md">Scroll down</span>
+              </span>
+              <motion.div
+                className="w-0.5 h-2 bg-gray-dark rounded-full"
+                animate={{ scaleY: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {isAnimationComplete && <></>}
 
@@ -130,16 +174,16 @@ const Home = () => {
       </motion.div>
 
       <section
-        className="bg-white rounded-3xl  flex flex-col items-center justify-center w-[calc(100%-var(--spacing))] max-w-[1800px]  mx-auto min-h-[75vh] py-6 rounded-bl-none"
+        className="bg-white md:rounded-3xl md:rounded-bl-none rounded-b-4xl  rounded-b-3xl flex flex-col items-center md:justify-center  justify-start md:w-[calc(100%-var(--spacing))] w-full  max-w-[1800px]  mx-auto min-h-[75vh] py-6 "
         style={{ boxSizing: 'border-box' }}
       >
 
-        <h1 className="min-[532px]:text-9xl text-7xl text-black mr-auto md:ml-12 ml-4 font-serif font-bold mb-2 animate-squiggly">
+        <h1 className="min-[532px]:text-9xl text-7xl text-black mr-auto md:ml-12 ml-4 font-serif font-bold  mt-10  md:mt-8 animate-squiggly">
           {nickname}
         </h1>
         <RotatingText
           texts={facts}
-          mainClassName="md:text-4xl text-2xl text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-6 notranslate"
+          mainClassName="md:text-4xl text-2xl text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-auto notranslate"
           translate="no"
           staggerFrom={"first"}
           initial={{ y: "120%" }}
@@ -151,8 +195,8 @@ const Home = () => {
           rotationInterval={5000}
         />
 
-        <div className="ml-auto md:mr-12 mr-4 px-3">
-          <h2 className="text-5xl serif text-black font-semibold mb-4 mt-2 text-left w-full max-w-2xl ">{fullname}</h2>
+        <div className="ml-auto md:mr-12 mb-4 px-4">
+          <h2 className="md:text-5xl text-3xl serif text-black font-semibold mb-4 mt-2 text-left w-full max-w-2xl ">{fullname}</h2>
           <div className="max-w-2xl w-full mx-auto text-lg text-gray-dark leading-relaxed space-y-2 text-left">
             <RichText text={about.description} />
             {/* <RichText text={about.description2} /> */}
@@ -162,7 +206,7 @@ const Home = () => {
       </section>
 
       {/* Sticky at top when scrolled */}
-      <div className="sticky w-fit ml-[calc(var(--spacing)/2)] py-4 sm:py-4 md:py-6 lg:py-8 left-4 top-4 z-50 ">
+      <div className="sticky w-fit ml-[calc(var(--spacing)/2)] py-16 sm:py-4 md:py-6 lg:py-8 left-4 top-4 z-50 ">
         <FloatingSocialPanel contact={contact} />
       </div>
 

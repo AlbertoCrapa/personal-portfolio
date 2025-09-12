@@ -51,11 +51,11 @@ const BlogPage = () => {
         {blog.media && blog.media.length > 0 && blog.media[0].src ? (
           <img src={blog.media[0].src} alt={blog.title} className="w-full h-72 object-cover rounded-3xl rounded-bl-none mb-8" />
         ) : null}
-        <h1 className="text-5xl font-extrabold mb-2 tracking-tight text-black">{blog.title}</h1>
+        <h1 className="md:text-5xl text-3xl font-extrabold mb-2 tracking-tight text-black">{blog.title}</h1>
         <p className="text-gray-dark text-sm mb-4">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {blog.tags.map((tag) => (
-            <span key={tag} className="bg-gray-light text-gray-dark px-2 py-0.5 rounded text-xs font-semibold">{tag}</span>
+            <span key={tag} className="bg-white text-gray-dark px-2 py-0.5 rounded-xl rounded-bl-none text-xs font-semibold">{tag}</span>
           ))}
         </div>
         {blog.content && blog.content.length > 0 ? (
