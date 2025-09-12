@@ -178,12 +178,12 @@ const Home = () => {
         style={{ boxSizing: 'border-box' }}
       >
 
-        <h1 className="min-[532px]:text-9xl text-7xl text-black mr-auto md:ml-12 ml-4 font-serif font-bold  mt-10  md:mt-8 animate-squiggly">
+        <h1 className="text-7xl min-[532px]:text-9xl 2xl:text-[14rem] text-black mr-auto md:ml-12 ml-4 font-serif font-bold  mt-10  md:mt-8 animate-squiggly">
           {nickname}
         </h1>
         <RotatingText
           texts={facts}
-          mainClassName="md:text-4xl text-2xl text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-auto notranslate"
+          mainClassName="md:text-4xl text-2xl  2xl:text-[3rem]  text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-auto notranslate"
           translate="no"
           staggerFrom={"first"}
           initial={{ y: "120%" }}
@@ -195,9 +195,9 @@ const Home = () => {
           rotationInterval={5000}
         />
 
-        <div className="ml-auto md:mr-12 mb-4 px-4">
-          <h2 className="md:text-5xl text-3xl serif text-black font-semibold mb-4 mt-2 text-left w-full max-w-2xl ">{fullname}</h2>
-          <div className="max-w-2xl w-full mx-auto text-lg text-gray-dark leading-relaxed space-y-2 text-left">
+        <div className="ml-auto md:mr-12 mb-4 2xl:mb-16 2xl:px-20 px-4">
+          <h2 className="text-3xl md:text-5xl serif text-black font-semibold mb-4 mt-2 text-left w-full max-w-2xl ">{fullname}</h2>
+          <div className="max-w-2xl 2xl:max-w-4xl w-full mx-auto text-base md:text-lg 2xl:text-3xl text-gray-dark leading-relaxed space-y-2 text-left">
             <RichText text={about.description} />
             {/* <RichText text={about.description2} /> */}
           </div>
@@ -397,14 +397,18 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.5 }}
+              
+              
             >
               <p className="text-gray-dark mb-8 text-base md:text-lg lg:text-xl leading-relaxed max-w-md">
                 Dive deeper into my creative process with detailed tutorials, behind-the-scenes insights, technical breakdowns, and development stories from my journey as a game developer and creative technologist.
               </p>
               <Button
                 onClick={() => navigate('/blog')}
-                className="px-8 md:px-10 py-4 text-lg md:text-xl w-full max-w-sm"
+                className="px-8 md:px-10 py-4 text-lg md:text-xl w-full max-w-fit"
+               
               >
+  
                 View All Posts
               </Button>
             </motion.div>

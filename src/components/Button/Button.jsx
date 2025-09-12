@@ -10,7 +10,7 @@ const Button = ({ children, onClick, href, className }) => {
     );
   }
   return (
-    <button onClick={onClick} className={`${baseClasses} ${className}`} >
+    <button onClick={onClick} className={`${baseClasses} ${className}`}  >
       {children}
     </button>
   );
