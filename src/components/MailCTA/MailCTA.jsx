@@ -3,8 +3,8 @@ import React from "react";
 const MailCTA = ({ contact }) => (
   <a
     href={`mailto:${contact.email}`}
-  className="block w-full mx-auto py-4 bg-white text-3xl md:text-7xl lg:text-8xl text-black font-medium rounded-xl hover:scale-[1.03] active:scale-[0.95] transition shadow-none hover:shadow-[0_0_40px_20px_rgba(255,255,255,0.1)]"
-    style={{ maxWidth: "100%", wordBreak: "break-word" }}
+    className="inline-block max-w-[900px]  w-full lg:w-4/5 mx-auto px-4 md:px-8 lg:px-14 py-3 md:py-4 lg:py-5 bg-white text-4xl md:text-4xl lg:text-7xl xl:text-7xl 2xl:text-7xl text-black font-medium rounded-bl-none rounded-3xl hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-none hover:shadow-[0_0_60px_30px_rgba(255,255,255,0.1)] text-center"
+    style={{ wordBreak: "keep-all", whiteSpace: "nowrap" }}
     data-cursor-text="Send Email"
     data-cursor-color="#DC2626"
   >

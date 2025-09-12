@@ -28,18 +28,18 @@ const BlogList = () => {
                 <div className="mb-6">
                     <Button  onClick={() => navigate("/")}> &larr; Back to Home </Button>
                 </div>
-                <h1 className="text-5xl font-extrabold mb-2 text-center tracking-tight text-black">Blog</h1>
+                <h1 className="text-5xl serif font-bold mb-2 text-center tracking-tight text-black">Blog</h1>
                 <p className="text-xl text-center mb-10 text-gray-dark italic">More useful than a sticky note, less boring than a technical manual. </p>
                 <div className="grid md:grid-cols-2 gap-10">
                     {data.blogs.map((blog) => (
                         <Link key={blog.slug} to={`/blog/${blog.slug}`} className="block group" data-cursor-text="Read Article" data-cursor-color="#34C759">
-                            <div className="bg-bg transition-all active:scale-95 border overflow-hidden hover:shadow-xl transition outline hover:outline-4 outline-2 outline-black">
+                            <div className="bg-white transition-all active:scale-95 hover:scale-[1.01]  rounded-3xl rounded-bl-none  overflow-hidden transition outline-black">
                                 {blog.media && blog.media.length > 0 && blog.media[0].src ? (
                                     <div className="w-full h-56 overflow-hidden">
                                         <img
                                             src={blog.media[0].src}
                                             alt={blog.title}
-                                            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-110"
+                                            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
                                     </div>
                                 ) : null}
@@ -48,7 +48,7 @@ const BlogList = () => {
                                     <p className="text-gray-dark text-sm mb-2">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
                                     <div className="flex flex-wrap gap-2 mb-2">
                                         {blog.tags.map((tag) => (
-                                            <span key={tag} className="bg-gray-light text-gray-dark px-2 py-0.5 rounded text-xs font-semibold">{tag}</span>
+                                            <span key={tag} className="bg-gray-light text-gray-dark px-2 py-0.5 rounded-xl rounded-bl-none text-xs font-semibold">{tag}</span>
                                         ))}
                                     </div>
                                     <p className="text-black mb-2">{blog.excerpt}</p>

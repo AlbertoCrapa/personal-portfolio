@@ -25,10 +25,10 @@ const BlogPage = () => {
 
   if (!blog) {
     return (
-  <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
-  <h1 className="text-5xl font-extrabold text-gray-dark mb-4">Oops!</h1>
-  <h2 className="text-2xl font-bold text-black mb-2">Blog Not Found</h2>
-  <p className="text-gray-dark mb-8">The blog post you're looking for doesn't exist.</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
+        <h1 className="text-5xl font-extrabold text-gray-dark mb-4">Oops!</h1>
+        <h2 className="text-2xl font-bold text-black mb-2">Blog Not Found</h2>
+        <p className="text-gray-dark mb-8">The blog post you're looking for doesn't exist.</p>
         <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
       </div>
     );
@@ -36,7 +36,7 @@ const BlogPage = () => {
 
   return (
     <>
-      <SEO 
+      <SEO
         title={`${blog.title} - Alberto Crapanzano Blog`}
         description={blog.excerpt || blog.content?.[0]?.text?.substring(0, 160) || `${blog.title} by Alberto Crapanzano - Game Technical Designer & Creative Developer`}
         keywords={`${blog.title}, ${blog.tags?.join(', ') || ''}, Alberto Crapanzano, Game Development, Blog`}
@@ -44,15 +44,15 @@ const BlogPage = () => {
         image={blog.media?.[0]?.src ? `https://albyeah.com${blog.media[0].src}` : "https://albyeah.com/img/profile.jpg"}
         type="article"
       />
-  <div className="container mx-auto px-4 md:py-16 py-8 bg-bg">
+      <div className="container mx-auto px-4 md:py-16 py-8 bg-bg">
         <div className="mb-6">
           <Button onClick={() => navigate("/blog")}> &larr; Back to Blog </Button>
         </div>
         {blog.media && blog.media.length > 0 && blog.media[0].src ? (
-          <img src={blog.media[0].src} alt={blog.title} className="w-full h-72 object-cover rounded mb-8" />
+          <img src={blog.media[0].src} alt={blog.title} className="w-full h-72 object-cover rounded-3xl rounded-bl-none mb-8" />
         ) : null}
-  <h1 className="text-5xl font-extrabold mb-2 tracking-tight text-black">{blog.title}</h1>
-  <p className="text-gray-dark text-sm mb-4">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
+        <h1 className="text-5xl font-extrabold mb-2 tracking-tight text-black">{blog.title}</h1>
+        <p className="text-gray-dark text-sm mb-4">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
         <div className="flex flex-wrap gap-2 mb-4">
           {blog.tags.map((tag) => (
             <span key={tag} className="bg-gray-light text-gray-dark px-2 py-0.5 rounded text-xs font-semibold">{tag}</span>
@@ -70,7 +70,7 @@ const BlogPage = () => {
                     <div className="w-full mb-2 flex justify-center">
                       <MediaWithDescription mediaObj={idx === 1 && mediaObj} size="big" />
                     </div>
-                    <div className="max-w-4xl mx-auto">
+                    <div className="max-w-5xl mx-auto">
                       {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
                       <RichText text={section.text || ""} />
                     </div>
@@ -80,7 +80,7 @@ const BlogPage = () => {
               const hasMedia = mediaObj && mediaObj.src;
               if (!hasMedia) {
                 return (
-                  <div key={idx} className="w-full max-w-4xl mx-auto">
+                  <div key={idx} className="w-full max-w-5xl mx-auto">
                     {section.title && <h3 className="text-2xl font-bold mb-2">{section.title}</h3>}
                     <RichText text={section.text || ""} />
                   </div>
@@ -89,7 +89,7 @@ const BlogPage = () => {
               return (
                 <div
                   key={idx}
-                  className={`flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto ${textOnRight ? "" : "md:flex-row-reverse"}`}
+                  className={`flex flex-col md:flex-row items-center gap-8 max-w-5xl mx-auto ${textOnRight ? "" : "md:flex-row-reverse"}`}
                 >
                   <div className="flex-1 w-full flex flex-col items-center">
                     <MediaWithDescription mediaObj={mediaObj} size="small" />

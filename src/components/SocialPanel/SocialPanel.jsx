@@ -16,7 +16,7 @@ const SocialPanel = ({ contact, className = "" }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className={`flex justify-center mx-auto backdrop-blur-sm border border-gray-dark w-fit ${className}`}
+      className={`flex justify-center mx-auto backdrop-blur-sm rounded-3xl rounded-bl-none bg-gray-10 w-fit ${className}`}
     >
       <div className="flex flex-row p-2 gap-1">
         {socialLinks.map((link, index) => (
@@ -32,7 +32,7 @@ const SocialPanel = ({ contact, className = "" }) => {
               platform={link.platform} 
               url={link.url}
               theme="dark"
-              className="mx-2 text-gray-dark hover:text-white transition-colors hover:bg-white/10 rounded-md transition-all"
+              className="mx-2 hover:bg-white/10 rounded-md transition-all"
             />
           </motion.div>
         ))}

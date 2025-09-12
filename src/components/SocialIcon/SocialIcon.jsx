@@ -46,7 +46,7 @@ const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
           cursorColor: '#333333'
         },
         dark: {
-          base: 'text-gray-300 hover:text-white',
+          base: 'text-gray-400 hover:text-white',
           glow: 'hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]',
           cursorColor: '#333333'
         }
@@ -58,8 +58,8 @@ const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
           cursorColor: '#0A66C2'
         },
         dark: {
-          base: 'text-blue-300 hover:text-blue-400',
-          glow: 'hover:drop-shadow-[0_0_8px_rgba(56,189,248,0.6)]',
+          base: 'text-blue-400 hover:text-blue-300',
+          glow: 'hover:drop-shadow-[0_0_8px_rgba(96,165,250,0.6)]',
           cursorColor: '#0A66C2'
         }
       },
@@ -70,7 +70,7 @@ const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
           cursorColor: '#DC2626'
         },
         dark: {
-          base: 'text-red-300 hover:text-red-400',
+          base: 'text-red-400 hover:text-red-300',
           glow: 'hover:drop-shadow-[0_0_8px_rgba(248,113,113,0.6)]',
           cursorColor: '#DC2626'
         }
@@ -82,7 +82,7 @@ const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
           cursorColor: '#059669'
         },
         dark: {
-          base: 'text-green-300 hover:text-green-400 mr-1',
+          base: 'text-green-400 hover:text-green-300 mr-1',
           glow: 'hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]',
           cursorColor: '#059669'
         }
@@ -94,7 +94,7 @@ const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
           cursorColor: '#059669'
         },
         dark: {
-          base: 'text-green-300 hover:text-green-400',
+          base: 'text-green-400 hover:text-green-300',
           glow: 'hover:drop-shadow-[0_0_8px_rgba(74,222,128,0.6)]',
           cursorColor: '#059669'
         }
@@ -153,8 +153,8 @@ const SocialIcon = ({ platform, url, className = "", theme = "dark" }) => {
     >
       {getIcon(platform)}
       {isCV && (
-        <span className="text-sm font-medium whitespace-nowrap">
-          Resume
+        <span className="text-sm sans font-bold whitespace-nowrap">
+          CV
         </span>
       )}
     </button>

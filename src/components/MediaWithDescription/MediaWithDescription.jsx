@@ -73,7 +73,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
           {/* Fullscreen icon (not for YouTube, and not if disablezoom) */}
           {!isYouTube && hovered && !mediaObj.disablezoom && (
             <button
-              className="absolute left-3 bottom-3 z-20 bg-white/80 hover:bg-white text-zinc-800 rounded-full p-2 shadow-lg transition-all"
+              className="absolute left-3 bottom-3 z-20 bg-white opacity-60 hover:opacity-100 text-zinc-800 rounded-full p-2 shadow-lg transition-all"
               style={{ border: "none", outline: "none", cursor: "pointer" }}
               onClick={() => setFullscreen(true)}
               tabIndex={-1}
@@ -127,12 +127,12 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
       {/* Fullscreen Modal */}
       {fullscreen && !isYouTube && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 animate-fade-in "
-          style={{ backdropFilter: "blur(2px)", position: "fixed" }}
+          className="fixed inset-0 z-50 flex items-center justify-center  animate-fade-in "
+          style={{ backdropFilter: "blur(2px)", position: "fixed", backgroundColor: "rgba(0,0,0,0.7)" }}
         >
           {/* Close button with highest z-index and pointer-events */}
           <button
-            className="absolute top-6 right-8 z-[100] bg-white/90 hover:bg-white text-zinc-900 rounded-full p-2 shadow-lg text-2xl"
+            className="absolute top-6 right-8 z-[100] bg-white opacity-60 hover:opacity-100  text-zinc-900 rounded-full p-2 shadow-lg text-2xl"
             style={{ border: "none", outline: "none", cursor: "pointer", zIndex: 100, pointerEvents: "auto" }}
             onClick={() => setFullscreen(false)}
             aria-label="Close fullscreen"

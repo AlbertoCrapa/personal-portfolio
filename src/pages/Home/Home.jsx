@@ -219,8 +219,8 @@ const Home = () => {
           ease: "easeOut"
         }}
       >
-        <div className="container mx-auto px-4 max-w-screen-xl">
-          <ResponsiveGrid>
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 justify-items-center">
             {Object.values(projects)
               .filter(project => project.important !== true)
               .map((project, index) => (
@@ -234,11 +234,12 @@ const Home = () => {
                     delay: index * 0.1,
                     ease: "easeOut"
                   }}
+                  className="h-full w-full lg:max-w-xs"
                 >
                   <WorkCard work={project} />
                 </motion.div>
               ))}
-          </ResponsiveGrid>
+          </div>
         </div>
       </motion.section>
 
@@ -277,90 +278,93 @@ const Home = () => {
             </motion.p>
           </div>
 
-          {/* Featured Blog Posts */}
-          <div className="flex flex-col md:flex-row justify-center items-stretch mb-8 md:mb-8 gap-6">
-            {blogs.slice(0, 1).map((blog, index) => (
-              <motion.article
-                key={blog.slug}
-                className="bg-gray-light overflow-hidden border shadow-sm hover:shadow-lg transition outline transition-all hover:outline-4 active:scale-95 transition-all duration-300 cursor-pointer group max-w-2xl w-full"
-                onClick={() => navigate(`/blog/${blog.slug}`)}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                whileHover={{ y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                data-cursor-text="Read Article"
-              >
-                <div className="flex flex-col md:flex-row">
-                  {/* Image */}
-                  {blog.media && blog.media[0] && blog.media[0].src && (
-                    <div className="w-full md:w-1/3 min-h-[12rem] md:min-h-[16rem] flex-shrink-0">
-                      <img
-                        src={blog.media[0].src}
-                        alt={blog.title}
-                        className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 rounded-lg"
-                      />
-                    </div>
-                  )}
+          {/* Featured Blog Posts with CTA */}
+          <div className="flex flex-col lg:flex-row justify-center items-stretch mb-8 md:mb-8 gap-6">
+            {/* Blog Post */}
+            <div className="flex-1 max-w-2xl">
+              {blogs.slice(0, 1).map((blog, index) => (
+                <motion.article
+                  key={blog.slug}
+                  className="bg-white overflow-hidden rounded-3xl rounded-bl-none shadow-sm hover:shadow-lg transition  transition-all ] active:scale-95 transition-all duration-300 cursor-pointer group w-full h-full"
+                  onClick={() => navigate(`/blog/${blog.slug}`)}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+                  whileHover={{ scale: 1.01, delay: 0 }}
+                  whileTap={{ scale: 0.98 }}
+                  data-cursor-text="Read Article" data-cursor-color="#34C759"
+                >
+                  <div className="flex flex-col md:flex-row h-full">
+                    {/* Image */}
+                    {blog.media && blog.media[0] && blog.media[0].src && (
+                      <div className="w-full md:w-1/3 min-h-[12rem] md:min-h-[16rem] flex-shrink-0">
+                        <img
+                          src={blog.media[0].src}
+                          alt={blog.title}
+                          className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500 "
+                        />
+                      </div>
+                    )}
 
-                  {/* Content */}
-                  <div className={`p-6 md:p-8 flex flex-col justify-between ${blog.media && blog.media[0] && blog.media[0].src ? 'md:w-2/3' : 'w-full'}`}>
-                    <div className="flex flex-wrap gap-1 mb-3">
-                      {blog.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="text-xs font-medium bg-gray-light text-gray-dark px-2 py-1 rounded"
-                        >
-                          {tag}
+                    {/* Content */}
+                    <div className={`p-6 md:p-8 flex flex-col justify-between ${blog.media && blog.media[0] && blog.media[0].src ? 'md:w-2/3' : 'w-full'}`}>
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {blog.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag}
+                            className="text-xs font-medium bg-gray-light text-gray-dark px-2 py-1 rounded"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <h3 className="text-lg md:text-xl font-bold mb-3 text-black group-hover:text-blue-700 transition-colors line-clamp-2">
+                        {blog.title}
+                      </h3>
+
+                      <p className="text-sm md:text-base text-gray-dark mb-4 line-clamp-3">
+                        {blog.excerpt}
+                      </p>
+
+                      <div className="flex items-center justify-between">
+                        <time className="text-xs md:text-sm text-gray-dark">
+                          {new Date(blog.date).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}
+                        </time>
+                        <span className="text-blue-600 text-sm font-medium transition-transform">
+                          Read more →
                         </span>
-                      ))}
-                    </div>
-
-                    <h3 className="text-lg md:text-xl font-bold mb-3 text-black group-hover:text-blue-700 transition-colors line-clamp-2">
-                      {blog.title}
-                    </h3>
-
-                    <p className="text-sm md:text-base text-gray-dark mb-4 line-clamp-3">
-                      {blog.excerpt}
-                    </p>
-
-                    <div className="flex items-center justify-between">
-                      <time className="text-xs md:text-sm text-gray-dark">
-                        {new Date(blog.date).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}
-                      </time>
-                      <span className="text-blue-600 text-sm font-medium transition-transform">
-                        Read more →
-                      </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                </motion.article>
+              ))}
+            </div>
 
-          {/* Call to Action */}
-          <motion.div
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-          >
-            <p className="text-gray-dark mb-6 text-sm md:text-base">
-              Explore more tutorials, insights, and development stories
-            </p>
-            <Button
-              onClick={() => navigate('/blog')}
-              className="px-6 md:px-8 py-3 text-base md:text-lg w-full max-w-xs mx-auto"
+            {/* Call to Action - Right side on desktop, below on mobile */}
+            <motion.div
+              className="flex flex-col justify-center items-center lg:items-start text-center lg:text-left lg:max-w-sm xl:max-w-md lg:flex-shrink-0 lg:ml-8 xl:ml-12 mt-8 lg:mt-0"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.5 }}
             >
-              View All Posts
-            </Button>
-          </motion.div>
+              <p className="text-gray-dark mb-8 text-base md:text-lg lg:text-xl leading-relaxed max-w-md">
+                Dive deeper into my creative process with detailed tutorials, behind-the-scenes insights, technical breakdowns, and development stories from my journey as a game developer and creative technologist.
+              </p>
+              <Button
+                onClick={() => navigate('/blog')}
+                className="px-8 md:px-10 py-4 text-lg md:text-xl w-full max-w-sm"
+              >
+                View All Posts
+              </Button>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 
@@ -375,13 +379,16 @@ const Home = () => {
           ease: "easeOut"
         }}
       >
-        <div className="container max-w-3xl mx-auto px-4 text-center">
+        <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-semibold mb-6 text-gray-light">Get In Touch</h2>
-          <MailCTA contact={contact} />
+          <div className="mb-8">
+            <MailCTA contact={contact} />
+          </div>
 
           {/* Social Panel - Normal positioned variant */}
-          <SocialPanel contact={contact} className="mt-8 mb-8" />
-
+          <div className="max-w-3xl mx-auto">
+            <SocialPanel contact={contact} className="mt-8 mb-8" />
+          </div>
         </div>
 
         <p className="w-fit mx-auto bottom-0 pt-8 text-gray DEFAULT ">

@@ -18,8 +18,8 @@ const FloatingSocialPanel = ({ contact }) => {
       const documentHeight = document.documentElement.scrollHeight;
       
       // Responsive bottom offset based on viewport height
-      const bottomOffset = Math.max(100, viewportHeight * 0.15); // 15% of viewport or 100px minimum
-      setIsVisible(scrollY < (documentHeight - viewportHeight - bottomOffset));
+      // const bottomOffset = Math.max(100, viewportHeight * 0.15); // 15% of viewport or 100px minimum
+      // setIsVisible(scrollY < (documentHeight - viewportHeight - bottomOffset));
 
       if (!panelRef.current) return;
       const rect = panelRef.current.getBoundingClientRect();
@@ -74,10 +74,10 @@ const FloatingSocialPanel = ({ contact }) => {
         >
           <AnimatePresence>
             <motion.div
-              initial={{ y: 100, opacity: 0 }}
+              initial={{ y: 50, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 100, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 35, duration: 0.5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 35, duration: 0.2 }}
             >
               <div className="flex flex-row gap-2 ">
                 {socialLinks.map((link, index) => (

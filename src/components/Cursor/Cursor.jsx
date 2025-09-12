@@ -1,21 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useSpring, useMotionValue } from 'framer-motion';
+import { deviceDetection } from '../../utils/utils';
 
 const Cursor = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [hoverText, setHoverText] = useState('');
     const [hoverColor, setHoverColor] = useState('');
     const [isHovering, setIsHovering] = useState(false);
+    const [shouldShowCursor, setShouldShowCursor] = useState(false);
     const cursorRef = useRef(null);
     
     // Smooth spring values for cursor movement
-    const springConfig = { damping: 36, stiffness: 600 };
+    const springConfig = { damping: 40, stiffness: 1000 };
     const x = useMotionValue(0);
     const y = useMotionValue(0);
     const smoothX = useSpring(x, springConfig);
     const smoothY = useSpring(y, springConfig);
 
     useEffect(() => {
+        // Check if device should use custom cursor
+        const checkCursorSupport = () => {
+            return deviceDetection.shouldUseCustomCursor();
+        };
+
+        setShouldShowCursor(checkCursorSupport());
+
+        // If device doesn't support custom cursor, don't set up cursor events
+        if (!checkCursorSupport()) {
+            return;
+        }
+
         const updatePosition = (e) => {
             x.set(e.clientX);
             y.set(e.clientY);
@@ -71,14 +85,26 @@ const Cursor = () => {
         document.addEventListener('mouseover', handleMouseOver);
         document.addEventListener('mousedown', handleMouseDown);
 
+        // Handle window resize to check if device changes
+        const handleResize = () => {
+            setShouldShowCursor(checkCursorSupport());
+        };
+        window.addEventListener('resize', handleResize);
+
         return () => {
             document.removeEventListener('mousemove', updatePosition);
             document.removeEventListener('mouseleave', handleMouseLeave);
             document.removeEventListener('mouseenter', handleMouseEnter);
             document.removeEventListener('mouseover', handleMouseOver);
             document.removeEventListener('mousedown', handleMouseDown);
+            window.removeEventListener('resize', handleResize);
         };
     }, [isVisible, x, y]);
+
+    // Don't render anything on mobile/tablet or devices without hover support
+    if (!shouldShowCursor) {
+        return null;
+    }
 
     return (
         <motion.div
