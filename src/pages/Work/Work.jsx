@@ -47,6 +47,7 @@ const Work = () => {
           autoPlay
           loop
           muted
+          playsInline
           className={`${baseClasses} ${aspectClasses}`}
           onError={(e) => console.error("Failed to load video:", mediaObj.src)}
         >
@@ -254,7 +255,7 @@ const Work = () => {
       </div>
       {/* <Footer contact={data.contact} showMailCTA={false} /> */}
       <section id="contact" className=" py-0 pt-0   ">
-  <p className="w-fit mx-auto bottom-0 pt-8 text-gray-dark ">
+  <p className="w-fit mx-auto bottom-0 pt-8 text-gray-dark text-xl">
           © 2025 Alberto Crapanzano. All rights reserved.
         </p>
       </section>

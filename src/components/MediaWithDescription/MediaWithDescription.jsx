@@ -100,6 +100,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
               autoPlay
               loop
               muted
+              playsInline
               className={`w-full h-full object-cover `}
               style={{ minHeight, background: "#222" }}
               onLoadedData={() => setLoading(false)}
@@ -147,6 +148,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
                 autoPlay
                 loop
                 muted
+                playsInline
                 controls
                 className="object-contain rounded "
                 style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}

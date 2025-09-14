@@ -338,7 +338,7 @@ const Smile = React.memo(() => {
 
   return (
     <>
-      <motion.div ref={constraintsRef} className="fixed top-0 w-full h-dvh pointer-events-none " />
+      <motion.div ref={constraintsRef} className="fixed top-0 w-full h-svh pointer-events-none " />
       <motion.div
        
         whileHover={{ scale: scaleValues.hover }}

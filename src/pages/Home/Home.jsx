@@ -19,6 +19,7 @@ import { useAnimation } from "../../contexts/AnimationContext";
 import { useNavigate } from "react-router-dom";
 import SEO from "../../components/SEO/SEO";
 import FloatingSocialPanel from "../../components/FloatingSocialPanel/FloatingSocialPanel";
+import Footer from "../../components/Footer/Footer";
 
 
 
@@ -94,7 +95,7 @@ const Home = () => {
       <AnimatePresence>
         {isAtTop && isAnimationComplete && (
           <motion.div
-            className="fixed bottom-6 right-6 z-50  pointer-events-none"
+            className="fixed bottom-6 right-6 z-999  pointer-events-none"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 0.7, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -205,8 +206,8 @@ const Home = () => {
 
       </section>
 
-      {/* Sticky at top when scrolled */}
-      <div className="sticky w-fit ml-[calc(var(--spacing)/2)] py-16 sm:py-4 md:py-6 lg:py-8 left-4 top-4 z-50 ">
+      {/* Sticky Social Panel */}
+      <div className="sticky  top-0 mt-12 md:mt-1 left-4 md:left-[calc(var(--spacing)/2)] z-50 w-fit py-4 md:py-6 lg:py-8 pointer-events-none">
         <FloatingSocialPanel contact={contact} />
       </div>
 
@@ -380,9 +381,7 @@ const Home = () => {
                             year: 'numeric'
                           })}
                         </time>
-                        <span className="text-blue-600 text-sm font-medium transition-transform">
-                          Read more →
-                        </span>
+                     
                       </div>
                     </div>
                   </div>
@@ -405,8 +404,8 @@ const Home = () => {
               </p>
               <Button
                 onClick={() => navigate('/blog')}
-                className="px-8 md:px-10 py-4 text-lg md:text-xl w-full max-w-fit"
-               
+                className="px-8 md:px-8 py-3 text-lg md:text-xl w-full max-w-fit"
+                dataCursorText="Click"
               >
   
                 View All Posts
@@ -416,33 +415,11 @@ const Home = () => {
         </div>
       </motion.section>
 
-      <motion.section
-        id="contact"
-        className="py-4 pt-32 bg-black"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{
-          duration: 0.4,
-          delay: hasPlayedInitialAnimation ? 0.6 : 1.1,
-          ease: "easeOut"
-        }}
-      >
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-semibold mb-6 text-gray-light">Get In Touch</h2>
-          <div className="mb-8">
-            <MailCTA contact={contact} />
-          </div>
 
-          {/* Social Panel - Normal positioned variant */}
-          <div className="max-w-3xl mx-auto">
-            <SocialPanel contact={contact} className="mt-8 mb-8" />
-          </div>
-        </div>
+      <Footer contact={contact} MailCTAComponent={MailCTA}/>
 
-        <p className="w-fit mx-auto bottom-0 pt-8 text-gray DEFAULT ">
-          © 2025 Alberto Crapanzano. All rights reserved.
-        </p>
-      </motion.section>
+    
+
     </div>
 
   );

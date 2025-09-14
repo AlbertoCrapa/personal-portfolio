@@ -18,7 +18,7 @@ const SocialPanel = ({ contact, className = "" }) => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`flex justify-center mx-auto backdrop-blur-sm rounded-3xl rounded-bl-none bg-gray-10 w-fit ${className}`}
     >
-      <div className="flex flex-row p-2 gap-1">
+      <div className="flex flex-row px-2 py-1 md:gap-1 gap-0">
         {socialLinks.map((link, index) => (
           <motion.div
             key={link.platform}
