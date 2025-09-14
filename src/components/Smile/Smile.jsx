@@ -15,6 +15,7 @@ const Smile = React.memo(() => {
   const [canFollowMouse, setCanFollowMouse] = useState(true);
   const [draggingTime, setDraggingTime] = useState(0);
   const [draggingInterval, setDraggingInterval] = useState(null);
+  const [lastShakeTime, setLastShakeTime] = useState(0);
   
 
   // usePerformanceMonitor('Smile', { 
@@ -178,7 +179,7 @@ const Smile = React.memo(() => {
       // return newClicks;
     });
     faceHurt();
-  }, [displaySmileText, faceHurt]);
+  }, [ faceHurt]);
 
   const handleDragStart = useCallback(() => {
     setDraggingTime(0);
@@ -194,6 +195,41 @@ const Smile = React.memo(() => {
     setDraggingInterval(null);
     //console.log(`Dragging time: ${draggingTime} seconds`);
   }, [draggingInterval, draggingTime]);
+
+  // Shake detection for mobile devices
+  const handleDeviceMotion = useCallback((event) => {
+    if (!deviceDetection.isMobile()) return;
+    
+    const { accelerationIncludingGravity } = event;
+    if (!accelerationIncludingGravity) return;
+    
+    const { x, y, z } = accelerationIncludingGravity;
+    const acceleration = Math.sqrt(x * x + y * y + z * z);
+    
+    // Detect shake if acceleration is above threshold (around 15-20 for good shake detection)
+    const shakeThreshold = 15;
+    const now = Date.now();
+    
+    // Prevent multiple shake detections within 2 seconds
+    if (acceleration > shakeThreshold && now - lastShakeTime > 2000) {
+      setLastShakeTime(now);
+      displaySmileText("Don't shake so hard");
+    }
+  }, [lastShakeTime, displaySmileText]);
+
+  // Request permission for iOS 13+ devices
+  const requestMotionPermission = useCallback(async () => {
+    if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
+      try {
+        const permission = await DeviceMotionEvent.requestPermission();
+        return permission === 'granted';
+      } catch (error) {
+        console.warn('Device motion permission denied:', error);
+        return false;
+      }
+    }
+    return true; // For Android and older iOS versions
+  }, []);
 
 
   useEffect(() => {
@@ -214,6 +250,24 @@ const Smile = React.memo(() => {
     const blinkTimer = setInterval(handleBlink, blinkInterval);
     return () => clearInterval(blinkTimer);
   }, [canBlink, isHurt, handleBlink, imagesLoaded]);
+
+  // Set up shake detection for mobile devices
+  useEffect(() => {
+    if (!deviceDetection.isMobile()) return;
+    
+    const setupShakeDetection = async () => {
+      const hasPermission = await requestMotionPermission();
+      if (hasPermission) {
+        window.addEventListener('devicemotion', handleDeviceMotion, { passive: true });
+      }
+    };
+    
+    setupShakeDetection();
+    
+    return () => {
+      window.removeEventListener('devicemotion', handleDeviceMotion);
+    };
+  }, [handleDeviceMotion, requestMotionPermission]);
 
 
   const handleMouseEnter = useCallback((e) => {
