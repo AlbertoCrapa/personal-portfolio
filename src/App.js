@@ -13,6 +13,7 @@ import BlogPage from "./pages/Blog/BlogPage";
 import Smile from "./components/Smile/Smile";
 import Simple404 from "./pages/NotFound/Simple404";
 import { AnimationProvider } from "./contexts/AnimationContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import Cursor from "./components/Cursor/Cursor";
 
 
@@ -20,19 +21,21 @@ import Cursor from "./components/Cursor/Cursor";
 
 function App() {
   return (
-    <AnimationProvider>
-      <Cursor />
-      <Smile />
+    <ThemeProvider>
+      <AnimationProvider>
+        <Cursor />
+        <Smile />
 
-   
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/work/:slug" element={<Work />} />
-        <Route path="/blog" element={<BlogList />} />
-        <Route path="/blog/:slug" element={<BlogPage />} />
-        <Route path="*" element={<Simple404 />} />
-      </Routes>
-    </AnimationProvider>
+     
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/work/:slug" element={<Work />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPage />} />
+          <Route path="*" element={<Simple404 />} />
+        </Routes>
+      </AnimationProvider>
+    </ThemeProvider>
   );
 }
 

@@ -30,7 +30,7 @@ const WorkCard = ({ work, sizeBig = false }) => {
     >
       <div
         {...(work.favourite ? { "data-smile-loving": true } : {})}
-        className={"relative overflow-hidden shadow-sm hover:shadow-lg rounded-3xl rounded-bl-none transition e transition-all hover:outline-4 hover:scale-[1.01] active:scale-95"}
+        className={"relative overflow-hidden shadow-sm md:hover:shadow-lg rounded-xl md:rounded-2xl md:rounded-bl-none rounded-bl-none transition  transition-all hover:outline-4 hover:scale-[1.02] active:scale-95"}
         style={{ ...shadowStyle, backgroundColor: "rgba(255,255,255,0.7)" }}
       >
         <img
@@ -51,7 +51,7 @@ const WorkCard = ({ work, sizeBig = false }) => {
             playsInline
           />
         )}
-        <div id="work-icons-technologies" className="absolute bg-white rounded-br-3xl opacity-80 px-4 top-0 left-0 flex flex-row gap-2 items-center">
+        <div id="work-icons-technologies" className="absolute bg-white rounded-br-xl md:rounded-br-3xl origin-top-left scale-[0.8] md:scale-[0.9] opacity-80 px-4 top-0 left-0 flex flex-row gap-2 items-center">
           {/* Info boxes */}
           {/* First technology: always visible */}
           {work.technologies && work.technologies[0] && (
@@ -151,7 +151,7 @@ const WorkCard = ({ work, sizeBig = false }) => {
           )}
         </div>
         <div className="absolute bottom-0 right-0 flex flex-row gap-2 items-center">
-          <h3 className="bg-white opacity-80 text-black/80 px-4  text-2xl rounded-tl-3xl font-semibold group-hover:text-black transition-colors h-[3rem] flex items-center">
+          <h3 className="bg-white opacity-80 text-black/80 px-5 h-[2.3rem]  md:h-[3rem]  md:px-4 text-xl  md:text-2xl rounded-tl-2xl md:rounded-tl-3xl font-semibold group-hover:text-black transition-colors flex items-center">
             {capitalizeFirst(work.title)}
           </h3>
         </div>

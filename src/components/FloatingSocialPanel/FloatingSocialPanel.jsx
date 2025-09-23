@@ -13,7 +13,7 @@ const FloatingSocialPanel = ({ contact }) => {
   ].filter((link) => link.url);
 
   return (
-    <div className="bg-white rounded-2xl rounded-bl-none pointer-events-auto shadow-sm">
+    <div className="bg-white rounded-xl md:rounded-2xl rounded-bl-none pointer-events-auto shadow-sm">
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

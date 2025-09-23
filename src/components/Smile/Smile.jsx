@@ -206,14 +206,14 @@ const Smile = React.memo(() => {
     const { x, y, z } = accelerationIncludingGravity;
     const acceleration = Math.sqrt(x * x + y * y + z * z);
     
-    // Detect shake if acceleration is above threshold (around 15-20 for good shake detection)
-    const shakeThreshold = 15;
+    // Detect shake if acceleration is above threshold (higher threshold for less sensitivity)
+    const shakeThreshold = 20;
     const now = Date.now();
     
-    // Prevent multiple shake detections within 2 seconds
+    // Prevent multiple shake detections within 1 second
     if (acceleration > shakeThreshold && now - lastShakeTime > 2000) {
       setLastShakeTime(now);
-      displaySmileText("Don't shake so hard");
+      //displaySmileText("Don't shake so hard");
     }
   }, [lastShakeTime, displaySmileText]);
 

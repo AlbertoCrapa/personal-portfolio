@@ -56,7 +56,7 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
     <>
       <div className={`w-full flex flex-col  items-center ${className}`}>
         <div
-          className={`w-full flex justify-center items-center bg-zinc-900 rounded shadow-lg relative group rounded-[26px] rounded-bl-none overflow-hidden `}
+          className={`w-full flex justify-center items-center bg-zinc-900 rounded-xl md:rounded-2xl shadow-lg relative group rounded-[26px] rounded-bl-none md:rounded-bl-none overflow-hidden `}
           style={{ aspectRatio, minHeight, maxHeight, position: "relative" }}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
@@ -150,14 +150,14 @@ const MediaWithDescription = ({ mediaObj, size = "small", className = "" }) => {
                 muted
                 playsInline
                 controls
-                className="object-contain rounded "
+                className="object-contain rounded-xl md:rounded-2xl "
                 style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}
               />
             ) : (
               <img
                 src={mediaObj.src}
                 alt={mediaObj.alt || `media`}
-                className="object-contain rounded "
+                className="object-contain rounded-xl md:rounded-2xl "
                 style={{ background: "#222", maxHeight: "98vh", maxWidth: "98vw", width: "auto", height: "auto", display: "block", margin: "auto", zIndex: 10 }}
               />
             )}

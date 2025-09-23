@@ -11,6 +11,7 @@ import WorkCard from "../../components/WorkCard/WorkCard";
 import MailCTA from "../../components/MailCTA/MailCTA";
 import Button from "../../components/Button/Button";
 import SocialPanel from "../../components/SocialPanel/SocialPanel";
+import ThemeToggle from "../../components/ThemeToggle/ThemeToggle";
 import { useState } from "react";
 import SplitTextAnim from "../../utils/ReactBits/SplitText/SplitText";
 import RotatingText from "../../utils/RotatingText/RotatingText";
@@ -95,7 +96,7 @@ const Home = () => {
       <AnimatePresence>
         {isAtTop && isAnimationComplete && (
           <motion.div
-            className="fixed bottom-6 right-6 z-999  pointer-events-none"
+            className="fixed bottom-6 right-6 md:right-12 2xl:right-18  z-999  pointer-events-none"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 0.7, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -172,6 +173,16 @@ const Home = () => {
         transition={{ duration: 0.4, delay: hasPlayedInitialAnimation ? 0 : 0.6, ease: "easeInOut" }}
       >
         <Navbar cont={contact} />
+        
+        {/* Theme Toggle Button */}
+          {/* <motion.div
+            className="fixed top-6 right-6 md:top-8 md:right-8 z-50"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: hasPlayedInitialAnimation ? 0.2 : 0.8, ease: "easeOut" }}
+          >
+            <ThemeToggle />
+          </motion.div> */}
       </motion.div>
 
       <section
@@ -184,14 +195,14 @@ const Home = () => {
         </h1>
         <RotatingText
           texts={facts}
-          mainClassName="md:text-4xl text-2xl  2xl:text-[3rem]  text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-auto notranslate"
+          mainClassName="md:text-4xl text-2xl  2xl:text-[3rem] mt-1 text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-auto notranslate"
           translate="no"
           staggerFrom={"first"}
-          initial={{ y: "120%" }}
+          initial={{ y: "125%" }}
           animate={{ y: 0 }}
-          exit={{ y: "-120%" }}
+          exit={{ y: "-125%" }}
           staggerDuration={0.025}
-          splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+          splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 xl:pb-2 2xl:pb-2.5"
           transition={{ type: "spring", damping: 30, stiffness: 400 }}
           rotationInterval={5000}
         />
@@ -207,14 +218,14 @@ const Home = () => {
       </section>
 
       {/* Sticky Social Panel */}
-      <div className="sticky  top-0 mt-12 md:mt-1 left-4 md:left-[calc(var(--spacing)/2)] z-50 w-fit py-4 md:py-6 lg:py-8 pointer-events-none">
+      <div className="sticky  top-0 mt-12 md:mt-1  2xl:mt-12 left-4 md:left-[calc(var(--spacing)/2)] z-10 w-fit py-4 md:py-6 lg:py-8 pointer-events-none">
         <FloatingSocialPanel contact={contact} />
       </div>
 
 
       <motion.section
         id="projects"
-        className="py-16"
+        className="md:pb-16 md:pt-16  pt-28  pb-8"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -291,8 +302,8 @@ const Home = () => {
       {/* Blog Section */}
       <motion.section
         id="blog"
-        className="py-8 md:py-2 pb-16 md:pb-32 bg-bg"
-        initial={{ opacity: 0, y: 50 }}
+        className="py-28 md:py-2 pb-16 md:pb-32 bg-bg"
+        initial={{ opacity: 0, y: 0 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{
@@ -330,7 +341,7 @@ const Home = () => {
               {blogs.slice(0, 1).map((blog, index) => (
                 <motion.article
                   key={blog.slug}
-                  className="bg-white overflow-hidden rounded-3xl rounded-bl-none shadow-sm hover:shadow-lg transition  transition-all ] active:scale-95 transition-all duration-300 cursor-pointer group w-full h-full"
+                  className="bg-white overflow-hidden rounded-xl md:rounded-2xl md:rounded-bl-none rounded-bl-none shadow-sm  transition  transition-all ] active:scale-95 transition-all duration-300 cursor-pointer group w-full h-full"
                   onClick={() => navigate(`/blog/${blog.slug}`)}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import projectData from "../../data/projects.json";
 import Button from "../../components/Button/Button";
+import ThemeToggle from "../../components/ThemeToggle/ThemeToggle";
+import data from "../../data/data.json";
 import LinkButton from "../../components/Button/LinkButton";
 import SplitText from "../../utils/ReactBits/SplitText/SplitText";
 import { motion } from "framer-motion";
@@ -254,16 +256,13 @@ const Work = () => {
         </Button>
       </div>
       {/* <Footer contact={data.contact} showMailCTA={false} /> */}
-      <section id="contact" className=" py-0 pt-0   ">
-  <p className="w-fit mx-auto bottom-0 pt-8 text-gray-dark text-xl">
-          © 2025 Alberto Crapanzano. All rights reserved.
-        </p>
-      </section>
 
 
+         
 
 
     </motion.div>
+    <Footer contact={data.contact}  />
     </>
   );
 };

@@ -32,7 +32,7 @@ const Simple404 = () => {
                     </Link>
                     <button
                         onClick={() => window.history.back()}
-                        className="border cursor-pointer border-black text-black px-6 py-[0.3rem] hover:bg-black hover:text-white transition-colors"
+                        className="border cursor-pointer rounded-2xl border-black text-black px-6 py-[0.3rem] hover:bg-black hover:text-white transition-colors"
                     >
                         Go Back
                     </button>

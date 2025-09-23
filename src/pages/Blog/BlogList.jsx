@@ -3,9 +3,11 @@ import data from "../../data/blog.json";
 import { Link, useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button/Button";
+import ThemeToggle from "../../components/ThemeToggle/ThemeToggle";
 import Footer from "../../components/Footer/Footer";
 import dataMain from "../../data/data.json";
 import SEO from "../../components/SEO/SEO";
+import { motion } from "framer-motion";
 
 
 const BlogList = () => {
@@ -25,6 +27,16 @@ const BlogList = () => {
                 url="/blog"
             />
             <div className="container mx-auto px-4 md:py-16 py-8 bg-bg">
+                {/* Theme Toggle */}
+                <motion.div
+                    className="fixed top-6 right-6 md:top-8 md:right-8 z-50"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+                >
+                    <ThemeToggle />
+                </motion.div>
+                
                 <div className="mb-6">
                     <Button  onClick={() => navigate("/")}> &larr; Back to Home </Button>
                 </div>
@@ -59,7 +71,7 @@ const BlogList = () => {
                     ))}
                 </div>
             </div>
-            <Footer contact={dataMain.contact} showMailCTA={false} />
+            <Footer contact={dataMain.contact}  />
         </>
     );
 };
