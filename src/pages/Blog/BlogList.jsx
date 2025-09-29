@@ -21,9 +21,9 @@ const BlogList = () => {
     return (
         <>
             <SEO 
-                title="Blog - Alberto Crapanzano"
-                description="Game development tutorials, insights, and project updates by Alberto Crapanzano - Game Technical Designer & Creative Developer"
-                keywords="Game Development Blog, Unity, Unreal Engine, C++, Technical Design, Alberto Crapanzano"
+                title="Blog - Alberto Crapanzano | Game Development Tutorials & Insights"
+                description="Game development insights, and project updates by Alberto Crapanzano (Albyeah) - Game Technical Designer & Creative Developer specializing in Unity, Unreal Engine, and technical game design."
+                keywords="Game Development Blog, Unity, Unreal Engine, C++, Technical Design, Alberto Crapanzano, Albyeah, Game Developer Milan"
                 url="/blog"
             />
             <div className="container mx-auto px-4 md:py-16 py-8 bg-bg">

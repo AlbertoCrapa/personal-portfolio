@@ -105,9 +105,9 @@ const Work = () => {
   return (
     <>
       <SEO 
-        title={`${project?.title || 'Project'} - Alberto Crapanzano`}
-        description={project?.content?.[0]?.text?.substring(0, 160) || `${project?.title || 'Project'} by Alberto Crapanzano - Game Technical Designer & Creative Developer`}
-        keywords={`${project?.title}, ${project?.technologies?.join(', ') || ''}, Alberto Crapanzano, Game Development, ${project?.type || ''}`}
+        title={`${project?.title || 'Project'} - Alberto Crapanzano | Game Developer Portfolio`}
+        description={project?.content?.[0]?.text?.substring(0, 160) || `${project?.title || 'Project'} by Alberto Crapanzano - Game Technical Designer & Creative Developer specializing in ${project?.type || 'game development'}`}
+        keywords={`${project?.title}, ${project?.technologies?.join(', ') || ''}, Alberto Crapanzano, Albyeah, Game Development, ${project?.type || ''}, Unity, Unreal Engine`}
         url={`/work/${slug}`}
         image={project?.cover ? `https://albyeah.com${project.cover}` : "https://albyeah.com/img/profile.jpg"}
         type="article"

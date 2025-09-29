@@ -39,9 +39,9 @@ const BlogPage = () => {
   return (
     <>
       <SEO
-        title={`${blog.title} - Alberto Crapanzano Blog`}
-        description={blog.excerpt || blog.content?.[0]?.text?.substring(0, 160) || `${blog.title} by Alberto Crapanzano - Game Technical Designer & Creative Developer`}
-        keywords={`${blog.title}, ${blog.tags?.join(', ') || ''}, Alberto Crapanzano, Game Development, Blog`}
+        title={`${blog.title} - Alberto Crapanzano Blog | Game Developer`}
+        description={blog.excerpt || blog.content?.[0]?.text?.substring(0, 160) || `${blog.title} by Alberto Crapanzano (Albyeah) - Game Technical Designer & Creative Developer sharing insights on game development, Unity, and Unreal Engine.`}
+        keywords={`${blog.title}, ${blog.tags?.join(', ') || ''}, Alberto Crapanzano, Albyeah, Game Development, Blog, Unity, Unreal Engine`}
         url={`/blog/${slug}`}
         image={blog.media?.[0]?.src ? `https://albyeah.com${blog.media[0].src}` : "https://albyeah.com/img/profile.jpg"}
         type="article"

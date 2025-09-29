@@ -86,10 +86,11 @@ const Home = () => {
   return (
     <div className="min-h-screen flex flex-col overscroll-none">
       <SEO
-        title="Alberto Crapanzano - Game Technical Designer & Creative Developer"
-        description="Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences."
-        keywords="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer"
+        title="Alberto Crapanzano - Game Technical Designer & Creative Developer | Albyeah Portfolio"
+        description="Alberto Crapanzano (Albyeah) is a Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Expert in Unity, Unreal Engine, and innovative digital experiences."
+        keywords="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer, Alberto, Crapanzano"
         url="/"
+        isHomepage={true}
       />
 
       {/* Scroll Down Indicator */}
@@ -190,9 +191,9 @@ const Home = () => {
         style={{ boxSizing: 'border-box' }}
       >
 
-        <h1 className="text-7xl min-[532px]:text-9xl 2xl:text-[14rem] text-black mr-auto md:ml-12 ml-4 font-serif font-bold  mt-10  md:mt-8 animate-squiggly">
+        <h2 className="text-7xl min-[532px]:text-9xl 2xl:text-[14rem] text-black mr-auto md:ml-12 ml-4 font-serif font-bold  mt-10  md:mt-8 animate-squiggly">
           {nickname}
-        </h1>
+        </h2>
         <RotatingText
           texts={facts}
           mainClassName="md:text-4xl text-2xl  2xl:text-[3rem] mt-1 text-gray-dark script mr-auto md:ml-12 ml-4 opacity-50 mb-auto notranslate"
@@ -208,7 +209,7 @@ const Home = () => {
         />
 
         <div className="ml-auto md:mr-12 mb-4 2xl:mb-16 2xl:px-20 px-4">
-          <h2 className="text-3xl md:text-5xl serif text-black font-semibold mb-4 mt-2 text-left w-full max-w-2xl ">{fullname}</h2>
+          <h1 className="text-3xl md:text-5xl serif text-black font-semibold mb-4 mt-2 text-left w-full max-w-2xl ">{fullname}</h1>
           <div className="max-w-2xl 2xl:max-w-4xl w-full mx-auto text-base md:text-lg 2xl:text-3xl text-gray-dark leading-relaxed space-y-2 text-left">
             <RichText text={about.description} />
             {/* <RichText text={about.description2} /> */}
@@ -221,7 +222,6 @@ const Home = () => {
       <div className="sticky  top-0 mt-12 md:mt-1  2xl:mt-12 left-4 md:left-[calc(var(--spacing)/2)] z-10 w-fit py-4 md:py-6 lg:py-8 pointer-events-none">
         <FloatingSocialPanel contact={contact} />
       </div>
-
 
       <motion.section
         id="projects"
