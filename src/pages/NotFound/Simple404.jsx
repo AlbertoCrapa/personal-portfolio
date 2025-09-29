@@ -1,11 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SplitText from "../../utils/ReactBits/SplitText/SplitText";
+import SEO from "../../components/SEO/SEO";
 
 const Simple404 = () => {
     return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
-            <div className="text-center">
+    <>
+        <SEO 
+            title="404 - Page Not Found | Alberto Crapanzano"
+            description="The page you're looking for doesn't exist. Return to Alberto Crapanzano's portfolio homepage to explore projects and blog posts."
+            url="/404"
+            noindex={true}
+        />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
+                <div className="text-center">
 
                 <SplitText
                     text="404"
@@ -39,6 +47,7 @@ const Simple404 = () => {
                 </div>
             </div>
         </div>
+    </>
     );
 };
 

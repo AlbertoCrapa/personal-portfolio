@@ -13,47 +13,47 @@
       "content": [
         {
           "title": "Overview",
-          "text": "Deadly Nightshade is a narrative-driven student thesis project developed at IED Istituto Europeo di Design in Milano. Set in a future where nature and technology intertwine in unsettling ways, the story follows Alice, a young scientist, and Rusty, a small robot she secretly builds. After escaping from the lab, they uncover dark truths about the company they once trusted, forming a deep bond along the way."
+          "text": "Deadly Nightshade was my thesis project at IED Milano - a story about a future where nature and technology blend in really unsettling ways. You follow Alice, a young scientist, and Rusty, this little robot she secretly builds. When they escape from the lab together, they start uncovering some pretty dark truths about the company they used to trust, and along the way they form this beautiful bond that drives the whole story."
         },
         {
           "title": "My Role",
-          "text": "As the **Technical Designer**, I contributed to a wide range of technical, graphical, and design aspects. My responsibilities spanned **gameplay programming, artificial intelligence, dialogue systems, audio integration, UI design, technical animation, and tool development**, ensuring that both mechanics and narrative were deeply interconnected."
+          "text": "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools** - basically making sure the technical side and the story worked together seamlessly."
         },
         {
           "title": "Artificial Intelligence & Enemies",
-          "text": "I developed the **enemy AI system**, giving them multiple senses (sight, hearing, damage reactions) and unique behaviors. I also created a **custom spawn/respawn system** influenced by environmental factors. For bosses, I built specific mechanics: the **final boss** can perform targeted jump attacks at defined interest points, while the **slimy mini-boss** can move vertically across platforms and trigger collapsing floor hazards during combat. Additionally, I designed the **Waves Arena** system for progressive enemy waves."
+          "text": "Creating the **enemy AI** was really fun - I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy mini-boss** crawls up walls and can make the floor collapse during fights. I also put together this **Waves Arena** system that throws progressively harder enemies at you."
         },
         {
           "title": "Dialogue & Narrative Tools",
-          "text": "I created a **custom dialogue system** with hierarchical priorities, enabling Alice and Rusty to interact dynamically. Dialogues trigger through various in-game events (collision boxes, health thresholds, contextual actions) and extend into cinematics and subtitles. All dialogues were fully integrated with **FMOD**, allowing seamless audio management. I also co-wrote the game’s script with Giulia, and actively supported the **voice acting sessions** to ensure narrative consistency and performance quality."
+          "text": "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things - walking into areas, taking damage, interacting with objects - and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right."
         },
         {
           "title": "Audio Integration",
-          "text": "I handled the complete integration of **FMOD** into the project, implementing dynamic systems for music, ambient sounds, props, and both 2D and 3D effects. Specific nodes allowed precise control over sound behavior. I also designed a **Physics Material system**, ensuring unique footstep sounds and impact effects depending on the surface type."
+          "text": "Getting **FMOD** working in the project was a big part of what I did - I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on."
         },
         {
           "title": "UI & Visual Design",
-          "text": "Together with  [Christian](https://www.christiancatenacci.com/), I designed several UI pages using **Figma**, and I created the **official game logo** along with various in-game and promotional graphics. I also developed the **custom media system for Rusty’s screen**, which plays video textures through the **BINK plugin** to reflect emotional states during both gameplay and cinematics."
+          "text": "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen** - it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes."
         },
         {
           "title": "Technical Animation & Physics",
-          "text": "I managed **Rusty’s procedural physics** for arms and legs, adjusting stiffness dynamically depending on context (gameplay vs cinematics). I contributed to the **technical animation pipeline**, implementing state machines and custom logic for enemies, bosses, and Alice, who was integrated with the **Advanced Locomotion System (ALS)** in C++. I also created **custom props and interaction mechanics**, such as rotating valves, destructible crates, surveillance cameras, metal detectors, and secret compartments."
+          "text": "I handled **Rusty's procedural physics** for his arms and legs, making them more or less stiff depending on whether you're playing or watching a cutscene. I worked on the **technical animation pipeline** too, setting up state machines and custom logic for enemies, bosses, and Alice (who uses the **Advanced Locomotion System** in C++). I also created **interactive props** like rotating valves, breakable crates, security cameras, metal detectors, and hidden compartments."
         },
         {
           "title": "Level Streaming & World Building",
-          "text": "I implemented **Level Streaming** systems for elevators, doors, and dynamic zone loading, optimizing performance by loading only relevant sub-levels. This setup allowed each teammate to work on different areas without conflicts via **Git version control**. I collaborated on **Level Design** with  [Christian](https://www.christiancatenacci.com/), working on blockouts for areas like the 'General Lab' and the 'Green Dome', refined through multiple playtests."
+          "text": "I set up **Level Streaming** for elevators, doors, and loading different areas dynamically - this keeps performance smooth by only loading what you need. It also meant everyone on the team could work on different areas without stepping on each other's toes through **Git**. I collaborated with [Christian](https://www.christiancatenacci.com/) on **Level Design**, working on rough layouts for places like the 'General Lab' and 'Green Dome', then refining them through lots of playtesting."
         },
         {
           "title": "Tools & Optimization",
-          "text": "I developed multiple **Python tools** to automate repetitive tasks: disabling sRGB on ARM textures in bulk, identifying unused combined meshes, detecting heavy rotator components, and automatically enabling 'Activate Only When Rendered'. These tools greatly optimized project performance and workflow. I also supported the **Steam Deck implementation**, ensuring proper optimization and compatibility."
+          "text": "I wrote several **Python tools** to automate boring tasks: turning off sRGB on ARM textures in batches, finding unused meshes, spotting performance-heavy components, and automatically enabling 'Activate Only When Rendered'. These tools made a huge difference in both project performance and our workflow. I also helped get everything working properly on **Steam Deck**."
         },
         {
           "title": "Visual Effects",
-          "text": "I personally created several **VFX**, such as the final boss stomp effect and enemy explosion effects. Alongside  [Christian](https://www.christiancatenacci.com/), I selected and integrated additional VFX across the project to reinforce both atmosphere and gameplay impact."
+          "text": "I created some **VFX** myself, like the final boss stomp effect and enemy explosion effects. [Christian](https://www.christiancatenacci.com/) and I also picked and integrated other VFX throughout the project to make both the atmosphere and gameplay moments really pop."
         },
         {
           "title": "Collaboration & Outcome",
-          "text": "Deadly Nightshade was developed in **Unreal Engine 5.4** as part of our graduation thesis, resulting in a fully playable experience with over 30 minutes of gameplay. Beyond technical responsibilities, I also acted as **co-director and co-writer**, ensuring that narrative, design, and systems worked in harmony. Completing this project in July 2025 was both a challenging and rewarding milestone in my development career."
+          "text": "We built Deadly Nightshade in **Unreal Engine 5.4** for our thesis, and ended up with a fully playable game with over 30 minutes of content. Beyond all the technical stuff, I also worked as **co-director and co-writer**, making sure the story, design, and systems all worked together. Finishing this in July 2025 was honestly one of the most challenging and rewarding things I've done in game development so far."
         }
       ],
       "media": [
@@ -125,27 +125,27 @@
       "content": [
         {
           "title": "Overview",
-          "text": "**Juan The Game** is a physics-based mobile puzzle game where players guide a whimsical horse through challenging levels by making it fall precisely into balconies. What started as a fun project with a friend has evolved into a comprehensive mobile experience with over **60 unique levels** and continues to grow with new content regularly added."
+          "text": "**Juan The Game** is this quirky physics-based mobile puzzle game where you guide a horse through levels by making him fall perfectly into balconies. What started as just a fun side project with a friend turned into this full mobile experience with over **60 unique levels** - and I'm still adding new ones because it's just too much fun to stop."
         },
         {
           "title": "Technical Implementation",
-          "text": "Built in **Unity** using **C#**, the game leverages Unity's built-in physics system with custom **Rigidbody** components applied to different parts of the horse character - including legs, tail, and body segments. This approach creates realistic and entertaining physics interactions that form the core gameplay mechanic. The precision required in physics tuning taught me valuable lessons about balancing realism with playability."
+          "text": "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse - his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky - you want it realistic enough to be believable but fun enough that it doesn't frustrate players."
         },
         {
           "title": "My Development Role",
-          "text": "I handled multiple critical aspects of development: **Programming** the core gameplay mechanics and physics interactions, **Level Design** for all 60+ levels with careful attention to difficulty progression, **Visual Design** including custom horse skins and character illustrations, and **UI/UX Design** to ensure intuitive mobile controls and clear visual feedback systems."
+          "text": "I pretty much handled everything: **Programming** the gameplay mechanics and physics, **designing all 60+ levels** with careful attention to how difficulty ramps up, creating **custom horse skins** and character art, and designing the **UI/UX** to make sure mobile controls felt intuitive and players always knew what was happening."
         },
         {
           "title": "Level Design & Player Experience",
-          "text": "Each level was meticulously crafted to provide a unique challenge while maintaining an intuitive learning curve. Through extensive **player feedback collection**, I learned crucial lessons about what makes challenges enjoyable versus frustrating. This feedback loop led me to redesign and continuously refine many levels, teaching me the importance of **iterative design** and **user-centered development**."
+          "text": "Every single level was hand-crafted to give players a unique challenge while keeping that learning curve smooth. I spent a lot of time collecting **player feedback** and learned some hard lessons about what makes challenges fun versus what just makes people want to throw their phone. That feedback loop made me redesign tons of levels, which taught me how important **iterative design** and actually listening to users really is."
         },
         {
           "title": "Art & Visual Identity",
-          "text": "Beyond programming, I created all the **custom horse skins** and character designs, giving players various personalization options. This aspect of the project allowed me to develop my skills in **digital illustration** and **character design**, while learning how to integrate artwork seamlessly into Unity's rendering pipeline."
+          "text": "Beyond all the programming, I drew all the **custom horse skins** and character designs, giving players different ways to personalize their experience. This was my chance to dive into **digital illustration** and **character design**, plus I learned how to get artwork to look good in Unity's rendering system."
         },
         {
           "title": "Learning Outcomes",
-          "text": "This year-long project taught me invaluable lessons about **mobile game development**, **physics programming**, and most importantly, **how to interpret and implement player feedback**. I learned when to provide guidance to players versus when to let them discover mechanics naturally, and how to distinguish between engaging challenges and frustrating obstacles."
+          "text": "This year-long project taught me so much about **mobile game development**, **physics programming**, and especially **how to actually use player feedback** instead of just collecting it. I learned when to hold players' hands and guide them versus when to let them figure things out, and how to tell the difference between a good challenge and something that just makes people quit."
         }
       ],
       "media": [
@@ -194,34 +194,35 @@
       "content": [
         {
           "title": "Project Philosophy",
-          "text": "**AI Demo** represents my ongoing exploration into artificial intelligence programming using **C++**, **SDL2**, and **CMake**. This personal project serves as both a **learning laboratory** and a **technical showcase** where I experiment with various AI behaviors and algorithms. The project emphasizes **clean code architecture** and **readable implementation** as core principles."
+          "text": "**AI Demo** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable - if someone else (or future me) looks at this, they should be able to understand what's happening."
         },
         {
-
-          "text": "At the heart of the project lies a **custom A* pathfinding algorithm** that I implemented from scratch following algorithmic principles and adapting it to my specific needs. The pathfinding system enables entities to navigate complex environments efficiently, demonstrating my understanding of **graph theory**, **heuristic algorithms**, and **optimization techniques** in real-time applications."
+          "title": "Pathfinding Implementation",
+          "text": "The heart of the project is a **custom A* pathfinding algorithm** that I built from scratch. I studied the theory and then adapted it to work exactly how I needed it to. The pathfinding lets entities navigate complex environments efficiently, and building it taught me a lot about **graph theory**, **heuristic algorithms**, and how to optimize things for real-time applications."
         },
         {
           "title": "AI Behavior Systems",
-          "text": "The demo showcases multiple sophisticated AI behaviors: **Wander behavior** creates natural-looking random movement patterns that avoid repetitive motion; **Patrol systems** implement structured movement along predefined waypoints with smooth transitions; **Seek behavior** enables entities to intelligently pursue targets (such as mouse cursor) with realistic acceleration and deceleration patterns."
+          "text": "I've implemented several different AI behaviors that feel natural: **Wander behavior** makes entities move around randomly but in a way that looks organic rather than robotic; **Patrol systems** let them follow specific routes with smooth transitions between waypoints; **Seek behavior** makes entities chase targets (like your mouse cursor) with realistic acceleration and deceleration."
         },
         {
           "title": "Technical Architecture",
-          "text": "Built using **SDL2** for graphics rendering and input handling, the project demonstrates modern **C++ programming practices** including **object-oriented design**, **memory management**, and **modular architecture**. The use of **CMake** ensures cross-platform compatibility and maintainable build processes, skills essential for professional C++ development."
+          "text": "I'm using **SDL2** for graphics and input handling, and the whole thing demonstrates what I've learned about modern **C++ programming** - **object-oriented design**, **memory management**, and building things in a modular way. Using **CMake** means it builds cleanly on different platforms, which is something you really need to know for professional C++ work."
         },
         {
-
-          "text": "This project is **continuously evolving** as I discover new AI concepts and refine existing implementations. Each iteration focuses on improving **code quality**, **performance optimization**, and **feature expansion**. This iterative approach has taught me valuable lessons about **software maintenance**, **version control**, and **incremental improvement strategies**."
+          "title": "Continuous Development",
+          "text": "This project keeps **evolving** as I learn new AI concepts and improve my existing code. Each time I come back to it, I focus on making the **code better**, **performance faster**, and **adding new features**. This iterative approach has taught me a lot about **maintaining software**, **using version control properly**, and how to improve things incrementally rather than trying to rebuild everything from scratch."
         },
         {
           "title": "Code Quality Standards",
-          "text": "A primary focus throughout development has been maintaining **clean, readable, and well-documented code**. I strive to write code that not only functions correctly but also serves as a learning resource for others exploring AI programming. This emphasis on quality has improved my **software engineering practices** and **technical communication skills**."
+          "text": "One thing I really care about is keeping the **code clean, readable, and well-documented**. I want to write code that doesn't just work, but that someone else could look at and learn from. This focus on quality has really improved my **software engineering practices** and how I communicate technical ideas."
         },
         {
           "title": "Learning Outcomes and Future Expansion",
-          "text": "Through this project, I've deepened my understanding of **C++ programming**, **game engine architecture**, **artificial intelligence algorithms**, and **real-time system optimization**. The hands-on approach has provided practical experience with **debugging complex systems**, **performance profiling**, and **algorithmic problem-solving** in interactive applications."
+          "text": "Working on this has deepened my understanding of **C++ programming**, **game engine architecture**, **AI algorithms**, and **real-time optimization**. The hands-on approach gives you experience you just can't get from textbooks - like **debugging complex systems**, **profiling performance**, and **solving algorithmic problems** in interactive applications."
         },
         {
-          "text": "The modular design allows for easy integration of new AI behaviors and systems. Planned additions include **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination systems**. This forward-thinking approach demonstrates my commitment to **continuous learning** and **skill development** in artificial intelligence."
+          "title": "Future Plans",
+          "text": "The modular design makes it easy to add new AI behaviors and systems. I'm planning to add **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination**. This forward-thinking approach is part of my commitment to **continuous learning** and developing my AI skills."
         }
       ],
       "media": [
@@ -280,31 +281,31 @@
       "content": [
         {
           "title": "Game Design Innovation",
-          "text": "**Echoes** transforms the traditional Memory card game by introducing **strategic disruption mechanics** that add depth and player interaction. Unlike classic Memory, players can actively interfere with their opponents' progress through special effect cards, creating a more engaging and competitive experience for 2-4 players."
+          "text": "**Echoes** takes the classic Memory card game and adds this twist where you can actually mess with your opponents' progress. Instead of just quietly matching pairs, you can play special effect cards to shuffle things around and make it way harder for other players to complete their matches. It supports 2-4 players and creates these really tense, competitive moments."
         },
         {
           "title": "Core Mechanics",
-          "text": "The game maintains the familiar foundation of matching pairs while adding **special effect cards** that can be played to shuffle the field, making it significantly more difficult for other players to complete their matches. This creates a delicate balance between memory skills and tactical card play, where timing your disruptions becomes as important as remembering card locations."
+          "text": "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough - you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to."
         },
         {
           "title": "Victory Conditions & Strategy",
-          "text": "Players win by being the **first to eliminate all their cards** through successful matching. However, the addition of interference mechanics means that pure memory skills aren't enough - players must also develop **timing strategies**, **risk assessment abilities**, and learn to read their opponents' progress to deploy disruption cards effectively."
+          "text": "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are - you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment."
         },
         {
           "title": "Design Process & Iteration",
-          "text": "As a university project developed with a collaborative partner, Echoes went through multiple design iterations. We focused heavily on **game balance testing**, ensuring that the disruption mechanics enhanced rather than frustrated the core experience. The design process taught me valuable lessons about **playtesting methodology** and **iterative game design**."
+          "text": "This was a university project I worked on with a partner, and we went through tons of design iterations. We spent a lot of time **playtesting and balancing** to make sure the disruption mechanics made the game more fun rather than just frustrating. The whole process taught me a lot about **how to playtest properly** and **iterative game design**."
         },
         {
           "title": "Production & Manufacturing",
-          "text": "The game was fully realized as a **physical product**, requiring careful attention to **print design**, **component quality**, and **packaging considerations**. Using **Adobe Creative Suite**, I handled the visual design elements, learning about **print production workflows** and how digital designs translate to physical game components."
+          "text": "We actually made this into a **real physical product**, which meant figuring out **print design**, **component quality**, and **packaging**. I used **Adobe Creative Suite** for the visual design, and learned a lot about **print production workflows** and how digital designs translate when you actually print them on physical game components."
         },
         {
           "title": "User Reception & Validation",
-          "text": "After production, Echoes was extensively playtested and **received overwhelmingly positive feedback** from our peer group. The success validated our design decisions and demonstrated the effectiveness of our innovative approach to reimagining a classic game format. This experience taught me the importance of **user feedback** in game design validation."
+          "text": "After we finished production, we playtested Echoes extensively and got **really positive feedback** from our peer group. The success validated our design decisions and proved that our approach to reimagining a classic game actually worked. This experience taught me how important **user feedback** is for validating game design decisions."
         },
         {
           "title": "Skills Developed",
-          "text": "This project developed my abilities in **game system design**, **balance testing**, **collaborative development**, and **print design production**. I learned how to take a concept from initial brainstorming through multiple iterations to final physical production, gaining valuable experience in the complete product development lifecycle."
+          "text": "This project developed my skills in **game system design**, **balance testing**, **collaborative development**, and **print design production**. I learned how to take an idea from initial brainstorming through multiple iterations all the way to final physical production - basically the complete product development lifecycle."
         }
       ],
       "media": [
@@ -350,35 +351,35 @@
       "content": [
         {
           "title": "Project Overview",
-          "text": "**Too Poop To Go** is a comprehensive platform designed to help users locate the best public restrooms for their needs. This multi-platform project consists of **Android and iOS mobile applications** developed by teammates, complemented by a **sophisticated web management system** that I developed from the ground up. The platform creates a complete ecosystem for crowdsourced restroom information."
+          "text": "**Too Poop To Go** is a platform to help people find the best public restrooms when they really need them. This was a team project with **Android and iOS mobile apps** built by my teammates, and I developed the entire **web management system** from scratch. Together it creates this complete ecosystem for crowdsourced restroom information."
         },
         {
           "title": "My Technical Role",
-          "text": "I was responsible for developing the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive and intuitive administrative interface. Additionally, I **collaborated on the backend development** using **Django**, contributing to API design, database schema planning, and server-side logic implementation."
+          "text": "I handled the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive interface that actually feels good to use. I also **worked on the backend** with **Django**, helping with API design, database planning, and server-side logic."
         },
         {
-     
-          "text": "The web management system provides comprehensive administrative control: **User management** with capabilities to view, ban, or remove users; **Review moderation** allowing administrators to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user-submitted locations; **Interactive map interface** displaying all existing restrooms; and **Tag management** for categorizing and organizing restroom features."
+          "title": "Web Management Features",
+          "text": "The web system gives administrators complete control: **User management** where you can view, ban, or remove users; **Review moderation** to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user submissions; **Interactive map interface** showing all existing restrooms; and **Tag management** for organizing and categorizing restroom features."
         },
         {
           "title": "Authentication & Security",
-          "text": "We implemented a robust **user authentication system** with **OTP (One-Time Password) verification** for enhanced security. The system includes **secure login flows**, **session management**, and **role-based access control** to ensure that only authorized administrators can access sensitive platform data and controls."
+          "text": "We built a solid **user authentication system** with **OTP (One-Time Password) verification** for extra security. The system includes **secure login flows**, **session management**, and **role-based access control** so only authorized administrators can access sensitive platform data and controls."
         },
         {
-
-          "text": "The platform leverages **MapBox APIs** across all components - mobile applications and web management system - providing consistent and reliable mapping functionality. I designed the web interface to seamlessly integrate map interactions, allowing administrators to visualize restroom locations, review geographical distribution, and manage location-based data efficiently."
+          "title": "Map Integration",
+          "text": "The whole platform uses **MapBox APIs** - both the mobile apps and web management system - so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently."
         },
         {
           "title": "Approval Workflow System",
-          "text": "One of the key features I developed is the **restroom approval workflow**, where user submissions from mobile apps appear in the admin dashboard for review. This system includes **detailed submission information**, **image verification capabilities**, **location accuracy checking**, and **streamlined approval/rejection processes** with notification systems back to the mobile applications."
+          "text": "One of the key features I built is the **restroom approval workflow** - when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps."
         },
         {
-
-          "text": "Working in a team of three, I ensured seamless integration between the mobile applications and web management system through **RESTful API design** and **consistent data structures**. This required constant communication with mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
+          "title": "Team Collaboration",
+          "text": "Working with a team of three, I made sure the mobile apps and web management system integrated seamlessly through **RESTful API design** and **consistent data structures**. This meant constantly communicating with the mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
         },
         {
           "title": "Technical Skills Developed",
-          "text": "This project significantly advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development methodologies** while working in a multi-developer environment."
+          "text": "This project really advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development** while working in a multi-developer environment."
         }
       ],
       "media": [
