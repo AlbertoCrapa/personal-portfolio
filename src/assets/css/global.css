@@ -213,3 +213,39 @@ body {
   filter: brightness(0.9) !important;
   transition: filter 0.1s ease-out !important;
 }
+
+
+
+
+/* SMILE COLOR PROTECTION - Only protect colors, keep original classes */
+.smile-color-protect img {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+.smile-color-protect p {
+  color: #000000 !important;
+}
+
+/* Protect against system dark mode affecting smile colors */
+@media (prefers-color-scheme: dark) {
+  .smile-color-protect img {
+    filter: none !important;
+    -webkit-filter: none !important;
+  }
+  .smile-color-protect p {
+    color: #000000 !important;
+  }
+}
+
+/* Protect against theme dark mode affecting smile colors */
+[data-theme="dark"] .smile-color-protect img,
+.dark .smile-color-protect img {
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+[data-theme="dark"] .smile-color-protect p,
+.dark .smile-color-protect p {
+  color: #000000 !important;
+}

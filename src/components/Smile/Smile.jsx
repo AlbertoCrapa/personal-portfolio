@@ -392,6 +392,42 @@ const Smile = React.memo(() => {
 
   return (
     <>
+      {/* Only protect colors - don't change existing classes */}
+      <style>
+        {`
+          .smile-color-protect img {
+            filter: none !important;
+            -webkit-filter: none !important;
+          }
+          
+          .smile-color-protect p {
+            color: #000000 !important;
+          }
+          
+          /* Prevent system dark mode from affecting smile colors only */
+          @media (prefers-color-scheme: dark) {
+            .smile-color-protect img {
+              filter: none !important;
+              -webkit-filter: none !important;
+            }
+            .smile-color-protect p {
+              color: #000000 !important;
+            }
+          }
+          
+          /* Prevent any theme dark mode from affecting smile colors */
+          [data-theme="dark"] .smile-color-protect img,
+          .dark .smile-color-protect img {
+            filter: none !important;
+            -webkit-filter: none !important;
+          }
+          
+          [data-theme="dark"] .smile-color-protect p,
+          .dark .smile-color-protect p {
+            color: #000000 !important;
+          }
+        `}
+      </style>
       <motion.div ref={constraintsRef} className="fixed top-0 w-full h-svh pointer-events-none " />
       <motion.div
        
@@ -402,7 +438,7 @@ const Smile = React.memo(() => {
         onDragEnd={handleDragEnd}
         drag
         dragConstraints={constraintsRef}
-        className="logo__navbar animate-squiggly fixed z-[99998] sm:right-12 sm:top-20 right-[1rem] top-[10rem] flex h-[150px] w-[150px] cursor-pointer "
+        className="smile-color-protect logo__navbar animate-squiggly fixed z-[99998] sm:right-12 sm:top-20 right-[1rem] top-[10rem] flex h-[150px] w-[150px] cursor-pointer "
         onClick={handleSmileClick}
      
       >
