@@ -17,7 +17,7 @@ const Simple404 = () => {
 
                 <SplitText
                     text="404"
-                    className="text-8xl font-extrabold text-gray-dark mb-4"
+                    className="text-8xl font-extrabold text-gray-dark mb-3"
                     delay={100}
                     duration={0.5}
                     ease="power3.out"
@@ -28,22 +28,17 @@ const Simple404 = () => {
                     rootMargin="-100px"
                     textAlign="center"
                 />
-                <h2 className="text-2xl font-bold text-black mb-2">Page Not Found</h2>
+                <h2 className="text-3xl font-bold text-black mb-2">Page Not Found</h2>
                 <p className="text-gray-dark mb-8">The page you're looking for doesn't exist.</p>
 
                 <div className="space-x-4">
                     <Link
                         to="/"
-                        className="bg-black text-white px-6 py-2 hover:bg-gray-dark transition-colors"
+                        className="bg-black text-white  rounded-3xl rounded-bl-none px-6 py-2 font-bold hover:bg-gray-dark transition-colors"
                     >
                         Go Home
                     </Link>
-                    <button
-                        onClick={() => window.history.back()}
-                        className="border cursor-pointer rounded-2xl border-black text-black px-6 py-[0.3rem] hover:bg-black hover:text-white transition-colors"
-                    >
-                        Go Back
-                    </button>
+                   
                 </div>
             </div>
         </div>

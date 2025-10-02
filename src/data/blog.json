@@ -9,18 +9,18 @@
       "content": [
         {
           "title": "Introduction",
-          "text": "When I worked on my thesis project, Deadly Nightshade, one of the features I really wanted to explore was how to make aiming with a controller feel smoother and more satisfying.\n\nPC shooters usually rely on the precision of a mouse, but with analog sticks you lose some accuracy. That’s where aim-assist comes in.\n\nThis post covers:\n\n- Prototyping the system in Blueprints\n- Translating it into C++ after my thesis\n- What I learned about development, iteration, and polish\n\nFor more info, visit [Unreal Engine](https://www.unrealengine.com/) or check my [GitHub](https://github.com/AlbertoCrapa).\n\n---"
+          "text": "When I worked on my thesis project, Deadly Nightshade, one of the features I really wanted to explore was how to make aiming with a controller feel smoother and satisfying.\n\nPC shooters usually rely on the precision of a mouse, but with analog sticks you lose some accuracy. That’s where aim-assist comes in.\n\nThis post covers:\n\n- Prototyping the system in Blueprints\n- Translating it into C++ after my thesis\n- What I learned about development, iteration, and polish\n\nFor more info, visit the [Game page](https://deadlynightshade.netlify.app/) or check my [GitHub](https://github.com/AlbertoCrapa).\n\n---"
         },
         {
-          "title": "The Input Gate: Knowing When to Assist",
-          "text": "The first step was deciding when the system should activate. I didn’t want aim assist always running, because it feels like losing control.\n\nInstead, I bound it to the aim button (L2/LT). Only when the player holds aim does the system activate.\n\nThis makes the intent clear:\n\n> “I want precision now, help me.”\n\n---"
+    
+          "text": "The first step was deciding when the system should activate. I didn’t want aim assist always running, because it feels like losing control.\n\nInstead, I bound it to the aim button (L2/LT). Only when the player holds aim does the system activate.\n\nThis makes the intent clear:\n\n> “How the hell do I do this?”  \n\n---"
         },
         {
-          "title": "Broad-Phase Detection: Sphere Trace",
+          "title": "Broad-Phase",
           "text": "With aiming active, the system checks for possible targets using a Sphere Trace.\n\n- The trace is projected forward from the camera\n- It acts like a 'bubble' to catch potential enemies\n- For performance, it only detects enemies, not walls or props\n\nThis keeps detection cheap and focused.\n\n---"
         },
         {
-          "title": "Narrow-Phase Verification: Line Trace",
+          "title": "Narrow-Phase",
           "text": "Sphere Trace alone isn’t enough — it may hit enemies even behind walls.\n\nTo fix this, I added a Line Trace:\n\n1. Start from the camera\n2. Aim directly at the detected enemy\n3. If the line hits the enemy → valid target\n4. If the line hits a wall → discard\n\nThis ensures the assist only helps when the enemy is visible.\n\n---"
         },
         {
@@ -33,15 +33,16 @@
         },
         {
           "title": "Curves for Natural Feeling",
-          "text": "Instead of linear correction, I used a CurveFloat asset.\n\n- Input: normalized distance (0 = deadzone, 1 = max radius)\n- Output: correction strength\n\nThis allowed fine-tuning:\n\n- Gentle help near the deadzone\n- Stronger nudges near the edge\n\nThe result: subtle assistance that supports, not overrides, the player.\n\n---"
+          "text": "Instead of linear correction, I used a CurveFloat asset.\n\n- Input: normalized distance (0 = deadzone, 1 = max radius)\n- Output: correction strength\n\nThis allowed fine-tuning:\n\n- Gentle help near the deadzone\n- Stronger nudges near the edge\n\n---"
         },
         {
           "title": "From Blueprints to C++",
-          "text": "After my thesis (July 2025), I rewrote the system in C++.\n\nChallenges I faced:\n\n- Structuring logic → in Blueprints flow is visual, in C++ it requires a clean update loop\n- Exposing parameters → in C++ I had to mark variables as editable and decide what designers should tweak (sphere radius, curve strength, deadzone, etc.)\n- Performance & debugging → controlling when traces run, caching data, toggling debug draws\n\nThe final result: a clean, reusable component that can be dropped into any character class.\n\n---"
+          "text": "After my thesis (July 2025), I rewrote the system in C++.\n\nLogic I followed:\n\n- Structuring logic → in Blueprints flow is visual, in C++ it requires a clean update loop\n- Exposing parameters → in C++ I had to mark variables as editable and decide what designers should tweak (sphere radius, curve strength, deadzone, etc.)\n\n A clean, reusable code that can be added into any character class.\n\n---"
         },
         {
           "title": "What I Learned",
-          "text": "This project taught me a lot:\n\n- Blueprints are perfect for prototyping – fast, visual, great for iteration\n- C++ is essential for maintainability – it forces clean design and scalability\n- Polish matters – a few lines of math and curves can completely change player experience\n- Transitioning from school to production mindset – rewriting in C++ made me think like a developer building systems for others, not just myself\n\nOverall, I realized that even a small invisible feature like aim assist can demand deep thought and have a huge impact on gameplay.\n\n---"
+         "text": "Working on this project taught me a lot: Blueprints are great for prototyping because they let you iterate quickly and see results immediately. Moving to C++ showed me the importance of clean, maintainable design and how to think about scalability. I also realized how much polish matters; even small tweaks to math or curves can completely change the way the game feels. Rewriting everything in C++ helped me shift from a school project mindset to thinking like a professional developer, building systems that others can use, not just myself.\n\n---"
+
         }
       ],
       "media": [

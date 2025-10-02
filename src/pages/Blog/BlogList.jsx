@@ -28,14 +28,14 @@ const BlogList = () => {
             />
             <div className="container mx-auto px-4 md:py-16 py-8 bg-bg">
                 {/* Theme Toggle */}
-                <motion.div
+                {/* <motion.div
                     className="fixed top-6 right-6 md:top-8 md:right-8 z-50"
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
                 >
                     <ThemeToggle />
-                </motion.div>
+                </motion.div> */}
                 
                 <div className="mb-6">
                     <Button  onClick={() => navigate("/")}> &larr; Back to Home </Button>
