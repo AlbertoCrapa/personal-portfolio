@@ -13,27 +13,27 @@
       "content": [
         {
           "title": "Overview",
-          "text": "Deadly Nightshade was my thesis project at IED Milano - a story about a future where nature and technology blend in really unsettling ways. You follow Alice, a young scientist, and Rusty, this little robot she secretly builds. When they escape from the lab together, they start uncovering some pretty dark truths about the company they used to trust, and along the way they form this beautiful bond that drives the whole story."
+          "text": "Deadly Nightshade was my thesis project at IED Milano: a story about a future where nature and technology blend in really unsettling ways. You follow Alice, a young scientist, and Rusty, this little robot she secretly builds. When they escape from the lab together, they start uncovering some pretty dark truths about the company they used to trust, and along the way they form this beautiful bond that drives the whole story."
         },
         {
           "title": "My Role",
-          "text": "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools** - basically making sure the technical side and the story worked together seamlessly."
+          "text": "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools**, basically making sure the technical side and the story worked together seamlessly."
         },
         {
           "title": "Artificial Intelligence & Enemies",
-          "text": "Creating the **enemy AI** was really fun - I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy mini-boss** crawls up walls and can make the floor collapse during fights. I also put together this **Waves Arena** system that throws progressively harder enemies at you."
+          "text": "Creating the **enemy AI** was really fun, I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy boss** crawls up  and can make the floor collapse during fights. I also put together this **Waves Arena Game Mode** that throws progressively harder enemies at you."
         },
         {
           "title": "Dialogue & Narrative Tools",
-          "text": "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things - walking into areas, taking damage, interacting with objects - and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right."
+          "text": "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things,  walking into areas, taking damage, interacting with objects  and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right."
         },
         {
           "title": "Audio Integration",
-          "text": "Getting **FMOD** working in the project was a big part of what I did - I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on."
+          "text": "Getting **FMOD** working in the project was a big challenge: I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on."
         },
         {
           "title": "UI & Visual Design",
-          "text": "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen** - it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes."
+          "text": "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen**, it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes."
         },
         {
           "title": "Technical Animation & Physics",
@@ -125,14 +125,14 @@
       "content": [
         {
           "title": "Overview",
-          "text": "**Juan The Game** is this quirky physics-based mobile puzzle game where you guide a horse through levels by making him fall perfectly into balconies. What started as just a fun side project with a friend turned into this full mobile experience with over **60 unique levels** - and I'm still adding new ones because it's just too much fun to stop."
+          "text": "**Juan The Game** is this quirky physics-based mobile puzzle game where you guide a horse through levels by making him fall perfectly into balconies. What started as just a fun side project with a friend turned into this full mobile experience with over **60 unique levels**  and I'm still adding new ones because it's just too much fun to stop."
         },
         {
           "title": "Technical Implementation",
-          "text": "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse - his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky - you want it realistic enough to be believable but fun enough that it doesn't frustrate players."
+          "text": "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse  his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky  you want it realistic enough to be believable but fun enough that it doesn't frustrate players."
         },
         {
-          "title": "My Development Role",
+          "title": "Solo Development",
           "text": "I pretty much handled everything: **Programming** the gameplay mechanics and physics, **designing all 60+ levels** with careful attention to how difficulty ramps up, creating **custom horse skins** and character art, and designing the **UI/UX** to make sure mobile controls felt intuitive and players always knew what was happening."
         },
         {
@@ -194,7 +194,7 @@
       "content": [
         {
           "title": "Project Philosophy",
-          "text": "**AI Demo** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable - if someone else (or future me) looks at this, they should be able to understand what's happening."
+          "text": "**AI Demo** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable if someone else (or future me ahahah) looks at this, they should be able to understand what's happening."
         },
         {
           "title": "Pathfinding Implementation",
@@ -215,10 +215,6 @@
         {
           "title": "Code Quality Standards",
           "text": "One thing I really care about is keeping the **code clean, readable, and well-documented**. I want to write code that doesn't just work, but that someone else could look at and learn from. This focus on quality has really improved my **software engineering practices** and how I communicate technical ideas."
-        },
-        {
-          "title": "Learning Outcomes and Future Expansion",
-          "text": "Working on this has deepened my understanding of **C++ programming**, **game engine architecture**, **AI algorithms**, and **real-time optimization**. The hands-on approach gives you experience you just can't get from textbooks - like **debugging complex systems**, **profiling performance**, and **solving algorithmic problems** in interactive applications."
         },
         {
           "title": "Future Plans",
@@ -274,7 +270,7 @@
     
     "project5": {
       "slug": "echoes-tablegame",
-      "title": "Echoes",
+      "title": "Echoes Card Game",
       "description": "An innovative card game that reimagines the classic Memory formula with strategic disruption mechanics.",
       "date": "2023",
       "teamSize": 2,
@@ -285,11 +281,11 @@
         },
         {
           "title": "Core Mechanics",
-          "text": "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough - you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to."
+          "text": "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to."
         },
         {
           "title": "Victory Conditions & Strategy",
-          "text": "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are - you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment."
+          "text": "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are  you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment."
         },
         {
           "title": "Design Process & Iteration",
@@ -302,10 +298,6 @@
         {
           "title": "User Reception & Validation",
           "text": "After we finished production, we playtested Echoes extensively and got **really positive feedback** from our peer group. The success validated our design decisions and proved that our approach to reimagining a classic game actually worked. This experience taught me how important **user feedback** is for validating game design decisions."
-        },
-        {
-          "title": "Skills Developed",
-          "text": "This project developed my skills in **game system design**, **balance testing**, **collaborative development**, and **print design production**. I learned how to take an idea from initial brainstorming through multiple iterations all the way to final physical production - basically the complete product development lifecycle."
         }
       ],
       "media": [
@@ -367,11 +359,11 @@
         },
         {
           "title": "Map Integration",
-          "text": "The whole platform uses **MapBox APIs** - both the mobile apps and web management system - so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently."
+          "text": "The whole platform uses **MapBox APIs**, both the mobile apps and web management system, so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently."
         },
         {
           "title": "Approval Workflow System",
-          "text": "One of the key features I built is the **restroom approval workflow** - when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps."
+          "text": "One of the key features I built is the **restroom approval workflow**,  when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps."
         },
         {
           "title": "Team Collaboration",

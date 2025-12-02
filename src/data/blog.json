@@ -165,11 +165,11 @@
         },
         {
           "title": "Step 1 – Importing and Implementing ALS",
-          "text": "The first step was straightforward but crucial: integrating the ALS Community C++ Edition into our project.\n\n* **Importing ALS** – we pulled the full system into our Deadly Nightshade project.\n* **Setting up C++ dependencies** – making sure our build settings aligned so the ALS classes compiled cleanly.\n* **Testing the default AnimMan** – before even thinking of Alice, we verified that the default ALS mannequin behaved as expected.\n\nThis gave us a stable foundation before making any deeper customizations.\n\n---"
+          "text": "The first step was straightforward but crucial: integrating the ALS Community C++ Edition into our project.\n\n* **Importing ALS** , we pulled the full system into our Deadly Nightshade project.\n* **Setting up C++ dependencies**, making sure our build settings aligned so the ALS classes compiled cleanly.\n* **Testing the default AnimMan** – before even thinking of Alice, we verified that the default ALS mannequin behaved as expected.\n\nThis gave us a stable foundation before making any deeper customizations.\n\n---"
         },
         {
           "title": "Step 2 – Retargeting Animations",
-          "text": "With ALS running, the next challenge was __retargeting__.\n\nThis is where **Giulia Insolera** helped us enormously. Retargeting in Unreal Engine 5.4.4 allowed us to map the skeleton of ALS’s *AnimMan* to our protagonist *Alice*.\n\n* **Skeleton Alignment** – making sure bone hierarchies matched.\n* **IK Adjustments** – correcting small offsets so Alice’s limbs aligned correctly.\n* **Verifying Animations** – ensuring idle, walking, and running cycles transferred smoothly.\n\nAfter this, Alice was officially standing in our world, moving with the full locomotion features of ALS.\n\n---"
+          "text": "With ALS running, the next challenge was __retargeting__.\n\nThis is where **Giulia Insolera** helped us enormously. Retargeting in Unreal Engine 5.4.4 allowed us to map the skeleton of ALS’s *AnimMan* to our protagonist *Alice*.\n\n* **Skeleton Alignment**: making sure bone hierarchies matched.\n* **IK Adjustments**: correcting small offsets so Alice’s limbs aligned correctly.\n* **Verifying Animations**: ensuring idle, walking, and running cycles transferred smoothly.\n\nAfter this, Alice was officially standing in our world, moving with the full locomotion features of ALS.\n\n---"
         },
         {
           "title": "Step 3 – Custom Animation Blueprint",
@@ -181,11 +181,7 @@
         },
         {
           "title": "What I Learned",
-          "text": "Looking back, this implementation was one of the richest learning experiences of my thesis. Here are the big takeaways:\n\n* **Teamwork scales learning** – I couldn’t have done this without Christian’s C++ expertise and Giulia’s retargeting guidance.\n* __Digging into C++ is empowering__ – Unreal’s Blueprints are great, but modifying ALS at the C++ level gave us far more control.\n* **Animation retargeting is both art and science** – you can follow steps, but small details in bone alignment make a massive difference.\n* **Game feel comes from iteration** – we didn’t get Alice’s shooting mechanic right the first time. We refined it until it felt natural.\n* __Confidence boost__ – before this project, editing a community C++ framework felt intimidating. After this, I feel ready to dive deeper into engine-level systems.\n\n---"
-        },
-        {
-          "title": "Conclusion",
-          "text": "Integrating **ALS Community C++ Edition** into Deadly Nightshade was far more than just a technical task. It was a journey in collaboration, problem solving, and understanding how professional-grade systems can be adapted to unique gameplay visions.\n\nFor me, it reinforced a simple truth: *you don’t need to reinvent locomotion systems to innovate*. Sometimes the smartest move is to stand on the shoulders of giants like ALS — and then carefully shape it to fit your own creative world.\n\n---"
+          "text": "Looking back, this implementation was one of the richest learning experiences of my thesis. Here are the big takeaways:\n\n* **Teamwork scales learning**: I couldn’t have done this without Christian’s C++ expertise and Giulia’s retargeting guidance.\n* __Digging into C++ is empowering__: Unreal’s Blueprints are great, but modifying ALS at the C++ level gave us far more control.\n* **Animation retargeting is both art and science**: you can follow steps, but small details in bone alignment make a massive difference.\n* **Game feel comes from iteration**: we didn’t get Alice’s shooting mechanic right the first time. We refined it until it felt natural.\n* __Confidence boost__:  before this project, C++ frameworks felt intimidating. After this, I feel ready to dive deeper into engine-level systems.\n\n---"
         }
       ],
       "media": [
