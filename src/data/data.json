@@ -1,37 +1,22 @@
 {
-  
   "nickname": "Albyeah",
   "fullname": "Alberto Crapanzano",
-  "title": "Game Technical Designer & Creative Developer",
+  "title": "Freelance technical artist and graphic designer.",
   "about": {
-  "description": "Creative Developer based near [Milan](https://en.wikipedia.org/wiki/Milan){It's a beautiful city}, specializing in **Design** and __Programming__ for Video Games and Websites. Combining programming skills with artistic vision, I like innovative and engaging digital experiences.",
-    "description2": " Passionate about pushing the boundaries of technology and art, I thrive on challenges that require both technical expertise and creative problem-solving. ",
+    "description": "I'm a technical artist with a background in graphic design and print. I specialize in creating playful and user-friendly digital experiences. I embrace FOSS and experimental workflows.",
+    "description2": "If you are interested in working with me on a project, reach out!",
     "location": "Milan, Italy",
-    "birthdate": "2004-06-05",
-    "profileImage": "path/to/your/profile-image.jpg"
+    "birthdate": "2004-06-05"
   },
-  "skills": [
-    {
-      "category": "Frontend",
-      "items": ["React", "HTML5", "CSS3", "JavaScript", "TypeScript"]
-    },
-    {
-      "category": "Backend",
-      "items": ["Node.js", "Express", "GraphQL", "RESTful APIs"]
-    },
-    {
-      "category": "Database",
-      "items": ["MongoDB", "PostgreSQL", "MySQL"]
-    },
-    {
-      "category": "Other",
-      "items": ["Git", "Docker", "CI/CD", "AWS"]
-    }
-  ],
   "contact": {
     "email": "hello@albyeah.com",
     "linkedin": "https://www.linkedin.com/in/alberto-c-905a69232/",
     "github": "https://github.com/AlbertoCrapa",
+    "bluesky": "https://bsky.app",
+    "instagram": "https://instagram.com",
+    "itchio": "https://itch.io",
+    "twitch": "https://twitch.tv",
+    "youtube": "https://youtube.com",
     "cv": "/AlbertoCrapanzano_CV_ENG.pdf"
   }
 }

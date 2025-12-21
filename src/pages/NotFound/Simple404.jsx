@@ -1,48 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import SplitText from "../../utils/ReactBits/SplitText/SplitText";
-import SEO from "../../components/SEO/SEO";
+import Layout from "../../layouts/Layout";
+import SEO from '../../components/SEO';
 
 const Simple404 = () => {
     return (
-    <>
-        <SEO 
-            title="404 - Page Not Found | Alberto Crapanzano"
-            description="The page you're looking for doesn't exist. Return to Alberto Crapanzano's portfolio homepage to explore projects and blog posts."
-            url="/404"
-            noindex={true}
-        />
-        <div className="min-h-screen flex flex-col items-center justify-center bg-bg px-4">
-                <div className="text-center">
-
-                <SplitText
-                    text="404"
-                    className="text-8xl font-extrabold text-gray-dark mb-3"
-                    delay={100}
-                    duration={0.5}
-                    ease="power3.out"
-                    splitType="chars"
-                    from={{ opacity: 0, y: 40 }}
-                    to={{ opacity: 1, y: 0 }}
-                    threshold={0.1}
-                    rootMargin="-100px"
-                    textAlign="center"
-                />
-                <h2 className="text-3xl font-bold text-black mb-2">Page Not Found</h2>
-                <p className="text-gray-dark mb-8">The page you're looking for doesn't exist.</p>
-
-                <div className="space-x-4">
-                    <Link
-                        to="/"
-                        className="bg-black text-white  rounded-3xl rounded-bl-none px-6 py-2 font-bold hover:bg-gray-dark transition-colors"
-                    >
-                        Go Home
-                    </Link>
-                   
-                </div>
+        <Layout>
+            <SEO
+                title="404 - Page Not Found | Alberto Crapanzano"
+                description="The page you're looking for doesn't exist. Return to the homepage to explore projects and blog posts."
+                url="/404"
+                noindex={true}
+            />
+            <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
+                <h1 className="text-8xl font-bold text-text-muted mb-4">404</h1>
+                <h2 className="text-2xl font-bold text-text-primary mb-2">Page Not Found</h2>
+                <p className="text-text-secondary mb-8">The page you're looking for doesn't exist.</p>
+                <Link
+                    to="/"
+                    className="bg-accent-blue text-white rounded-lg px-6 py-3 font-semibold hover:bg-accent-blue/90 transition-colors"
+                >
+                    ← Go Home
+                </Link>
             </div>
-        </div>
-    </>
+        </Layout>
     );
 };
 

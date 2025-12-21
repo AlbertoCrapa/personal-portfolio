@@ -1,0 +1,73 @@
+{
+  "playground": [
+    {
+      "slug": "ai_demo",
+      "title": "AI Demo",
+      "description": "A personal C++ exploration of artificial intelligence behaviors featuring pathfinding, wandering, and interactive AI systems.",
+      "date": "2024-ongoing",
+      "teamSize": 1,
+      "content": [
+        {
+          "title": "Project Philosophy",
+          "text": "**AI Demo** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable if someone else (or future me ahahah) looks at this, they should be able to understand what's happening."
+        },
+        {
+          "title": "Pathfinding Implementation",
+          "text": "The heart of the project is a **custom A* pathfinding algorithm** that I built from scratch. I studied the theory and then adapted it to work exactly how I needed it to. The pathfinding lets entities navigate complex environments efficiently, and building it taught me a lot about **graph theory**, **heuristic algorithms**, and how to optimize things for real-time applications."
+        },
+        {
+          "title": "AI Behavior Systems",
+          "text": "I've implemented several different AI behaviors that feel natural: **Wander behavior** makes entities move around randomly but in a way that looks organic rather than robotic; **Patrol systems** let them follow specific routes with smooth transitions between waypoints; **Seek behavior** makes entities chase targets (like your mouse cursor) with realistic acceleration and deceleration."
+        },
+        {
+          "title": "Technical Architecture",
+          "text": "I'm using **SDL2** for graphics and input handling, and the whole thing demonstrates what I've learned about modern **C++ programming** - **object-oriented design**, **memory management**, and building things in a modular way. Using **CMake** means it builds cleanly on different platforms, which is something you really need to know for professional C++ work."
+        },
+        {
+          "title": "Continuous Development",
+          "text": "This project keeps **evolving** as I learn new AI concepts and improve my existing code. Each time I come back to it, I focus on making the **code better**, **performance faster**, and **adding new features**. This iterative approach has taught me a lot about **maintaining software**, **using version control properly**, and how to improve things incrementally rather than trying to rebuild everything from scratch."
+        },
+        {
+          "title": "Code Quality Standards",
+          "text": "One thing I really care about is keeping the **code clean, readable, and well-documented**. I want to write code that doesn't just work, but that someone else could look at and learn from. This focus on quality has really improved my **software engineering practices** and how I communicate technical ideas."
+        },
+        {
+          "title": "Future Plans",
+          "text": "The modular design makes it easy to add new AI behaviors and systems. I'm planning to add **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination**. This forward-thinking approach is part of my commitment to **continuous learning** and developing my AI skills."
+        }
+      ],
+      "media": [
+        {
+          "src": "/works/aidemo/path.webp",
+          "description": "AI Demo pathfinding visualization showing A* algorithm in action."
+        },
+        {},
+        {
+          "src": "/works/aidemo/patrol.webp",
+          "description": "Visualization of patrol behavior with waypoints."
+        },
+        {},
+        {
+          "src": "/works/aidemo/singleAgent.webp",
+          "description": "Single agent demonstrating seek behavior towards mouse cursor."
+        },
+        {
+          "src": "/works/aidemo/code.webp",
+          "description": "VS Code showing some C++ code architecture."
+        }
+      ],
+      "cover": "/works/aidemo/path.webp",
+      "bgColor": "#4a90e2",
+      "url": "https://github.com/AlbertoCrapa/ai-demo",
+      "technologies": [
+        "C++",
+        "SDL2",
+        "CMake",
+        "A* Algorithm",
+        "Object-Oriented Design"
+      ],
+      "tags": ["c++", "ai", "pathfinding", "game-dev", "experiments"],
+      "type": "playground"
+    }
+  ]
+}

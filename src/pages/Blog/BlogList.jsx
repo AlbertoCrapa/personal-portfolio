@@ -1,78 +1,75 @@
-import React, { useEffect } from "react";
-import data from "../../data/blog.json";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import Layout from '../../layouts/Layout';
+import SEO from '../../components/SEO';
+import Breadcrumb from '../../components/ui/Breadcrumb';
+import BlogCard from '../../components/ui/BlogCard';
+import blogData from '../../data/blog.json';
 
-import Button from "../../components/Button/Button";
-import ThemeToggle from "../../components/ThemeToggle/ThemeToggle";
-import Footer from "../../components/Footer/Footer";
-import dataMain from "../../data/data.json";
-import SEO from "../../components/SEO/SEO";
-import { motion } from "framer-motion";
-
-
+/**
+ * Blog List Page
+ * Displays all blog posts
+ * Grid on desktop, list on mobile
+ */
 const BlogList = () => {
-    const navigate = useNavigate();
-    
-    // Scroll to top when component mounts
+    const isMobile = useMediaQuery('(max-width: 768px)');
+    const blogs = blogData.blogs;
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
     return (
-        <>
-            <SEO 
-                title="Blog - Alberto Crapanzano | Game Development Tutorials & Insights"
-                description="Game development insights, and project updates by Alberto Crapanzano (Albyeah) - Game Technical Designer & Creative Developer specializing in Unity, Unreal Engine, and technical game design."
-                keywords="Game Development Blog, Unity, Unreal Engine, C++, Technical Design, Alberto Crapanzano, Albyeah, Game Developer Milan"
+        <Layout>
+            <SEO
+                title="Blog - Alberto Crapanzano | Game Development Insights"
+                description="Game development tutorials, insights, and project updates by Alberto Crapanzano (Albyeah) - Game Technical Designer & Creative Developer."
+                keywords="Game Development Blog, Unity, Unreal Engine, C++, Technical Design, Alberto Crapanzano"
                 url="/blog"
             />
-            <div className="container mx-auto px-4 md:py-16 py-8 bg-bg">
-                {/* Theme Toggle */}
-                {/* <motion.div
-                    className="fixed top-6 right-6 md:top-8 md:right-8 z-50"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
-                >
-                    <ThemeToggle />
-                </motion.div> */}
-                
-                <div className="mb-6">
-                    <Button  onClick={() => navigate("/")}> &larr; Back to Home </Button>
-                </div>
-                <h1 className="text-5xl serif font-bold mb-2 text-center tracking-tight text-black">Blog</h1>
-                <p className="text-xl text-center mb-10 text-gray-dark italic">More useful than a sticky note, less boring than a technical manual. </p>
-                <div className="grid md:grid-cols-2 gap-10">
-                    {data.blogs.map((blog) => (
-                        <Link key={blog.slug} to={`/blog/${blog.slug}`} className="block group" data-cursor-text="Read Article" data-cursor-color="#34C759">
-                            <div className="bg-white transition-all active:scale-95 hover:scale-[1.01]  rounded-3xl rounded-bl-none  overflow-hidden transition outline-black">
-                                {blog.media && blog.media.length > 0 && blog.media[0].src ? (
-                                    <div className="w-full h-56 overflow-hidden">
-                                        <img
-                                            src={blog.media[0].src}
-                                            alt={blog.title}
-                                            className="w-full h-56 object-cover transition-transform duration-500 group-hover:scale-105"
-                                        />
-                                    </div>
-                                ) : null}
-                                <div className="p-6">
-                                    <h2 className="text-2xl font-bold mb-2 group-hover:text-blue-700 transition-colors text-black">{blog.title}</h2>
-                                    <p className="text-gray-dark text-sm mb-2">{new Date(blog.date).toLocaleString('default', { month: 'short', year: 'numeric' })} &middot; {blog.author}</p>
-                                    <div className="flex flex-wrap gap-2 mb-2">
-                                        {blog.tags.map((tag) => (
-                                            <span key={tag} className="bg-gray-light text-gray-dark px-2 py-0.5 rounded-xl rounded-bl-none text-xs font-semibold">{tag}</span>
-                                        ))}
-                                    </div>
-                                    <p className="text-black mb-2">{blog.excerpt}</p>
-                                    {/* <span className="text-blue-600 font-semibold">Read more &rarr;</span> */}
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
+
+            <div className="space-y-6">
+                {/* Breadcrumb */}
+                <Breadcrumb
+                    items={[
+                        { label: 'home', path: '/' },
+                        { label: 'blog', path: '/blog' },
+                    ]}
+                />
+
+                {/* Header */}
+                <header className="mb-8">
+                    <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Blog</h1>
+                    <p className="text-text-secondary">
+                        Insights, tutorials, and lessons learned from game development.
+                    </p>
+                </header>
+
+                {/* Blog Posts */}
+                {isMobile ? (
+                    // Mobile: List View
+                    <div className="space-y-4">
+                        {blogs.map((blog) => (
+                            <BlogCard key={blog.slug} blog={blog} size="list" />
+                        ))}
+                    </div>
+                ) : (
+                    // Desktop: Grid View
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {blogs.map((blog) => (
+                            <BlogCard key={blog.slug} blog={blog} size="medium" />
+                        ))}
+                    </div>
+                )}
+
+                {/* Empty State */}
+                {blogs.length === 0 && (
+                    <div className="text-center py-12">
+                        <p className="text-text-muted">No blog posts yet. Check back soon!</p>
+                    </div>
+                )}
             </div>
-            <Footer contact={dataMain.contact}  />
-        </>
+        </Layout>
     );
 };
 
