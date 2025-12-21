@@ -12,7 +12,7 @@ const Simple404 = () => {
                 url="/404"
                 noindex={true}
             />
-            <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
+            <div className="min-h-[60svh] flex flex-col items-center justify-center text-center">
                 <h1 className="text-8xl font-bold text-text-muted mb-4">404</h1>
                 <h2 className="text-2xl font-bold text-text-primary mb-2">Page Not Found</h2>
                 <p className="text-text-secondary mb-8">The page you're looking for doesn't exist.</p>

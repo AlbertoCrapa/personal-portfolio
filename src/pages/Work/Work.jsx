@@ -37,7 +37,7 @@ const Work = ({ source = 'projects' }) => {
         return (
             <Layout>
                 <SEO title="Project Not Found - Alberto Crapanzano" noindex />
-                <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
+                <div className="min-h-[60svh] flex flex-col items-center justify-center text-center">
                     <h1 className="text-5xl font-bold text-text-primary mb-4">Oops!</h1>
                     <p className="text-text-secondary mb-6">The project you're looking for doesn't exist.</p>
                     <div className="flex gap-4">
@@ -165,6 +165,13 @@ const Work = ({ source = 'projects' }) => {
                         {project.content.map((section, idx) => {
                             const mediaItem = project.media?.[idx];
 
+                            // Skip first media if it's the same as cover (unless cover is video and media is image)
+                            const coverIsVideo = isVideo(project.videocover || project.cover);
+                            const mediaIsImage = mediaItem?.src && !isVideo(mediaItem.src);
+                            const isFirstMedia = idx === 0;
+                            const isSameAsCover = isFirstMedia && mediaItem?.src === project.cover;
+                            const shouldShowMedia = mediaItem?.src && (!isSameAsCover || (coverIsVideo && mediaIsImage));
+
                             return (
                                 <section key={idx} className="space-y-4">
                                     {/* Section Title */}
@@ -180,7 +187,7 @@ const Work = ({ source = 'projects' }) => {
                                     )}
 
                                     {/* Associated Media */}
-                                    {mediaItem?.src && (
+                                    {shouldShowMedia && (
                                         <div className="mt-4 rounded-xl overflow-hidden max-w-3xl">
                                             {isVideo(mediaItem.src) ? (
                                                 <VideoPlayer

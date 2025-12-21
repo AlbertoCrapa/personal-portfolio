@@ -28,7 +28,7 @@ const BlogPage = () => {
         return (
             <Layout>
                 <SEO title="Blog Post Not Found - Alberto Crapanzano" noindex />
-                <div className="min-h-[60vh] flex flex-col items-center justify-center text-center">
+                <div className="min-h-[60svh] flex flex-col items-center justify-center text-center">
                     <h1 className="text-5xl font-bold text-text-primary mb-4">Oops!</h1>
                     <p className="text-text-secondary mb-6">The blog post you're looking for doesn't exist.</p>
                     <div className="flex gap-4">
@@ -69,7 +69,7 @@ const BlogPage = () => {
                 type="article"
             />
 
-            <article className="space-y-8">
+            <div className="space-y-2">
                 {/* Breadcrumb */}
                 <Breadcrumb
                     items={[
@@ -91,7 +91,7 @@ const BlogPage = () => {
                             <img
                                 src={blog.media[0].src}
                                 alt={blog.title}
-                                className="w-full h-auto max-h-96 object-cover"
+                                className="w-full h-auto"
                                 onError={(e) => { e.target.src = 'https://placehold.co/800x400'; }}
                             />
                         )}
@@ -100,7 +100,7 @@ const BlogPage = () => {
 
                 {/* Header */}
                 <header className="space-y-4">
-                    <h1 className="text-3xl md:text-4xl font-bold text-text-primary leading-tight">
+                    <h1 className="text-2xl md:text-4xl font-bold text-text-primary leading-tight">
                         {blog.title}
                     </h1>
 
@@ -130,7 +130,7 @@ const BlogPage = () => {
 
                 {/* Content Sections */}
                 {blog.content && blog.content.length > 0 && (
-                    <div className="space-y-10">
+                    <div className="space-y-12">
                         {blog.content.map((section, idx) => {
                             // Skip first media as it's used as cover
                             const mediaItem = blog.media?.[idx + 1];
@@ -186,9 +186,9 @@ const BlogPage = () => {
                         <Button
                             to={`/blog/${prevBlog.slug}`}
                             variant="ghost"
-                            className="flex items-center gap-2 max-w-[45%]"
+                            className="flex items-center gap-2"
                         >
-                            <span className="truncate">← {prevBlog.title}</span>
+                            ← {prevBlog.title}
                         </Button>
                     ) : (
                         <div />
@@ -197,15 +197,15 @@ const BlogPage = () => {
                         <Button
                             to={`/blog/${nextBlog.slug}`}
                             variant="ghost"
-                            className="flex items-center gap-2 max-w-[45%] text-right"
+                            className="flex items-center gap-2"
                         >
-                            <span className="truncate">{nextBlog.title} →</span>
+                            {nextBlog.title} →
                         </Button>
                     ) : (
                         <div />
                     )}
                 </nav>
-            </article>
+            </div>
         </Layout>
     );
 };

@@ -5,25 +5,46 @@ import SEO from '../../components/SEO';
 import SectionHeader from '../../components/ui/SectionHeader';
 import ProjectCard from '../../components/ui/ProjectCard';
 import Button from '../../components/ui/Button';
+import SocialLink from '../../components/ui/SocialLink';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
 import blogData from '../../data/blog.json';
 import data from '../../data/data.json';
 
-/**
- * Home Page
- * Bento grid layout matching the reference design
- * Desktop: Projects left, News+Playground right
- * Mobile: Stacked layout
- */
+
 const Home = () => {
-  const { fullname, about } = data;
+  const { fullname, about, news, contact } = data;
   const projects = Object.values(projectData.projects);
   const playgroundItems = playgroundData.playground || [];
   const blogs = blogData.blogs;
 
   // Get featured projects (first 3)
   const featuredProjects = projects.slice(0, 3);
+
+  // Build social links for mobile footer
+  const socialLinks = [
+    contact?.github && { label: 'Github', url: contact.github, hoverColor: 'hover:text-[#beabf6ff]', glowColor: '#8a5cf633' },
+    contact?.linkedin && { label: 'LinkedIn', url: contact.linkedin, hoverColor: 'hover:text-[#7DD3FC]', glowColor: '#0a66c22e' },
+    contact?.instagram && { label: 'Instagram', url: contact.instagram, hoverColor: 'hover:text-[#f5a9d0ff]', glowColor: '#e4405e2e' },
+    contact?.itchio && { label: 'Itch.io', url: contact.itchio, hoverColor: 'hover:text-[#FCA5A5]', glowColor: '#fa5c5c34' },
+  ].filter(Boolean);
+
+  // Parse news text with simple markdown links [text](url)
+  const parseNewsText = (text) => {
+    if (!text) return null;
+    const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+    return parts.map((part, i) => {
+      const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+      if (match) {
+        return (
+          <Link key={i} to={match[2]} className="text-accent-blue hover:underline font-medium">
+            {match[1]}
+          </Link>
+        );
+      }
+      return part;
+    });
+  };
 
   return (
     <Layout>
@@ -59,26 +80,31 @@ const Home = () => {
           {/* Right Column - News and Sketches */}
           <aside className="lg:col-span-5 space-y-6">
             {/* News Section */}
-            <section className="bg-surface rounded-xl p-5 lg:p-6">
-              <h2 className="text-lg font-bold text-text-primary mb-3">News</h2>
-              <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                I'm currently working on my first game, <Link to="/work/deadly-nightshade" className="text-accent-blue hover:underline font-medium">Deadly Nightshade</Link>.
-                If you like the project, consider checking it out!
-              </p>
-              <Button
-                to="/work/deadly-nightshade"
-                variant="primary"
-                size="md"
-                fullWidth
-              >
-                <span className="flex items-center gap-2">
-                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M21 12l-18 12v-24l18 12z" />
-                  </svg>
-                  View Deadly Nightshade
-                </span>
-              </Button>
-            </section>
+            {news && (
+              <section className="bg-surface rounded-xl p-5 mt-11 lg:p-6">
+                <h2 className="text-lg font-bold text-text-primary mb-3">News</h2>
+                <p className="text-text-secondary text-sm leading-relaxed mb-4">
+                  {parseNewsText(news.text)}
+                </p>
+                {news.buttonLink && (
+                  <Button
+                    to={news.buttonLink}
+                    variant="primary"
+                    size="md"
+                    fullWidth
+                  >
+                    <span className="flex items-center gap-2">
+                      {news.buttonIcon === 'play' && (
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M21 12l-18 12v-24l18 12z" />
+                        </svg>
+                      )}
+                      {news.buttonText || 'Learn More'}
+                    </span>
+                  </Button>
+                )}
+              </section>
+            )}
 
             {/* Playground Section */}
             <section>
@@ -127,6 +153,40 @@ const Home = () => {
             </div>
           </section>
         )}
+
+        {/* Mobile Social Links & CV - Only visible on mobile */}
+        <section className="lg:hidden pt-6 border-t border-border">
+          <p className="text-xs text-text-muted uppercase tracking-wider mb-3">Connect</p>
+          <ul className="space-y-1 mb-4">
+            {socialLinks.map((link) => (
+              <li key={link.label}>
+                <SocialLink href={link.url} hoverColor={link.hoverColor} glowColor={link.glowColor}>
+                  {link.label}
+                </SocialLink>
+              </li>
+            ))}
+          </ul>
+          {contact?.cv && (
+            <a
+              href={contact.cv}
+              download
+              className="flex font-semibold items-center gap-2 text-sm text-text-secondary hover:text-[#86EFAC] transition-all duration-300"
+              onMouseEnter={(e) => e.currentTarget.style.textShadow = '0 0 8px #22c55e43, 0 0 16px rgba(34, 197, 94, 0.1)'}
+              onMouseLeave={(e) => e.currentTarget.style.textShadow = 'none'}
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              <span>Download CV</span>
+            </a>
+          )}
+        </section>
       </div>
     </Layout>
   );

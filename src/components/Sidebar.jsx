@@ -9,6 +9,21 @@ import SocialLink from './ui/SocialLink';
  * Fixed on desktop, collapsible header on mobile
  * Contains: name, description, navigation, social links
  */
+
+// Helper to get current page label from pathname
+const getCurrentPageLabel = (pathname, links) => {
+    // Check for exact match first
+    const exactMatch = links.find(link => link.path === pathname);
+    if (exactMatch) return exactMatch.label;
+
+    // Check for partial match (e.g., /work/slug matches /projects)
+    if (pathname.startsWith('/work/')) return 'Projects';
+    if (pathname.startsWith('/playground/')) return 'Playground';
+    if (pathname.startsWith('/blog/')) return 'Blog';
+
+    return 'Home';
+};
+
 const Sidebar = () => {
     const location = useLocation();
     const { fullname, title, contact } = data;
@@ -24,15 +39,15 @@ const Sidebar = () => {
         { label: 'Blog', path: '/blog' },
     ];
 
-    // Build social links from contact data
+    // Build social links from contact data with subtle brand colors and glow
     const socialLinks = [
-        contact?.bluesky && { label: 'BlueSky', url: contact.bluesky },
-        contact?.github && { label: 'Github', url: contact.github },
-        contact?.instagram && { label: 'Instagram', url: contact.instagram },
-        contact?.itchio && { label: 'Itch.io', url: contact.itchio },
-        contact?.twitch && { label: 'Twitch', url: contact.twitch },
-        contact?.youtube && { label: 'Youtube', url: contact.youtube },
-        contact?.linkedin && { label: 'LinkedIn', url: contact.linkedin },
+        contact?.bluesky && { label: 'BlueSky', url: contact.bluesky, hoverColor: 'hover:text-[#6BB8FF]', glowColor: '#0084ff2f' },
+        contact?.github && { label: 'Github', url: contact.github, hoverColor: 'hover:text-[#beabf6ff]', glowColor: '#8a5cf633' },
+        contact?.instagram && { label: 'Instagram', url: contact.instagram, hoverColor: 'hover:text-[#f5a9d0ff]', glowColor: '#e4405e2e' },
+        contact?.itchio && { label: 'Itch.io', url: contact.itchio, hoverColor: 'hover:text-[#FCA5A5]', glowColor: '#fa5c5c34' },
+        contact?.twitch && { label: 'Twitch', url: contact.twitch, hoverColor: 'hover:text-[#C4B5FD]', glowColor: '#9046ff36' },
+        contact?.youtube && { label: 'Youtube', url: contact.youtube, hoverColor: 'hover:text-[#FCA5A5]', glowColor: '#ff000036' },
+        contact?.linkedin && { label: 'LinkedIn', url: contact.linkedin, hoverColor: 'hover:text-[#7DD3FC]', glowColor: '#0a66c22e' },
     ].filter(Boolean);
 
     return (
@@ -91,7 +106,7 @@ const Sidebar = () => {
                     <ul className="space-y-1">
                         {socialLinks.map((link) => (
                             <li key={link.label}>
-                                <SocialLink href={link.url}>{link.label}</SocialLink>
+                                <SocialLink href={link.url} hoverColor={link.hoverColor} glowColor={link.glowColor}>{link.label}</SocialLink>
                             </li>
                         ))}
                     </ul>
@@ -101,7 +116,10 @@ const Sidebar = () => {
                         <a
                             href={contact.cv}
                             download
-                            className="mt-4 flex items-center gap-2 text-sm text-text-secondary hover:text-accent-blue transition-colors group"
+                            className="mt-4 flex font-semibold items-center gap-2 text-sm text-text-secondary hover:text-[#86EFAC] transition-all duration-300 group"
+                            style={{ '--glow-color': '#22c55eff' }}
+                            onMouseEnter={(e) => e.currentTarget.style.textShadow = '0 0 8px #22c55e43 , 0 0 16px rgba(34, 197, 94, 0.1)'}
+                            onMouseLeave={(e) => e.currentTarget.style.textShadow = 'none'}
                         >
                             <svg
                                 className="w-4 h-4"
@@ -127,16 +145,13 @@ const Sidebar = () => {
                                 {fullname}
                             </h1>
                             <p className="text-xs text-text-secondary">
-                                → About & Contact
+                                → {getCurrentPageLabel(location.pathname, [...navLinks, ...projectLinks])}
                             </p>
                         </Link>
-                        <MobileNav links={[...navLinks.slice(1), ...projectLinks]} />
+                        <MobileNav links={[...navLinks, ...projectLinks]} />
                     </div>
                 </div>
             </header>
-
-            {/* Mobile spacer */}
-            <div className="lg:hidden h-20" />
         </>
     );
 };

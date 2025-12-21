@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
  * @param {boolean} bold - Bold text
  * @param {React.ReactNode} children - Link text
  */
-const NavLink = ({ to, active, disabled, bold, children }) => {
+const NavLink = ({ to, active, disabled, children }) => {
     const baseClasses = "flex items-center gap-2 py-1 transition-colors text-base";
 
     const stateClasses = disabled
@@ -20,7 +20,7 @@ const NavLink = ({ to, active, disabled, bold, children }) => {
             ? "text-text-primary"
             : "text-text-secondary hover:text-text-primary";
 
-    const fontClasses = bold ? "font-semibold" : "font-normal";
+    const fontClasses =  "font-semibold" ;
 
     if (disabled) {
         return (

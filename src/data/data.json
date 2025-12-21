@@ -8,15 +8,19 @@
     "location": "Milan, Italy",
     "birthdate": "2004-06-05"
   },
+  "news": {
+    "text": "You can currently play my thesis game project, [Deadly Nightshade](/work/deadly-nightshade). If you like the project, consider checking it out!",
+    "buttonText": "View Deadly Nightshade",
+    "buttonLink": "https://www.youtube.com/watch?v=Pz36EtGGIvM",
+    "buttonIcon": "play"
+  },
   "contact": {
     "email": "hello@albyeah.com",
     "linkedin": "https://www.linkedin.com/in/alberto-c-905a69232/",
     "github": "https://github.com/AlbertoCrapa",
-    "bluesky": "https://bsky.app",
-    "instagram": "https://instagram.com",
-    "itchio": "https://itch.io",
-    "twitch": "https://twitch.tv",
-    "youtube": "https://youtube.com",
+    "instagram": "https://instagram.com/albyeah",
+    "itchio": "https://albyeah.itch.io/",
+
     "cv": "/AlbertoCrapanzano_CV_ENG.pdf"
   }
 }

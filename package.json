@@ -25,7 +25,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "prebuild": "node scripts/generate-feed.js",
     "build": "react-scripts build",
+    "generate-feed": "node scripts/generate-feed.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

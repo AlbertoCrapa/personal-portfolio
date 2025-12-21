@@ -1,5 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
+import Smile from '../components/Smile';
 
 /**
  * Main Layout Component
@@ -8,15 +9,15 @@ import Sidebar from '../components/Sidebar';
  */
 const Layout = ({ children }) => {
     return (
-        <div className="min-h-screen bg-bg">
+        <div className="min-h-svh bg-bg">
             {/* Max-width container for entire layout, centered */}
             <div className="max-w-[1400px] mx-auto flex">
                 {/* Fixed Sidebar */}
                 <Sidebar />
-
+                {/* <Smile /> */}
                 {/* Main Content Area */}
-                <main className="flex-1 lg:ml-sidebar min-h-screen">
-                    <div className="px-4 py-6 lg:px-8 lg:py-10">
+                <main className="flex-1 lg:ml-sidebar min-h-svh overflow-x-hidden">
+                    <div className="px-4 pt-24 pb-6 lg:px-8 lg:py-10 w-full">
                         {children}
                     </div>
                 </main>

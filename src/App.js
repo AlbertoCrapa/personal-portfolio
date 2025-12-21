@@ -12,6 +12,7 @@ import Playground from "./pages/Playground/Playground";
 import Work from "./pages/Work/Work";
 import BlogList from "./pages/Blog/BlogList";
 import BlogPage from "./pages/Blog/BlogPage";
+import Privacy from "./pages/Privacy/Privacy";
 import Simple404 from "./pages/NotFound/Simple404";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/work/:slug" element={<Work />} />
       <Route path="/blog" element={<BlogList />} />
       <Route path="/blog/:slug" element={<BlogPage />} />
+      <Route path="/privacy" element={<Privacy />} />
       <Route path="*" element={<Simple404 />} />
     </Routes>
   );

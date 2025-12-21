@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Layout from '../../layouts/Layout';
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
@@ -49,7 +50,7 @@ const About = () => {
                 </section>
 
                 {/* Contact Form Section */}
-                <section className="bg-surface rounded-xl p-6 lg:p-8 max-w-3xl">
+                <section className="bg-surface rounded-xl p-6 lg:p-8 max-w-xl">
                     <h2 className="text-2xl font-bold text-text-primary mb-6">Let's talk</h2>
                     <ContactForm email={contact?.email} />
                 </section>
@@ -75,6 +76,19 @@ const About = () => {
                         )}
                     </div>
                 </section>
+
+                {/* Footer - Privacy & Copyright */}
+                <footer className="pt-8 border-t border-border text-center space-y-3">
+                    <Link
+                        to="/privacy"
+                        className="text-sm text-text-muted hover:text-text-secondary transition-colors"
+                    >
+                        Privacy Policy
+                    </Link>
+                    <p className="text-xs text-text-muted">
+                        © {new Date().getFullYear()} {fullname}. All rights reserved.
+                    </p>
+                </footer>
             </div>
         </Layout>
     );
