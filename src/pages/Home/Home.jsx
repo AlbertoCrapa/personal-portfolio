@@ -13,7 +13,7 @@ import data from '../../data/data.json';
 
 
 const Home = () => {
-  const { fullname, about, news, contact } = data;
+  const { news, contact } = data;
   const projects = Object.values(projectData.projects);
   const playgroundItems = playgroundData.playground || [];
   const blogs = blogData.blogs;

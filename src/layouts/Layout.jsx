@@ -1,6 +1,5 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
-import Smile from '../components/Smile';
 
 /**
  * Main Layout Component

@@ -12,9 +12,7 @@ const Smile = React.memo(() => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   const [canBlink, setCanBlink] = useState(true);
-  const [canFollowMouse, setCanFollowMouse] = useState(true);
-  const [draggingTime, setDraggingTime] = useState(0);
-  const [draggingInterval, setDraggingInterval] = useState(null);
+  const [canFollowMouse] = useState(true);
   const [lastShakeTime, setLastShakeTime] = useState(0);
 
 
@@ -130,17 +128,6 @@ const Smile = React.memo(() => {
     }, 200);
   }, [canBlink, isHurt, imagePaths]);
 
-  const displaySmileText = useCallback((text) => {
-    if (!smileTextRef.current) return;
-
-    smileTextRef.current.innerHTML = text;
-    setTimeout(() => {
-      if (smileTextRef.current) {
-        smileTextRef.current.innerHTML = "";
-      }
-    }, 1800);
-  }, []);
-
   const faceHurt = useCallback(() => {
     if (isLove) return;
 
@@ -182,19 +169,10 @@ const Smile = React.memo(() => {
   }, [faceHurt]);
 
   const handleDragStart = useCallback(() => {
-    setDraggingTime(0);
-    if (draggingInterval) clearInterval(draggingInterval);
-    const interval = setInterval(() => {
-      setDraggingTime(prev => prev + 1);
-    }, 1000);
-    setDraggingInterval(interval);
-  }, [draggingInterval]);
+  }, []);
 
   const handleDragEnd = useCallback(() => {
-    if (draggingInterval) clearInterval(draggingInterval);
-    setDraggingInterval(null);
-    //console.log(`Dragging time: ${draggingTime} seconds`);
-  }, [draggingInterval, draggingTime]);
+  }, []);
 
   // Shake detection for mobile devices
   const handleDeviceMotion = useCallback((event) => {
@@ -215,7 +193,7 @@ const Smile = React.memo(() => {
       setLastShakeTime(now);
       //displaySmileText("Don't shake so hard");
     }
-  }, [lastShakeTime, displaySmileText]);
+  }, [lastShakeTime]);
 
   // Request permission for iOS 13+ devices
   const requestMotionPermission = useCallback(async () => {

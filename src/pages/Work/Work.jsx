@@ -65,6 +65,7 @@ const Work = ({ source = 'projects' }) => {
         return /\.(mp4|webm|mov)$/i.test(src);
     };
 
+
     return (
         <Layout>
             <SEO
@@ -76,7 +77,7 @@ const Work = ({ source = 'projects' }) => {
                 type="article"
             />
 
-            <div className="space-y-2">
+            <div className="space-y-1">
                 {/* Breadcrumb */}
                 <Breadcrumb
                     items={[
@@ -107,7 +108,7 @@ const Work = ({ source = 'projects' }) => {
                 )}
 
                 {/* Project Header - AFTER cover */}
-                <header className="space-y-4">
+                <header className="space-y-4 pt-2">
                     <h1 className="text-4xl md:text-5xl font-bold text-text-primary">
                         {project.title}
                     </h1>
@@ -166,14 +167,14 @@ const Work = ({ source = 'projects' }) => {
 
                 {/* Content Elements */}
                 {contentElements.length > 0 && (
-                    <div className="space-y-12">
+                    <div className="space-y-8 md:space-y-10 pt-8">
                         {contentElements.map((element, idx) => {
                             const elementType = element?.type || (element?.src ? 'media' : 'section');
 
                             if (elementType === 'model' && element?.src) {
                                 return (
-                                    <section key={idx} className="space-y-4">
-                                        <div className="mt-4 max-w-4xl">
+                                    <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
+                                        <div>
                                             <ModelViewer
                                                 src={element.src}
                                                 poster={element.poster}
@@ -188,10 +189,10 @@ const Work = ({ source = 'projects' }) => {
 
                             if (elementType === 'media' && element?.src) {
                                 return (
-                                    <section key={idx} className="space-y-4">
-                                        <div className="mt-4 max-w-3xl">
+                                    <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
+                                        <div>
                                             {isVideo(element.src) ? (
-                                                <figure className="space-y-2">
+                                                <figure className="space-y-1">
                                                     <div className="rounded-xl overflow-hidden">
                                                         <VideoPlayer
                                                             src={element.src}
@@ -205,7 +206,7 @@ const Work = ({ source = 'projects' }) => {
                                                     )}
                                                 </figure>
                                             ) : (
-                                                <figure className="space-y-2">
+                                                <figure className="space-y-1">
                                                     <div className="rounded-xl overflow-hidden">
                                                         <img
                                                             src={element.src}
@@ -227,7 +228,7 @@ const Work = ({ source = 'projects' }) => {
                             }
 
                             return (
-                                <section key={idx} className="space-y-4">
+                                <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
                                     {element?.title && (
                                         <h2 className="text-2xl font-bold text-text-primary">
                                             {element.title}
