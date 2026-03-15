@@ -291,6 +291,18 @@ function normalizeLanguage(language) {
   return aliases[normalized] || normalized;
 }
 
+function formatLanguageLabel(language) {
+  const normalized = normalizeLanguage(language);
+  const labels = {
+    cpp: 'C++',
+    csharp: 'C#',
+    javascript: 'JavaScript',
+    typescript: 'TypeScript',
+    plaintext: 'Text',
+  };
+  return labels[normalized] || normalized;
+}
+
 function escapeHtml(text) {
   if (!text) return '';
   return text
@@ -382,23 +394,36 @@ function CodeBlock({ content, language }) {
   };
 
   return (
-    <div className="bg-surface rounded-lg overflow-hidden my-4 border border-border">
-      <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-bg/40">
-        <span className="text-xs uppercase tracking-wide text-text-muted">
-          {normalizeLanguage(language)}
+    <div className="my-4 w-full max-w-3xl rounded-2xl border border-border bg-bg/60 overflow-y-auto max-h-[34rem]">
+      <div className="sticky top-0 z-20 flex items-center justify-between px-4 py-2 border-b border-border bg-bg/90 backdrop-blur-sm">
+        <span className="inline-flex items-center gap-2 text-text-primary text-xs font-semibold tracking-wide uppercase">
+          <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 md:w-5 md:h-5 text-text-primary">
+            <path d="M8 8 4 12l4 4M16 8l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span>{formatLanguageLabel(language)}</span>
         </span>
         <button
           type="button"
           onClick={handleCopy}
-          className="text-xs px-2.5 py-1 rounded-md bg-bg hover:bg-surface-hover text-text-secondary transition-colors"
+          className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border text-text-secondary hover:text-text-primary hover:bg-bg transition-colors"
           aria-label="Copy code"
+          title={copied ? 'Copied' : 'Copy code'}
         >
-          {copied ? 'Copied' : 'Copy'}
+          {copied ? (
+            <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+              <path d="m5 13 4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+              <rect x="9" y="3" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
+              <rect x="3" y="9" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
+            </svg>
+          )}
         </button>
       </div>
-      <pre className="overflow-x-auto p-4 text-sm leading-relaxed">
+      <pre className="overflow-x-auto p-4 md:p-5 text-sm leading-relaxed">
         <code
-          className="hljs font-mono"
+          className="hljs !bg-transparent font-mono"
           dangerouslySetInnerHTML={{ __html: highlightedHtml || escapeHtml(content || '') }}
         />
       </pre>
