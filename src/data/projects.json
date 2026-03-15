@@ -12,89 +12,105 @@
       "teamSize": 6,
       "content": [
         {
+          "type": "section",
           "title": "Overview",
           "text": "Deadly Nightshade was my thesis project at IED Milano: a story about a future where nature and technology blend in really unsettling ways. You follow Alice, a young scientist, and Rusty, this little robot she secretly builds. When they escape from the lab together, they start uncovering some pretty dark truths about the company they used to trust, and along the way they form this beautiful bond that drives the whole story."
         },
         {
-          "title": "My Role",
-          "text": "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools**, basically making sure the technical side and the story worked together seamlessly."
-        },
-        {
-          "title": "Artificial Intelligence & Enemies",
-          "text": "Creating the **enemy AI** was really fun, I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy boss** crawls up  and can make the floor collapse during fights. I also put together this **Waves Arena Game Mode** that throws progressively harder enemies at you."
-        },
-        {
-          "title": "Dialogue & Narrative Tools",
-          "text": "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things,  walking into areas, taking damage, interacting with objects  and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right."
-        },
-        {
-          "title": "Audio Integration",
-          "text": "Getting **FMOD** working in the project was a big challenge: I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on."
-        },
-        {
-          "title": "UI & Visual Design",
-          "text": "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen**, it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes."
-        },
-        {
-          "title": "Technical Animation & Physics",
-          "text": "I handled **Rusty's procedural physics** for his arms and legs, making them more or less stiff depending on whether you're playing or watching a cutscene. I worked on the **technical animation pipeline** too, setting up state machines and custom logic for enemies, bosses, and Alice (who uses the **Advanced Locomotion System** in C++). I also created **interactive props** like rotating valves, breakable crates, security cameras, metal detectors, and hidden compartments."
-        },
-        {
-          "title": "Level Streaming & World Building",
-          "text": "I set up **Level Streaming** for elevators, doors, and loading different areas dynamically - this keeps performance smooth by only loading what you need. It also meant everyone on the team could work on different areas without stepping on each other's toes through **Git**. I collaborated with [Christian](https://www.christiancatenacci.com/) on **Level Design**, working on rough layouts for places like the 'General Lab' and 'Green Dome', then refining them through lots of playtesting."
-        },
-        {
-          "title": "Tools & Optimization",
-          "text": "I wrote several **Python tools** to automate boring tasks: turning off sRGB on ARM textures in batches, finding unused meshes, spotting performance-heavy components, and automatically enabling 'Activate Only When Rendered'. These tools made a huge difference in both project performance and our workflow. I also helped get everything working properly on **Steam Deck**."
-        },
-        {
-          "title": "Visual Effects",
-          "text": "I created some **VFX** myself, like the final boss stomp effect and enemy explosion effects. [Christian](https://www.christiancatenacci.com/) and I also picked and integrated other VFX throughout the project to make both the atmosphere and gameplay moments really pop."
-        },
-        {
-          "title": "Collaboration & Outcome",
-          "text": "We built Deadly Nightshade in **Unreal Engine 5.4** for our thesis, and ended up with a fully playable game with over 30 minutes of content. Beyond all the technical stuff, I also worked as **co-director and co-writer**, making sure the story, design, and systems all worked together. Finishing this in July 2025 was honestly one of the most challenging and rewarding things I've done in game development so far."
-        }
-      ],
-      "media": [
-        {
+          "type": "media",
           "src": "/works/deadly/cover.webp",
           "description": "Main cover art for Deadly Nightshade."
         },
         {
+          "type": "section",
+          "title": "My Role",
+          "text": "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools**, basically making sure the technical side and the story worked together seamlessly."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/interaction.mp4",
           "description": "Gameplay interaction demo video."
         },
         {
+          "type": "section",
+          "title": "Artificial Intelligence & Enemies",
+          "text": "Creating the **enemy AI** was really fun, I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy boss** crawls up  and can make the floor collapse during fights. I also put together this **Waves Arena Game Mode** that throws progressively harder enemies at you."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/tree.webp",
           "description": "Behavior tree example for enemy AI."
         },
         {
+          "type": "section",
+          "title": "Dialogue & Narrative Tools",
+          "text": "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things,  walking into areas, taking damage, interacting with objects  and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/bosscomp.mp4",
           "description": "Boss fight composition and effects."
         },
         {
+          "type": "section",
+          "title": "Audio Integration",
+          "text": "Getting **FMOD** working in the project was a big challenge: I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/audio.webp",
           "description": "Audio trigger in editor for FMOD integration."
         },
         {
+          "type": "section",
+          "title": "UI & Visual Design",
+          "text": "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen**, it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/UI.webp",
           "description": "In game UI design."
         },
         {
+          "type": "section",
+          "title": "Technical Animation & Physics",
+          "text": "I handled **Rusty's procedural physics** for his arms and legs, making them more or less stiff depending on whether you're playing or watching a cutscene. I worked on the **technical animation pipeline** too, setting up state machines and custom logic for enemies, bosses, and Alice (who uses the **Advanced Locomotion System** in C++). I also created **interactive props** like rotating valves, breakable crates, security cameras, metal detectors, and hidden compartments."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/enemies.mp4",
           "description": "Showcase of enemy AI and behaviors."
         },
         {
+          "type": "section",
+          "title": "Level Streaming & World Building",
+          "text": "I set up **Level Streaming** for elevators, doors, and loading different areas dynamically - this keeps performance smooth by only loading what you need. It also meant everyone on the team could work on different areas without stepping on each other's toes through **Git**. I collaborated with [Christian](https://www.christiancatenacci.com/) on **Level Design**, working on rough layouts for places like the 'General Lab' and 'Green Dome', then refining them through lots of playtesting."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/map.webp",
           "description": "Map zones and level design overview."
         },
-        {},
         {
+          "type": "section",
+          "title": "Tools & Optimization",
+          "text": "I wrote several **Python tools** to automate boring tasks: turning off sRGB on ARM textures in batches, finding unused meshes, spotting performance-heavy components, and automatically enabling 'Activate Only When Rendered'. These tools made a huge difference in both project performance and our workflow. I also helped get everything working properly on **Steam Deck**."
+        },
+        {
+          "type": "section",
+          "title": "Visual Effects",
+          "text": "I created some **VFX** myself, like the final boss stomp effect and enemy explosion effects. [Christian](https://www.christiancatenacci.com/) and I also picked and integrated other VFX throughout the project to make both the atmosphere and gameplay moments really pop."
+        },
+        {
+          "type": "media",
           "src": "/works/deadly/vfxvideo.webm",
           "description": "Showcase of final boss VFX and effects."
         },
-        {}
+        {
+          "type": "section",
+          "title": "Collaboration & Outcome",
+          "text": "We built Deadly Nightshade in **Unreal Engine 5.4** for our thesis, and ended up with a fully playable game with over 30 minutes of content. Beyond all the technical stuff, I also worked as **co-director and co-writer**, making sure the story, design, and systems all worked together. Finishing this in July 2025 was honestly one of the most challenging and rewarding things I've done in game development so far."
+        }
       ],
       "url": "https://deadlynightshade.netlify.app/",
       "technologies": [
@@ -120,52 +136,72 @@
       "teamSize": 2,
       "content": [
         {
+          "type": "section",
           "title": "Overview",
           "text": "**Juan The Game** is this quirky physics-based mobile puzzle game where you guide a horse through levels by making him fall perfectly into balconies. What started as just a fun side project with a friend turned into this full mobile experience with over **60 unique levels**  and I'm still adding new ones because it's just too much fun to stop."
         },
         {
-          "title": "Technical Implementation",
-          "text": "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse  his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky  you want it realistic enough to be believable but fun enough that it doesn't frustrate players."
-        },
-        {
-          "title": "Solo Development",
-          "text": "I pretty much handled everything: **Programming** the gameplay mechanics and physics, **designing all 60+ levels** with careful attention to how difficulty ramps up, creating **custom horse skins** and character art, and designing the **UI/UX** to make sure mobile controls felt intuitive and players always knew what was happening."
-        },
-        {
-          "title": "Level Design & Player Experience",
-          "text": "Every single level was hand-crafted to give players a unique challenge while keeping that learning curve smooth. I spent a lot of time collecting **player feedback** and learned some hard lessons about what makes challenges fun versus what just makes people want to throw their phone. That feedback loop made me redesign tons of levels, which taught me how important **iterative design** and actually listening to users really is."
-        },
-        {
-          "title": "Art & Visual Identity",
-          "text": "Beyond all the programming, I drew all the **custom horse skins** and character designs, giving players different ways to personalize their experience. This was my chance to dive into **digital illustration** and **character design**, plus I learned how to get artwork to look good in Unity's rendering system."
-        },
-        {
-          "title": "Learning Outcomes",
-          "text": "This year-long project taught me so much about **mobile game development**, **physics programming**, and especially **how to actually use player feedback** instead of just collecting it. I learned when to hold players' hands and guide them versus when to let them figure things out, and how to tell the difference between a good challenge and something that just makes people quit."
-        }
-      ],
-      "media": [
-        {
+          "type": "media",
           "src": "/works/juan/video.webm",
           "description": "Juan The Game Trailer showcasing gameplay and mechanics."
         },
         {
+          "type": "section",
+          "title": "Technical Implementation",
+          "text": "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse  his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky  you want it realistic enough to be believable but fun enough that it doesn't frustrate players."
+        },
+        {
+          "type": "media",
           "src": "/works/juan/physics.webm",
           "description": "Physics-based gameplay demonstration across multiple levels."
         },
         {
+          "type": "section",
+          "title": "Solo Development",
+          "text": "I pretty much handled everything: **Programming** the gameplay mechanics and physics, **designing all 60+ levels** with careful attention to how difficulty ramps up, creating **custom horse skins** and character art, and designing the **UI/UX** to make sure mobile controls felt intuitive and players always knew what was happening."
+        },
+        {
+          "type": "media",
           "src": "/works/juan/ngame.webp",
           "description": "Unity editor showing level design and horse rig."
         },
         {
+          "type": "section",
+          "title": "Level Design & Player Experience",
+          "text": "Every single level was hand-crafted to give players a unique challenge while keeping that learning curve smooth. I spent a lot of time collecting **player feedback** and learned some hard lessons about what makes challenges fun versus what just makes people want to throw their phone. That feedback loop made me redesign tons of levels, which taught me how important **iterative design** and actually listening to users really is."
+        },
+        {
+          "type": "media",
           "src": "/works/juan/snow.webp",
           "description": "Juan The Game main menu showcasing custom horse character."
         },
         {
+          "type": "section",
+          "title": "Art & Visual Identity",
+          "text": "Beyond all the programming, I drew all the **custom horse skins** and character designs, giving players different ways to personalize their experience. This was my chance to dive into **digital illustration** and **character design**, plus I learned how to get artwork to look good in Unity's rendering system."
+        },
+        {
+          "type": "media",
           "src": "/works/juan/skins.mp4",
           "description": "Shop showing different horse skins available."
         },
-        {}
+        {
+          "type": "section",
+          "title": "Learning Outcomes",
+          "text": "This year-long project taught me so much about **mobile game development**, **physics programming**, and especially **how to actually use player feedback** instead of just collecting it. I learned when to hold players' hands and guide them versus when to let them figure things out, and how to tell the difference between a good challenge and something that just makes people quit."
+        },
+        {
+          "type": "section",
+          "title": "Code Example",
+          "text": "Here is a simple C# snippet that shows how I clamp a custom impulse before applying it to Juan's Rigidbody:\n\n```csharp\nusing UnityEngine;\n\npublic class JuanJumpHelper : MonoBehaviour\n{\n    [SerializeField] private Rigidbody targetBody;\n    [SerializeField] private float maxImpulse = 12f;\n\n    public void AddJumpImpulse(Vector3 impulse)\n    {\n        if (targetBody == null) return;\n\n        // Keep force stable across levels and frame rates.\n        Vector3 safeImpulse = Vector3.ClampMagnitude(impulse, maxImpulse);\n        targetBody.AddForce(safeImpulse, ForceMode.Impulse);\n    }\n}\n```"
+        },
+        {
+          "type": "model",
+          "src": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+          "poster": "/works/juan/cover.jpg",
+          "alt": "Juan The Game 3D model example",
+          "description": "Interactive 3D model example block with drag-to-rotate support."
+        }
       ],
       "cover": "/works/juan/cover.jpg",
       "videocover": "/works/juan/video.webm",
@@ -179,7 +215,6 @@
       ],
       "type": "videogame"
     },
-
     "project5": {
       "slug": "echoes-tablegame",
       "title": "Echoes Card Game",
@@ -188,56 +223,65 @@
       "teamSize": 2,
       "content": [
         {
+          "type": "section",
           "title": "Game Design Innovation",
           "text": "**Echoes** takes the classic Memory card game and adds this twist where you can actually mess with your opponents' progress. Instead of just quietly matching pairs, you can play special effect cards to shuffle things around and make it way harder for other players to complete their matches. It supports 2-4 players and creates these really tense, competitive moments."
         },
         {
-          "title": "Core Mechanics",
-          "text": "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to."
-        },
-        {
-          "title": "Victory Conditions & Strategy",
-          "text": "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are  you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment."
-        },
-        {
-          "title": "Design Process & Iteration",
-          "text": "This was a university project I worked on with a partner, and we went through tons of design iterations. We spent a lot of time **playtesting and balancing** to make sure the disruption mechanics made the game more fun rather than just frustrating. The whole process taught me a lot about **how to playtest properly** and **iterative game design**."
-        },
-        {
-          "title": "Production & Manufacturing",
-          "text": "We actually made this into a **real physical product**, which meant figuring out **print design**, **component quality**, and **packaging**. I used **Adobe Creative Suite** for the visual design, and learned a lot about **print production workflows** and how digital designs translate when you actually print them on physical game components."
-        },
-        {
-          "title": "User Reception & Validation",
-          "text": "After we finished production, we playtested Echoes extensively and got **really positive feedback** from our peer group. The success validated our design decisions and proved that our approach to reimagining a classic game actually worked. This experience taught me how important **user feedback** is for validating game design decisions."
-        }
-      ],
-      "media": [
-        {
+          "type": "media",
           "src": "/works/echoes/cardall.webp",
           "description": "Echoes card game box and complete component set."
         },
         {
+          "type": "section",
+          "title": "Core Mechanics",
+          "text": "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to."
+        },
+        {
+          "type": "media",
           "src": "/works/echoes/draw.webp",
           "description": "Drawings and sketches from the design process."
         },
         {
+          "type": "section",
+          "title": "Victory Conditions & Strategy",
+          "text": "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are  you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment."
+        },
+        {
+          "type": "media",
           "src": "/works/echoes/cardpaper.webp",
           "description": "Game in progress showing card layout and player interaction."
         },
         {
+          "type": "section",
+          "title": "Design Process & Iteration",
+          "text": "This was a university project I worked on with a partner, and we went through tons of design iterations. We spent a lot of time **playtesting and balancing** to make sure the disruption mechanics made the game more fun rather than just frustrating. The whole process taught me a lot about **how to playtest properly** and **iterative game design**."
+        },
+        {
+          "type": "media",
           "src": "/works/echoes/cardcards.webp",
           "description": "Echoes card game box and complete component set."
         },
         {
+          "type": "section",
+          "title": "Production & Manufacturing",
+          "text": "We actually made this into a **real physical product**, which meant figuring out **print design**, **component quality**, and **packaging**. I used **Adobe Creative Suite** for the visual design, and learned a lot about **print production workflows** and how digital designs translate when you actually print them on physical game components."
+        },
+        {
+          "type": "media",
           "src": "/works/echoes/cardfront.webp",
           "description": "Box front design showcasing logo and artwork."
         },
         {
+          "type": "section",
+          "title": "User Reception & Validation",
+          "text": "After we finished production, we playtested Echoes extensively and got **really positive feedback** from our peer group. The success validated our design decisions and proved that our approach to reimagining a classic game actually worked. This experience taught me how important **user feedback** is for validating game design decisions."
+        },
+        {
+          "type": "media",
           "src": "/works/echoes/group.webp",
           "description": "Developing the game in team"
-        },
-        {}
+        }
       ],
       "cover": "/works/echoes/cover.jpg",
       "bgColor": "#8b5a3c",
@@ -253,59 +297,67 @@
       "teamSize": 3,
       "content": [
         {
+          "type": "section",
           "title": "Project Overview",
           "text": "**Too Poop To Go** is a platform to help people find the best public restrooms when they really need them. This was a team project with **Android and iOS mobile apps** built by my teammates, and I developed the entire **web management system** from scratch. Together it creates this complete ecosystem for crowdsourced restroom information."
         },
         {
-          "title": "My Technical Role",
-          "text": "I handled the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive interface that actually feels good to use. I also **worked on the backend** with **Django**, helping with API design, database planning, and server-side logic."
-        },
-        {
-          "title": "Web Management Features",
-          "text": "The web system gives administrators complete control: **User management** where you can view, ban, or remove users; **Review moderation** to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user submissions; **Interactive map interface** showing all existing restrooms; and **Tag management** for organizing and categorizing restroom features."
-        },
-        {
-          "title": "Authentication & Security",
-          "text": "We built a solid **user authentication system** with **OTP (One-Time Password) verification** for extra security. The system includes **secure login flows**, **session management**, and **role-based access control** so only authorized administrators can access sensitive platform data and controls."
-        },
-        {
-          "title": "Map Integration",
-          "text": "The whole platform uses **MapBox APIs**, both the mobile apps and web management system, so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently."
-        },
-        {
-          "title": "Approval Workflow System",
-          "text": "One of the key features I built is the **restroom approval workflow**,  when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps."
-        },
-        {
-          "title": "Team Collaboration",
-          "text": "Working with a team of three, I made sure the mobile apps and web management system integrated seamlessly through **RESTful API design** and **consistent data structures**. This meant constantly communicating with the mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
-        },
-        {
-          "title": "Technical Skills Developed",
-          "text": "This project really advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development** while working in a multi-developer environment."
-        }
-      ],
-      "media": [
-        {
+          "type": "media",
           "src": "/works/poop/tptgmobile.webp",
           "description": "Too Poop To Go web management dashboard overview."
         },
         {
+          "type": "section",
+          "title": "My Technical Role",
+          "text": "I handled the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive interface that actually feels good to use. I also **worked on the backend** with **Django**, helping with API design, database planning, and server-side logic."
+        },
+        {
+          "type": "media",
           "src": "/works/poop/tptgfire.webp",
           "description": "Poop streak feature."
         },
-        {},
         {
+          "type": "section",
+          "title": "Web Management Features",
+          "text": "The web system gives administrators complete control: **User management** where you can view, ban, or remove users; **Review moderation** to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user submissions; **Interactive map interface** showing all existing restrooms; and **Tag management** for organizing and categorizing restroom features."
+        },
+        {
+          "type": "section",
+          "title": "Authentication & Security",
+          "text": "We built a solid **user authentication system** with **OTP (One-Time Password) verification** for extra security. The system includes **secure login flows**, **session management**, and **role-based access control** so only authorized administrators can access sensitive platform data and controls."
+        },
+        {
+          "type": "media",
           "src": "/works/poop/tptgdesktop.webp",
           "description": "Too Poop To Go web management dashboard overview."
         },
         {
+          "type": "section",
+          "title": "Map Integration",
+          "text": "The whole platform uses **MapBox APIs**, both the mobile apps and web management system, so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently."
+        },
+        {
+          "type": "media",
           "src": "/works/poop/tptgotp.webp",
           "description": "Otp Mail verification system."
         },
-        {},
-        {},
         {
+          "type": "section",
+          "title": "Approval Workflow System",
+          "text": "One of the key features I built is the **restroom approval workflow**,  when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps."
+        },
+        {
+          "type": "section",
+          "title": "Team Collaboration",
+          "text": "Working with a team of three, I made sure the mobile apps and web management system integrated seamlessly through **RESTful API design** and **consistent data structures**. This meant constantly communicating with the mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
+        },
+        {
+          "type": "section",
+          "title": "Technical Skills Developed",
+          "text": "This project really advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development** while working in a multi-developer environment."
+        },
+        {
+          "type": "media",
           "src": "/works/poop/tptgcross.webp",
           "description": "Cross platform simple diagram."
         }

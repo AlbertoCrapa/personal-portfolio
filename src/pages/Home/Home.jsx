@@ -47,6 +47,7 @@ const Home = () => {
   };
 
   return (
+
     <Layout>
       <SEO
         title="Alberto Crapanzano - Game Technical Designer & Creative Developer"
@@ -57,7 +58,11 @@ const Home = () => {
       />
 
       <div className="space-y-8 lg:space-y-12">
+        {/* Background SVG
+        <img src="img/BG.svg" alt="" className="w-full h-auto" />*/}
+
         {/* Bento Grid Layout */}
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
           {/* Projects Section - Left Column */}
@@ -123,33 +128,37 @@ const Home = () => {
           <section>
             <SectionHeader title="Recent Posts" seeAllLink="/blog" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {blogs.slice(0, 2).map((blog) => (
-                <Link
-                  key={blog.slug}
-                  to={`/blog/${blog.slug}`}
-                  className="bg-surface rounded-xl p-4 hover:bg-surface-hover transition-colors group flex items-center gap-4"
-                >
-                  {/* Small thumbnail */}
-                  {blog.media?.[0]?.src && (
-                    <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
-                      <img
-                        src={blog.media[0].src}
-                        alt=""
-                        className="w-full h-full object-cover"
-                        onError={(e) => { e.target.parentElement.style.display = 'none'; }}
-                      />
+              {blogs.slice(0, 2).map((blog) => {
+                const coverSrc = blog.cover || blog.media?.[0]?.src;
+
+                return (
+                  <Link
+                    key={blog.slug}
+                    to={`/blog/${blog.slug}`}
+                    className="bg-surface rounded-xl p-4 hover:bg-surface-hover transition-colors group flex items-center gap-4"
+                  >
+                    {/* Small thumbnail */}
+                    {coverSrc && (
+                      <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
+                        <img
+                          src={coverSrc}
+                          alt=""
+                          className="w-full h-full object-cover"
+                          onError={(e) => { e.target.parentElement.style.display = 'none'; }}
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-text-primary group-hover:text-accent-blue transition-colors mb-1 line-clamp-2">
+                        {blog.title}
+                      </h3>
+                      <p className="text-sm text-text-muted">
+                        {new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </p>
                     </div>
-                  )}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-text-primary group-hover:text-accent-blue transition-colors mb-1 line-clamp-2">
-                      {blog.title}
-                    </h3>
-                    <p className="text-sm text-text-muted">
-                      {new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                );
+              })}
             </div>
           </section>
         )}

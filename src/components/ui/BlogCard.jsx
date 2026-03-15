@@ -11,6 +11,8 @@ import { Link } from 'react-router-dom';
 const BlogCard = ({ blog, size = 'medium' }) => {
     if (!blog) return null;
 
+    const coverSrc = blog.cover || blog.media?.[0]?.src;
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -23,10 +25,10 @@ const BlogCard = ({ blog, size = 'medium' }) => {
                 to={`/blog/${blog.slug}`}
                 className="flex items-center gap-4 group py-3 hover:bg-surface/50 rounded-lg transition-colors -mx-2 px-2"
             >
-                {blog.media?.[0]?.src && (
+                {coverSrc && (
                     <div className="flex-shrink-0 w-32 md:w-40 rounded-lg overflow-hidden">
                         <img
-                            src={blog.media[0].src}
+                            src={coverSrc}
                             alt={blog.title}
                             className="w-full h-20 md:h-24 object-cover group-hover:scale-105 transition-transform duration-300"
                             onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}
@@ -52,10 +54,10 @@ const BlogCard = ({ blog, size = 'medium' }) => {
         >
             <article className="bg-surface rounded-xl overflow-hidden hover:bg-surface-hover transition-colors">
                 {/* Cover Image */}
-                {blog.media?.[0]?.src && (
+                {coverSrc && (
                     <div className="h-40 md:h-48 overflow-hidden">
                         <img
-                            src={blog.media[0].src}
+                            src={coverSrc}
                             alt={blog.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}

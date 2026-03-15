@@ -12,9 +12,13 @@ import React, { useState, useRef } from 'react';
  */
 const VideoPlayer = ({ src, poster, autoPlay = true, loop = true, className = '' }) => {
     const [isPlaying, setIsPlaying] = useState(autoPlay);
+    const [isLoading, setIsLoading] = useState(true);
     const videoRef = useRef(null);
 
+    const hasExplicitHeight = /(^|\s)(h-|min-h-|max-h-|aspect-)/.test(className);
+
     const togglePlay = () => {
+        if (isLoading) return;
         if (videoRef.current) {
             if (isPlaying) {
                 videoRef.current.pause();
@@ -27,9 +31,12 @@ const VideoPlayer = ({ src, poster, autoPlay = true, loop = true, className = ''
 
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
+    const handleLoadedData = () => setIsLoading(false);
+    const handleWaiting = () => setIsLoading(true);
+    const handleCanPlay = () => setIsLoading(false);
 
     return (
-        <div className={`relative group rounded-lg overflow-hidden ${className}`}>
+        <div className={`relative group rounded-lg overflow-hidden bg-surface ${hasExplicitHeight ? '' : 'aspect-video'} ${className}`}>
             <video
                 ref={videoRef}
                 src={src}
@@ -40,6 +47,9 @@ const VideoPlayer = ({ src, poster, autoPlay = true, loop = true, className = ''
                 playsInline
                 onPlay={handlePlay}
                 onPause={handlePause}
+                onLoadedData={handleLoadedData}
+                onCanPlay={handleCanPlay}
+                onWaiting={handleWaiting}
                 className="w-full h-full object-cover"
                 onClick={togglePlay}
             />
@@ -51,7 +61,12 @@ const VideoPlayer = ({ src, poster, autoPlay = true, loop = true, className = ''
                 aria-label={isPlaying ? 'Pause video' : 'Play video'}
             >
                 <span className="w-3 h-3 flex items-center justify-center">
-                    {isPlaying ? (
+                    {isLoading ? (
+                        <svg viewBox="0 0 24 24" fill="none" className="w-3 h-3 animate-spin">
+                            <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" opacity="0.25" />
+                            <path d="M12 3a9 9 0 0 1 9 9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+                        </svg>
+                    ) : isPlaying ? (
                         <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
                             <rect x="6" y="4" width="4" height="16" rx="1" />
                             <rect x="14" y="4" width="4" height="16" rx="1" />

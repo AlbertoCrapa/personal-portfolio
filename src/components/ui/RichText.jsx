@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Callout from './Callout';
 
 /**
@@ -17,10 +17,11 @@ import Callout from './Callout';
  * - Line breaks with double newlines
  */
 const RichText = ({ text, className = '' }) => {
-  if (!text) return null;
+  const normalizedText = normalizeTextInput(text);
+  if (!normalizedText) return null;
 
   // Split into blocks (double newlines or special block markers)
-  const blocks = parseBlocks(text);
+  const blocks = parseBlocks(normalizedText);
 
   return (
     <div className={`rich-text space-y-4 ${className}`}>
@@ -28,6 +29,22 @@ const RichText = ({ text, className = '' }) => {
     </div>
   );
 };
+
+/**
+ * Accepts string or array of strings for easier authoring in JSON data files.
+ */
+function normalizeTextInput(input) {
+  if (!input) return '';
+  if (Array.isArray(input)) {
+    return input
+      .filter((item) => typeof item === 'string' && item.trim())
+      .join('\n\n');
+  }
+  if (typeof input === 'string') {
+    return input;
+  }
+  return '';
+}
 
 /**
  * Parse text into blocks
@@ -242,11 +259,7 @@ function renderBlock(block, key) {
       return <hr key={key} className="border-t border-border my-8" />;
 
     case 'code':
-      return (
-        <pre key={key} className="bg-surface rounded-lg p-4 overflow-x-auto my-4">
-          <code className="text-sm text-text-primary font-mono">{block.content}</code>
-        </pre>
-      );
+      return <CodeBlock key={key} content={block.content} language={block.language} />;
 
     case 'callout':
       return (
@@ -258,6 +271,139 @@ function renderBlock(block, key) {
     default:
       return null;
   }
+}
+
+const HLJS_SCRIPT_ID = 'hljs-script';
+const HLJS_STYLE_ID = 'hljs-style';
+const HLJS_SCRIPT_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
+const HLJS_STYLE_SRC = 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css';
+
+function normalizeLanguage(language) {
+  if (!language) return 'plaintext';
+  const normalized = language.toLowerCase().trim();
+  const aliases = {
+    'c++': 'cpp',
+    js: 'javascript',
+    ts: 'typescript',
+    sh: 'bash',
+    yml: 'yaml',
+  };
+  return aliases[normalized] || normalized;
+}
+
+function escapeHtml(text) {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function ensureHighlightAssets() {
+  if (typeof document === 'undefined') return Promise.resolve(null);
+
+  if (!document.getElementById(HLJS_STYLE_ID)) {
+    const link = document.createElement('link');
+    link.id = HLJS_STYLE_ID;
+    link.rel = 'stylesheet';
+    link.href = HLJS_STYLE_SRC;
+    document.head.appendChild(link);
+  }
+
+  if (window.hljs) return Promise.resolve(window.hljs);
+
+  const existingScript = document.getElementById(HLJS_SCRIPT_ID);
+  if (existingScript) {
+    return new Promise((resolve) => {
+      existingScript.addEventListener('load', () => resolve(window.hljs || null), { once: true });
+      existingScript.addEventListener('error', () => resolve(null), { once: true });
+    });
+  }
+
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.id = HLJS_SCRIPT_ID;
+    script.src = HLJS_SCRIPT_SRC;
+    script.async = true;
+    script.onload = () => resolve(window.hljs || null);
+    script.onerror = () => resolve(null);
+    document.body.appendChild(script);
+  });
+}
+
+function CodeBlock({ content, language }) {
+  const [highlightedHtml, setHighlightedHtml] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    const highlightCode = async () => {
+      const raw = content || '';
+      const safeFallback = escapeHtml(raw);
+
+      const hljs = await ensureHighlightAssets();
+      if (!active) return;
+
+      if (!hljs) {
+        setHighlightedHtml(safeFallback);
+        return;
+      }
+
+      try {
+        const normalizedLanguage = normalizeLanguage(language);
+        const highlighted = hljs.getLanguage(normalizedLanguage)
+          ? hljs.highlight(raw, { language: normalizedLanguage }).value
+          : hljs.highlightAuto(raw).value;
+        setHighlightedHtml(highlighted || safeFallback);
+      } catch (error) {
+        setHighlightedHtml(safeFallback);
+      }
+    };
+
+    highlightCode();
+
+    return () => {
+      active = false;
+    };
+  }, [content, language]);
+
+  const handleCopy = async () => {
+    if (!content || !navigator?.clipboard) return;
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (error) {
+      setCopied(false);
+    }
+  };
+
+  return (
+    <div className="bg-surface rounded-lg overflow-hidden my-4 border border-border">
+      <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-bg/40">
+        <span className="text-xs uppercase tracking-wide text-text-muted">
+          {normalizeLanguage(language)}
+        </span>
+        <button
+          type="button"
+          onClick={handleCopy}
+          className="text-xs px-2.5 py-1 rounded-md bg-bg hover:bg-surface-hover text-text-secondary transition-colors"
+          aria-label="Copy code"
+        >
+          {copied ? 'Copied' : 'Copy'}
+        </button>
+      </div>
+      <pre className="overflow-x-auto p-4 text-sm leading-relaxed">
+        <code
+          className="hljs font-mono"
+          dangerouslySetInnerHTML={{ __html: highlightedHtml || escapeHtml(content || '') }}
+        />
+      </pre>
+    </div>
+  );
 }
 
 /**

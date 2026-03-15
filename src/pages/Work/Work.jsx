@@ -5,6 +5,7 @@ import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
+import ModelViewer from '../../components/ui/ModelViewer';
 import RichText from '../../components/ui/RichText';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
@@ -53,6 +54,10 @@ const Work = ({ source = 'projects' }) => {
     const prevProject = items[(currentIndex - 1 + items.length) % items.length];
     const nextProject = items[(currentIndex + 1) % items.length];
     const basePath = isPlayground ? '/playground' : '/work';
+    const contentElements = Array.isArray(project?.content) ? project.content : [];
+    const firstTextSection = contentElements.find(
+        (item) => (item?.type === 'section' || (!item?.type && item?.text)) && typeof item?.text === 'string' && item.text.trim()
+    );
 
     // Check if media is video
     const isVideo = (src) => {
@@ -64,7 +69,7 @@ const Work = ({ source = 'projects' }) => {
         <Layout>
             <SEO
                 title={`${project.title} - Alberto Crapanzano | Game Developer Portfolio`}
-                description={project.content?.[0]?.text?.substring(0, 160) || `${project.title} by Alberto Crapanzano`}
+                description={firstTextSection?.text?.substring(0, 160) || `${project.title} by Alberto Crapanzano`}
                 keywords={`${project.title}, ${project.technologies?.join(', ') || ''}, Alberto Crapanzano, Game Development`}
                 url={`${basePath}/${slug}`}
                 image={project.cover ? `https://albyeah.com${project.cover}` : undefined}
@@ -83,18 +88,18 @@ const Work = ({ source = 'projects' }) => {
 
                 {/* Cover Media - FIRST */}
                 {project.cover && (
-                    <div className="rounded-xl overflow-hidden">
+                    <div className="rounded-xl overflow-hidden h-44 sm:h-52 md:h-56 lg:h-64 max-h-[280px]">
                         {isVideo(project.videocover || project.cover) ? (
                             <VideoPlayer
                                 src={project.videocover || project.cover}
                                 poster={project.cover}
-                                className="w-full aspect-video"
+                                className="w-full h-full"
                             />
                         ) : (
                             <img
                                 src={project.cover}
                                 alt={project.title}
-                                className="w-full h-auto"
+                                className="w-full h-full object-cover object-center"
                                 onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}
                             />
                         )}
@@ -159,57 +164,77 @@ const Work = ({ source = 'projects' }) => {
                     )}
                 </header>
 
-                {/* Content Sections */}
-                {project.content && project.content.length > 0 && (
+                {/* Content Elements */}
+                {contentElements.length > 0 && (
                     <div className="space-y-12">
-                        {project.content.map((section, idx) => {
-                            const mediaItem = project.media?.[idx];
+                        {contentElements.map((element, idx) => {
+                            const elementType = element?.type || (element?.src ? 'media' : 'section');
 
-                            // Skip first media if it's the same as cover (unless cover is video and media is image)
-                            const coverIsVideo = isVideo(project.videocover || project.cover);
-                            const mediaIsImage = mediaItem?.src && !isVideo(mediaItem.src);
-                            const isFirstMedia = idx === 0;
-                            const isSameAsCover = isFirstMedia && mediaItem?.src === project.cover;
-                            const shouldShowMedia = mediaItem?.src && (!isSameAsCover || (coverIsVideo && mediaIsImage));
+                            if (elementType === 'model' && element?.src) {
+                                return (
+                                    <section key={idx} className="space-y-4">
+                                        <div className="mt-4 max-w-4xl">
+                                            <ModelViewer
+                                                src={element.src}
+                                                poster={element.poster}
+                                                alt={element.alt || element.description || `${project.title} 3D model`}
+                                                description={element.description}
+                                                className="w-full h-[280px] sm:h-[340px] md:h-[420px]"
+                                            />
+                                        </div>
+                                    </section>
+                                );
+                            }
 
-                            return (
-                                <section key={idx} className="space-y-4">
-                                    {/* Section Title */}
-                                    {section.title && (
-                                        <h2 className="text-2xl font-bold text-text-primary">
-                                            {section.title}
-                                        </h2>
-                                    )}
-
-                                    {/* Section Text */}
-                                    {section.text && (
-                                        <RichText text={section.text} />
-                                    )}
-
-                                    {/* Associated Media */}
-                                    {shouldShowMedia && (
-                                        <div className="mt-4 rounded-xl overflow-hidden max-w-3xl">
-                                            {isVideo(mediaItem.src) ? (
-                                                <VideoPlayer
-                                                    src={mediaItem.src}
-                                                    className="w-full"
-                                                />
+                            if (elementType === 'media' && element?.src) {
+                                return (
+                                    <section key={idx} className="space-y-4">
+                                        <div className="mt-4 max-w-3xl">
+                                            {isVideo(element.src) ? (
+                                                <figure className="space-y-2">
+                                                    <div className="rounded-xl overflow-hidden">
+                                                        <VideoPlayer
+                                                            src={element.src}
+                                                            className="w-full"
+                                                        />
+                                                    </div>
+                                                    {element.description && (
+                                                        <figcaption className="text-sm text-text-muted text-center">
+                                                            {element.description}
+                                                        </figcaption>
+                                                    )}
+                                                </figure>
                                             ) : (
-                                                <figure>
-                                                    <img
-                                                        src={mediaItem.src}
-                                                        alt={mediaItem.description || `${project.title} media`}
-                                                        className="w-full h-auto"
-                                                        onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}
-                                                    />
-                                                    {mediaItem.description && (
-                                                        <figcaption className="text-sm text-text-muted mt-2 text-center">
-                                                            {mediaItem.description}
+                                                <figure className="space-y-2">
+                                                    <div className="rounded-xl overflow-hidden">
+                                                        <img
+                                                            src={element.src}
+                                                            alt={element.description || `${project.title} media`}
+                                                            className="w-full h-auto"
+                                                            onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}
+                                                        />
+                                                    </div>
+                                                    {element.description && (
+                                                        <figcaption className="text-sm text-text-muted text-center">
+                                                            {element.description}
                                                         </figcaption>
                                                     )}
                                                 </figure>
                                             )}
                                         </div>
+                                    </section>
+                                );
+                            }
+
+                            return (
+                                <section key={idx} className="space-y-4">
+                                    {element?.title && (
+                                        <h2 className="text-2xl font-bold text-text-primary">
+                                            {element.title}
+                                        </h2>
+                                    )}
+                                    {element?.text && (
+                                        <RichText text={element.text} />
                                     )}
                                 </section>
                             );

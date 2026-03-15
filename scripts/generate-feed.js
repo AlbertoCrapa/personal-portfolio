@@ -40,7 +40,7 @@ function generateFeed() {
 
   // Sort by date (newest first)
   const sortedBlogs = [...blogs].sort(
-    (a, b) => new Date(b.date) - new Date(a.date)
+    (a, b) => new Date(b.date) - new Date(a.date),
   );
 
   // Build JSON Feed structure (v1.1)
@@ -60,30 +60,54 @@ function generateFeed() {
     ],
     language: "en-US",
     items: sortedBlogs.map((blog) => {
+      const contentItems = Array.isArray(blog.content) ? blog.content : [];
+      const firstTextItem = contentItems.find(
+        (item) =>
+          (item?.type === "section" || (!item?.type && item?.text)) &&
+          typeof item?.text === "string" &&
+          item.text.trim(),
+      );
+
       // Get first content section text as summary
       const summary =
-        blog.excerpt || blog.content?.[0]?.text?.substring(0, 280) || "";
+        blog.excerpt || firstTextItem?.text?.substring(0, 280) || "";
 
-      // Combine all content sections into HTML
+      // Combine content items into HTML
       const contentHtml =
-        blog.content
-          ?.map((section) => {
+        contentItems
+          .map((item) => {
+            const itemType = item?.type || (item?.src ? "media" : "section");
             let html = "";
-            if (section.title) {
-              html += `<h2>${escapeHtml(section.title)}</h2>`;
+
+            if (itemType === "media" && item?.src) {
+              html += `<figure><img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.description || blog.title)}" />`;
+              if (item.description) {
+                html += `<figcaption>${escapeHtml(item.description)}</figcaption>`;
+              }
+              html += `</figure>`;
+              return html;
             }
-            if (section.text) {
+
+            if (item?.title) {
+              html += `<h2>${escapeHtml(item.title)}</h2>`;
+            }
+            if (item?.text) {
               // Convert basic markdown to HTML
-              html += `<p>${convertMarkdownToHtml(section.text)}</p>`;
+              html += `<p>${convertMarkdownToHtml(item.text)}</p>`;
             }
             return html;
           })
           .join("\n") || "";
 
       // Get cover image
-      const coverImage = blog.media?.[0]?.src
-        ? `${SITE_URL}${blog.media[0].src}`
-        : null;
+      const coverSrc =
+        blog.cover ||
+        contentItems.find(
+          (item) => (item?.type === "media" || item?.src) && item?.src,
+        )?.src ||
+        blog.media?.[0]?.src;
+
+      const coverImage = coverSrc ? `${SITE_URL}${coverSrc}` : null;
 
       return {
         id: `${SITE_URL}/blog/${blog.slug}`,
