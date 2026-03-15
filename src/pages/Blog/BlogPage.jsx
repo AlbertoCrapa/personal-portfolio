@@ -18,6 +18,13 @@ const BlogPage = () => {
     const currentIndex = blogs.findIndex((b) => b.slug === slug);
     const blog = blogs[currentIndex];
 
+    const blogElements = Array.isArray(blog?.content) ? blog.content : [];
+    const firstMediaIndex = blogElements.findIndex((item) => {
+        const itemType = item?.type || (item?.src ? 'media' : 'section');
+        return itemType === 'media' && item?.src;
+    });
+    const coverSrc = blog?.cover || (firstMediaIndex >= 0 ? blogElements[firstMediaIndex]?.src : null);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [slug]);
@@ -61,10 +68,10 @@ const BlogPage = () => {
         <Layout>
             <SEO
                 title={`${blog.title} - Alberto Crapanzano Blog`}
-                description={blog.excerpt || blog.content?.[0]?.text?.substring(0, 160)}
+                description={blog.excerpt || blogElements?.[0]?.text?.substring(0, 160)}
                 keywords={`${blog.title}, ${blog.tags?.join(', ') || ''}, Alberto Crapanzano, Game Development`}
                 url={`/blog/${slug}`}
-                image={blog.media?.[0]?.src ? `https://albyeah.com${blog.media[0].src}` : undefined}
+                image={coverSrc ? `https://albyeah.com${coverSrc}` : undefined}
                 type="article"
             />
 
@@ -79,16 +86,16 @@ const BlogPage = () => {
                 />
 
                 {/* Cover Image/Video */}
-                {blog.media?.[0]?.src && (
+                {coverSrc && (
                     <div className="rounded-xl overflow-hidden">
-                        {isVideo(blog.media[0].src) ? (
+                        {isVideo(coverSrc) ? (
                             <VideoPlayer
-                                src={blog.media[0].src}
+                                src={coverSrc}
                                 className="w-full aspect-video"
                             />
                         ) : (
                             <img
-                                src={blog.media[0].src}
+                                src={coverSrc}
                                 alt={blog.title}
                                 className="w-full h-auto"
                                 onError={(e) => { e.target.src = 'https://placehold.co/800x400'; }}
@@ -128,50 +135,57 @@ const BlogPage = () => {
                 </header>
 
                 {/* Content Sections */}
-                {blog.content && blog.content.length > 0 && (
+                {blogElements.length > 0 && (
                     <div className="space-y-8 md:space-y-10 pt-8">
-                        {blog.content.map((section, idx) => {
-                            // Skip first media as it's used as cover
-                            const mediaItem = blog.media?.[idx + 1];
+                        {blogElements.map((element, idx) => {
+                            const elementType = element?.type || (element?.src ? 'media' : 'section');
 
-                            return (
-                                <section key={idx} className="space-y-3 md:space-y-4 max-w-3xl">
-                                    {/* Section Title */}
-                                    {section.title && (
-                                        <h2 className="text-xl md:text-2xl font-bold text-text-primary">
-                                            {section.title}
-                                        </h2>
-                                    )}
+                            // Avoid rendering the same first media twice when it's used as cover.
+                            if (elementType === 'media' && idx === firstMediaIndex && element?.src === coverSrc) {
+                                return null;
+                            }
 
-                                    {/* Section Text */}
-                                    {section.text && (
-                                        <RichText text={section.text} />
-                                    )}
-
-                                    {/* Associated Media */}
-                                    {mediaItem?.src && (
+                            if (elementType === 'media' && element?.src) {
+                                return (
+                                    <section key={idx} className="space-y-3 md:space-y-4 max-w-3xl">
                                         <div className="rounded-xl overflow-hidden max-w-3xl">
-                                            {isVideo(mediaItem.src) ? (
+                                            {isVideo(element.src) ? (
                                                 <VideoPlayer
-                                                    src={mediaItem.src}
+                                                    src={element.src}
                                                     className="w-full"
                                                 />
                                             ) : (
                                                 <figure className="space-y-2">
                                                     <img
-                                                        src={mediaItem.src}
-                                                        alt={mediaItem.description || `${blog.title} illustration`}
+                                                        src={element.src}
+                                                        alt={element.description || `${blog.title} illustration`}
                                                         className="w-full h-auto"
                                                         onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}
                                                     />
-                                                    {mediaItem.description && (
+                                                    {element.description && (
                                                         <figcaption className="text-sm text-text-muted text-center">
-                                                            {mediaItem.description}
+                                                            {element.description}
                                                         </figcaption>
                                                     )}
                                                 </figure>
                                             )}
                                         </div>
+                                    </section>
+                                );
+                            }
+
+                            return (
+                                <section key={idx} className="space-y-3 md:space-y-4 max-w-3xl">
+                                    {/* Section Title */}
+                                    {element?.title && (
+                                        <h2 className="text-xl md:text-2xl font-bold text-text-primary">
+                                            {element.title}
+                                        </h2>
+                                    )}
+
+                                    {/* Section Text */}
+                                    {element?.text && (
+                                        <RichText text={element.text} />
                                     )}
                                 </section>
                             );

@@ -1,130 +1,202 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    
+
     <!-- Enhanced Favicon Setup for Better Search Results -->
-    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="%PUBLIC_URL%/favicon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="%PUBLIC_URL%/favicon.png"
+    />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/favicon.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="%PUBLIC_URL%/favicon.png"
+    />
     <link rel="mask-icon" href="%PUBLIC_URL%/favicon.png" color="#000000" />
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="msapplication-TileColor" content="#000000" />
-    <meta name="msapplication-config" content="%PUBLIC_URL%/browserconfig.xml" />
-    
+    <meta
+      name="msapplication-config"
+      content="%PUBLIC_URL%/browserconfig.xml"
+    />
+
     <!-- SEO Meta Tags -->
-    <title>Alberto Crapanzano - Game Technical Designer & Creative Developer</title>
-    <meta name="description" content="Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences." />
-    <meta name="keywords" content="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer" />
+    <title>
+      Alberto Crapanzano - Game Technical Designer & Creative Developer
+    </title>
+    <meta
+      name="description"
+      content="Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences."
+    />
+    <meta
+      name="keywords"
+      content="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer"
+    />
     <meta name="author" content="Alberto Crapanzano" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://albyeah.com" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://albyeah.com" />
-    <meta property="og:title" content="Alberto Crapanzano - Game Technical Designer & Creative Developer" />
-    <meta property="og:description" content="Creative Developer based near Milan, specializing in Technical Design and Programming for video games. Combining strong programming skills with artistic vision." />
+    <meta
+      property="og:title"
+      content="Alberto Crapanzano - Game Technical Designer & Creative Developer"
+    />
+    <meta
+      property="og:description"
+      content="Creative Developer based near Milan, specializing in Technical Design and Programming for video games. Combining strong programming skills with artistic vision."
+    />
     <meta property="og:image" content="%PUBLIC_URL%/img/og-image.jpg" />
     <meta property="og:site_name" content="Alberto Crapanzano Portfolio" />
     <meta property="og:locale" content="en_US" />
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://albyeah.com" />
-    <meta property="twitter:title" content="Alberto Crapanzano - Game Technical Designer & Creative Developer" />
-    <meta property="twitter:description" content="Creative Developer based near Milan, specializing in Technical Design and Programming for video games." />
+    <meta
+      property="twitter:title"
+      content="Alberto Crapanzano - Game Technical Designer & Creative Developer"
+    />
+    <meta
+      property="twitter:description"
+      content="Creative Developer based near Milan, specializing in Technical Design and Programming for video games."
+    />
     <meta property="twitter:image" content="%PUBLIC_URL%/img/og-image.jpg" />
-    
+
     <!-- Additional SEO -->
     <meta name="format-detection" content="telephone=no" />
     <meta name="geo.region" content="IT-25" />
     <meta name="geo.placename" content="Milan, Italy" />
     <meta name="geo.position" content="45.4642;9.1900" />
     <meta name="ICBM" content="45.4642, 9.1900" />
-    
+
     <!-- Icons and Manifest -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    
+
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
     <link rel="dns-prefetch" href="//fonts.gstatic.com" />
     <link rel="dns-prefetch" href="//api.fontshare.com" />
-    
+
     <!-- Preconnect for critical third-party origins -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@400;700;900&family=Lora:ital,wght@1,400;1,700&display=swap" rel="stylesheet" />
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@400;700;900&family=Lora:ital,wght@1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Font Loading with display=swap for better performance -->
-    <link href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,300,400,500,600,700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
-    
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=clash-grotesk@200,300,400,500,600,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- Custom Font Face -->
     <style>
       @font-face {
-        font-family: 'MiniMochi';
-        src: url('%PUBLIC_URL%/font/MiniMochi.woff') format('woff');
+        font-family: "MiniMochi";
+        src: url("%PUBLIC_URL%/font/MiniMochi.woff") format("woff");
         font-weight: normal;
         font-style: normal;
         font-display: swap;
       }
     </style>
-    
+
     <!-- Structured Data (JSON-LD) for better SEO -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Alberto Crapanzano",
-      "alternateName": "Albyeah",
-      "jobTitle": "Game Technical Designer & Creative Developer",
-      "description": "Creative Developer based near Milan, specializing in game Technical Design and tech art for video games",
-      "url": "https://albyeah.com",
-      "image": "https://albyeah.com/img/profile.jpg",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Milan",
-        "addressCountry": "IT"
-      },
-      "email": "crapaalbi03@gmail.com",
-      "sameAs": [
-        "https://www.linkedin.com/in/alberto-c-905a69232/",
-        "https://github.com/AlbertoCrapa"
-      ],
-      "knowsAbout": [
-        "Game Development",
-        "Technical Design",
-        "Unity",
-        "Unreal Engine",
-        "React",
-        "JavaScript",
-        "C++",
-        "C#",
-        "Python"
-      ],
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Freelance"
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Alberto Crapanzano",
+        "alternateName": "Albyeah",
+        "jobTitle": "Game Technical Designer & Creative Developer",
+        "description": "Creative Developer based near Milan, specializing in game Technical Design and tech art for video games",
+        "url": "https://albyeah.com",
+        "image": "https://albyeah.com/img/profile.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Milan",
+          "addressCountry": "IT"
+        },
+        "email": "crapaalbi03@gmail.com",
+        "sameAs": [
+          "https://www.linkedin.com/in/alberto-c-905a69232/",
+          "https://github.com/AlbertoCrapa"
+        ],
+        "knowsAbout": [
+          "Game Development",
+          "Technical Design",
+          "Unity",
+          "Unreal Engine",
+          "React",
+          "JavaScript",
+          "C++",
+          "C#",
+          "Python"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Freelance"
+        }
       }
-    }
     </script>
   </head>
   <body>
     <noscript>
-      <div style="padding: 20px; text-align: center; font-family: Arial, sans-serif;">
+      <div
+        style="
+          padding: 20px;
+          text-align: center;
+          font-family: Arial, sans-serif;
+        "
+      >
         <h1>Alberto Crapanzano - Game Technical Designer</h1>
-        <p>This portfolio website requires JavaScript to display interactive content.</p>
-        <p>Please enable JavaScript in your browser to view the full experience.</p>
-        <p>You can also contact me directly at: <a href="mailto:crapaalbi03@gmail.com">crapaalbi03@gmail.com</a></p>
+        <p>
+          This portfolio website requires JavaScript to display interactive
+          content.
+        </p>
+        <p>
+          Please enable JavaScript in your browser to view the full experience.
+        </p>
+        <p>
+          You can also contact me directly at:
+          <a href="mailto:crapaalbi03@gmail.com">crapaalbi03@gmail.com</a>
+        </p>
       </div>
     </noscript>
     <div id="root"></div>
-    
+
     <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="sr-only sr-only-focusable" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">Skip to main content</a>
+    <a
+      href="#main-content"
+      class="sr-only sr-only-focusable"
+      style="
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      "
+      >Skip to main content</a
+    >
   </body>
 </html>
