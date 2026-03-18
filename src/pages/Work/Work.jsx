@@ -55,6 +55,8 @@ const Work = ({ source = 'projects' }) => {
     const nextProject = items[(currentIndex + 1) % items.length];
     const basePath = isPlayground ? '/playground' : '/work';
     const contentElements = Array.isArray(project?.content) ? project.content : [];
+    const projectCover = project.thumbnailImage || project.cover;
+    const projectVideoCover = project.previewVideo || project.videocover || projectCover;
     const firstTextSection = contentElements.find(
         (item) => (item?.type === 'section' || (!item?.type && item?.text)) && typeof item?.text === 'string' && item.text.trim()
     );
@@ -73,7 +75,7 @@ const Work = ({ source = 'projects' }) => {
                 description={firstTextSection?.text?.substring(0, 160) || `${project.title} by Alberto Crapanzano`}
                 keywords={`${project.title}, ${project.technologies?.join(', ') || ''}, Alberto Crapanzano, Game Development`}
                 url={`${basePath}/${slug}`}
-                image={project.cover ? `https://albyeah.com${project.cover}` : undefined}
+                image={projectCover ? `https://albyeah.com${projectCover}` : undefined}
                 type="article"
             />
 
@@ -88,17 +90,17 @@ const Work = ({ source = 'projects' }) => {
                 />
 
                 {/* Cover Media - FIRST */}
-                {project.cover && (
+                {projectCover && (
                     <div className="rounded-xl overflow-hidden h-44 sm:h-52 md:h-56 lg:h-64 max-h-[280px]">
-                        {isVideo(project.videocover || project.cover) ? (
+                        {isVideo(projectVideoCover) ? (
                             <VideoPlayer
-                                src={project.videocover || project.cover}
-                                poster={project.cover}
+                                src={projectVideoCover}
+                                poster={projectCover}
                                 className="w-full h-full"
                             />
                         ) : (
                             <img
-                                src={project.cover}
+                                src={projectCover}
                                 alt={project.title}
                                 className="w-full h-full object-cover object-center"
                                 onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}

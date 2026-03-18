@@ -22,5 +22,118 @@
     "itchio": "https://albyeah.itch.io/",
 
     "cv": "/AlbertoCrapanzano_CV_ENG.pdf"
+  },
+  "homepage": {
+    "hero": {
+      "eyebrow": "Creative Developer",
+      "title": "I build interactive software, playful systems, and digital experiences.",
+      "description": "From game mechanics to polished web interfaces, I focus on shipping work that feels crafted, responsive, and memorable.",
+      "ctaLabel": "Explore Projects",
+      "ctaLink": "/projects"
+    },
+    "reel": {
+      "title": "Video Reel",
+      "description": "A quick look at selected interactive work. This placeholder reel will be replaced by the final cut.",
+      "video": "/works/deadly/videoLow.mp4",
+      "poster": "/works/deadly/cover2.jpg"
+    },
+    "skills": [
+      "Unreal Engine",
+      "Unity",
+      "C++",
+      "C#",
+      "React",
+      "Tailwind CSS",
+      "Gameplay Systems",
+      "Technical Design",
+      "AI Behaviors",
+      "UI/UX Prototyping",
+      "FMOD Integration",
+      "Creative Coding",
+      "Rapid Prototyping",
+      "Optimization"
+    ],
+    "github": {
+      "username": "AlbertoCrapa",
+      "streak": "42-day consistency streak",
+      "commitsThisYear": 314,
+      "pushesThisMonth": 28,
+      "activity": [
+        0, 1, 2, 1, 0, 3, 2, 1, 2, 0, 3, 1, 2, 2, 0, 1, 4, 2, 2, 1, 3, 1, 0, 1,
+        3, 4, 2, 1, 2, 2, 1, 3, 1, 0, 2, 4, 3, 2, 1, 1, 3, 2, 2, 1, 0, 2, 3, 4,
+        2, 1, 0, 2, 3, 2, 1, 2, 3, 4, 2, 1, 1, 2, 3, 2, 3, 2, 1, 0, 1, 2, 2, 3,
+        4, 2, 1, 1, 3, 4, 2, 1, 2, 3, 2, 1
+      ]
+    },
+    "spotify": {
+      "nowPlaying": "Motion Sickness",
+      "artist": "Phoebe Bridgers",
+      "album": "Stranger in the Alps",
+      "lastUpdated": "Updated recently",
+      "topArtists": ["Radiohead", "Mitski", "Arctic Monkeys", "Bon Iver"],
+      "genres": ["Indie", "Alternative", "Ambient", "Electronic"]
+    },
+    "leetcode": {
+      "username": "Albyeah",
+      "solved": 287,
+      "easy": 142,
+      "medium": 123,
+      "hard": 22,
+      "contestRating": 1668,
+      "activeDays": "5 days this week"
+    },
+    "testimonials": [
+      {
+        "name": "Christian Catenacci",
+        "role": "Game Developer · Thesis teammate",
+        "date": "2025-07-20",
+        "quote": "Alberto bridges design and engineering naturally. He solves technical constraints without losing the creative intent."
+      },
+      {
+        "name": "Giulia Insolera",
+        "role": "Writer & Animator · Thesis teammate",
+        "date": "2025-07-22",
+        "quote": "He is reliable under pressure and keeps teams aligned. His systems are practical, readable, and built for iteration."
+      },
+      {
+        "name": "Marco Bianchi",
+        "role": "Professor · IED Milano",
+        "date": "2025-06-15",
+        "quote": "One of the most technically driven students I've seen. His thesis project showed maturity well beyond his experience level."
+      },
+      {
+        "name": "Elena Rossi",
+        "role": "UX Designer · Freelance collaborator",
+        "date": "2025-08-10",
+        "quote": "Working with Alberto felt seamless. He took vague UX ideas and turned them into clean, functional interfaces faster than anyone I've worked with."
+      },
+      {
+        "name": "Luca Ferri",
+        "role": "Mobile Developer · Too Poop To Go",
+        "date": "2024-11-05",
+        "quote": "His frontend work and API integration were solid from day one. Great communicator and even better at shipping quality code on tight timelines."
+      }
+    ],
+    "extras": {
+      "favoriteQuotes": [
+        { "text": "Make it work, make it right, make it fast.", "author": "Kent Beck" },
+        { "text": "Games are conversations between systems and players.", "author": "Raph Koster" },
+        { "text": "Simplicity is the ultimate sophistication.", "author": "Leonardo da Vinci" }
+      ],
+      "podcasts": [
+        { "name": "Lex Fridman Podcast", "url": "https://lexfridman.com/podcast/" },
+        { "name": "Indie Game Movement", "url": "https://게임development.com/" },
+        { "name": "Syntax", "url": "https://syntax.fm/" },
+        { "name": "The Changelog", "url": "https://changelog.com/podcast" }
+      ],
+      "interests": [
+        { "label": "Interactive storytelling", "emoji": "📖" },
+        { "label": "AI gameplay systems", "emoji": "🤖" },
+        { "label": "Tooling automation", "emoji": "⚙️" },
+        { "label": "Sound-driven interactions", "emoji": "🎧" },
+        { "label": "Creative coding", "emoji": "✨" },
+        { "label": "Game jams", "emoji": "🎮" }
+      ]
+    }
   }
 }

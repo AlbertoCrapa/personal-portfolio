@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ["DM Sans", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "DM Sans", "sans-serif"],
       },
       colors: {
         // Base colors
@@ -22,6 +23,23 @@ module.exports = {
         "accent-blue": "#4285f4",
         "accent-orange": "#ff9800",
         "accent-green": "#4caf50",
+        "accent-purple": "#9b84e7",
+
+        // Platform accent colors
+        github: "#b39af8",
+        "github-dim": "#9176d4",
+        "github-bg": "#1f1a2e",
+        "github-border": "#3d2f6b",
+
+        spotify: "#1db954",
+        "spotify-dim": "#57d984",
+        "spotify-bg": "#12291a",
+        "spotify-border": "#2b5f3d",
+
+        leetcode: "#ffa116",
+        "leetcode-dim": "#ffcf87",
+        "leetcode-bg": "#2f2616",
+        "leetcode-border": "#5a4520",
 
         // Callout backgrounds
         "info-bg": "#1e3a5f",
