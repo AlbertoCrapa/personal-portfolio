@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import Layout from '../../layouts/Layout';
 import SEO from '../../components/SEO';
+import Breadcrumb from '../../components/ui/Breadcrumb';
 import SectionHeader from '../../components/ui/SectionHeader';
 import ProjectCard from '../../components/ui/ProjectCard';
 import Button from '../../components/ui/Button';
@@ -361,11 +362,16 @@ const Home = () => {
         isHomepage={true}
       />
 
-      <div className="space-y-10 lg:space-y-14">
+      <div className="space-y-8 lg:space-y-8">
+        <Breadcrumb
+          items={[
+            { label: 'home', path: '/' },
+          ]}
+        />
 
         {/* ──────────── HERO + REEL ──────────── */}
         <RevealSection>
-          <section className="grid grid-cols-1 xl:grid-cols-12 gap-5 lg:gap-6">
+          <section className="grid grid-cols-1 xl:grid-cols-12 gap-5 lg:gap-6 ">
             <article className="xl:col-span-7 bg-surface rounded-xl border border-border p-6 md:p-8 flex flex-col justify-between gap-5">
               <div className="space-y-4">
                 <p className="text-xs uppercase tracking-[0.18em] text-text-muted font-medium">
@@ -532,23 +538,23 @@ const Home = () => {
                     <Link
                       key={blog.slug}
                       to={`/blog/${blog.slug}`}
-                      className="bg-surface rounded-xl p-4 hover:bg-surface-hover transition-colors group flex items-center gap-4 border border-transparent hover:border-border"
+                      className="relative rounded-xl bg-surface border border-border hover:border-[#4a4a4a] transition-colors group flex items-center gap-4 p-4 h-full"
                     >
                       {coverSrc && (
                         <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
                           <img
                             src={coverSrc}
                             alt=""
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                             onError={(e) => { e.target.parentElement.style.display = 'none'; }}
                           />
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-text-primary group-hover:text-accent-blue transition-colors mb-1 line-clamp-2">
+                        <h3 className="font-bold text-base text-text-primary leading-tight group-hover:text-accent-blue transition-colors mb-1 line-clamp-2">
                           {blog.title}
                         </h3>
-                        <p className="text-sm text-text-muted">
+                        <p className="text-xs uppercase tracking-wide text-text-muted">
                           {new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </p>
                       </div>
