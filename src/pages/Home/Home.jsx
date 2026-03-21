@@ -9,6 +9,7 @@ import ProjectCard from '../../components/ui/ProjectCard';
 import Button from '../../components/ui/Button';
 import SocialLink from '../../components/ui/SocialLink';
 import VideoPlayer from '../../components/ui/VideoPlayer';
+import TravelMapCard from '../../components/ui/TravelMapCard';
 import { usePlatformData } from '../../hooks/usePlatformData';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
@@ -640,30 +641,7 @@ const Home = () => {
                 </ul>
               </article>
 
-              {/* Interests — with emojis */}
-              <article className="extras-card space-y-3">
-                <h3 className="text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
-                  </svg>
-                  Interests
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {(extras.interests || []).map((item, i) => {
-                    const label = typeof item === 'string' ? item : item.label;
-                    const emoji = typeof item === 'string' ? null : item.emoji;
-                    return (
-                      <span
-                        key={i}
-                        className="text-xs px-2.5 py-1.5 rounded-md bg-bg border border-border text-text-secondary hover:text-text-primary hover:border-[#555] transition-colors flex items-center gap-1.5"
-                      >
-                        {emoji && <span>{emoji}</span>}
-                        {label}
-                      </span>
-                    );
-                  })}
-                </div>
-              </article>
+              <TravelMapCard />
             </div>
           </section>
         </RevealSection>

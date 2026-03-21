@@ -2,5 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import theme styles */
-@import "./styles/theme.css";
+/* Keep selection styling last so it overrides Tailwind preflight selection. */
+::selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+
+::-moz-selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
