@@ -114,20 +114,20 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                             {project.title}
                         </h3>
                         {projectLink && (
-                            <a
-                                href={projectLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.open(projectLink, '_blank', 'noopener,noreferrer');
+                                }}
                                 className="mt-0.5 text-text-secondary hover:text-text-primary transition-colors"
                                 aria-label={`Open ${project.title}`}
-                                onClick={(e) => e.stopPropagation()}
                             >
                                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                                     <path d="M14 4h6v6" />
                                     <path d="M10 14 20 4" />
                                     <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5" />
                                 </svg>
-                            </a>
+                            </button>
                         )}
                     </div>
 

@@ -284,7 +284,7 @@ img {
 
 .gh-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(14, 1fr);
   gap: 4px;
 }
 
@@ -390,7 +390,7 @@ img {
 }
 
 .travel-map-pin.is-home {
-  background:   var(--color-accent-blue);
+  background: var(--color-accent-blue);
   box-shadow: 0 0 0 2px rgba(14, 24, 35, 0.9);
 }
 

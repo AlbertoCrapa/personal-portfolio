@@ -66,21 +66,23 @@
       ]
     },
     "spotify": {
-      "nowPlaying": "Motion Sickness",
-      "artist": "Phoebe Bridgers",
-      "album": "Stranger in the Alps",
+      "nowPlaying": "Coasting",
+      "artist": "Wale The Sage",
+      "album": "Coasting",
       "lastUpdated": "Updated recently",
-      "topArtists": ["Radiohead", "Mitski", "Arctic Monkeys", "Bon Iver"],
-      "genres": ["Indie", "Alternative", "Ambient", "Electronic"]
+      "topArtists": ["Radiohead", "Mitski", "Arctic Monkeys"],
+      "genres": ["Indie", "Alternative", "Ambient", "Electronic"],
+      "followers": "1,247 followers",
+      "playlists": "8 playlists created"
     },
     "leetcode": {
       "username": "Albyeah",
-      "solved": 287,
-      "easy": 142,
-      "medium": 123,
-      "hard": 22,
-      "contestRating": 1668,
-      "activeDays": "5 days this week"
+      "solved": 8,
+      "easy": 4,
+      "medium": 4,
+      "hard": 0,
+      "topSkills": ["Dynamic Programming", "Graph", "Array", "Tree"],
+      "languages": ["Python", "TypeScript", "C++"]
     },
     "testimonials": [
       {
@@ -116,13 +118,28 @@
     ],
     "extras": {
       "favoriteQuotes": [
-        { "text": "Make it work, make it right, make it fast.", "author": "Kent Beck" },
-        { "text": "Games are conversations between systems and players.", "author": "Raph Koster" },
-        { "text": "Simplicity is the ultimate sophistication.", "author": "Leonardo da Vinci" }
+        {
+          "text": "Make it work, make it right, make it fast.",
+          "author": "Kent Beck"
+        },
+        {
+          "text": "Games are conversations between systems and players.",
+          "author": "Raph Koster"
+        },
+        {
+          "text": "Simplicity is the ultimate sophistication.",
+          "author": "Leonardo da Vinci"
+        }
       ],
       "podcasts": [
-        { "name": "Lex Fridman Podcast", "url": "https://lexfridman.com/podcast/" },
-        { "name": "Indie Game Movement", "url": "https://게임development.com/" },
+        {
+          "name": "Lex Fridman Podcast",
+          "url": "https://lexfridman.com/podcast/"
+        },
+        {
+          "name": "Indie Game Movement",
+          "url": "https://게임development.com/"
+        },
         { "name": "Syntax", "url": "https://syntax.fm/" },
         { "name": "The Changelog", "url": "https://changelog.com/podcast" }
       ],

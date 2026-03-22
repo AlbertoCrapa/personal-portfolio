@@ -215,6 +215,19 @@ const SpotifyCard = ({ spotify = {} }) => (
         ))}
       </div>
     )}
+
+    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border">
+      {spotify.followers && (
+        <div>
+          <p className="text-xs text-text-muted">{spotify.followers}</p>
+        </div>
+      )}
+      {spotify.playlists && (
+        <div className="text-right">
+          <p className="text-xs text-text-muted">{spotify.playlists}</p>
+        </div>
+      )}
+    </div>
   </article>
 );
 
@@ -253,8 +266,8 @@ const LeetCodeCard = ({ leetcode = {} }) => {
           <p className="text-2xl font-bold text-text-primary">{total}</p>
         </div>
         <div className="bg-bg rounded-lg px-3 py-2.5 border border-border">
-          <p className="text-xs text-text-muted">Contest rating</p>
-          <p className="text-2xl font-bold text-text-primary">{leetcode.contestRating || 0}</p>
+          <p className="text-xs text-text-muted">Days active</p>
+          <p className="text-2xl font-bold text-text-primary">{leetcode.streak || 0}</p>
         </div>
       </div>
 
@@ -277,7 +290,23 @@ const LeetCodeCard = ({ leetcode = {} }) => {
         ))}
       </div>
 
-      <p className="text-xs text-text-secondary">{leetcode.activeDays || 'Regular coding practice.'}</p>
+  
+
+      <div className="space-y-3 pt-2 border-t border-border">
+       
+        {leetcode.languages?.length > 0 && (
+          <div>
+            <p className="text-xs uppercase tracking-wider text-text-muted mb-2">Languages</p>
+            <div className="flex flex-wrap gap-1.5">
+              {leetcode.languages.map((lang) => (
+                <span key={lang} className="text-[10px] px-2 py-0.5 rounded border border-leetcode-border text-leetcode-dim bg-leetcode-bg">
+                  {lang}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </article>
   );
 };

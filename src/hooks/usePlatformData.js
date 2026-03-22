@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from "react";
 
 /*  ─────────────────────────────────────────────────────
     usePlatformData  —  live GitHub + LeetCode stats
@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from 'react';
     Falls back to data.json values if the fetch fails.
     ───────────────────────────────────────────────────── */
 
-const CACHE_TTL = 10 * 60 * 1000; // 10 min local cache
+const CACHE_TTL = 60 * 60 * 1000; // 1 hour cache (was 10 min)
 const cache = {};
 
 async function cachedFetch(key, fetcher) {
@@ -28,14 +28,16 @@ async function fetchGitHub(username) {
   // Fallback: we scrape the user's profile page contribution count from the REST API
 
   const [eventsData, userResp] = await Promise.allSettled([
-    fetch(`https://api.github.com/users/${username}/events/public?per_page=100`)
-      .then(r => r.ok ? r.json() : null),
-    fetch(`https://api.github.com/users/${username}`)
-      .then(r => r.ok ? r.json() : null),
+    fetch(
+      `https://api.github.com/users/${username}/events/public?per_page=100`,
+    ).then((r) => (r.ok ? r.json() : null)),
+    fetch(`https://api.github.com/users/${username}`).then((r) =>
+      r.ok ? r.json() : null,
+    ),
   ]);
 
-  const events = eventsData.status === 'fulfilled' ? eventsData.value : null;
-  const user = userResp.status === 'fulfilled' ? userResp.value : null;
+  const events = eventsData.status === "fulfilled" ? eventsData.value : null;
+  const user = userResp.status === "fulfilled" ? userResp.value : null;
 
   if (!events && !user) return null;
 
@@ -45,7 +47,7 @@ async function fetchGitHub(username) {
 
   if (events) {
     for (const e of events) {
-      if (e.type === 'PushEvent') {
+      if (e.type === "PushEvent") {
         const d = new Date(e.created_at);
         const diffDays = Math.floor((now - d) / (1000 * 60 * 60 * 24));
         if (diffDays >= 0 && diffDays < 84) {
@@ -57,14 +59,14 @@ async function fetchGitHub(username) {
 
   // Normalize to 0-4 intensity scale
   const max = Math.max(1, ...dayBuckets);
-  const activity = dayBuckets.map(v => Math.ceil((v / max) * 4));
+  const activity = dayBuckets.map((v) => Math.ceil((v / max) * 4));
 
   // Count push events this month
   const thisMonth = now.getMonth();
   const thisYear = now.getFullYear();
   const pushesThisMonth = events
-    ? events.filter(e => {
-        if (e.type !== 'PushEvent') return false;
+    ? events.filter((e) => {
+        if (e.type !== "PushEvent") return false;
         const d = new Date(e.created_at);
         return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
       }).length
@@ -73,7 +75,11 @@ async function fetchGitHub(username) {
   // Commits this year (approximate from events we have)
   const commitsThisYear = events
     ? events
-        .filter(e => e.type === 'PushEvent' && new Date(e.created_at).getFullYear() === thisYear)
+        .filter(
+          (e) =>
+            e.type === "PushEvent" &&
+            new Date(e.created_at).getFullYear() === thisYear,
+        )
         .reduce((sum, e) => sum + (e.payload?.commits?.length || 0), 0)
     : 0;
 
@@ -84,13 +90,23 @@ async function fetchGitHub(username) {
     else break;
   }
 
+  console.log("GitHub data:", {
+    commitsThisYear,
+    pushesThisMonth,
+    streak,
+    activityDays: activity.filter((a) => a > 0).length,
+  });
+
   return {
     username,
     activity,
     commitsThisYear,
     pushesThisMonth,
     publicRepos: user?.public_repos,
-    streak: streak > 1 ? `${streak}-day activity streak` : 'Activity tracked in real time',
+    streak:
+      streak > 1
+        ? `${streak}-day activity streak`
+        : "Activity tracked in real time",
   };
 }
 
@@ -98,8 +114,18 @@ async function fetchGitHub(username) {
 
 async function fetchLeetCode(username) {
   // Uses the free alfa-leetcode-api (no auth needed)
-  const resp = await fetch(`https://alfa-leetcode-api.onrender.com/userProfile/${username}`);
-  if (!resp.ok) return null;
+  // Note: This API has strict rate limits, relies on cache
+  const resp = await fetch(
+    `https://alfa-leetcode-api.onrender.com/userProfile/${username}`,
+  );
+  if (!resp.ok) {
+    console.warn(
+      "LeetCode API fetch failed:",
+      resp.status,
+      "— using fallback data",
+    );
+    return null;
+  }
   const d = await resp.json();
 
   return {
@@ -107,8 +133,12 @@ async function fetchLeetCode(username) {
     easy: d.easySolved ?? 0,
     medium: d.mediumSolved ?? 0,
     hard: d.hardSolved ?? 0,
-    contestRating: d.ranking ? Math.round(d.ranking) : 0,
-    activeDays: d.totalActiveDays ? `${d.totalActiveDays} active days` : undefined,
+    streak: d.streak ?? 0,
+    activeDays: d.totalActiveDays
+      ? `${d.totalActiveDays} active days`
+      : undefined,
+    reputation: d.reputation ? `${d.reputation}` : undefined,
+    ranking: d.ranking ? `Top ${Math.round(d.ranking)}%` : undefined,
   };
 }
 
@@ -127,14 +157,14 @@ export function usePlatformData(fallback = {}) {
     const lcUser = fallback.leetcode?.username;
 
     if (ghUser) {
-      cachedFetch(`gh-${ghUser}`, () => fetchGitHub(ghUser)).then(d => {
-        if (d) setGitHub(prev => ({ ...prev, ...d }));
+      cachedFetch(`gh-${ghUser}`, () => fetchGitHub(ghUser)).then((d) => {
+        if (d) setGitHub((prev) => ({ ...prev, ...d }));
       });
     }
 
     if (lcUser) {
-      cachedFetch(`lc-${lcUser}`, () => fetchLeetCode(lcUser)).then(d => {
-        if (d) setLeetcode(prev => ({ ...prev, ...d }));
+      cachedFetch(`lc-${lcUser}`, () => fetchLeetCode(lcUser)).then((d) => {
+        if (d) setLeetcode((prev) => ({ ...prev, ...d }));
       });
     }
   }, [fallback.github?.username, fallback.leetcode?.username]); // eslint-disable-line react-hooks/exhaustive-deps
