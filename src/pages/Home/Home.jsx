@@ -153,8 +153,8 @@ const GitHubCard = ({ github = {} }) => {
 
       <div className="grid grid-cols-2 gap-3 text-sm">
         <div>
-          <p className="text-text-muted text-xs">Commits YTD</p>
-          <p className="text-text-primary font-semibold text-lg">{github.commitsThisYear || 0}</p>
+          <p className="text-text-muted text-xs">Public repos</p>
+          <p className="text-text-primary font-semibold text-lg">{github.publicRepos ?? 0}</p>
         </div>
         <div>
           <p className="text-text-muted text-xs">Pushes / month</p>
@@ -290,10 +290,10 @@ const LeetCodeCard = ({ leetcode = {} }) => {
         ))}
       </div>
 
-  
+
 
       <div className="space-y-3 pt-2 border-t border-border">
-       
+
         {leetcode.languages?.length > 0 && (
           <div>
             <p className="text-xs uppercase tracking-wider text-text-muted mb-2">Languages</p>
