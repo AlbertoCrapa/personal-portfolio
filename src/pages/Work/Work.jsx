@@ -60,6 +60,21 @@ const Work = ({ source = 'projects' }) => {
     const firstTextSection = contentElements.find(
         (item) => (item?.type === 'section' || (!item?.type && item?.text)) && typeof item?.text === 'string' && item.text.trim()
     );
+    const workSchema = project ? {
+        '@context': 'https://schema.org',
+        '@type': 'CreativeWork',
+        name: project.title,
+        description: firstTextSection?.text?.substring(0, 180) || `${project.title} by Alberto Crapanzano`,
+        image: projectCover ? `https://albyeah.com${projectCover}` : 'https://albyeah.com/img/profile.jpg',
+        dateCreated: project.date,
+        genre: project.type || (isPlayground ? 'interactive prototype' : 'software project'),
+        creator: {
+            '@type': 'Person',
+            name: 'Alberto Crapanzano',
+            url: 'https://albyeah.com/about',
+        },
+        url: `https://albyeah.com${basePath}/${slug}`,
+    } : null;
 
     // Check if media is video
     const isVideo = (src) => {
@@ -77,6 +92,7 @@ const Work = ({ source = 'projects' }) => {
                 url={`${basePath}/${slug}`}
                 image={projectCover ? `https://albyeah.com${projectCover}` : undefined}
                 type="article"
+                structuredData={workSchema}
             />
 
             <div className="space-y-1">
@@ -130,7 +146,16 @@ const Work = ({ source = 'projects' }) => {
                         {project.teamSize && (
                             <span>Team of {project.teamSize}</span>
                         )}
+                        {project.role && (
+                            <span>Role: {project.role}</span>
+                        )}
                     </div>
+
+                    {project.outcome && (
+                        <p className="text-sm text-text-secondary bg-surface border border-border rounded-lg px-3 py-2 inline-block">
+                            Outcome: {project.outcome}
+                        </p>
+                    )}
 
                     {/* Technology Tags */}
                     {project.technologies && project.technologies.length > 0 && (
@@ -138,7 +163,7 @@ const Work = ({ source = 'projects' }) => {
                             {project.technologies.map((tech) => (
                                 <span
                                     key={tech}
-                                    className="text-xs px-3 py-1.5 bg-surface rounded-full text-text-secondary border border-border hover:border-accent-blue hover:text-accent-blue transition-colors"
+                                    className="tag-capsule"
                                 >
                                     {tech}
                                 </span>

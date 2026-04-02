@@ -147,6 +147,7 @@ const GitHubCard = ({ github = {} }) => {
             className="gh-cell"
             style={{ backgroundColor: GITHUB_INTENSITY[Math.max(0, Math.min(4, level))] }}
             title={`Activity level: ${level}`}
+            aria-label={`GitHub activity level ${level}`}
           />
         ))}
       </div>
@@ -157,8 +158,8 @@ const GitHubCard = ({ github = {} }) => {
           <p className="text-text-primary font-semibold text-lg">{github.publicRepos ?? 0}</p>
         </div>
         <div>
-          <p className="text-text-muted text-xs">Pushes / month</p>
-          <p className="text-text-primary font-semibold text-lg">{github.pushesThisMonth || 0}</p>
+          <p className="text-text-muted text-xs">Pushes tracked</p>
+          <p className="text-text-primary font-semibold text-lg">{github.pushesTotal || 0}</p>
         </div>
       </div>
 
@@ -331,6 +332,12 @@ const Home = () => {
   const { github, leetcode } = usePlatformData(homeConfig);
 
   const featuredProjects = projects.slice(0, 3);
+  const spotlightStats = [
+    { label: 'Role focus', value: 'Creative Developer' },
+    { label: 'Core stack', value: 'React, Unreal, Unity' },
+    { label: 'Availability', value: 'Open to interviews' },
+    { label: 'Public repos', value: String(github?.publicRepos ?? 0) },
+  ];
 
   // Triple the skills for smooth infinite loop
   const tripleSkills = React.useMemo(() => {
@@ -410,19 +417,23 @@ const Home = () => {
                 <h1 className="font-display text-3xl md:text-[2.75rem] lg:text-5xl leading-[1.1] text-text-primary max-w-3xl">
                   {hero.title || 'I build interactive software, games, and digital experiences.'}
                 </h1>
-                <p className="text-text-secondary max-w-2xl text-base md:text-lg leading-relaxed">
-                  {hero.description || 'A focused portfolio of technical design, real-time systems, and creative development experiments.'}
+
+                <p className="text-sm md:text-base text-text-muted max-w-2xl leading-relaxed">
+                  {hero.description}
                 </p>
               </div>
               <div className="flex flex-wrap items-center gap-3 pt-1">
                 <Button to={hero.ctaLink || '/projects'} variant="primary" size="md">
-                  {hero.ctaLabel || 'Explore Projects'}
+                  {hero.ctaLabel || 'View Featured Projects'}
                 </Button>
-                {contact?.github && (
+                <Button to="/work/deadly-nightshade" variant="secondary" size="md">
+                  View flagship project
+                </Button>
+                {/* {contact?.github && (
                   <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-sm text-text-secondary hover:text-text-primary transition-colors">
                     github profile →
                   </a>
-                )}
+                )} */}
               </div>
             </article>
 
@@ -431,13 +442,24 @@ const Home = () => {
                 <h2 className="text-lg font-bold text-text-primary">{reel.title || 'Video Reel'}</h2>
                 <span className="text-[10px] uppercase tracking-widest text-text-muted font-semibold bg-bg px-2 py-0.5 rounded">Featured</span>
               </div>
-              <p className="text-sm text-text-secondary leading-relaxed">{reel.description || 'A short preview of selected work.'}</p>
+              <p className="text-sm text-text-muted leading-relaxed">{reel.description || 'A short preview of selected work.'}</p>
               <VideoPlayer
                 src={reel.video || '/works/deadly/videoLow.mp4'}
                 poster={reel.poster || '/works/deadly/cover2.jpg'}
                 className="flex-1 min-h-[14rem] md:min-h-[16rem]"
               />
             </article>
+          </section>
+        </RevealSection>
+
+        <RevealSection>
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+            {spotlightStats.map((item) => (
+              <article key={item.label} className="bg-surface border border-border rounded-xl px-4 py-3">
+                <p className="text-xs uppercase tracking-wide text-text-muted">{item.label}</p>
+                <p className="text-sm md:text-base text-text-primary font-semibold mt-1">{item.value}</p>
+              </article>
+            ))}
           </section>
         </RevealSection>
 
@@ -464,7 +486,7 @@ const Home = () => {
         <RevealSection>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             <section className="lg:col-span-7 space-y-4">
-              <SectionHeader title="Projects" seeAllLink="/projects" />
+              <SectionHeader title="Featured Projects" seeAllLink="/projects" />
               {featuredProjects[0] && (
                 <ProjectCard project={featuredProjects[0]} size="large" />
               )}
@@ -574,7 +596,8 @@ const Home = () => {
                         <div className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden">
                           <img
                             src={coverSrc}
-                            alt=""
+                            alt={`${blog.title} cover`}
+                            loading="lazy"
                             className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                             onError={(e) => { e.target.parentElement.style.display = 'none'; }}
                           />

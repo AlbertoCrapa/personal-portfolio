@@ -9,12 +9,15 @@ import React from 'react';
  * @param {string} glowColor - Hex color for subtle glow effect
  * @param {React.ReactNode} children - Link text
  */
-const SocialLink = ({ href, children, hoverColor = 'hover:text-text-primary', glowColor }) => {
+const SocialLink = ({ href, children, hoverColor = 'hover:text-text-primary', glowColor, ariaLabel }) => {
+    const computedAriaLabel = ariaLabel || (typeof children === 'string' ? children : undefined);
+
     return (
         <a
             href={href}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={computedAriaLabel}
             className={`social-link flex items-center font-semibold gap-2 py-1 text-sm text-text-secondary ${hoverColor} transition-all duration-300`}
             style={{
                 '--glow-color': glowColor || 'transparent',

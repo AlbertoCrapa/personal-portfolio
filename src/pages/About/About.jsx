@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Layout from '../../layouts/Layout';
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
+import { useNotification } from '../../components/ui/NotificationProvider';
 import data from '../../data/data.json';
 
 /**
@@ -11,7 +11,8 @@ import data from '../../data/data.json';
  * Personal introduction and contact form
  */
 const About = () => {
-    const { fullname, about, contact } = data;
+    const { about, contact } = data;
+    const { notify } = useNotification();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -41,9 +42,6 @@ const About = () => {
 
                     <div className="max-w-2xl space-y-4">
                         <p className="text-text-secondary leading-relaxed text-lg">
-                            {about?.description || "I'm a technical artist with a background in graphic design and print. I specialize in creating playful and user-friendly digital experiences. I embrace FOSS and experimental workflows."}
-                        </p>
-                        <p className="text-text-secondary leading-relaxed text-lg">
                             {about?.description2 || "If you are interested in working with me on a project, reach out!"}
                         </p>
                     </div>
@@ -60,7 +58,19 @@ const About = () => {
                     <h2 className="text-xl font-bold text-text-primary">Quick Links</h2>
                     <div className="flex flex-wrap gap-3">
                         {contact?.cv && (
-                            <Button href={contact.cv} variant="secondary" size="md">
+                            <Button
+                                href={contact.cv}
+                                download
+                                variant="secondary"
+                                size="md"
+                                onClick={() => {
+                                    notify({
+                                        type: 'success',
+                                        title: 'Download started',
+                                        message: 'Your CV file is being downloaded.',
+                                    });
+                                }}
+                            >
                                 Download CV
                             </Button>
                         )}
@@ -77,18 +87,6 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Footer - Privacy & Copyright */}
-                <footer className="pt-8 border-t border-border text-center space-y-3">
-                    <Link
-                        to="/privacy"
-                        className="text-sm text-text-muted hover:text-text-secondary transition-colors"
-                    >
-                        Privacy Policy
-                    </Link>
-                    <p className="text-xs text-text-muted">
-                        © {new Date().getFullYear()} {fullname}. All rights reserved.
-                    </p>
-                </footer>
             </div>
         </Layout>
     );
@@ -112,30 +110,47 @@ const ContactForm = ({ email = 'hello@albyeah.com' }) => {
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
-            <input
-                type="email"
-                placeholder="Email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors"
-            />
-            <input
-                type="text"
-                placeholder="Subject"
-                value={formData.subject}
-                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                required
-                className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors"
-            />
-            <textarea
-                placeholder="Message Content"
-                value={formData.message}
-                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                required
-                rows={5}
-                className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors resize-none"
-            />
+            <div className="space-y-1.5">
+                <label htmlFor="contact-email" className="text-sm font-medium text-text-secondary">Email</label>
+                <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    placeholder="you@example.com"
+                    autoComplete="email"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors"
+                />
+            </div>
+            <div className="space-y-1.5">
+                <label htmlFor="contact-subject" className="text-sm font-medium text-text-secondary">Subject</label>
+                <input
+                    id="contact-subject"
+                    name="subject"
+                    type="text"
+                    placeholder="Project collaboration"
+                    autoComplete="off"
+                    value={formData.subject}
+                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                    required
+                    className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors"
+                />
+            </div>
+            <div className="space-y-1.5">
+                <label htmlFor="contact-message" className="text-sm font-medium text-text-secondary">Message</label>
+                <textarea
+                    id="contact-message"
+                    name="message"
+                    placeholder="Tell me about your project, team, or role."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    rows={5}
+                    className="w-full bg-bg border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors resize-none"
+                />
+            </div>
             <Button type="submit" variant="primary" size="md">
                 Send Message
             </Button>

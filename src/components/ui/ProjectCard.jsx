@@ -21,6 +21,9 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
     const shortDescription = project.shortDescription || project.description;
     const projectDuration = project.duration;
     const projectLink = project.projectLink || project.url;
+    const projectRole = project.role;
+    const projectOutcome = project.outcome;
+    const techPreview = Array.isArray(project.technologies) ? project.technologies.slice(0, 3) : [];
 
     const sizeClasses = {
         large: 'col-span-2 row-span-2',
@@ -47,6 +50,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                     <img
                         src={thumbnailImage}
                         alt={project.title}
+                        loading="lazy"
                         className="w-full h-20 md:h-24 object-cover group-hover:scale-105 transition-transform duration-300"
                         onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}
                     />
@@ -57,6 +61,11 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                     </h3>
                     {shortDescription && (
                         <p className="text-sm text-text-muted line-clamp-1 mt-1">{shortDescription}</p>
+                    )}
+                    {(projectRole || projectOutcome) && (
+                        <p className="text-xs text-text-secondary mt-1.5 line-clamp-1">
+                            {[projectRole, projectOutcome].filter(Boolean).join(' • ')}
+                        </p>
                     )}
                 </div>
             </Link>
@@ -88,6 +97,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                     <img
                         src={thumbnailImage}
                         alt={project.title}
+                        loading="lazy"
                         className={`w-full h-full object-cover transition-all duration-500 ${previewVideo && isHovered ? 'scale-[1.02] opacity-0' : 'scale-100 opacity-100'
                             }`}
                         onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}
@@ -134,6 +144,22 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                     {shortDescription && (
                         <p className="text-sm text-text-secondary line-clamp-2">
                             {shortDescription}
+                        </p>
+                    )}
+
+                    {techPreview.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                            {techPreview.map((tech) => (
+                                <span key={`${project.slug}-${tech}`} className="tag-capsule">
+                                    {tech}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+
+                    {(projectRole || projectOutcome) && (
+                        <p className="text-xs text-text-secondary">
+                            {[projectRole, projectOutcome].filter(Boolean).join(' • ')}
                         </p>
                     )}
 

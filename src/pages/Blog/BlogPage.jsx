@@ -33,6 +33,26 @@ const BlogPage = () => {
 
     const coverSrc = blog?.cover || (firstMediaIndex >= 0 ? blogElements[firstMediaIndex]?.src : null);
     const coverPoster = blog?.cover && !isVideo(blog?.cover) ? blog.cover : undefined;
+    const blogSchema = blog ? {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: blog.title,
+        image: coverSrc ? `https://albyeah.com${coverSrc}` : 'https://albyeah.com/img/profile.jpg',
+        datePublished: blog.date,
+        dateModified: blog.date,
+        author: {
+            '@type': 'Person',
+            name: 'Alberto Crapanzano',
+            url: 'https://albyeah.com/about',
+        },
+        publisher: {
+            '@type': 'Person',
+            name: 'Alberto Crapanzano',
+            url: 'https://albyeah.com',
+        },
+        description: blog.excerpt || blogElements?.[0]?.text?.substring(0, 160),
+        mainEntityOfPage: `https://albyeah.com/blog/${slug}`,
+    } : null;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -76,6 +96,7 @@ const BlogPage = () => {
                 url={`/blog/${slug}`}
                 image={coverSrc ? `https://albyeah.com${coverSrc}` : undefined}
                 type="article"
+                structuredData={blogSchema}
             />
 
             <div className="space-y-1">
@@ -129,7 +150,7 @@ const BlogPage = () => {
                             {blog.tags.map((tag) => (
                                 <span
                                     key={tag}
-                                    className="text-xs px-2.5 py-1 rounded-full border border-border text-text-secondary bg-surface"
+                                    className="tag-capsule"
                                 >
                                     {tag}
                                 </span>

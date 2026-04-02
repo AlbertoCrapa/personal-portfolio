@@ -97,7 +97,7 @@ const BlogCard = ({ blog, size = 'medium' }) => {
                             {blog.tags.slice(0, 3).map((tag) => (
                                 <span
                                     key={tag}
-                                    className="text-xs px-2 py-1 rounded-md bg-bg text-text-muted border border-border/60"
+                                    className="tag-capsule"
                                 >
                                     {tag}
                                 </span>

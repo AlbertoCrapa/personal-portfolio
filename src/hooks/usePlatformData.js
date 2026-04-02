@@ -61,18 +61,13 @@ async function fetchGitHub(username) {
   const max = Math.max(1, ...dayBuckets);
   const activity = dayBuckets.map((v) => Math.ceil((v / max) * 4));
 
-  // Count push events this month
-  const thisMonth = now.getMonth();
-  const thisYear = now.getFullYear();
-  const pushesThisMonth = events
-    ? events.filter((e) => {
-        if (e.type !== "PushEvent") return false;
-        const d = new Date(e.created_at);
-        return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
-      }).length
+  // Count all push events available in the fetched activity window
+  const pushesTotal = events
+    ? events.filter((e) => e.type === "PushEvent").length
     : 0;
 
   // Commits this year (approximate from events we have)
+  const thisYear = now.getFullYear();
   const commitsThisYear = events
     ? events
         .filter(
@@ -92,7 +87,7 @@ async function fetchGitHub(username) {
 
   console.log("GitHub data:", {
     commitsThisYear,
-    pushesThisMonth,
+    pushesTotal,
     streak,
     activityDays: activity.filter((a) => a > 0).length,
   });
@@ -101,7 +96,7 @@ async function fetchGitHub(username) {
     username,
     activity,
     commitsThisYear,
-    pushesThisMonth,
+    pushesTotal,
     publicRepos: user?.public_repos,
     streak:
       streak > 1

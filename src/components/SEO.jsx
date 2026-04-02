@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ 
+const SEO = ({
   title = "Alberto Crapanzano - Game Technical Designer & Creative Developer",
   description = "Alberto Crapanzano (Albyeah) is a Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences.",
   keywords = "Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer",
@@ -11,12 +11,13 @@ const SEO = ({
   author = "Alberto Crapanzano",
   canonical,
   noindex = false,
-  isHomepage = false
+  isHomepage = false,
+  structuredData
 }) => {
   // Ensure URL is absolute
   const absoluteUrl = url.startsWith('http') ? url : `https://albyeah.com${url}`;
   const canonicalUrl = canonical || absoluteUrl;
-  
+
   // Schema.org structured data for homepage
   const personSchema = isHomepage ? {
     "@context": "https://schema.org",
@@ -52,7 +53,7 @@ const SEO = ({
       "Technical Design"
     ]
   } : null;
-  
+
   return (
     <Helmet>
       {/* Basic Meta Tags */}
@@ -61,14 +62,15 @@ const SEO = ({
       <meta name="keywords" content={keywords} />
       <meta name="author" content={author} />
       <link rel="canonical" href={canonicalUrl} />
-      
+      <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
       {/* Robots */}
       {noindex ? (
         <meta name="robots" content="noindex, nofollow" />
       ) : (
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       )}
-      
+
       {/* Open Graph */}
       <meta property="og:type" content={type} />
       <meta property="og:title" content={title} />
@@ -77,7 +79,7 @@ const SEO = ({
       <meta property="og:url" content={absoluteUrl} />
       <meta property="og:site_name" content="Alberto Crapanzano Portfolio" />
       <meta property="og:locale" content="en_US" />
-      
+
       {/* Twitter Cards */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={title} />
@@ -86,15 +88,21 @@ const SEO = ({
       <meta name="twitter:url" content={absoluteUrl} />
       <meta name="twitter:creator" content="@albyeah" />
       <meta name="twitter:site" content="@albyeah" />
-      
+
       {/* Additional Meta */}
       <meta name="language" content="English" />
       <meta name="theme-color" content="#000000" />
-      
+
       {/* Schema.org Structured Data */}
       {isHomepage && personSchema && (
         <script type="application/ld+json">
           {JSON.stringify(personSchema)}
+        </script>
+      )}
+
+      {structuredData && (
+        <script type="application/ld+json">
+          {JSON.stringify(structuredData)}
         </script>
       )}
     </Helmet>

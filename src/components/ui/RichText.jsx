@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Callout from './Callout';
+import { useNotification } from './NotificationProvider';
 
 /**
  * RichText Component
@@ -348,6 +349,7 @@ function ensureHighlightAssets() {
 function CodeBlock({ content, language }) {
   const [highlightedHtml, setHighlightedHtml] = useState('');
   const [copied, setCopied] = useState(false);
+  const { notify } = useNotification();
 
   useEffect(() => {
     let active = true;
@@ -383,13 +385,30 @@ function CodeBlock({ content, language }) {
   }, [content, language]);
 
   const handleCopy = async () => {
-    if (!content || !navigator?.clipboard) return;
+    if (!content || !navigator?.clipboard) {
+      notify({
+        type: 'error',
+        title: 'Copy unavailable',
+        message: 'Clipboard access is not available in this browser.',
+      });
+      return;
+    }
     try {
       await navigator.clipboard.writeText(content);
       setCopied(true);
+      notify({
+        type: 'success',
+        title: 'Code copied',
+        message: `${formatLanguageLabel(language)} snippet copied to clipboard.`,
+      });
       setTimeout(() => setCopied(false), 1500);
     } catch (error) {
       setCopied(false);
+      notify({
+        type: 'error',
+        title: 'Copy failed',
+        message: 'Unable to copy this snippet right now.',
+      });
     }
   };
 

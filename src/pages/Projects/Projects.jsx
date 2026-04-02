@@ -44,7 +44,7 @@ const Projects = () => {
                 url="/projects"
             />
 
-            <div className="space-y-8">
+            <div className="space-y-6">
                 {/* Breadcrumb */}
                 <Breadcrumb
                     items={[
@@ -52,6 +52,13 @@ const Projects = () => {
                         { label: 'projects', path: '/projects' },
                     ]}
                 />
+
+                <header className="mb-8">
+                    <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Projects</h1>
+                    <p className="text-text-secondary">
+                        A quick scan of selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes.
+                    </p>
+                </header>
 
                 {/* Projects by Category */}
                 {orderedCategories.map((category) => (

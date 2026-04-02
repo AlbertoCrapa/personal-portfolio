@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import data from '../data/data.json';
 import NavLink from './ui/NavLink';
 import SocialLink from './ui/SocialLink';
+import { useNotification } from './ui/NotificationProvider';
 
 /**
  * Sidebar Component
@@ -27,10 +28,11 @@ const getCurrentPageLabel = (pathname, links) => {
 const Sidebar = () => {
     const location = useLocation();
     const { fullname, title, contact } = data;
+    const { notify } = useNotification();
 
     const navLinks = [
         { label: 'Home', path: '/' },
-        { label: 'About & Contact', path: '/about' },
+        { label: 'Contact', path: '/about' },
     ];
 
     const projectLinks = [
@@ -120,6 +122,13 @@ const Sidebar = () => {
                             style={{ '--glow-color': '#22c55eff' }}
                             onMouseEnter={(e) => e.currentTarget.style.textShadow = '0 0 8px #22c55e43 , 0 0 16px rgba(34, 197, 94, 0.1)'}
                             onMouseLeave={(e) => e.currentTarget.style.textShadow = 'none'}
+                            onClick={() => {
+                                notify({
+                                    type: 'success',
+                                    title: 'Download started',
+                                    message: 'Your CV file is being downloaded.',
+                                });
+                            }}
                         >
                             <svg
                                 className="w-4 h-4"
