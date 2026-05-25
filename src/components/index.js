@@ -9,6 +9,7 @@ export { default as ProjectCard } from "./ui/ProjectCard";
 export { default as BlogCard } from "./ui/BlogCard";
 export { default as SectionHeader } from "./ui/SectionHeader";
 export { default as RichText } from "./ui/RichText";
+export { default as RevealSection } from "./ui/RevealSection";
 
 // Layout Components
 export { default as Sidebar } from "./Sidebar";

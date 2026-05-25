@@ -4,6 +4,7 @@ import { useMediaQuery } from '../../hooks/useMediaQuery';
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
+import RevealSection from '../../components/ui/RevealSection';
 import playgroundData from '../../data/playground.json';
 
 /**
@@ -27,47 +28,49 @@ const Playground = () => {
                 url="/playground"
             />
 
-            <div className="space-y-6">
-                {/* Breadcrumb */}
-                <Breadcrumb
-                    items={[
-                        { label: 'home', path: '/' },
-                        { label: 'playground', path: '/playground' },
-                    ]}
-                />
+            <RevealSection>
+                <div className="space-y-6">
+                    {/* Breadcrumb */}
+                    <Breadcrumb
+                        items={[
+                            { label: 'home', path: '/' },
+                            { label: 'playground', path: '/playground' },
+                        ]}
+                    />
 
-                {/* Header */}
-                <header className="mb-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Playground</h1>
-                    <p className="text-text-secondary">
-                        Experimental projects, demos, and technical explorations.
-                    </p>
-                </header>
-
-                {/* Playground Items */}
-                {items.length > 0 ? (
-                    isMobile ? (
-                        <div className="space-y-2">
-                            {items.map((item) => (
-                                <ProjectCard key={item.slug} project={item} size="list" basePath="/playground" />
-                            ))}
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {items.map((item) => (
-                                <ProjectCard key={item.slug} project={item} size="medium" basePath="/playground" />
-                            ))}
-                        </div>
-                    )
-                ) : (
-                    <div className="text-center py-16 bg-surface rounded-xl">
-                        <p className="text-text-muted text-lg mb-2">🧪</p>
+                    {/* Header */}
+                    <header className="mb-8">
+                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Playground</h1>
                         <p className="text-text-secondary">
-                            Experiments coming soon. Check back later!
+                            Experimental projects, demos, and technical explorations.
                         </p>
-                    </div>
-                )}
-            </div>
+                    </header>
+
+                    {/* Playground Items */}
+                    {items.length > 0 ? (
+                        isMobile ? (
+                            <div className="space-y-2">
+                                {items.map((item) => (
+                                    <ProjectCard key={item.slug} project={item} size="list" basePath="/playground" />
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                {items.map((item) => (
+                                    <ProjectCard key={item.slug} project={item} size="medium" basePath="/playground" />
+                                ))}
+                            </div>
+                        )
+                    ) : (
+                        <div className="text-center py-16 bg-surface rounded-xl">
+                            <p className="text-text-muted text-lg mb-2">🧪</p>
+                            <p className="text-text-secondary">
+                                Experiments coming soon. Check back later!
+                            </p>
+                        </div>
+                    )}
+                </div>
+            </RevealSection>
         </>
     );
 };

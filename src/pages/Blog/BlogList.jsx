@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
+import RevealSection from '../../components/ui/RevealSection';
 import blogData from '../../data/blog.json';
 
 /**
@@ -132,44 +133,46 @@ const BlogList = () => {
                 url="/blog"
             />
 
-            <div className="space-y-10">
-                <Breadcrumb
-                    items={[
-                        { label: 'home', path: '/' },
-                        { label: 'blog', path: '/blog' },
-                    ]}
-                />
+            <RevealSection>
+                <div className="space-y-10">
+                    <Breadcrumb
+                        items={[
+                            { label: 'home', path: '/' },
+                            { label: 'blog', path: '/blog' },
+                        ]}
+                    />
 
-                <header>
-                    <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Blog</h1>
-                    <p className="text-text-secondary">
-                        Insights, tutorials, and lessons learned from game development.
-                    </p>
-                </header>
+                    <header>
+                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Blog</h1>
+                        <p className="text-text-secondary">
+                            Insights, tutorials, and lessons learned from game development.
+                        </p>
+                    </header>
 
-                {/* Featured article */}
-                {featured && <FeaturedCard blog={featured} />}
+                    {/* Featured article */}
+                    {featured && <FeaturedCard blog={featured} />}
 
-                {/* Article grid */}
-                {rest.length > 0 && (
-                    <section>
-                        <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">
-                            More articles
-                        </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                            {rest.map((blog) => (
-                                <ArticleCard key={blog.slug} blog={blog} />
-                            ))}
+                    {/* Article grid */}
+                    {rest.length > 0 && (
+                        <section>
+                            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">
+                                More articles
+                            </h2>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                                {rest.map((blog) => (
+                                    <ArticleCard key={blog.slug} blog={blog} />
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
+                    {blogs.length === 0 && (
+                        <div className="text-center py-12">
+                            <p className="text-text-muted">No blog posts yet. Check back soon!</p>
                         </div>
-                    </section>
-                )}
-
-                {blogs.length === 0 && (
-                    <div className="text-center py-12">
-                        <p className="text-text-muted">No blog posts yet. Check back soon!</p>
-                    </div>
-                )}
-            </div>
+                    )}
+                </div>
+            </RevealSection>
         </>
     );
 };

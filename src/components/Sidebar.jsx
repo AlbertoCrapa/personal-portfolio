@@ -1,7 +1,103 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAnimate } from 'framer-motion';
 import data from '../data/data.json';
 import { useNotification } from './ui/NotificationProvider';
+
+const ShimmerNavLabel = ({ label, active }) => {
+    const [scope, animate] = useAnimate();
+
+    const handleMouseEnter = (e) => {
+        const container = scope.current;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const charWidth = rect.width / label.length;
+        const startIndex = Math.max(0, Math.min(label.length - 1, Math.floor(mouseX / charWidth)));
+        Array.from(container.children).forEach((char, i) => {
+            animate(char, { color: '#ffffff' }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
+        });
+    };
+
+    const handleMouseLeave = () => {
+        const container = scope.current;
+        if (!container) return;
+        const resetColor = active ? '#ffffff' : '#a0a0a0';
+        Array.from(container.children).forEach((char) => {
+            animate(char, { color: resetColor }, { duration: 0.15 });
+        });
+    };
+
+    return (
+        <span ref={scope} className="flex" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+            {label.split('').map((char, i) => (
+                <span key={i} style={{ color: active ? '#ffffff' : '#a0a0a0' }}>{char}</span>
+            ))}
+        </span>
+    );
+};
+
+// ── Scramble logo name ────────────────────────────────────────────────────
+const SCRAMBLE_CHARS = 'abcdefghijklmnopqrstuvwxyz#@!?$%';
+const SHORT_NAME = 'albyeah';
+const FULL_NAME = 'alberto crapanzano';
+const SCROLL_THRESHOLD = 500;
+
+const useNavName = (pathname) => {
+    const isHome = pathname === '/';
+    const [scrolled, setScrolled] = React.useState(() => window.scrollY > SCROLL_THRESHOLD);
+
+    React.useEffect(() => {
+        setScrolled(window.scrollY > SCROLL_THRESHOLD);
+        if (!isHome) return;
+        const onScroll = () => setScrolled(window.scrollY > SCROLL_THRESHOLD);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [isHome]);
+
+    return isHome && !scrolled ? SHORT_NAME : FULL_NAME;
+};
+
+const randGray = () => {
+    const v = Math.floor(Math.random() * 60) + 150; // 150–209
+    return `rgb(${v},${v},${v})`;
+};
+
+const ScrambleText = ({ text }) => {
+    const [display, setDisplay] = React.useState(() =>
+        text.split('').map(c => ({ char: c, color: null }))
+    );
+    const prevRef = React.useRef(text);
+
+    React.useEffect(() => {
+        if (prevRef.current === text) return;
+        prevRef.current = text;
+        let cancelled = false;
+        const steps = 14;
+        const stepMs = 28;
+        (async () => {
+            for (let step = 0; step <= steps; step++) {
+                if (cancelled) return;
+                const revealed = Math.floor((step / steps) * text.length);
+                setDisplay(
+                    Array.from({ length: text.length }, (_, i) => {
+                        if (text[i] === ' ') return { char: '\u00A0', color: null };
+                        if (i < revealed) return { char: text[i], color: null };
+                        return { char: SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)], color: randGray() };
+                    })
+                );
+                await new Promise(r => setTimeout(r, stepMs));
+            }
+            if (!cancelled) setDisplay(text.split('').map(c => ({ char: c, color: null })));
+        })();
+        return () => { cancelled = true; };
+    }, [text]);
+
+    return <>{display.map((d, i) => (
+        <span key={i} style={d.color ? { color: d.color } : undefined}>{d.char}</span>
+    ))}</>;
+};
+// ────────────────────────────────────────────────────────────────────────────
 
 /**
  * TopNav Component
@@ -24,6 +120,7 @@ const isActive = (path, pathname) => {
 
 const Sidebar = () => {
     const location = useLocation();
+    const navName = useNavName(location.pathname);
     const { fullname, title, contact } = data;
     const { notify } = useNotification();
 
@@ -40,10 +137,22 @@ const Sidebar = () => {
         <header className="fixed top-0 left-0 right-0 z-50 bg-bg/95 backdrop-blur-sm border-b border-border">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-6">
                 {/* Logo / Name */}
-                <Link to="/" className="shrink-0 group flex items-baseline gap-1">
-                    <span className="text-sm font-bold text-text-muted group-hover:text-accent-blue transition-colors">~/</span>
-                    <span className="text-base font-bold text-text-primary group-hover:text-accent-blue transition-colors leading-none">
-                        {fullname}
+                <Link to="/" className="shrink-0 group">
+                    <span
+                        className="text-base font-bold text-text-primary group-hover:text-accent-blue transition-colors leading-none"
+                        style={{ display: 'inline-block', position: 'relative' }}
+                    >
+                        {/* invisible anchor — always reserves the full-name width + height */}
+                        <span
+                            aria-hidden="true"
+                            style={{ visibility: 'hidden', whiteSpace: 'nowrap', pointerEvents: 'none' }}
+                        >
+                            {FULL_NAME}
+                        </span>
+                        {/* animated text overlaid on top */}
+                        <span style={{ position: 'absolute', top: '50%', left: 0, transform: 'translateY(-50%)', whiteSpace: 'nowrap' }}>
+                            <ScrambleText text={navName} />
+                        </span>
                     </span>
                 </Link>
 
@@ -54,12 +163,9 @@ const Sidebar = () => {
                             <span className="text-text-muted text-sm select-none mx-3.5">/</span>
                             <Link
                                 to={link.path}
-                                className={`py-1.5 text-sm font-semibold transition-colors ${isActive(link.path, location.pathname)
-                                    ? 'text-text-primary'
-                                    : 'text-text-secondary hover:text-text-primary'
-                                    }`}
+                                className="py-1.5 text-sm font-semibold"
                             >
-                                {link.label}
+                                <ShimmerNavLabel label={link.label} active={isActive(link.path, location.pathname)} />
                             </Link>
                         </React.Fragment>
                     ))}
