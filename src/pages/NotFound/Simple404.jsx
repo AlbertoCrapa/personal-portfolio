@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Layout from "../../layouts/Layout";
+
 import SEO from '../../components/SEO';
 
 const Simple404 = () => {
     return (
-        <Layout>
+        <>
             <SEO
                 title="404 - Page Not Found | Alberto Crapanzano"
                 description="The page you're looking for doesn't exist. Return to the homepage to explore projects and blog posts."
@@ -23,7 +23,7 @@ const Simple404 = () => {
                     ← Go Home
                 </Link>
             </div>
-        </Layout>
+        </>
     );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
-import Layout from '../../layouts/Layout';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
@@ -19,7 +19,7 @@ const Playground = () => {
     }, []);
 
     return (
-        <Layout>
+        <>
             <SEO
                 title="Playground - Alberto Crapanzano | Experiments & Demos"
                 description="Experimental projects, demos, and technical explorations by Alberto Crapanzano. AI, pathfinding, and creative coding experiments."
@@ -68,7 +68,7 @@ const Playground = () => {
                     </div>
                 )}
             </div>
-        </Layout>
+        </>
     );
 };
 

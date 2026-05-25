@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Layout from '../../layouts/Layout';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
@@ -19,7 +19,7 @@ const About = () => {
     }, []);
 
     return (
-        <Layout>
+        <>
             <SEO
                 title="About & Contact - Alberto Crapanzano | Game Developer"
                 description="Learn more about Alberto Crapanzano (Albyeah), a technical artist and creative developer specializing in playful digital experiences. Get in touch for collaborations."
@@ -88,7 +88,7 @@ const About = () => {
                 </section>
 
             </div>
-        </Layout>
+        </>
     );
 };
 

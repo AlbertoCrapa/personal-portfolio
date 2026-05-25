@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Layout from '../../layouts/Layout';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
@@ -61,7 +61,7 @@ const BlogPage = () => {
     // 404 handling
     if (!blog) {
         return (
-            <Layout>
+            <>
                 <SEO title="Blog Post Not Found - Alberto Crapanzano" noindex />
                 <div className="min-h-[60svh] flex flex-col items-center justify-center text-center">
                     <h1 className="text-5xl font-bold text-text-primary mb-4">Oops!</h1>
@@ -70,7 +70,7 @@ const BlogPage = () => {
                         <Button to="/blog" variant="primary">← Back to Blog</Button>
                     </div>
                 </div>
-            </Layout>
+            </>
         );
     }
 
@@ -88,7 +88,7 @@ const BlogPage = () => {
     };
 
     return (
-        <Layout>
+        <>
             <SEO
                 title={`${blog.title} - Alberto Crapanzano Blog`}
                 description={blog.excerpt || blogElements?.[0]?.text?.substring(0, 160)}
@@ -271,7 +271,7 @@ const BlogPage = () => {
                     )}
                 </nav>
             </div>
-        </Layout>
+        </>
     );
 };
 

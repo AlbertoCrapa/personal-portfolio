@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import Layout from '../../layouts/Layout';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import SectionHeader from '../../components/ui/SectionHeader';
@@ -10,7 +10,6 @@ import Button from '../../components/ui/Button';
 import SocialLink from '../../components/ui/SocialLink';
 import VideoPlayer from '../../components/ui/VideoPlayer';
 import TravelMapCard from '../../components/ui/TravelMapCard';
-import { usePlatformData } from '../../hooks/usePlatformData';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
 import blogData from '../../data/blog.json';
@@ -113,204 +112,42 @@ const DraggableStrip = ({ children, className = '', label = '' }) => {
 };
 
 /* ─────────────────────────────────────────────────────
-   GitHub Activity Grid
+   Spotify curiosity mini-card (used in More About Me)
    ───────────────────────────────────────────────────── */
 
-const GITHUB_INTENSITY = ['#232323', '#2c2640', '#3d2f6b', '#6e54b8', '#b39af8'];
-
-const GitHubCard = ({ github = {} }) => {
-  const grid = Array.isArray(github.activity) ? github.activity : [];
-
-  return (
-    <article className="module-card module-card--github space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
-          <svg className="w-4 h-4 text-github" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-          </svg>
-          GitHub
-        </h3>
-        <a
-          href={`https://github.com/${github.username || ''}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs text-github hover:text-github font-medium hover:underline"
-        >
-          @{github.username || 'developer'}
-        </a>
+const SpotifyMiniCard = ({ spotify = {} }) => (
+  <article className="extras-card space-y-3">
+    <h3 className="text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
+      <svg className="w-4 h-4 text-spotify" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+      </svg>
+      Currently listening
+    </h3>
+    {spotify.nowPlaying && (
+      <div>
+        <p className="text-sm font-semibold text-text-primary">{spotify.nowPlaying}</p>
+        <p className="text-xs text-text-secondary mt-0.5">{spotify.artist}{spotify.album ? ` · ${spotify.album}` : ''}</p>
       </div>
-
-      <div className="gh-grid">
-        {grid.map((level, i) => (
-          <span
-            key={`gh-${i}`}
-            className="gh-cell"
-            style={{ backgroundColor: GITHUB_INTENSITY[Math.max(0, Math.min(4, level))] }}
-            title={`Activity level: ${level}`}
-            aria-label={`GitHub activity level ${level}`}
-          />
-        ))}
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 text-sm">
-        <div>
-          <p className="text-text-muted text-xs">Public repos</p>
-          <p className="text-text-primary font-semibold text-lg">{github.publicRepos ?? 0}</p>
-        </div>
-        <div>
-          <p className="text-text-muted text-xs">Pushes tracked</p>
-          <p className="text-text-primary font-semibold text-lg">{github.pushesTotal || 0}</p>
+    )}
+    {spotify.topArtists?.length > 0 && (
+      <div className="space-y-1.5">
+        <p className="text-xs text-text-muted">Top artists</p>
+        <div className="flex flex-wrap gap-1.5">
+          {spotify.topArtists.map((a) => (
+            <span key={a} className="text-xs px-2 py-0.5 rounded-full border border-spotify-border text-spotify-dim bg-spotify-bg">{a}</span>
+          ))}
         </div>
       </div>
-
-      <p className="text-xs text-text-secondary">{github.streak || 'Activity streak updated regularly.'}</p>
-    </article>
-  );
-};
-
-/* ─────────────────────────────────────────────────────
-   Spotify Card
-   ───────────────────────────────────────────────────── */
-
-const SpotifyCard = ({ spotify = {} }) => (
-  <article className="module-card module-card--spotify space-y-4">
-    <div className="flex items-center justify-between gap-3">
-      <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
-        <svg className="w-4 h-4 text-spotify" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
-        </svg>
-        Spotify
-      </h3>
-      <span className="flex items-center gap-1.5 text-xs text-spotify-dim font-medium">
-        <span className="w-1.5 h-1.5 rounded-full bg-spotify animate-pulse" />
-        Listening now
-      </span>
-    </div>
-
-    <div>
-      <p className="text-text-primary font-semibold">{spotify.nowPlaying || 'No track currently available'}</p>
-      <p className="text-sm text-text-secondary mt-0.5">
-        {spotify.artist || 'Unknown artist'}
-        {spotify.album ? ` · ${spotify.album}` : ''}
-      </p>
-      {spotify.lastUpdated && <p className="text-xs text-text-muted mt-1.5">{spotify.lastUpdated}</p>}
-    </div>
-
-    <div className="space-y-2">
-      <p className="text-xs uppercase tracking-wider text-text-muted">Top Artists</p>
-      <div className="flex flex-wrap gap-2">
-        {(spotify.topArtists || []).map((artist) => (
-          <span key={artist} className="text-xs px-2.5 py-1 rounded-full border border-spotify-border text-spotify-dim bg-spotify-bg">
-            {artist}
-          </span>
-        ))}
-      </div>
-    </div>
-
+    )}
     {spotify.genres?.length > 0 && (
       <div className="flex flex-wrap gap-1.5">
         {spotify.genres.map((g) => (
-          <span key={g} className="text-[10px] uppercase tracking-wider text-text-muted px-2 py-0.5 bg-bg rounded">
-            {g}
-          </span>
+          <span key={g} className="text-[10px] uppercase tracking-wider text-text-muted px-2 py-0.5 bg-bg rounded">{g}</span>
         ))}
       </div>
     )}
-
-    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-border">
-      {spotify.followers && (
-        <div>
-          <p className="text-xs text-text-muted">{spotify.followers}</p>
-        </div>
-      )}
-      {spotify.playlists && (
-        <div className="text-right">
-          <p className="text-xs text-text-muted">{spotify.playlists}</p>
-        </div>
-      )}
-    </div>
   </article>
 );
-
-/* ─────────────────────────────────────────────────────
-   LeetCode Card
-   ───────────────────────────────────────────────────── */
-
-const LeetCodeCard = ({ leetcode = {} }) => {
-  const total = leetcode.solved || 0;
-  const easy = leetcode.easy || 0;
-  const medium = leetcode.medium || 0;
-  const hard = leetcode.hard || 0;
-
-  return (
-    <article className="module-card module-card--leetcode space-y-4">
-      <div className="flex items-center justify-between gap-3">
-        <h3 className="text-base font-bold text-text-primary flex items-center gap-2">
-          <svg className="w-4 h-4 text-leetcode" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" />
-          </svg>
-          LeetCode
-        </h3>
-        <a
-          href={`https://leetcode.com/u/${leetcode.username || ''}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-xs text-leetcode hover:underline font-medium"
-        >
-          Profile →
-        </a>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-bg rounded-lg px-3 py-2.5 border border-border">
-          <p className="text-xs text-text-muted">Solved</p>
-          <p className="text-2xl font-bold text-text-primary">{total}</p>
-        </div>
-        <div className="bg-bg rounded-lg px-3 py-2.5 border border-border">
-          <p className="text-xs text-text-muted">Days active</p>
-          <p className="text-2xl font-bold text-text-primary">{leetcode.streak || 0}</p>
-        </div>
-      </div>
-
-      <div className="space-y-1.5">
-        {[
-          { label: 'Easy', value: easy, max: total, color: '#4ade80' },
-          { label: 'Medium', value: medium, max: total, color: '#fbbf24' },
-          { label: 'Hard', value: hard, max: total, color: '#f87171' },
-        ].map(({ label, value, max, color }) => (
-          <div key={label} className="flex items-center gap-2 text-xs">
-            <span className="w-14 text-text-muted">{label}</span>
-            <div className="flex-1 h-1.5 bg-bg rounded-full overflow-hidden">
-              <div
-                className="h-full rounded-full transition-all duration-700"
-                style={{ width: max ? `${(value / max) * 100}%` : '0%', backgroundColor: color }}
-              />
-            </div>
-            <span className="w-8 text-right text-text-secondary font-medium">{value}</span>
-          </div>
-        ))}
-      </div>
-
-
-
-      <div className="space-y-3 pt-2 border-t border-border">
-
-        {leetcode.languages?.length > 0 && (
-          <div>
-            <p className="text-xs uppercase tracking-wider text-text-muted mb-2">Languages</p>
-            <div className="flex flex-wrap gap-1.5">
-              {leetcode.languages.map((lang) => (
-                <span key={lang} className="text-[10px] px-2 py-0.5 rounded border border-leetcode-border text-leetcode-dim bg-leetcode-bg">
-                  {lang}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-    </article>
-  );
-};
 
 /* ─────────────────────────────────────────────────────
    HOME PAGE
@@ -328,15 +165,12 @@ const Home = () => {
   const spotify = homeConfig.spotify || {};
   const extras = homeConfig.extras || {};
 
-  // Live API data (GitHub + LeetCode) — falls back to data.json values
-  const { github, leetcode } = usePlatformData(homeConfig);
-
   const featuredProjects = projects.slice(0, 3);
   const spotlightStats = [
     { label: 'Role focus', value: 'Creative Developer' },
     { label: 'Core stack', value: 'React, Unreal, Unity' },
     { label: 'Availability', value: 'Open to interviews' },
-    { label: 'Public repos', value: String(github?.publicRepos ?? 0) },
+    { label: 'Based in', value: 'Milan, IT' },
   ];
 
   // Triple the skills for smooth infinite loop
@@ -390,7 +224,7 @@ const Home = () => {
   };
 
   return (
-    <Layout>
+    <>
       <SEO
         title="Alberto Crapanzano - Game Technical Designer & Creative Developer"
         description="Alberto Crapanzano (Albyeah) is a Creative Developer specializing in game Technical Design and Programming. Expert in Unity, Unreal Engine, and digital experiences."
@@ -406,7 +240,7 @@ const Home = () => {
           ]}
         />
 
-       
+
 
         {/* ──────────── PROJECTS + SIDEBAR ──────────── */}
         <RevealSection>
@@ -455,18 +289,6 @@ const Home = () => {
               </section>
             </aside>
           </div>
-        </RevealSection>
-
-        {/* ──────────── PLATFORM ACTIVITY ──────────── */}
-        <RevealSection>
-          <section className="space-y-5">
-            <SectionHeader title="Platform Activity" />
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-              <GitHubCard github={github} />
-              <SpotifyCard spotify={spotify} />
-              <LeetCodeCard leetcode={leetcode} />
-            </div>
-          </section>
         </RevealSection>
 
         {/* ──────────── TESTIMONIALS — scrolling strip ──────────── */}
@@ -549,7 +371,7 @@ const Home = () => {
         <RevealSection>
           <section className="space-y-5">
             <SectionHeader title="More About Me" />
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
 
               {/* Favorite Quotes — with authors */}
               <article className="extras-card space-y-3">
@@ -620,6 +442,33 @@ const Home = () => {
               </article>
 
               <TravelMapCard />
+              <SpotifyMiniCard spotify={spotify} />
+            </div>
+          </section>
+        </RevealSection>
+
+        {/* ──────────── CONTACT ──────────── */}
+        <RevealSection>
+          <section id="contact" className="pt-6 border-t border-border space-y-6">
+            <SectionHeader title="Let's talk" />
+            <p className="text-text-secondary leading-relaxed max-w-2xl">
+              {data.about?.description2 || "Interested in working together? Drop me a message."}
+            </p>
+            <div className="bg-surface rounded-xl p-6 lg:p-8 max-w-xl">
+              <ContactForm email={contact?.email} />
+            </div>
+            <div className="flex flex-wrap gap-3">
+              {contact?.cv && (
+                <Button href={contact.cv} download variant="secondary" size="md">
+                  Download CV
+                </Button>
+              )}
+              {contact?.github && (
+                <Button href={contact.github} variant="secondary" size="md">GitHub</Button>
+              )}
+              {contact?.linkedin && (
+                <Button href={contact.linkedin} variant="secondary" size="md">LinkedIn</Button>
+              )}
             </div>
           </section>
         </RevealSection>
@@ -653,7 +502,74 @@ const Home = () => {
         </section>
 
       </div>
-    </Layout>
+    </>
+  );
+};
+
+/* ─────────────────────────────────────────────────────
+   ContactForm
+   ───────────────────────────────────────────────────── */
+
+const ContactForm = ({ email = 'hello@albyeah.com' }) => {
+  const [formData, setFormData] = React.useState({
+    email: '',
+    subject: '',
+    message: '',
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`From: ${formData.email}\n\n${formData.message}`)}`;
+    window.location.href = mailtoLink;
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-1.5">
+        <label htmlFor="contact-email" className="text-sm font-medium text-text-secondary">Email</label>
+        <input
+          id="contact-email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          autoComplete="email"
+          value={formData.email}
+          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          required
+          className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors"
+        />
+      </div>
+      <div className="space-y-1.5">
+        <label htmlFor="contact-subject" className="text-sm font-medium text-text-secondary">Subject</label>
+        <input
+          id="contact-subject"
+          name="subject"
+          type="text"
+          placeholder="Project collaboration"
+          autoComplete="off"
+          value={formData.subject}
+          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+          required
+          className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors"
+        />
+      </div>
+      <div className="space-y-1.5">
+        <label htmlFor="contact-message" className="text-sm font-medium text-text-secondary">Message</label>
+        <textarea
+          id="contact-message"
+          name="message"
+          placeholder="Tell me about your project, team, or role."
+          value={formData.message}
+          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+          required
+          rows={5}
+          className="w-full bg-surface border border-border rounded-lg px-4 py-3 text-text-primary placeholder:text-text-muted focus:outline-none focus:border-accent-blue transition-colors resize-none"
+        />
+      </div>
+      <Button type="submit" variant="primary" size="md">
+        Send Message
+      </Button>
+    </form>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Layout from '../../layouts/Layout';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import data from '../../data/data.json';
@@ -14,7 +14,7 @@ const Privacy = () => {
     }, []);
 
     return (
-        <Layout>
+        <>
             <SEO
                 title="Privacy Policy - Alberto Crapanzano"
                 description="Privacy policy for albyeah.com - Learn about how your data is handled on this website."
@@ -104,7 +104,7 @@ const Privacy = () => {
                     </p>
                 </footer>
             </div>
-        </Layout>
+        </>
     );
 };
 

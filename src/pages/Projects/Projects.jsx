@@ -1,18 +1,15 @@
 import React from 'react';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
-import Layout from '../../layouts/Layout';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
 import projectData from '../../data/projects.json';
 
 /**
- * Projects List Page
- * Grid view on desktop, list view on mobile
- * Groups projects by category
+ * Projects List Page — modern portfolio grid layout
+ * Grouped by category, responsive grid
  */
 const Projects = () => {
-    const isMobile = useMediaQuery('(max-width: 768px)');
     const projects = Object.values(projectData.projects);
 
     // Group projects by type/category
@@ -23,7 +20,6 @@ const Projects = () => {
         return acc;
     }, {});
 
-    // Define category display order and labels
     const categoryLabels = {
         game: 'Games and Game Jams',
         freelance: 'Freelance Work',
@@ -36,7 +32,7 @@ const Projects = () => {
     );
 
     return (
-        <Layout>
+        <>
             <SEO
                 title="Projects - Alberto Crapanzano | Game Developer Portfolio"
                 description="Explore my game development projects, freelance work, and personal experiments. Unity, Unreal Engine, and creative development."
@@ -44,8 +40,7 @@ const Projects = () => {
                 url="/projects"
             />
 
-            <div className="space-y-6">
-                {/* Breadcrumb */}
+            <div className="space-y-10">
                 <Breadcrumb
                     items={[
                         { label: 'home', path: '/' },
@@ -53,58 +48,38 @@ const Projects = () => {
                     ]}
                 />
 
-                <header className="mb-8">
+                <header>
                     <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Projects</h1>
-                    <p className="text-text-secondary">
-                        A quick scan of selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes.
+                    <p className="text-text-secondary max-w-2xl">
+                        Selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes.
                     </p>
                 </header>
 
                 {/* Projects by Category */}
                 {orderedCategories.map((category) => (
-                    <section key={category} className="space-y-4">
-                        <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider">
-                            - {categoryLabels[category] || category}
+                    <section key={category} className="space-y-5">
+                        <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider border-b border-border pb-2">
+                            {categoryLabels[category] || category}
                         </h2>
-
-                        {isMobile ? (
-                            // Mobile: List View
-                            <div className="space-y-2">
-                                {groupedProjects[category].map((project) => (
-                                    <ProjectCard key={project.slug} project={project} size="list" />
-                                ))}
-                            </div>
-                        ) : (
-                            // Desktop: Grid View
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                {groupedProjects[category].map((project) => (
-                                    <ProjectCard key={project.slug} project={project} size="medium" />
-                                ))}
-                            </div>
-                        )}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                            {groupedProjects[category].map((project) => (
+                                <ProjectCard key={project.slug} project={project} size="medium" />
+                            ))}
+                        </div>
                     </section>
                 ))}
 
-                {/* Fallback if no categories */}
                 {orderedCategories.length === 0 && projects.length > 0 && (
-                    <section className="space-y-4">
-                        {isMobile ? (
-                            <div className="space-y-2">
-                                {projects.map((project) => (
-                                    <ProjectCard key={project.slug} project={project} size="list" />
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                                {projects.map((project) => (
-                                    <ProjectCard key={project.slug} project={project} size="medium" />
-                                ))}
-                            </div>
-                        )}
+                    <section>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                            {projects.map((project) => (
+                                <ProjectCard key={project.slug} project={project} size="medium" />
+                            ))}
+                        </div>
                     </section>
                 )}
             </div>
-        </Layout>
+        </>
     );
 };
 

@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scrollbar-gutter: stable;
+}
+
 /* Keep selection styling last so it overrides Tailwind preflight selection. */
 ::selection {
   background-color: var(--color-selection-bg);

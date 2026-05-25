@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
  */
 const Breadcrumb = ({ items }) => {
     return (
-        <nav className="mb-6" aria-label="Breadcrumb">
+        <nav className="mb-6 md:hidden" aria-label="Breadcrumb">
             <ol className="flex flex-wrap items-center gap-1 text-sm">
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;

@@ -8,9 +8,9 @@ import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import data from "./data/data.json";
 import { useNotification } from "./components/ui/NotificationProvider";
+import Layout from "./layouts/Layout";
 
 const Home = lazy(() => import("./pages/Home/Home"));
-const About = lazy(() => import("./pages/About/About"));
 const Projects = lazy(() => import("./pages/Projects/Projects"));
 const Playground = lazy(() => import("./pages/Playground/Playground"));
 const Work = lazy(() => import("./pages/Work/Work"));
@@ -54,29 +54,30 @@ function App() {
   }, [notify]);
 
   return (
-    <Suspense
-      fallback={
-        <div className="min-h-svh bg-bg text-text-secondary flex items-center justify-center px-4">
-          Loading page...
-        </div>
-      }
-    >
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/playground" element={<Playground />} />
-        <Route
-          path="/playground/:slug"
-          element={<Work source="playground" />}
-        />
-        <Route path="/work/:slug" element={<Work />} />
-        <Route path="/blog" element={<BlogList />} />
-        <Route path="/blog/:slug" element={<BlogPage />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="*" element={<Simple404 />} />
-      </Routes>
-    </Suspense>
+    <Layout>
+      <Suspense
+        fallback={
+          <div className="min-h-[60svh] text-text-secondary flex items-center justify-center px-4">
+            Loading page...
+          </div>
+        }
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/playground" element={<Playground />} />
+          <Route
+            path="/playground/:slug"
+            element={<Work source="playground" />}
+          />
+          <Route path="/work/:slug" element={<Work />} />
+          <Route path="/blog" element={<BlogList />} />
+          <Route path="/blog/:slug" element={<BlogPage />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="*" element={<Simple404 />} />
+        </Routes>
+      </Suspense>
+    </Layout>
   );
 }
 

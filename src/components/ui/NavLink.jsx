@@ -3,16 +3,10 @@ import { Link } from 'react-router-dom';
 
 /**
  * NavLink Component
- * Arrow-prefixed navigation link matching the reference design
- * 
- * @param {string} to - Route path
- * @param {boolean} active - Current active state
- * @param {boolean} disabled - Disabled state
- * @param {boolean} bold - Bold text
- * @param {React.ReactNode} children - Link text
+ * Navigation link (no arrow prefix)
  */
 const NavLink = ({ to, active, disabled, children }) => {
-    const baseClasses = "flex items-center gap-2 py-1 transition-colors text-base";
+    const baseClasses = "flex items-center py-1 transition-colors text-base font-semibold";
 
     const stateClasses = disabled
         ? "text-text-muted cursor-not-allowed"
@@ -20,36 +14,20 @@ const NavLink = ({ to, active, disabled, children }) => {
             ? "text-text-primary"
             : "text-text-secondary hover:text-text-primary";
 
-    const fontClasses =  "font-semibold" ;
-
     if (disabled) {
-        return (
-            <span className={`${baseClasses} ${stateClasses} ${fontClasses}`}>
-                <span className="text-text-muted">→</span>
-                {children}
-            </span>
-        );
+        return <span className={`${baseClasses} ${stateClasses}`}>{children}</span>;
     }
 
-    // Handle hash links
     if (to.includes('#')) {
         return (
-            <a
-                href={to}
-                className={`${baseClasses} ${stateClasses} ${fontClasses}`}
-            >
-                <span className={active ? "text-text-primary" : "text-text-muted"}>→</span>
+            <a href={to} className={`${baseClasses} ${stateClasses}`}>
                 {children}
             </a>
         );
     }
 
     return (
-        <Link
-            to={to}
-            className={`${baseClasses} ${stateClasses} ${fontClasses}`}
-        >
-            <span className={active ? "text-text-primary" : "text-text-muted"}>→</span>
+        <Link to={to} className={`${baseClasses} ${stateClasses}`}>
             {children}
         </Link>
     );
