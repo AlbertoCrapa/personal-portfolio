@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import PixelReveal from './PixelReveal';
 
 /**
  * VideoHero
@@ -85,6 +86,9 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                 }}
             />
 
+            {/* ── Pixel shockwave — above video/gradients, below hero text ── */}
+            <PixelReveal fullscreen={false} />
+
             {/* ── Hero content ── */}
             <div
                 style={{
@@ -118,11 +122,11 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
 
                 {/* Name */}
                 <motion.h1
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.18, duration: 0.65, ease: 'easeOut' }}
                     style={{
-                        fontSize: 'clamp(2.6rem, 6.5vw, 5.5rem)',
+                        fontSize: 'clamp(2.8rem, 7vw, 7rem)',
                         fontWeight: 700,
                         letterSpacing: '-0.03em',
                         color: '#ffffff',

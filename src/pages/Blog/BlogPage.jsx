@@ -9,6 +9,7 @@ import ModelViewer from '../../components/ui/ModelViewer';
 import RichText from '../../components/ui/RichText';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
+import { ShimmerText } from '../../components/ui/NavAnimations';
 import blogData from '../../data/blog.json';
 
 /**
@@ -257,11 +258,11 @@ const BlogPage = () => {
                                             to={`/blog/${prevBlog.slug}`}
                                             className="group flex flex-col gap-1 flex-1 max-w-[46%]"
                                         >
-                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-primary transition-colors">
+                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
                                                 ← Previous
                                             </span>
-                                            <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors line-clamp-2 leading-snug">
-                                                {prevBlog.title}
+                                            <span className="text-sm font-semibold line-clamp-2 leading-snug">
+                                                <ShimmerText text={prevBlog.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
                                             </span>
                                         </Link>
                                     ) : <div className="flex-1" />}
@@ -270,11 +271,11 @@ const BlogPage = () => {
                                             to={`/blog/${nextBlog.slug}`}
                                             className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
                                         >
-                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-primary transition-colors">
+                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
                                                 Next →
                                             </span>
-                                            <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors line-clamp-2 leading-snug">
-                                                {nextBlog.title}
+                                            <span className="text-sm font-semibold line-clamp-2 leading-snug">
+                                                <ShimmerText text={nextBlog.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
                                             </span>
                                         </Link>
                                     ) : <div className="flex-1" />}

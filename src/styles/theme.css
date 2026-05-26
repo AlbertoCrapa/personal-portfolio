@@ -17,8 +17,8 @@
   --color-accent-purple: #9b84e7;
 
   /* Selection */
-  --color-selection-bg: #355f9d;
-  --color-selection-text: #ffffff;
+  --color-selection-bg: #ffffff;
+  --color-selection-text: #1a1a1a;
 
   /* Platform accent colors */
   --color-github: #b39af8;

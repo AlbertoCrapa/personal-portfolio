@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body {
+  background: var(--color-bg);
+}
+
 html {
   scrollbar-gutter: stable;
 }
