@@ -16,8 +16,8 @@ const Layout = ({ children }) => {
             {/* Top navigation bar */}
             <Sidebar />
             {/* Main Content Area — offset by nav height (h-14 = 56px) */}
-            <main id="main-content" className="pt-14 min-h-svh" tabIndex="-1">
-                <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10">
+            <main id="main-content" className="pt-14 min-h-svh overflow-x-hidden " tabIndex="-1">
+                <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-10 ">
                     {children}
                     <footer className="pt-8 mt-10 border-t border-border text-center space-y-3">
                         <Link

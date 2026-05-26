@@ -10,6 +10,7 @@ import Button from '../../components/ui/Button';
 import SocialLink from '../../components/ui/SocialLink';
 import VideoPlayer from '../../components/ui/VideoPlayer';
 import TravelMapCard from '../../components/ui/TravelMapCard';
+import VideoHero from '../../components/ui/VideoHero';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
 import blogData from '../../data/blog.json';
@@ -233,7 +234,13 @@ const Home = () => {
         isHomepage={true}
       />
 
-      <div className="space-y-8 lg:space-y-8">
+      {/* ── Full-viewport video hero ── */}
+      {/* -mx cancels container horizontal padding; -mt cancels py-8/py-10 top padding */}
+      <div className="-mx-4 sm:-mx-6 lg:-mx-8 -mt-8 lg:-mt-10">
+        <VideoHero reel={reel} contact={contact} hero={hero} />
+      </div>
+
+      <div className="space-y-8 lg:space-y-8 mt-8 lg:mt-10">
         <Breadcrumb
           items={[
             { label: 'home', path: '/' },
