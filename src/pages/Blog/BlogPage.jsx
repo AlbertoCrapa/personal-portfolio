@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
@@ -8,6 +8,7 @@ import VideoPlayer from '../../components/ui/VideoPlayer';
 import ModelViewer from '../../components/ui/ModelViewer';
 import RichText from '../../components/ui/RichText';
 import RevealSection from '../../components/ui/RevealSection';
+import TableOfContents, { toId } from '../../components/ui/TableOfContents';
 import blogData from '../../data/blog.json';
 
 /**
@@ -21,6 +22,9 @@ const BlogPage = () => {
     const blog = blogs[currentIndex];
 
     const blogElements = Array.isArray(blog?.content) ? blog.content : [];
+    const tocSections = blogElements
+        .filter((el) => el?.title && (el?.type === 'section' || !el?.type))
+        .map((el) => ({ id: toId(el.title), title: el.title }));
     const firstMediaIndex = blogElements.findIndex((item) => {
         const itemType = item?.type || (item?.src ? 'media' : 'section');
         return itemType === 'media' && item?.src;
@@ -161,9 +165,9 @@ const BlogPage = () => {
                         )}
                     </header>
 
-                    {/* Content Sections */}
-                    {blogElements.length > 0 && (
-                        <div className="space-y-8 md:space-y-10 pt-8">
+                    {/* Content + ToC */}
+                    <div className="flex gap-16 pt-8">
+                        <div className="flex-1 min-w-0 max-w-3xl space-y-8 md:space-y-10">
                             {blogElements.map((element, idx) => {
                                 const elementType = element?.type || (element?.src ? 'media' : 'section');
 
@@ -232,7 +236,7 @@ const BlogPage = () => {
                                     <section key={idx} className="space-y-2 md:space-y-4 max-w-3xl">
                                         {/* Section Title */}
                                         {element?.title && (
-                                            <h2 className="text-2xl font-bold text-text-primary">
+                                            <h2 id={toId(element.title)} className="text-2xl font-bold text-text-primary">
                                                 {element.title}
                                             </h2>
                                         )}
@@ -244,34 +248,41 @@ const BlogPage = () => {
                                     </section>
                                 );
                             })}
-                        </div>
-                    )}
 
-                    {/* Navigation */}
-                    <nav className="flex justify-between items-center pt-8 border-t border-border">
-                        {prevBlog ? (
-                            <Button
-                                to={`/blog/${prevBlog.slug}`}
-                                variant="ghost"
-                                className="flex items-center gap-2"
-                            >
-                                ← {prevBlog.title}
-                            </Button>
-                        ) : (
-                            <div />
-                        )}
-                        {nextBlog ? (
-                            <Button
-                                to={`/blog/${nextBlog.slug}`}
-                                variant="ghost"
-                                className="flex items-center gap-2"
-                            >
-                                {nextBlog.title} →
-                            </Button>
-                        ) : (
-                            <div />
-                        )}
-                    </nav>
+                            {/* Navigation */}
+                            <nav className="!mt-10 pt-8 border-t border-border">
+                                <div className="flex justify-between items-start gap-8">
+                                    {prevBlog ? (
+                                        <Link
+                                            to={`/blog/${prevBlog.slug}`}
+                                            className="group flex flex-col gap-1 flex-1 max-w-[46%]"
+                                        >
+                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-primary transition-colors">
+                                                ← Previous
+                                            </span>
+                                            <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors line-clamp-2 leading-snug">
+                                                {prevBlog.title}
+                                            </span>
+                                        </Link>
+                                    ) : <div className="flex-1" />}
+                                    {nextBlog ? (
+                                        <Link
+                                            to={`/blog/${nextBlog.slug}`}
+                                            className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
+                                        >
+                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-primary transition-colors">
+                                                Next →
+                                            </span>
+                                            <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors line-clamp-2 leading-snug">
+                                                {nextBlog.title}
+                                            </span>
+                                        </Link>
+                                    ) : <div className="flex-1" />}
+                                </div>
+                            </nav>
+                        </div>
+                        <TableOfContents sections={tocSections} />
+                    </div>
                 </div>
             </RevealSection>
         </>

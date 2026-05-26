@@ -21,8 +21,6 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
     const shortDescription = project.shortDescription || project.description;
     const projectDuration = project.duration;
     const projectLink = project.projectLink || project.url;
-    const projectRole = project.role;
-    const projectOutcome = project.outcome;
     const techPreview = Array.isArray(project.technologies) ? project.technologies.slice(0, 3) : [];
 
     const sizeClasses = {
@@ -60,12 +58,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                         {project.title}
                     </h3>
                     {shortDescription && (
-                        <p className="text-sm text-text-muted line-clamp-1 mt-1">{shortDescription}</p>
-                    )}
-                    {(projectRole || projectOutcome) && (
-                        <p className="text-xs text-text-secondary mt-1.5 line-clamp-1">
-                            {[projectRole, projectOutcome].filter(Boolean).join(' • ')}
-                        </p>
+                        <p className="text-sm text-text-muted line-clamp-2 mt-1">{shortDescription}</p>
                     )}
                 </div>
             </Link>
@@ -155,12 +148,6 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                                 </span>
                             ))}
                         </div>
-                    )}
-
-                    {(projectRole || projectOutcome) && (
-                        <p className="text-xs text-text-secondary">
-                            {[projectRole, projectOutcome].filter(Boolean).join(' • ')}
-                        </p>
                     )}
 
                     {projectDuration && (

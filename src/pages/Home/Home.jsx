@@ -8,7 +8,6 @@ import SectionHeader from '../../components/ui/SectionHeader';
 import ProjectCard from '../../components/ui/ProjectCard';
 import Button from '../../components/ui/Button';
 import SocialLink from '../../components/ui/SocialLink';
-import VideoPlayer from '../../components/ui/VideoPlayer';
 import TravelMapCard from '../../components/ui/TravelMapCard';
 import VideoHero from '../../components/ui/VideoHero';
 import projectData from '../../data/projects.json';
@@ -167,19 +166,6 @@ const Home = () => {
   const extras = homeConfig.extras || {};
 
   const featuredProjects = projects.slice(0, 3);
-  const spotlightStats = [
-    { label: 'Role focus', value: 'Creative Developer' },
-    { label: 'Core stack', value: 'React, Unreal, Unity' },
-    { label: 'Availability', value: 'Open to interviews' },
-    { label: 'Based in', value: 'Milan, IT' },
-  ];
-
-  // Triple the skills for smooth infinite loop
-  const tripleSkills = React.useMemo(() => {
-    const s = homeConfig.skills || [];
-    return [...s, ...s, ...s];
-  }, [homeConfig.skills]);
-
   // Triple the testimonials for smooth infinite loop
   const tripleTestimonials = React.useMemo(() => {
     const t = homeConfig.testimonials || [];
@@ -365,6 +351,9 @@ const Home = () => {
                         <p className="text-xs uppercase tracking-wide text-text-muted">
                           {new Date(blog.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                         </p>
+                        {blog.excerpt && (
+                          <p className="text-xs text-text-secondary mt-1.5 line-clamp-2">{blog.excerpt}</p>
+                        )}
                       </div>
                     </Link>
                   );

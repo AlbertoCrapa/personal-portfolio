@@ -33,7 +33,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
             style={{
                 position: 'relative',
                 left: '50%',
-                transform: 'translateX(-50%)', 
+                transform: 'translateX(-50%)',
                 width: '100vw',
                 height: 'calc(100svh - 56px)',
                 overflow: 'hidden',
@@ -44,8 +44,8 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
             <motion.div
                 initial={{ opacity: 0, filter: 'blur(24px)', scale: 1.12 }}
                 animate={videoReady
-                    ? { opacity: 1, filter: 'blur(5px)', scale: 1.08 }
-                    : { opacity: 0, filter: 'blur(24px)', scale: 1.12 }}
+                    ? { opacity: 1, filter: 'blur(4px)', scale: 1.08 }
+                    : { opacity: 0, filter: 'blur(4px)', scale: 1.12 }}
                 transition={{ duration: 1.6, ease: 'easeOut' }}
                 style={{ position: 'absolute', inset: 0 }}
             >
@@ -68,7 +68,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     position: 'absolute',
                     inset: 0,
                     background:
-                        'linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(26,26,26,0.55) 55%, rgba(26,26,26,1) 100%)',
+                        'linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(26,26,26,0.35) 55%, rgba(26,26,26,1) 100%)',
                     pointerEvents: 'none',
                 }}
             />
@@ -209,29 +209,25 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
-                        gap: '0.5rem',
+                        gap: '0.35rem',
                         opacity: Math.max(0, 1 - scrollFade * 5),
                         transition: 'opacity 0.15s',
                         pointerEvents: 'none',
                     }}
                 >
-                    <span
-                        style={{
-                            fontSize: '0.58rem',
-                            letterSpacing: '0.2em',
-                            textTransform: 'uppercase',
-                            color: 'var(--color-text-muted)',
-                        }}
-                    >
-                        scroll
+                    <span style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: 'var(--color-text-muted)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '0' }}>
+                        <span style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>// </span>scroll_down
                     </span>
-                    <div
-                        style={{
-                            width: 1,
-                            height: 28,
-                            background: 'linear-gradient(to bottom, var(--color-text-muted), transparent)',
-                        }}
-                    />
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+                        {['v', 'v', 'v'].map((v, i) => (
+                            <motion.span
+                                key={i}
+                                animate={{ opacity: [0.15, 0.7, 0.15] }}
+                                transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.2, ease: 'easeInOut' }}
+                                style={{ fontFamily: 'monospace', fontSize: '0.55rem', color: 'var(--color-text-muted)', lineHeight: 1 }}
+                            >{v}</motion.span>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

@@ -69,6 +69,77 @@ export const ShimmerNavLabel = ({ label, active }) => {
     );
 };
 
+// ── ShimmerText ─────────────────────────────────────────────────────────────
+// Reusable per-character shimmer sweep for any active/inactive state.
+//   active → true  : sweep activeColor left-to-right (staggered)
+//   active → false : fade all chars to inactiveColor
+//   hover          : sweep activeColor from cursor position outward, then restore
+export const ShimmerText = ({
+    text,
+    active,
+    activeColor = '#ffffff',
+    hoverColor = '#c0c0c0',
+    inactiveColor = '#6b6b6b',
+}) => {
+    const [scope, animate] = useAnimate();
+    const prevActiveRef = React.useRef(active);
+
+    React.useEffect(() => {
+        const container = scope.current;
+        if (!container) return;
+        const chars = Array.from(container.children);
+
+        if (active && !prevActiveRef.current) {
+            // Became active — sweep left → right
+            chars.forEach((el, i) =>
+                animate(el, { color: activeColor }, { duration: 0.04, delay: i * 0.025 }),
+            );
+        } else if (!active && prevActiveRef.current) {
+            // Became inactive — fade out
+            chars.forEach((el) =>
+                animate(el, { color: inactiveColor }, { duration: 0.2 }),
+            );
+        }
+        prevActiveRef.current = active;
+    }, [active, activeColor, inactiveColor, animate, scope]);
+
+    const handleMouseEnter = (e) => {
+        const container = scope.current;
+        if (!container) return;
+        const rect = container.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const charWidth = rect.width / (text.length || 1);
+        const startIndex = Math.max(0, Math.min(text.length - 1, Math.floor(mouseX / charWidth)));
+        Array.from(container.children).forEach((el, i) =>
+            animate(el, { color: hoverColor }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 }),
+        );
+    };
+
+    const handleMouseLeave = () => {
+        const container = scope.current;
+        if (!container) return;
+        const resetColor = active ? activeColor : inactiveColor;
+        Array.from(container.children).forEach((el) =>
+            animate(el, { color: resetColor }, { duration: 0.15 }),
+        );
+    };
+
+    return (
+        <span
+            ref={scope}
+            className="inline-flex flex-wrap"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+        >
+            {text.split('').map((char, i) => (
+                <span key={i} style={{ color: active ? activeColor : inactiveColor }}>
+                    {char === ' ' ? '\u00a0' : char}
+                </span>
+            ))}
+        </span>
+    );
+};
+
 // ── LogoName ───────────────────────────────────────────────────────────────
 // Logo text that:
 //   • scrambles with random light-gray characters when `text` changes

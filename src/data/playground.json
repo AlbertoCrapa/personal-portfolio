@@ -3,7 +3,7 @@
     {
       "slug": "ai_demo",
       "title": "AI Demo",
-      "description": "A personal C++ exploration of artificial intelligence behaviors featuring pathfinding, wandering, and interactive AI systems.",
+      "shortDescription": "Personal Experiment • C++ AI behavior sandbox — pathfinding, wandering and interactive seek behaviors with SDL2",
       "date": "2024-ongoing",
       "teamSize": 1,
       "content": [

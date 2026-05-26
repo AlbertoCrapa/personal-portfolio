@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
@@ -8,6 +8,7 @@ import VideoPlayer from '../../components/ui/VideoPlayer';
 import ModelViewer from '../../components/ui/ModelViewer';
 import RichText from '../../components/ui/RichText';
 import RevealSection from '../../components/ui/RevealSection';
+import TableOfContents, { toId } from '../../components/ui/TableOfContents';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
 
@@ -56,6 +57,9 @@ const Work = ({ source = 'projects' }) => {
     const nextProject = items[(currentIndex + 1) % items.length];
     const basePath = isPlayground ? '/playground' : '/work';
     const contentElements = Array.isArray(project?.content) ? project.content : [];
+    const tocSections = contentElements
+        .filter((el) => el?.title && (el?.type === 'section' || !el?.type))
+        .map((el) => ({ id: toId(el.title), title: el.title }));
     const projectCover = project.thumbnailImage || project.cover;
     const projectVideoCover = project.previewVideo || project.videocover || projectCover;
     const firstTextSection = contentElements.find(
@@ -194,9 +198,9 @@ const Work = ({ source = 'projects' }) => {
                         )}
                     </header>
 
-                    {/* Content Elements */}
-                    {contentElements.length > 0 && (
-                        <div className="space-y-8 md:space-y-10 pt-8">
+                    {/* Content + ToC */}
+                    <div className="flex gap-32 pt-8">
+                        <div className="flex-1 min-w-0 max-w-3xl space-y-8 md:space-y-10">
                             {contentElements.map((element, idx) => {
                                 const elementType = element?.type || (element?.src ? 'media' : 'section');
 
@@ -259,7 +263,7 @@ const Work = ({ source = 'projects' }) => {
                                 return (
                                     <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
                                         {element?.title && (
-                                            <h2 className="text-2xl font-bold text-text-primary">
+                                            <h2 id={toId(element.title)} className="text-2xl font-bold text-text-primary">
                                                 {element.title}
                                             </h2>
                                         )}
@@ -269,26 +273,37 @@ const Work = ({ source = 'projects' }) => {
                                     </section>
                                 );
                             })}
-                        </div>
-                    )}
 
-                    {/* Navigation */}
-                    <nav className="flex justify-between items-center pt-8 border-t border-border">
-                        <Button
-                            to={`${basePath}/${prevProject.slug}`}
-                            variant="ghost"
-                            className="flex items-center gap-2"
-                        >
-                            ← {prevProject.title}
-                        </Button>
-                        <Button
-                            to={`${basePath}/${nextProject.slug}`}
-                            variant="ghost"
-                            className="flex items-center gap-2"
-                        >
-                            {nextProject.title} →
-                        </Button>
-                    </nav>
+                            {/* Navigation */}
+                            <nav className="!mt-10 pt-8 border-t border-border">
+                                <div className="flex justify-between items-start gap-8">
+                                    <Link
+                                        to={`${basePath}/${prevProject.slug}`}
+                                        className="group flex flex-col gap-1 flex-1 max-w-[46%]"
+                                    >
+                                        <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-primary transition-colors">
+                                            ← Previous
+                                        </span>
+                                        <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors line-clamp-2 leading-snug">
+                                            {prevProject.title}
+                                        </span>
+                                    </Link>
+                                    <Link
+                                        to={`${basePath}/${nextProject.slug}`}
+                                        className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
+                                    >
+                                        <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-primary transition-colors">
+                                            Next →
+                                        </span>
+                                        <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors line-clamp-2 leading-snug">
+                                            {nextProject.title}
+                                        </span>
+                                    </Link>
+                                </div>
+                            </nav>
+                        </div>
+                        <TableOfContents sections={tocSections} />
+                    </div>
                 </div>
             </RevealSection>
         </>

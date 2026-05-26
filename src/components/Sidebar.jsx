@@ -26,7 +26,7 @@ const isActive = (path, pathname) => {
 const Sidebar = () => {
     const location = useLocation();
     const navName = useNavName(location.pathname);
-    const { fullname, title, contact } = data;
+    const { contact } = data;
     const { notify } = useNotification();
 
     const socialLinks = [
