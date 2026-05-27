@@ -219,8 +219,8 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                         pointerEvents: 'none',
                     }}
                 >
-                    <span style={{ fontFamily: 'monospace', fontSize: '0.6rem', color: 'var(--color-text-muted)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '0' }}>
-                        <span style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>// </span>scroll_down
+                    <span style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--color-text-muted)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '0' }}>
+                        <span style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>{'// '}</span>{'scroll_down'}
                     </span>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
                         {['v', 'v', 'v'].map((v, i) => (
@@ -228,7 +228,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                                 key={i}
                                 animate={{ opacity: [0.15, 0.7, 0.15] }}
                                 transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.2, ease: 'easeInOut' }}
-                                style={{ fontFamily: 'monospace', fontSize: '0.55rem', color: 'var(--color-text-muted)', lineHeight: 1 }}
+                                style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1 }}
                             >{v}</motion.span>
                         ))}
                     </div>

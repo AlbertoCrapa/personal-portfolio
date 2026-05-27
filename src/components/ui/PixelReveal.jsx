@@ -36,9 +36,9 @@ const PixelReveal = ({ explode = true, fullscreen = true, ambientPeak = 0.09 }) 
         const maxDist = Math.sqrt(cx * cx + cy * cy);
 
         // Square with big rounded corners (≈37 % of size)
-        const RS = 4;    // side length
-        const RR = 1.5;  // corner radius
-        const SPACING = 10;
+        const RS = 7;    // side length
+        const RR = 1;  // corner radius
+        const SPACING = 15;
 
         const EXPLOSION_OPACITIES = [0.2, 0.3, 0.45, 0.6, 0.75, 0.9, 1.0];
         const BLAST_RISE = 0.04;
