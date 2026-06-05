@@ -40,7 +40,10 @@ const Playground = () => {
 
                     {/* Header */}
                     <header className="mb-8">
-                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Playground</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2 lowercase">
+                            <span className="text-text-muted mr-2">/</span>
+                            playground
+                        </h1>
                         <p className="text-text-secondary">
                             Experimental projects, demos, and technical explorations.
                         </p>

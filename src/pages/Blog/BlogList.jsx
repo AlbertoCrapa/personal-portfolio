@@ -143,7 +143,10 @@ const BlogList = () => {
                     />
 
                     <header>
-                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Blog</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2 lowercase">
+                            <span className="text-text-muted mr-2">/</span>
+                            blog
+                        </h1>
                         <p className="text-text-secondary">
                             Insights, tutorials, and lessons learned from game development.
                         </p>

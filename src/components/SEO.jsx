@@ -26,7 +26,7 @@ const SEO = ({
     "alternateName": "Albyeah",
     "url": "https://albyeah.com",
     "image": "https://albyeah.com/img/profile.jpg",
-    "jobTitle": "Game Technical Designer & Creative Developer",
+    "jobTitle": "Technical Designer & Creative Developer",
     "worksFor": {
       "@type": "Organization",
       "name": "Freelance"

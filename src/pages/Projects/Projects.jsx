@@ -51,7 +51,10 @@ const Projects = () => {
                     />
 
                     <header>
-                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2">Projects</h1>
+                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2 lowercase">
+                            <span className="text-text-muted mr-2">/</span>
+                            projects
+                        </h1>
                         <p className="text-text-secondary max-w-2xl">
                             Selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes.
                         </p>
