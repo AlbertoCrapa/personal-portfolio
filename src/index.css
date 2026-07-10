@@ -9,6 +9,8 @@ body {
 
 html {
   scrollbar-gutter: stable;
+  /* Fallback until App.js measures the real value; keeps 100vw math safe. */
+  --scrollbar-width: 0px;
 }
 
 /* Keep selection styling last so it overrides Tailwind preflight selection. */

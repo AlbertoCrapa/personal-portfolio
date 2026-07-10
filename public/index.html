@@ -94,8 +94,13 @@
     <!-- Preconnect for critical third-party origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!--
+      display=optional on the UI font (DM Sans): the browser either has it ready
+      at first paint or keeps the fallback for that load. Never a mid-paint swap,
+      so the fixed top bar cannot re-measure and shift.
+    -->
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@400;700;900&family=Lora:ital,wght@1,400;1,700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@400;700;900&family=Lora:ital,wght@1,400;1,700&display=optional"
       rel="stylesheet"
     />
 
@@ -117,6 +122,21 @@
         font-weight: normal;
         font-style: normal;
         font-display: swap;
+      }
+
+      /* Reserve the fixed top bar before React boots, so nothing pops in. */
+      #nav-skeleton {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 56px;
+        z-index: 40;
+        background: #1a1a1a;
+        border-bottom: 1px solid #333333;
+      }
+      body:has(#root > *) #nav-skeleton {
+        display: none;
       }
     </style>
 
@@ -182,6 +202,7 @@
         </p>
       </div>
     </noscript>
+    <div id="nav-skeleton" aria-hidden="true"></div>
     <div id="root"></div>
 
     <!-- Skip to main content for accessibility -->

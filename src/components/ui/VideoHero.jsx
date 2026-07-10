@@ -35,7 +35,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                 position: 'relative',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: '100vw',
+                width: 'calc(100vw - var(--scrollbar-width, 0px))',
                 height: 'calc(100svh - 56px)',
                 overflow: 'hidden',
                 background: 'var(--color-bg)',

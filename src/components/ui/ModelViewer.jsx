@@ -7,10 +7,11 @@ const MODEL_VIEWER_SCRIPT_SRC = 'https://unpkg.com/@google/model-viewer/dist/mod
  * Lightweight 3D model viewer powered by <model-viewer> web component.
  * Supports touch + mouse rotation and works well on mobile.
  */
-const ModelViewer = ({ src, poster, alt = '3D model', description, className = '' }) => {
+const ModelViewer = ({ src, alt = '3D model', description, className = '' }) => {
     const modelRef = useRef(null);
     const [isAutoRotating, setIsAutoRotating] = useState(true);
     const [isFastRotation, setIsFastRotation] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
         if (typeof window === 'undefined' || typeof document === 'undefined') return;
@@ -44,6 +45,21 @@ const ModelViewer = ({ src, poster, alt = '3D model', description, className = '
         modelElement.setAttribute('rotation-per-second', isFastRotation ? '40deg' : '20deg');
     }, [isFastRotation]);
 
+    useEffect(() => {
+        const modelElement = modelRef.current;
+        if (!modelElement) return;
+
+        // model-viewer already has the model cached/loaded
+        if (modelElement.loaded) {
+            setIsLoaded(true);
+            return;
+        }
+
+        const handleLoad = () => setIsLoaded(true);
+        modelElement.addEventListener('load', handleLoad);
+        return () => modelElement.removeEventListener('load', handleLoad);
+    }, [src]);
+
     const toggleAutoRotate = () => {
         setIsAutoRotating((prev) => !prev);
     };
@@ -60,7 +76,6 @@ const ModelViewer = ({ src, poster, alt = '3D model', description, className = '
                 <model-viewer
                     ref={modelRef}
                     src={src}
-                    poster={poster}
                     alt={alt}
                     camera-controls
                     auto-rotate-delay="100"
@@ -70,6 +85,11 @@ const ModelViewer = ({ src, poster, alt = '3D model', description, className = '
                     loading="lazy"
                     style={{ width: '100%', height: '100%', minHeight: '260px', '--poster-color': 'transparent' }}
                 />
+                {!isLoaded && (
+                    <div className="absolute inset-0 flex items-center justify-center px-4 text-text-secondary bg-surface">
+                        Loading model...
+                    </div>
+                )}
                 <div className="absolute bottom-3 left-3 flex items-center gap-2">
                     <button
                         type="button"

@@ -213,6 +213,19 @@
           "poster": "/works/juan/cover.jpg",
           "alt": "Juan The Game 3D model example",
           "description": "Interactive 3D model example block with drag-to-rotate support."
+        },
+        {
+          "type": "beforeAfter",
+          "before": {
+            "src": "https://picsum.photos/seed/juan-before/800/600",
+            "alt": "Juan The Game early prototype"
+          },
+          "after": {
+            "src": "https://picsum.photos/seed/juan-after/800/600",
+            "alt": "Juan The Game final polish"
+          },
+          "startAt": 50,
+          "description": "Drag the handle to compare the early prototype against the final polish."
         }
       ],
       "cover": "/works/juan/cover.jpg",

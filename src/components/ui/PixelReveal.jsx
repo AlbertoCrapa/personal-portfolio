@@ -138,7 +138,7 @@ const PixelReveal = ({ explode = true, fullscreen = true, ambientPeak = 0.09 }) 
             style={{
                 position: fullscreen ? 'fixed' : 'absolute',
                 inset: 0,
-                width: fullscreen ? '100vw' : '100%',
+                width: fullscreen ? 'calc(100vw - var(--scrollbar-width, 0px))' : '100%',
                 height: fullscreen ? '100vh' : '100%',
                 pointerEvents: 'none',
                 zIndex: 0,

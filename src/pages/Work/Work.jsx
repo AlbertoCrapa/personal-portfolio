@@ -6,6 +6,7 @@ import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
 import ModelViewer from '../../components/ui/ModelViewer';
+import BeforeAfter from '../../components/ui/BeforeAfter';
 import RichText from '../../components/ui/RichText';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
@@ -53,9 +54,11 @@ const Work = ({ source = 'projects' }) => {
         );
     }
 
-    // Navigation to adjacent items
-    const prevProject = items[(currentIndex - 1 + items.length) % items.length];
-    const nextProject = items[(currentIndex + 1) % items.length];
+    // Navigation to adjacent items (hide a button if it would point back to the current project)
+    const prevCandidate = items[(currentIndex - 1 + items.length) % items.length];
+    const nextCandidate = items[(currentIndex + 1) % items.length];
+    const prevProject = prevCandidate && prevCandidate.slug !== slug ? prevCandidate : null;
+    const nextProject = nextCandidate && nextCandidate.slug !== slug ? nextCandidate : null;
     const basePath = isPlayground ? '/playground' : '/work';
     const contentElements = Array.isArray(project?.content) ? project.content : [];
     const tocSections = contentElements
@@ -221,6 +224,21 @@ const Work = ({ source = 'projects' }) => {
                                     );
                                 }
 
+                                if (elementType === 'beforeAfter' && element?.before && element?.after) {
+                                    return (
+                                        <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
+                                            <div>
+                                                <BeforeAfter
+                                                    before={element.before}
+                                                    after={element.after}
+                                                    description={element.description}
+                                                    startAt={element.startAt}
+                                                />
+                                            </div>
+                                        </section>
+                                    );
+                                }
+
                                 if (elementType === 'media' && element?.src) {
                                     return (
                                         <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
@@ -278,28 +296,36 @@ const Work = ({ source = 'projects' }) => {
                             {/* Navigation */}
                             <nav className="!mt-10 pt-8 border-t border-border">
                                 <div className="flex justify-between items-start gap-8">
-                                    <Link
-                                        to={`${basePath}/${prevProject.slug}`}
-                                        className="group flex flex-col gap-1 flex-1 max-w-[46%]"
-                                    >
-                                        <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
-                                            ← Previous
-                                        </span>
-                                        <span className="text-sm font-semibold line-clamp-2 leading-snug">
-                                            <ShimmerText text={prevProject.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        to={`${basePath}/${nextProject.slug}`}
-                                        className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
-                                    >
-                                        <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
-                                            Next →
-                                        </span>
-                                        <span className="text-sm font-semibold line-clamp-2 leading-snug">
-                                            <ShimmerText text={nextProject.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
-                                        </span>
-                                    </Link>
+                                    {prevProject ? (
+                                        <Link
+                                            to={`${basePath}/${prevProject.slug}`}
+                                            className="group flex flex-col gap-1 flex-1 max-w-[46%]"
+                                        >
+                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
+                                                ← Previous
+                                            </span>
+                                            <span className="text-sm font-semibold line-clamp-2 leading-snug">
+                                                <ShimmerText text={prevProject.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
+                                            </span>
+                                        </Link>
+                                    ) : (
+                                        <span aria-hidden="true" />
+                                    )}
+                                    {nextProject ? (
+                                        <Link
+                                            to={`${basePath}/${nextProject.slug}`}
+                                            className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
+                                        >
+                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
+                                                Next →
+                                            </span>
+                                            <span className="text-sm font-semibold line-clamp-2 leading-snug">
+                                                <ShimmerText text={nextProject.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
+                                            </span>
+                                        </Link>
+                                    ) : (
+                                        <span aria-hidden="true" />
+                                    )}
                                 </div>
                             </nav>
                         </div>

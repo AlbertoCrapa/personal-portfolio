@@ -6,6 +6,7 @@ import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
 import ModelViewer from '../../components/ui/ModelViewer';
+import BeforeAfter from '../../components/ui/BeforeAfter';
 import RichText from '../../components/ui/RichText';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
@@ -187,6 +188,21 @@ const BlogPage = () => {
                                                     alt={element.alt || element.description || `${blog.title} 3D model`}
                                                     description={element.description}
                                                     className="w-full h-[280px] sm:h-[340px] md:h-[420px]"
+                                                />
+                                            </div>
+                                        </section>
+                                    );
+                                }
+
+                                if (elementType === 'beforeAfter' && element?.before && element?.after) {
+                                    return (
+                                        <section key={idx} className="space-y-2 md:space-y-4 max-w-3xl">
+                                            <div>
+                                                <BeforeAfter
+                                                    before={element.before}
+                                                    after={element.after}
+                                                    description={element.description}
+                                                    startAt={element.startAt}
                                                 />
                                             </div>
                                         </section>

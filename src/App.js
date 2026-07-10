@@ -22,6 +22,24 @@ const Simple404 = lazy(() => import("./pages/NotFound/Simple404"));
 function App() {
   const { notify } = useNotification();
 
+  // Expose the real scrollbar width as a CSS var so full-bleed (100vw) elements
+  // can subtract it and never overflow when the scrollbar appears/disappears.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const updateScrollbarWidth = () => {
+      const width = window.innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.setProperty(
+        "--scrollbar-width",
+        `${Math.max(0, width)}px`,
+      );
+    };
+
+    updateScrollbarWidth();
+    window.addEventListener("resize", updateScrollbarWidth);
+    return () => window.removeEventListener("resize", updateScrollbarWidth);
+  }, []);
+
   useEffect(() => {
     const sessionKey = "albyeah-session-welcome-shown";
     if (typeof window === "undefined") return;

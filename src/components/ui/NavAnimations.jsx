@@ -204,11 +204,26 @@ export const LogoName = ({ text }) => {
         });
     };
 
+    // Each slot reserves the width of its *final* character, so the random
+    // scramble glyphs (which have different advance widths) never reflow the bar.
+    const slots = text.split('').map((c) => (c === ' ' ? '\u00A0' : c));
+
     return (
         <span ref={scope} style={{ display: 'inline-flex' }} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            {display.map((d, i) => (
-                <span key={i} style={{ color: d.color }}>{d.char}</span>
-            ))}
+            {slots.map((finalChar, i) => {
+                const d = display[i];
+                return (
+                    <span
+                        key={i}
+                        style={{ position: 'relative', display: 'inline-block', color: d ? d.color : '#ffffff' }}
+                    >
+                        <span aria-hidden="true" style={{ visibility: 'hidden' }}>{finalChar}</span>
+                        <span style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)' }}>
+                            {d ? d.char : finalChar}
+                        </span>
+                    </span>
+                );
+            })}
         </span>
     );
 };
