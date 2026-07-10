@@ -95,12 +95,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!--
-      display=optional on the UI font (DM Sans): the browser either has it ready
-      at first paint or keeps the fallback for that load. Never a mid-paint swap,
-      so the fixed top bar cannot re-measure and shift.
+      DM Sans is the UI font (top bar, body). It is self-hosted and preloaded so
+      it is available before first paint. Loading it from fonts.googleapis.com
+      meant the @font-face rule itself landed after React had already painted the
+      nav in a fallback face, and the later swap re-measured every glyph and
+      shifted the fixed top bar by a few px on every load.
     -->
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&family=Epilogue:wght@400;700;900&family=Lora:ital,wght@1,400;1,700&display=optional"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="%PUBLIC_URL%/font/dm-sans-latin.woff2"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=Lora:ital,wght@1,400;1,700&display=swap"
       rel="stylesheet"
     />
 
@@ -116,6 +125,30 @@
 
     <!-- Custom Font Face -->
     <style>
+      /* Self-hosted DM Sans (variable, wght 100–1000). font-display: optional so
+         a slow font can never swap in after paint and reflow the layout. */
+      @font-face {
+        font-family: "DM Sans";
+        src: url("%PUBLIC_URL%/font/dm-sans-latin.woff2") format("woff2");
+        font-weight: 100 1000;
+        font-style: normal;
+        font-display: optional;
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+          U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+      @font-face {
+        font-family: "DM Sans";
+        src: url("%PUBLIC_URL%/font/dm-sans-latin-ext.woff2") format("woff2");
+        font-weight: 100 1000;
+        font-style: normal;
+        font-display: optional;
+        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+          U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+      }
+
       @font-face {
         font-family: "MiniMochi";
         src: url("%PUBLIC_URL%/font/MiniMochi.woff") format("woff");
