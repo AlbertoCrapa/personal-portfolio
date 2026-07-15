@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 /**
  * ProjectCard Component
  * Card for displaying projects in grid layout
- * 
+ *
  * @param {Object} project - Project data
  * @param {string} size - 'large' | 'medium' | 'small' | 'list'
  * @param {string} basePath - Base path for links (default: '/work')
@@ -54,7 +54,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                     />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <h3 className="text-base md:text-lg font-semibold text-text-primary group-hover:text-accent-blue transition-colors truncate">
+                    <h3 className="text-base md:text-lg font-semibold text-text-primary truncate">
                         {project.title}
                     </h3>
                     {shortDescription && (
@@ -91,7 +91,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                         src={thumbnailImage}
                         alt={project.title}
                         loading="lazy"
-                        className={`w-full h-full object-cover transition-all duration-500 ${previewVideo && isHovered ? 'scale-[1.02] opacity-0' : 'scale-100 opacity-100'
+                        className={`w-full h-full object-cover transition-all duration-500 ${previewVideo && isHovered ? 'scale-[1.02] opacity-0' : 'scale-100 opacity-100 group-hover:scale-[1.03]'
                             }`}
                         onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}
                     />
@@ -155,12 +155,6 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                             {projectDuration}
                         </p>
                     )}
-
-                    {/* {previewVideo && (
-                        <p className="text-[11px] text-text-muted/80 uppercase tracking-wider">
-                            Hover to preview
-                        </p>
-                    )} */}
                 </div>
             </article>
         </Link>

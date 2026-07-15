@@ -8,11 +8,12 @@ module.exports = {
         display: ["Space Grotesk", "DM Sans", "sans-serif"],
       },
       colors: {
-        // Base colors
-        bg: "#1a1a1a",
-        surface: "#242424",
-        "surface-hover": "#2d2d2d",
-        border: "#333333",
+        // Base colors — Radix Colors "gray" dark, steps 1 / 3 / 4 / 5.
+        // Keep in sync with src/styles/theme.css.
+        bg: "#111111",
+        surface: "#222222",
+        "surface-hover": "#2a2a2a",
+        border: "#313131",
 
         // Text colors
         "text-primary": "#ffffff",
@@ -28,23 +29,23 @@ module.exports = {
         // Platform accent colors
         github: "#b39af8",
         "github-dim": "#9176d4",
-        "github-bg": "#1f1a2e",
-        "github-border": "#3d2f6b",
+        "github-bg": "#161124",
+        "github-border": "#33245f",
 
         spotify: "#1db954",
         "spotify-dim": "#57d984",
-        "spotify-bg": "#12291a",
-        "spotify-border": "#2b5f3d",
+        "spotify-bg": "#081f11",
+        "spotify-border": "#1f5432",
 
         leetcode: "#ffa116",
         "leetcode-dim": "#ffcf87",
-        "leetcode-bg": "#2f2616",
-        "leetcode-border": "#5a4520",
+        "leetcode-bg": "#251c0d",
+        "leetcode-border": "#4f3a15",
 
         // Callout backgrounds
-        "info-bg": "#1e3a5f",
+        "info-bg": "#142f53",
         "info-border": "#4285f4",
-        "warning-bg": "#3d2e0a",
+        "warning-bg": "#332400",
         "warning-border": "#ff9800",
       },
       spacing: {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import PixelReveal from './PixelReveal';
 
 /**
  * VideoHero
@@ -69,7 +68,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     position: 'absolute',
                     inset: 0,
                     background:
-                        'linear-gradient(to bottom, rgba(26,26,26,1) 0%, rgba(26,26,26,0.35) 55%, rgba(26,26,26,1) 100%)',
+                        'linear-gradient(to bottom, rgba(17,17,17,1) 0%, rgba(17,17,17,0.35) 55%, rgba(17,17,17,1) 100%)',
                     pointerEvents: 'none',
                 }}
             />
@@ -85,9 +84,6 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     willChange: 'opacity',
                 }}
             />
-
-            {/* ── Pixel shockwave — above video/gradients, below hero text ── */}
-            <PixelReveal fullscreen={false} />
 
             {/* ── Hero content ── */}
             <div
@@ -152,7 +148,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     }}
                 >
                     {hero.description ||
-                        'Frontend Engineer & Game Developer. I build things that balance technical craft and design.'}
+                        'Frontend Designer & Game Developer. I build things that balance technical craft and design.'}
                 </motion.p>
 
                 {/* Buttons */}
@@ -173,7 +169,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                         style={{
                             padding: '0.6rem 1.5rem',
                             background: '#ffffff',
-                            color: '#1a1a1a',
+                            color: '#111111',
                             borderRadius: '0.5rem',
                             fontWeight: 600,
                             fontSize: '0.85rem',
@@ -219,16 +215,13 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                         pointerEvents: 'none',
                     }}
                 >
-                    <span style={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'var(--color-text-muted)', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '0' }}>
-                        <span style={{ color: 'var(--color-text-muted)', opacity: 0.5 }}>{'// '}</span>{'scroll_down'}
-                    </span>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
                         {['v', 'v', 'v'].map((v, i) => (
                             <motion.span
                                 key={i}
                                 animate={{ opacity: [0.15, 0.7, 0.15] }}
                                 transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.2, ease: 'easeInOut' }}
-                                style={{ fontFamily: 'monospace', fontSize: '0.75rem', color: 'var(--color-text-muted)', lineHeight: 1 }}
+                                style={{ fontFamily: 'monospace', fontSize: '1.05rem', color: 'var(--color-text-muted)', lineHeight: 1 }}
                             >{v}</motion.span>
                         ))}
                     </div>

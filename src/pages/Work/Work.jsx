@@ -5,6 +5,7 @@ import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
+import MediaFrame from '../../components/ui/MediaFrame';
 import ModelViewer from '../../components/ui/ModelViewer';
 import BeforeAfter from '../../components/ui/BeforeAfter';
 import RichText from '../../components/ui/RichText';
@@ -123,6 +124,7 @@ const Work = ({ source = 'projects' }) => {
                                     src={projectVideoCover}
                                     poster={projectCover}
                                     className="w-full h-full"
+                                    pauseOffscreen={false}
                                 />
                             ) : (
                                 <img
@@ -242,39 +244,13 @@ const Work = ({ source = 'projects' }) => {
                                 if (elementType === 'media' && element?.src) {
                                     return (
                                         <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
-                                            <div>
-                                                {isVideo(element.src) ? (
-                                                    <figure className="space-y-1">
-                                                        <div className="rounded-xl overflow-hidden">
-                                                            <VideoPlayer
-                                                                src={element.src}
-                                                                className="w-full"
-                                                            />
-                                                        </div>
-                                                        {element.description && (
-                                                            <figcaption className="text-sm text-text-muted text-center">
-                                                                {element.description}
-                                                            </figcaption>
-                                                        )}
-                                                    </figure>
-                                                ) : (
-                                                    <figure className="space-y-1">
-                                                        <div className="rounded-xl overflow-hidden">
-                                                            <img
-                                                                src={element.src}
-                                                                alt={element.description || `${project.title} media`}
-                                                                className="w-full h-auto"
-                                                                onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}
-                                                            />
-                                                        </div>
-                                                        {element.description && (
-                                                            <figcaption className="text-sm text-text-muted text-center">
-                                                                {element.description}
-                                                            </figcaption>
-                                                        )}
-                                                    </figure>
-                                                )}
-                                            </div>
+                                            <MediaFrame
+                                                src={element.src}
+                                                isVideo={isVideo(element.src)}
+                                                alt={element.description || `${project.title} media`}
+                                                description={element.description}
+                                                allowFullscreen={!(element.nonFullscreen === true || element.fullscreen === false)}
+                                            />
                                         </section>
                                     );
                                 }

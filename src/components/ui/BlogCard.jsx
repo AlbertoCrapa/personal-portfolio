@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 /**
  * BlogCard Component
  * Card for displaying blog posts
- * 
+ *
  * @param {Object} blog - Blog post data
  * @param {string} size - 'large' | 'medium' | 'list'
  */
@@ -46,7 +46,7 @@ const BlogCard = ({ blog, size = 'medium' }) => {
                     </div>
                 )}
                 <div className="flex-1 min-w-0">
-                    <h3 className="text-base md:text-lg font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
+                    <h3 className="text-base md:text-lg font-semibold text-text-primary">
                         {blog.title}
                     </h3>
                     <p className="text-sm text-text-muted mt-1">
@@ -77,7 +77,7 @@ const BlogCard = ({ blog, size = 'medium' }) => {
 
                 {/* Content */}
                 <div className="p-4 space-y-3">
-                    <h3 className={`font-bold text-text-primary leading-tight ${size === 'large' ? 'text-xl md:text-2xl' : 'text-base md:text-lg'} group-hover:text-accent-blue transition-colors`}>
+                    <h3 className={`font-bold text-text-primary leading-tight ${size === 'large' ? 'text-xl md:text-2xl' : 'text-base md:text-lg'}`}>
                         {blog.title}
                     </h3>
 

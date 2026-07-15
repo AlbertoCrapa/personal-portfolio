@@ -6,7 +6,7 @@
 
 ## About
 
-This is the personal portfolio of Alberto Crapanzano (Albyeah), a Game Technical Designer and Creative Developer based in Milan, Italy. The portfolio showcases various projects in game development, technical design, and creative programming.
+This is the personal portfolio of Alberto Crapanzano (Albyeah), a Technical Designer and Creative Developer based in Milan, Italy. The portfolio showcases various projects in game development, technical design, and creative programming.
 
 
 ## Technologies Used

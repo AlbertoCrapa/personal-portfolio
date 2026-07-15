@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
-import PixelReveal from '../components/ui/PixelReveal';
+// import PixelReveal from '../components/ui/PixelReveal';  // temporarily disabled
 import data from '../data/data.json';
 
 /**
@@ -14,7 +14,7 @@ const Layout = ({ children }) => {
     return (
         <div className="min-h-svh">
             {/* Full-viewport pixel background — ambient only, no explosion */}
-            <PixelReveal explode={false} />
+            {/* <PixelReveal explode={false} />  temporarily disabled */}
             <a href="#main-content" className="skip-link">Skip to main content</a>
             {/* Top navigation bar */}
             <Sidebar />

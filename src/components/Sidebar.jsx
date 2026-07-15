@@ -39,7 +39,7 @@ const Sidebar = () => {
     ].filter(Boolean);
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-bg/95 backdrop-blur-sm border-b border-border">
+        <header className="fixed top-0 left-0 right-0 z-50 bg-bg border-b border-border shadow-[0_7px_22px_rgba(0,0,0,0.36)]">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-6">
                 {/* Logo / Name */}
                 <Link to="/" className="shrink-0">

@@ -1,11 +1,20 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+/* DM Sans is self-hosted and preloaded in public/index.html — importing it here
+   too would re-register the face from Google and reintroduce the swap-on-load
+   reflow of the fixed top bar. Space Grotesk is display-only, so a swap is fine. */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
 :root {
-  /* Colors */
-  --color-bg: #1a1a1a;
-  --color-surface: #242424;
-  --color-surface-hover: #2d2d2d;
-  --color-border: #333333;
+  /* Colors
+     Neutrals are the Radix Colors "gray" dark scale, used at the steps Radix
+     assigns them: 1 = app background, 3 = UI element background, 4 = hovered UI
+     element, 5 = border. Radix tunes each step for perceptual evenness and
+     verifies contrast; do not hand-pick values between steps.
+     Radix gray dark: 1 #111111 · 2 #191919 · 3 #222222 · 4 #2a2a2a
+                      5 #313131 · 6 #3a3a3a · 11 #b4b4b4 · 12 #eeeeee */
+  --color-bg: #111111;
+  --color-surface: #222222;
+  --color-surface-hover: #2a2a2a;
+  --color-border: #313131;
 
   --color-text-primary: #ffffff;
   --color-text-secondary: #a0a0a0;
@@ -18,27 +27,30 @@
 
   /* Selection */
   --color-selection-bg: #ffffff;
-  --color-selection-text: #1a1a1a;
+  --color-selection-text: #111111;
+
+  /* Tinted surfaces track the canvas: each dropped by the same OKLab lightness
+     the canvas did (ΔL 0.040), so hue and chroma are unchanged. */
 
   /* Platform accent colors */
   --color-github: #b39af8;
   --color-github-dim: #9176d4;
-  --color-github-bg: #1f1a2e;
-  --color-github-border: #3d2f6b;
+  --color-github-bg: #161124;
+  --color-github-border: #33245f;
 
   --color-spotify: #1db954;
   --color-spotify-dim: #57d984;
-  --color-spotify-bg: #12291a;
-  --color-spotify-border: #2b5f3d;
+  --color-spotify-bg: #081f11;
+  --color-spotify-border: #1f5432;
 
   --color-leetcode: #ffa116;
   --color-leetcode-dim: #ffcf87;
-  --color-leetcode-bg: #2f2616;
-  --color-leetcode-border: #5a4520;
+  --color-leetcode-bg: #251c0d;
+  --color-leetcode-border: #4f3a15;
 
-  --color-info-bg: #1e3a5f;
+  --color-info-bg: #142f53;
   --color-info-border: #4285f4;
-  --color-warning-bg: #3d2e0a;
+  --color-warning-bg: #332400;
   --color-warning-border: #ff9800;
 
   /* Spacing */

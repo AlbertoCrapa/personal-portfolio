@@ -49,7 +49,7 @@ const FeaturedCard = ({ blog }) => {
                             ))}
                         </div>
                     )}
-                    <h2 className="text-2xl sm:text-3xl font-bold text-text-primary leading-tight mb-3 group-hover:text-accent-blue transition-colors">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-text-primary leading-tight mb-3 transition-colors">
                         {blog.title}
                     </h2>
                     {blog.excerpt && (
@@ -96,7 +96,7 @@ const ArticleCard = ({ blog }) => {
                             ))}
                         </div>
                     )}
-                    <h3 className="text-base font-bold text-text-primary leading-snug group-hover:text-accent-blue transition-colors line-clamp-2">
+                    <h3 className="text-base font-bold text-text-primary leading-snug transition-colors line-clamp-2">
                         {blog.title}
                     </h3>
                     {blog.excerpt && (

@@ -345,7 +345,7 @@ const Home = () => {
                         </div>
                       )}
                       <div className="flex-1 min-w-0">
-                        <h3 className="font-bold text-base text-text-primary leading-tight group-hover:text-accent-blue transition-colors mb-1 line-clamp-2">
+                        <h3 className="font-bold text-base text-text-primary leading-tight transition-colors mb-1 line-clamp-2">
                           {blog.title}
                         </h3>
                         <p className="text-xs uppercase tracking-wide text-text-muted">
