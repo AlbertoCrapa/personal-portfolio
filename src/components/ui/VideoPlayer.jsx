@@ -49,6 +49,12 @@ const VideoPlayer = ({ src, poster, autoPlay = true, loop = true, className = ''
                     if (!pausedByUser.current) safePlay();
                 } else {
                     vid.pause();
+                    // Leaving the screen re-mutes it: on return it stays muted
+                    // until the user unmutes again.
+                    if (!vid.muted) {
+                        vid.muted = true;
+                        setIsMuted(true);
+                    }
                 }
             },
             { threshold: 0 }

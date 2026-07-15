@@ -2,14 +2,14 @@
   "playground": [
     {
       "slug": "ai_demo",
-      "title": "AI Demo",
+      "title": "Enemy AI Prototype",
       "shortDescription": "Personal Experiment • C++ AI behavior sandbox — pathfinding, wandering and interactive seek behaviors with SDL2",
       "date": "2024-ongoing",
       "teamSize": 1,
       "content": [
         {
           "title": "Project Philosophy",
-          "text": "**AI Demo** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable if someone else (or future me ahahah) looks at this, they should be able to understand what's happening."
+          "text": "**Enemy AI Prototype** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable if someone else (or future me ahahah) looks at this, they should be able to understand what's happening."
         },
         {
           "title": "Pathfinding Implementation",
@@ -39,7 +39,7 @@
       "media": [
         {
           "src": "/works/aidemo/path.webp",
-          "description": "AI Demo pathfinding visualization showing A* algorithm in action."
+          "description": "Enemy AI Prototype pathfinding visualization showing A* algorithm in action."
         },
         {},
         {

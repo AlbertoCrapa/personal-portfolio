@@ -24,7 +24,7 @@ const Playground = () => {
             <SEO
                 title="Playground - Alberto Crapanzano | Experiments & Demos"
                 description="Experimental projects, demos, and technical explorations by Alberto Crapanzano. AI, pathfinding, and creative coding experiments."
-                keywords="Playground, Experiments, AI Demo, Pathfinding, C++, Game Development, Alberto Crapanzano"
+                keywords="Playground, Experiments, Enemy AI Prototype, Pathfinding, C++, Game Development, Alberto Crapanzano"
                 url="/playground"
             />
 
