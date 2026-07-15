@@ -47,6 +47,17 @@ const TableOfContents = ({ sections = [] }) => {
         return () => observer.disconnect();
     }, [sections]);
 
+    // Smooth-scroll with an offset so the heading clears the fixed top bar.
+    const handleClick = (e, id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        e.preventDefault();
+        const TOPBAR_OFFSET = 196; // ~56px bar + a little breathing room
+        const top = el.getBoundingClientRect().top + window.scrollY - TOPBAR_OFFSET;
+        window.scrollTo({ top, behavior: 'smooth' });
+        window.history.replaceState(null, '', `#${id}`);
+    };
+
     if (!sections.length) return null;
 
     return (
@@ -62,6 +73,7 @@ const TableOfContents = ({ sections = [] }) => {
                     <a
                         key={id}
                         href={`#${id}`}
+                        onClick={(e) => handleClick(e, id)}
                         className={`block text-sm py-1 pl-2 border-l-2 leading-snug ${
                             activeId === id
                                 ? 'border-text-secondary font-medium'

@@ -332,12 +332,16 @@ const MediaFrame = ({
                     />
 
                     {description && (
-                        <figcaption
-                            className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 max-w-[80vw] px-4 py-2 rounded-full bg-bg/80 backdrop-blur-sm text-sm text-text-secondary text-center"
-                            style={{ opacity: show ? 1 : 0, transition: `opacity ${show ? OPEN_MS : CLOSE_MS}ms ${EASE}` }}
-                        >
-                            {description}
-                        </figcaption>
+                        // Full-width bar on mobile (as wide as the screen); a
+                        // centered pill on larger screens.
+                        <div className="absolute inset-x-0 bottom-4 sm:bottom-6 z-30 flex justify-center px-3 sm:px-4 pointer-events-none">
+                            <figcaption
+                                className="w-full sm:w-auto sm:max-w-[80vw] px-4 py-2 rounded-2xl sm:rounded-full bg-bg/80 backdrop-blur-sm text-sm text-text-secondary text-center"
+                                style={{ opacity: show ? 1 : 0, transition: `opacity ${show ? OPEN_MS : CLOSE_MS}ms ${EASE}` }}
+                            >
+                                {description}
+                            </figcaption>
+                        </div>
                     )}
                 </div>,
                 document.body
