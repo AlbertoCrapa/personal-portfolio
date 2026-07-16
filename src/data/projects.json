@@ -410,6 +410,270 @@
         "RESTful APIs"
       ],
       "type": "webapp"
+    },
+    "project3": {
+      "slug": "friend-archive",
+      "title": "The Friend Archive",
+      "shortDescription": "Solo Developer • Live shared catalogue for movies, series, books and games — Next.js App Router, Supabase auth and per-member progress",
+      "role": "Solo Developer",
+      "outcome": "Live shared catalogue for movies, series, books and games",
+      "duration": "Built in 6 months",
+      "thumbnailImage": "/works/archive/cover.jpg",
+      "previewVideo": null,
+      "date": "2026-01",
+      "teamSize": 1,
+      "content": [
+        {
+          "type": "section",
+          "title": "Overview",
+          "text": "**The Friend Archive** is a shared catalogue for everything worth experiencing together: **movies, TV series, books, and video games**. You create a group with your friends, you fill it with the things you want to watch, read, or play, and everyone tracks their own progress through the same list. It solves a problem I actually had  nobody ever remembers what the group already watched, or what someone recommended three months ago. The tagline sums it up: **Track together. Remember always.**"
+        },
+        {
+          "type": "section",
+          "title": "Architecture",
+          "text": "It's a **Next.js 15** app on the **App Router**, written in **TypeScript** and deployed on **Vercel**, with **Supabase** (PostgreSQL) behind it. Server Components are the default and I only opt into Client Components where interactivity actually needs it. The rule I held myself to: database queries live in Server Components, Server Actions, or route handlers  never in a Client Component  and the Supabase client is only ever created in two files, one for the browser and one for the server. It sounds pedantic, but it's what keeps the data layer from leaking everywhere as the app grows."
+        },
+        {
+          "type": "section",
+          "title": "Data Model",
+          "text": "The schema is **nine tables** in three layers: identity (`profiles`, `subscriptions`), organisation (`groups`, `group_members`, `group_join_requests`), and content (`media_items`, `item_statuses`, `consumption_records`, `comments`). The decision I'm happiest with is that **status is per-member**: `media_items` has no status column at all, because a group's copy of **Dune** isn't watched  **you** watched it. Each member gets their own row in `item_statuses`, and a missing row just means Planned. Type-specific fields (director, author, developer, seasons) live in a **JSONB metadata** column, so adding a fifth media type doesn't mean a migration full of mostly-null columns."
+        },
+        {
+          "type": "section",
+          "title": "Authentication & Row Level Security",
+          "text": "Auth is **Supabase Auth** with email and password, and `middleware.ts` refreshes the session on every request through `@supabase/ssr`. The part that took the most thought was **Row Level Security**: the business rules aren't just checked in the UI, they're enforced by **RLS policies in the database**, so they hold even if someone talks to the API directly. Every write to a status row is restricted to `user_id = auth.uid()`, and an RLS policy makes `added_by` immutable after creation  you can't rewrite who added something."
+        },
+        {
+          "type": "media",
+          "src": "/works/archive/login.webp",
+          "description": "Sign-in screen — Supabase email and password auth."
+        },
+        {
+          "type": "section",
+          "title": "External Metadata Providers",
+          "text": "Nobody wants to type in a film's director by hand, so adding an item searches an external provider and fills the metadata for you. Each media type routes to a different one: **TMDB** for movies and TV series, **Open Library** for books, and **RAWG** for video games. They all normalise into a single internal shape, so the rest of the app only ever speaks one language regardless of who answered. The searches go through a **server-side route handler** that requires a session, which keeps the API keys off the client and stops the proxy being open to the world. Every provider call resolves rather than throws: if one is down, you get an empty list and fall back to typing it in yourself."
+        },
+        {
+          "type": "section",
+          "title": "Groups & Collaboration",
+          "text": "A group has an **owner** and **members**  no other roles, deliberately. Owners manage the group and its membership; members add items, edit them, and write their own notes and comments. Groups are **public or private**: public ones are discoverable and readable by anyone signed in, but non-members see them **read-only**, and joining goes through a **request and approval flow** rather than just walking in. Each item carries shared **comments** and **tags**, plus per-member notes on the consumption record  the same film gets one note from you and a different one from your friend. When every current member has completed an item, it gets a star."
+        },
+        {
+          "type": "section",
+          "title": "Working Inside the Free Tier",
+          "text": "The whole thing runs on free tiers, which turned out to be a useful design constraint rather than an annoyance. No `select('*')`  every query names its columns. Related data comes back through **nested selects** in one round-trip instead of an N+1 fan-out. No polling, and no Realtime subscriptions unless a feature genuinely needs live updates (so far, none do). Stable reference data gets cached client-side rather than refetched on every render. Being forced to justify each query made the app faster than it would have been with an unlimited budget."
+        },
+        {
+          "type": "section",
+          "title": "Design System",
+          "text": "The frontend runs on a token system in `globals.css`  semantic names for colour, radius, shadow, spacing, duration, easing  and no ad-hoc hex values in component files. Components are built on **Radix UI** primitives following the shadcn pattern, styled with **Tailwind CSS 4**, with **Framer Motion** for transitions that stay under ~350ms so they add spatial clarity without making you wait. Loading states use **skeletons shaped like the real layout** instead of blank flashes, and async buttons show an inline spinner and disable themselves."
+        },
+        {
+          "type": "section",
+          "title": "Learning Outcomes",
+          "text": "This is the project where **Postgres stopped being 'the database' and became part of the design**. Pushing rules into RLS instead of trusting the UI, modelling status per-member instead of per-item, choosing JSONB where the shape genuinely varies  those decisions shaped the app more than any component did. It's still in active development, and the schema has held up to every feature I've added since, which is the best signal I could ask for."
+        }
+      ],
+      "cover": "/works/archive/cover.jpg",
+      "bgColor": "#e08a1e",
+      "url": "https://friends-archive-two.vercel.app",
+      "projectLink": "https://friends-archive-two.vercel.app",
+      "technologies": [
+        "Next.js",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL",
+        "Tailwind CSS",
+        "Radix UI",
+        "Framer Motion",
+        "Vercel"
+      ],
+      "type": "webapp"
+    },
+    "project4": {
+      "slug": "sudoku-nfc",
+      "title": "Sudoku NFC",
+      "shortDescription": "Solo Developer • Published on Google Play — write Sudoku puzzles to physical NFC tags and scan them to play",
+      "role": "Solo Developer",
+      "outcome": "Published on Google Play",
+      "duration": "Built in 1 month",
+      "thumbnailImage": "/works/sudoku/cover.jpg",
+      "previewVideo": null,
+      "date": "2026-02",
+      "teamSize": 1,
+      "content": [
+        {
+          "type": "section",
+          "title": "Overview",
+          "text": "**Sudoku NFC** turns cheap **NFC tags into playable Sudoku cards**. You create a puzzle in the app, write it to a tag, and from then on tapping your phone against that tag loads the puzzle and drops you straight into playing it. The idea was to give a digital puzzle a physical object to live on  a stack of tags on your desk becomes a stack of Sudokus you can hand to someone. It's built with **Expo** and **React Native**, and it's on **Google Play**."
+        },
+        {
+          "type": "media",
+          "src": "/works/sudoku/play.webp",
+          "description": "Home screen and the scan-to-play flow waiting for a tag."
+        },
+        {
+          "type": "section",
+          "title": "Getting a Sudoku Onto a Tag",
+          "text": "This was the fun constraint. A cheap **NTAG213** tag holds about **144 bytes**, so there was no room for JSON, metadata, or anything clever. A puzzle is stored as a raw **81-character string** (digits, `0` for empty), and multiple puzzles are packed with a single comma between them  no prefixes, no wrappers. That's **81 bytes per puzzle**, 82 for each one after the first. The app does the arithmetic both ways: it can tell you how many bytes a set of puzzles needs, and how many puzzles will actually fit in a given tag's capacity, so a write fails before it starts rather than halfway through."
+        },
+        {
+          "type": "section",
+          "title": "Writing & Reading Tags",
+          "text": "Everything goes through **NDEF** text records with `react-native-nfc-manager`. Before any of that, the app checks whether the device even supports NFC and whether it's switched on, and offers to open the system settings if it isn't. On **Android** an intent filter for `NDEF_DISCOVERED` means the OS can hand the app a tag directly, and scans can be cancelled mid-flight instead of hanging. Reading is deliberately forgiving: every puzzle on the tag is validated on the way in, malformed ones are collected as errors instead of crashing the scan, and anything that isn't a well-formed puzzle simply doesn't load."
+        },
+        {
+          "type": "media",
+          "src": "/works/sudoku/write.webp",
+          "description": "Three ways to create a puzzle, and the manual 9x9 grid editor."
+        },
+        {
+          "type": "section",
+          "title": "Three Ways to Make a Puzzle",
+          "text": "You can **paste an 81-character string**, **fill a 9x9 grid by hand**, or **generate one automatically**. The manual editor validates as you go and shows conflicts live, because finding out your hand-built puzzle was broken only after writing it to a tag would be miserable. Puzzles queue up in a **write buffer** so you can build several and commit them to a tag in one tap, with the capacity check deciding how many actually fit."
+        },
+        {
+          "type": "section",
+          "title": "The Sudoku Engine",
+          "text": "The engine is the biggest module in the project and it's plain JavaScript with no dependencies. Generation starts from a **complete solution built by backtracking**, then removes clues while checking the puzzle stays solvable. The part I'm proudest of is **difficulty**: instead of counting clues  which barely correlates with how hard a puzzle feels  it scores a puzzle by **solving it the way a person would**, using singles techniques, and grades it from the effort that takes. The score maps to **Easy, Medium, Hard, or Expert**, and a puzzle that can't be cracked that way is Expert by definition. Generation then retries until it lands in the difficulty band you asked for."
+        },
+        {
+          "type": "section",
+          "title": "Playing",
+          "text": "The board itself is a normal, comfortable Sudoku: a number pad, **pencil marks** for candidates, conflict highlighting, and locked cells you can't overwrite. You can **verify your solution** at any point, or reset and start the puzzle over. The helpers are optional and live in settings  **timer**, **region highlighting**, and **error checking**  so you can play with training wheels or without. There's haptic feedback on input, and puzzles you've scanned are kept locally so a tag you've already read stays playable."
+        },
+        {
+          "type": "section",
+          "title": "Learning Outcomes",
+          "text": "Two things stuck. First, **hardware constraints make better design**: 144 bytes killed every over-engineered format I considered and left something that's trivial to read, write, and debug. Second, **shipping is its own skill**  icons, adaptive icons, permission strings, store listing, versioning, an actual release build. Getting it onto **Google Play** taught me more about the last mile of mobile development than the code did."
+        }
+      ],
+      "cover": "/works/sudoku/cover.jpg",
+      "bgColor": "#6b63f5",
+      "url": "https://play.google.com/store/apps/details?id=com.albyeah.sudokunfc",
+      "projectLink": "https://play.google.com/store/apps/details?id=com.albyeah.sudokunfc",
+      "technologies": [
+        "Expo",
+        "React Native",
+        "JavaScript",
+        "Expo Router",
+        "NFC / NDEF",
+        "Android"
+      ],
+      "type": "videogame"
+    },
+    "project7": {
+      "slug": "ar-ipad-experience",
+      "title": "AR iPad Experience",
+      "nda": true,
+      "shortDescription": "AR Developer • Confidential iPad AR app delivered under NDA — marker tracking, 3D asset integration and real-time mobile rendering",
+      "role": "AR Developer",
+      "outcome": "Confidential iPad AR app delivered under NDA",
+      "duration": "Built in 5 months",
+      "previewVideo": null,
+      "date": "2025-11",
+      "teamSize": 4,
+      "content": [
+        {
+          "type": "section",
+          "title": "Overview",
+          "text": "This one is covered by an **NDA**, so I can't show the client, the artwork, or what the app is actually for. What I can talk about is the engineering: it's an **augmented reality iPad application** built in **Unity** with the **Vuforia Engine**, where you point the tablet at a real-world target and the digital content anchors onto it and stays there while you move around. Everything below is about how that was built, not about what it shows."
+        },
+        {
+          "type": "section",
+          "title": "My Role",
+          "text": "I implemented the **AR experience end to end**: target tracking, object placement, the **UI**, the animations, and the overall **project architecture**. Working under NDA meant being careful about what left the repo, but internally it was a normal Unity project with all the usual constraints  and a few extra ones that come with running AR on a tablet."
+        },
+        {
+          "type": "section",
+          "title": "Tracking & Spatial Positioning",
+          "text": "The core challenge was making virtual objects feel like they actually belong in the room. I worked with **Vuforia's** tracking to anchor content to real-world targets, then spent a lot of time on **object positioning in AR space**  getting scale, orientation, and offsets right so things sit where you expect them to. Tracking never behaves perfectly in the real world: lighting changes, people move the tablet too fast, targets get partially covered. I handled the **recovery and re-anchoring** cases so the experience degrades gracefully instead of having objects pop or drift away."
+        },
+        {
+          "type": "section",
+          "title": "3D Assets & Render Performance",
+          "text": "I integrated the **3D assets** into the scene and got them running smoothly on **iOS** hardware, which is where most of the work went. AR is expensive: the camera feed, the tracking, and the rendering are all fighting for the same frame budget, and dropping frames in AR doesn't just look bad, it breaks the illusion that the object is really there. I worked through **draw calls, material and texture setup, mesh complexity, and lighting** to keep **real-time rendering** stable on the device rather than just in the editor."
+        },
+        {
+          "type": "section",
+          "title": "UI, Buttons & Animation",
+          "text": "I designed and implemented the **interface** on top of the AR view: the **buttons**, the states, and the **animations** that tie them together. AR UI is its own problem  the camera feed behind it is unpredictable, so contrast and placement have to hold up against whatever the user happens to be pointing at. I kept the transitions short and readable so the interface guides you without ever competing with the AR content itself."
+        },
+        {
+          "type": "section",
+          "title": "Architecture & Asset Organization",
+          "text": "I set up the **project architecture** from the start: **folder structure**, naming, prefab organization, and how **assets and resources** were managed across the project. This is the boring part that nobody sees, but on a project with a lot of incoming 3D content it's what keeps things from turning into a mess. Clean organization plus **Git** meant changes stayed reviewable and the build stayed predictable as the asset count grew."
+        },
+        {
+          "type": "section",
+          "title": "Learning Outcomes",
+          "text": "This project taught me a lot about **AR development** specifically: how different it is to debug something that only misbehaves in physical space, and how much **mobile performance** work AR really demands. It also pushed me on **architecture discipline**  when you can't share screenshots or ask the internet about your exact problem, the structure of your own project is what saves you."
+        }
+      ],
+      "bgColor": "#5a4fcf",
+      "url": "",
+      "projectLink": "",
+      "technologies": ["Unity", "C#", "Vuforia Engine", "iOS", "Git"],
+      "type": "webapp"
+    },
+    "project8": {
+      "slug": "cross-platform-content-app",
+      "title": "Cross-Platform Content App",
+      "nda": true,
+      "shortDescription": "Full-Stack Developer • Confidential iOS and Android app delivered under NDA — publishing, rating and commenting on user-generated content",
+      "role": "Full-Stack Developer",
+      "outcome": "Confidential iOS and Android app delivered under NDA",
+      "duration": "Built in 6 months",
+      "previewVideo": null,
+      "date": "2026-02",
+      "teamSize": 2,
+      "content": [
+        {
+          "type": "section",
+          "title": "Overview",
+          "text": "Another **NDA** project, so no client, no screenshots, and nothing about what people actually post on it. In technical terms it's a **cross-platform mobile app** built with **Flutter** and backed by **Firebase**: users publish their own content, and other users can **rate and comment** on it. One codebase, shipping to both **iOS** and **Android**."
+        },
+        {
+          "type": "section",
+          "title": "My Role",
+          "text": "I worked **full-stack** on this: the **Flutter** client, the **Firebase** backend, the **authentication**, and the **application architecture** that holds it together. Being responsible for both sides meant I could design the data model and the UI against each other instead of negotiating an API in the middle, which made a lot of decisions faster."
+        },
+        {
+          "type": "section",
+          "title": "Application Architecture",
+          "text": "I set up the **architecture** early: how state flows through the app, where the Firebase calls live, and how the UI stays decoupled from the data layer so screens stay testable and easy to change. User-generated content means the app is basically never in a static state  things get posted, rated, and commented on while you're looking at them  so the structure had to make **reactive updates** the normal case rather than a special one."
+        },
+        {
+          "type": "section",
+          "title": "Firebase Backend",
+          "text": "The whole backend runs on **Firebase**. I designed the **data model** around the read patterns rather than the write ones, because a content feed reads constantly and writes rarely, and modelling it the wrong way around gets expensive fast. That covered how content, ratings, and comments relate to each other, how aggregate scores stay consistent, and **security rules** so users can only touch what's actually theirs."
+        },
+        {
+          "type": "section",
+          "title": "Authentication & Login",
+          "text": "I implemented **authentication and login**, including the account flows, session persistence across app launches, and the states around them  signed out, signing in, signed in, and all the failure cases in between. On a platform where everything is tied to a user identity, auth isn't a screen you build once and forget: it's the thing every other feature quietly depends on."
+        },
+        {
+          "type": "section",
+          "title": "Ratings & Comments",
+          "text": "The social layer is what makes the app work: users **rate** and **comment** on what other people publish, and that feedback has to show up quickly and consistently. I built these so the interface responds immediately while the backend catches up, and so the same content looks the same whichever device you open it on."
+        },
+        {
+          "type": "section",
+          "title": "Cross-Platform Development",
+          "text": "Shipping one **Flutter** codebase to **iOS** and **Android** is a huge time saver, but it isn't free  the two platforms disagree about permissions, keyboards, navigation gestures, and plenty of small behaviours that only show up on real devices. I tested against both throughout instead of treating one as the main platform and the other as a port."
+        },
+        {
+          "type": "section",
+          "title": "Learning Outcomes",
+          "text": "This project pushed my **Flutter** and **Firebase** skills a long way, especially around **data modelling** and **authentication**. The bigger lesson was about user-generated content: the moment real people can publish, rate, and comment, the edge cases stop being hypothetical, and you learn to design for them up front instead of patching them later."
+        }
+      ],
+      "bgColor": "#0468d7",
+      "url": "",
+      "projectLink": "",
+      "technologies": ["Flutter", "Firebase", "iOS", "Android"],
+      "type": "webapp"
     }
   }
 }

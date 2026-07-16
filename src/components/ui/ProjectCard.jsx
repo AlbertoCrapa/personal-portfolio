@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { getProjectCover } from '../../utils/utils';
+
 /**
  * ProjectCard Component
  * Card for displaying projects in grid layout
@@ -16,7 +18,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
 
     if (!project) return null;
 
-    const thumbnailImage = project.thumbnailImage || project.cover;
+    const thumbnailImage = getProjectCover(project);
     const previewVideo = project.previewVideo || project.videocover;
     const shortDescription = project.shortDescription || project.description;
     const projectDuration = project.duration;

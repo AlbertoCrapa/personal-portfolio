@@ -28,6 +28,20 @@ export function cn(...inputs) {
 }
 
 /**
+ * Shared cover for projects that ship without their own artwork (NDA work).
+ */
+export const NDA_COVER = "/img/nda-cover.svg";
+
+/**
+ * Resolve a project's cover image, falling back to the NDA placeholder.
+ * @param {Object} project - Project or playground item
+ * @returns {string}
+ */
+export function getProjectCover(project) {
+  return project?.thumbnailImage || project?.cover || NDA_COVER;
+}
+
+/**
  * Comprehensive device detection utilities
  */
 export const deviceDetection = {

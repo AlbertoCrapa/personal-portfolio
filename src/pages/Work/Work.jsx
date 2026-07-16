@@ -12,6 +12,7 @@ import RichText from '../../components/ui/RichText';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
 import { ShimmerText } from '../../components/ui/NavAnimations';
+import { getProjectCover } from '../../utils/utils';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
 
@@ -65,7 +66,7 @@ const Work = ({ source = 'projects' }) => {
     const tocSections = contentElements
         .filter((el) => el?.title && (el?.type === 'section' || !el?.type))
         .map((el) => ({ id: toId(el.title), title: el.title }));
-    const projectCover = project.thumbnailImage || project.cover;
+    const projectCover = getProjectCover(project);
     const projectVideoCover = project.previewVideo || project.videocover || projectCover;
     const firstTextSection = contentElements.find(
         (item) => (item?.type === 'section' || (!item?.type && item?.text)) && typeof item?.text === 'string' && item.text.trim()
@@ -160,6 +161,9 @@ const Work = ({ source = 'projects' }) => {
                             )}
                             {project.role && (
                                 <span>Role: {project.role}</span>
+                            )}
+                            {project.nda && (
+                                <span>Under NDA</span>
                             )}
                         </div>
 

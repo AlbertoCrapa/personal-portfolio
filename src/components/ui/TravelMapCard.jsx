@@ -35,6 +35,7 @@ const TravelMapCard = ({
     title = 'Map',
     subtitle = 'Current base and travel highlights.',
     stops = DEFAULT_STOPS,
+    bare = false,
 }) => {
     const containerRef = React.useRef(null);
     const mapRef = React.useRef(null);
@@ -104,6 +105,21 @@ const TravelMapCard = ({
             mapRef.current = null;
         };
     }, [stops]);
+
+    // Frameless variant — used inside the homepage curiosities panel,
+    // where the tab module already provides the framing.
+    if (bare) {
+        return (
+            <div className="space-y-3">
+                <div className="travel-map-shell travel-map-shell--panel">
+                    <div ref={containerRef} className="travel-map-canvas" />
+                </div>
+                <p className="text-xs text-text-secondary">
+                    Pins show my base city and some places I have traveled to.
+                </p>
+            </div>
+        );
+    }
 
     return (
         <article className="extras-card map-extras-card space-y-3">
