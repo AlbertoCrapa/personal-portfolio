@@ -1,7 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { getProjectCover } from '../../utils/utils';
+
+const PlayIcon = ({ className = 'w-3.5 h-3.5' }) => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+        <path d="M8 5.14v13.72a1 1 0 0 0 1.5.87l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
+    </svg>
+);
 
 /**
  * ProjectCard Component
@@ -15,6 +21,7 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
     const [isHovered, setIsHovered] = useState(false);
     const [canPlayVideo, setCanPlayVideo] = useState(false);
     const videoRef = useRef(null);
+    const navigate = useNavigate();
 
     if (!project) return null;
 
@@ -24,6 +31,16 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
     const projectDuration = project.duration;
     const projectLink = project.projectLink || project.url;
     const techPreview = Array.isArray(project.technologies) ? project.technologies.slice(0, 3) : [];
+    const isPlayable = Boolean(project.experience);
+    const playPath = `${basePath}/${project.slug}/play`;
+    const goToExperience = (e) => {
+        // ProjectCard is itself a <Link>; nesting an inner Link/anchor would be
+        // invalid HTML, so this stays a plain button and navigates imperatively
+        // after stopping the outer Link's navigation.
+        e.preventDefault();
+        e.stopPropagation();
+        navigate(playPath);
+    };
 
     const sizeClasses = {
         large: 'col-span-2 row-span-2',
@@ -56,9 +73,22 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                     />
                 </div>
                 <div className="flex-1 min-w-0">
-                    <h3 className="text-base md:text-lg font-semibold text-text-primary truncate">
-                        {project.title}
-                    </h3>
+                    <div className="flex items-center gap-2">
+                        <h3 className="text-base md:text-lg font-semibold text-text-primary truncate">
+                            {project.title}
+                        </h3>
+                        {isPlayable && (
+                            <button
+                                type="button"
+                                onClick={goToExperience}
+                                className="flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-accent-blue text-white hover:bg-accent-blue/90 transition-colors"
+                                aria-label={`Start ${project.title}`}
+                                title="Start experience"
+                            >
+                                <PlayIcon className="w-3 h-3 ml-0.5" />
+                            </button>
+                        )}
+                    </div>
                     {shortDescription && (
                         <p className="text-sm text-text-muted line-clamp-2 mt-1">{shortDescription}</p>
                     )}
@@ -110,6 +140,19 @@ const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
                             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered && canPlayVideo ? 'opacity-100' : 'opacity-0'
                                 }`}
                         />
+                    )}
+
+                    {isPlayable && (
+                        <button
+                            type="button"
+                            onClick={goToExperience}
+                            className="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 bg-bg/90 backdrop-blur-sm pl-2.5 pr-3 py-1.5 rounded-full text-xs font-medium text-text-primary hover:bg-accent-blue transition-colors"
+                            aria-label={`Start ${project.title}`}
+                            title="Start experience"
+                        >
+                            <PlayIcon />
+                            Start
+                        </button>
                     )}
                 </div>
 

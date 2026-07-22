@@ -149,11 +149,28 @@ const Work = ({ source = 'projects' }) => {
                             <p className="text-lg text-text-secondary">{project.subtitle}</p>
                         )}
 
+                        {/* Playable experience CTA */}
+                        {project.experience && (
+                            <Button to={`${basePath}/${slug}/play`} variant="primary">
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                    <path d="M8 5.14v13.72a1 1 0 0 0 1.5.87l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
+                                </svg>
+                                Start Experience
+                            </Button>
+                        )}
+
                         {/* Project Metadata */}
                         <div className="flex flex-wrap gap-4 text-sm text-text-muted">
                             {project.date && (
                                 <span>
-                                    {new Date(project.date + '-01').toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                                    {(() => {
+                                        // Some entries use a "YYYY-ongoing" placeholder instead of a
+                                        // real "YYYY-MM" month, which isn't parseable as a date.
+                                        const parsed = new Date(`${project.date}-01`);
+                                        return Number.isNaN(parsed.getTime())
+                                            ? project.date
+                                            : parsed.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+                                    })()}
                                 </span>
                             )}
                             {project.teamSize && (

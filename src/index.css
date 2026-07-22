@@ -8,6 +8,14 @@ body {
 }
 
 html {
+  /* Always render the vertical scrollbar track. `scrollbar-gutter: stable`
+     alone is not enough: when a modal locks scrolling by taking <body> out of
+     flow (position: fixed), Chrome drops the reserved gutter and the classic
+     scrollbar's width is handed back to the layout — the whole page (and the
+     fixed top nav) jumps sideways on Windows/Linux. macOS hides the bug because
+     its overlay scrollbars occupy no layout space. Forcing `scroll` pins the
+     track in place in every state. */
+  overflow-y: scroll;
   scrollbar-gutter: stable;
   /* Fallback until App.js measures the real value; keeps 100vw math safe. */
   --scrollbar-width: 0px;

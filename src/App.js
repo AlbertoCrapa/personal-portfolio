@@ -13,6 +13,7 @@ import Layout from "./layouts/Layout";
 const Home = lazy(() => import("./pages/Home/Home"));
 const Projects = lazy(() => import("./pages/Projects/Projects"));
 const Playground = lazy(() => import("./pages/Playground/Playground"));
+const Experience = lazy(() => import("./pages/Experience/Experience"));
 const Work = lazy(() => import("./pages/Work/Work"));
 const BlogList = lazy(() => import("./pages/Blog/BlogList"));
 const BlogPage = lazy(() => import("./pages/Blog/BlogPage"));
@@ -35,9 +36,27 @@ function App() {
       );
     };
 
-    updateScrollbarWidth();
+    // Wait a frame: on mount the first layout can still report a full-width
+    // client rect, which would pin the var at 0px for the rest of the session.
+    const raf = requestAnimationFrame(updateScrollbarWidth);
     window.addEventListener("resize", updateScrollbarWidth);
-    return () => window.removeEventListener("resize", updateScrollbarWidth);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", updateScrollbarWidth);
+    };
+  }, []);
+
+  // `-webkit-user-drag: none` (theme.css) covers Chromium and Safari; Firefox
+  // ignores it, so block the native drag of any media element here too.
+  useEffect(() => {
+    const blockMediaDrag = (e) => {
+      const el = e.target;
+      if (el instanceof Element && el.matches("img, video, canvas")) {
+        e.preventDefault();
+      }
+    };
+    document.addEventListener("dragstart", blockMediaDrag);
+    return () => document.removeEventListener("dragstart", blockMediaDrag);
   }, []);
 
   useEffect(() => {
@@ -84,6 +103,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/playground" element={<Playground />} />
+          <Route path="/playground/:slug/play" element={<Experience />} />
           <Route
             path="/playground/:slug"
             element={<Work source="playground" />}

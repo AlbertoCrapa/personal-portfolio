@@ -67,7 +67,55 @@
         "Object-Oriented Design"
       ],
       "tags": ["c++", "ai", "pathfinding", "game-dev", "experiments"],
-      "type": "playground"
+      "type": "playground",
+      "experience": {
+        "kind": "wasm-canvas",
+        "instructions": "Pick a behavior from the panel on the right, then click or drag in the scene to interact with the agent."
+      }
+    },
+    {
+      "slug": "motion-overlay",
+      "title": "Motion Overlay",
+      "shortDescription": "Personal Experiment • Webcam face & hand tracking with an icon overlay that reacts to your expression and gesture, entirely on-device with MediaPipe",
+      "date": "2026-ongoing",
+      "teamSize": 1,
+      "content": [
+        {
+          "title": "Project Philosophy",
+          "text": "**Motion Overlay** is a small on-device computer vision experiment: it tracks your face and hands through the webcam and drops an icon on top of each one, live, directly in the browser. The icon isn't static either — it reacts to what you're actually doing: **smile, wink, or look surprised** and the face icon follows; make a **fist, thumbs up, peace sign, or point** and the hand icon follows that too. No frame is ever uploaded anywhere — every bit of it runs locally as **WebAssembly**."
+        },
+        {
+          "title": "Why On-Device Tracking",
+          "text": "I wanted to get hands-on with **computer vision that doesn't need a server**. Streaming webcam frames to a backend for inference is the easy path, but it's slower, it costs money per user, and it means someone else's camera feed is leaving their machine. Running the models client-side with **MediaPipe Tasks Vision** answered all three: instant feedback, zero infrastructure, and the video never leaves the tab."
+        },
+        {
+          "title": "Reading Expressions & Gestures",
+          "text": "Under the hood this uses MediaPipe's **FaceLandmarker** (with blendshapes turned on) and **GestureRecognizer**, two pre-trained models compiled to WebAssembly. Blendshapes are ARKit-style scores like *mouthSmileLeft* or *jawOpen* — I threshold a handful of them to pick between a smile, a laugh, a wink, surprise, a frown, or a pucker. The gesture model classifies each hand directly into a fixed set: **fist, open palm, thumbs up/down, peace sign, pointing, or \"I love you\"** — it isn't something I trained, Google ships it pre-built into the same package."
+        },
+        {
+          "title": "Making It Feel Alive",
+          "text": "Raw landmark coordinates jitter a lot frame-to-frame, so each icon's position is **smoothed with an exponential lerp** rather than snapping straight to the detection, and a recognized expression or gesture has to **hold for a few consecutive frames** before the icon actually switches — otherwise a single misread frame makes it flicker. The video and the icons are mirrored together as a single unit for a natural selfie view, while the icon glyphs themselves are counter-flipped so they never render backwards."
+        },
+        {
+          "title": "Respecting the Camera",
+          "text": "Camera access is never requested automatically. The experience opens on a plain **\"Enable camera\"** step with a short explanation of what happens to the feed (nothing — it never leaves the browser), so the permission prompt is always a direct result of an explicit choice, not something sprung on you the moment the page loads."
+        }
+      ],
+      "cover": "/img/motion-overlay-cover.svg",
+      "bgColor": "#9b84e7",
+      "technologies": [
+        "MediaPipe",
+        "WebAssembly",
+        "WebRTC",
+        "Computer Vision",
+        "React"
+      ],
+      "tags": ["ai", "computer-vision", "webcam", "experiments"],
+      "type": "playground",
+      "experience": {
+        "kind": "webcam-overlay",
+        "instructions": "Enable your camera, then try a fist, thumbs up, peace sign, or a big smile — the icon on your face and hands reacts to what it sees."
+      }
     }
   ]
 }

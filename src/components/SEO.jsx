@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-  title = "Alberto Crapanzano - Technical Designer & Creative Developer",
+  title = "Alberto Crapanzano - Creative Developer & Technical Designer",
   description = "Alberto Crapanzano (Albyeah) is a Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences.",
   keywords = "Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine, Milan, Video Games, Tech Art, React Developer",
   image = "https://albyeah.com/img/profile.jpg",

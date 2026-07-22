@@ -35,6 +35,11 @@ import VideoPlayer from './VideoPlayer';
 const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
 const OPEN_MS = 480;
 const CLOSE_MS = 380;
+// Minimum time the overlay stays open. The open morph (OPEN_MS) and the secret
+// re-center that follows it need to finish before a close can land, otherwise
+// the collapse animation targets a slot that is still moving. A close asked for
+// inside this window is deferred, never dropped.
+const MIN_OPEN_MS = 600;
 
 const prefersReducedMotion = () =>
     typeof window !== 'undefined' &&
@@ -83,6 +88,8 @@ const MediaFrame = ({
     const scrollLockY = useRef(0);
     const centeredScrollY = useRef(null);
     const centerTimer = useRef(null);
+    const openedAt = useRef(0);
+    const pendingCloseTimer = useRef(null);
     const aspectRef = useRef(isVideo ? 16 / 9 : null);
 
     // The single, reusable media host that we move between inline and fullscreen.
@@ -139,8 +146,9 @@ const MediaFrame = ({
 
     // Lock scroll while open. Uses position:fixed on <body> (not overflow) so we
     // can secretly re-center the frozen page, and relies on the app's
-    // `scrollbar-gutter: stable` (index.css) to avoid any horizontal shift when
-    // the scrollbar toggles: no manual padding compensation.
+    // `overflow-y: scroll` (index.css) keeping the scrollbar track present even
+    // though the frozen document no longer overflows: no horizontal shift, so
+    // no manual padding compensation.
     useEffect(() => {
         if (!mounted) return;
         const { body, documentElement: html } = document;
@@ -190,6 +198,11 @@ const MediaFrame = ({
             clearTimeout(closingTimer.current);
             closingTimer.current = null;
         }
+        if (pendingCloseTimer.current) {
+            clearTimeout(pendingCloseTimer.current);
+            pendingCloseTimer.current = null;
+        }
+        openedAt.current = performance.now();
         const inline = inlineTargetRef.current;
         if (inline) {
             // Scroll position that would center this slot (computed before the
@@ -208,7 +221,7 @@ const MediaFrame = ({
         setMounted(true);
     };
 
-    const closeFullscreen = useCallback(() => {
+    const runClose = useCallback(() => {
         const stage = stageRef.current;
 
         const finish = () => {
@@ -229,6 +242,21 @@ const MediaFrame = ({
         closingTimer.current = setTimeout(finish, CLOSE_MS);
     }, []);
 
+    // Hold the overlay open for MIN_OPEN_MS; an early close request is queued to
+    // fire the moment the buffer runs out (repeat requests collapse into one).
+    const closeFullscreen = useCallback(() => {
+        if (pendingCloseTimer.current) return;
+        const remaining = MIN_OPEN_MS - (performance.now() - openedAt.current);
+        if (remaining > 0) {
+            pendingCloseTimer.current = setTimeout(() => {
+                pendingCloseTimer.current = null;
+                runClose();
+            }, remaining);
+            return;
+        }
+        runClose();
+    }, [runClose]);
+
     // ESC to close.
     useEffect(() => {
         if (!mounted) return;
@@ -239,6 +267,7 @@ const MediaFrame = ({
 
     useEffect(() => () => {
         if (closingTimer.current) clearTimeout(closingTimer.current);
+        if (pendingCloseTimer.current) clearTimeout(pendingCloseTimer.current);
     }, []);
 
     // The media element itself, rendered once into the movable host.

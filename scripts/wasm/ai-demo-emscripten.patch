@@ -1,0 +1,127 @@
+diff --git a/src/Game.cpp b/src/Game.cpp
+index 7b0ec6c..988d879 100644
+--- a/src/Game.cpp
++++ b/src/Game.cpp
+@@ -7,6 +7,10 @@
+ #include <iostream>
+ #include <vector>
+ 
++#ifdef __EMSCRIPTEN__
++#include <emscripten.h>
++#endif
++
+ namespace
+ {
+   constexpr int WINDOW_WIDTH = 1024;
+@@ -164,6 +168,31 @@ void Game::RenderFrame(std::vector<Agent> &agents)
+   SDL_RenderPresent(renderer);
+ }
+ 
++Game::Game() = default;
++Game::~Game() = default;
++
++void Game::StepOnce()
++{
++  HandleInput(isRunning, agents, isMouseDown, isDragging);
++  UpdateAgents(agents);
++  RenderFrame(agents);
++}
++
++#ifdef __EMSCRIPTEN__
++void Game::EmscriptenStep(void *arg)
++{
++  Game *game = static_cast<Game *>(arg);
++  game->StepOnce();
++
++  if (!game->isRunning)
++  {
++    DebugUI::Shutdown();
++    game->CleanupSDL();
++    emscripten_cancel_main_loop();
++  }
++}
++#endif
++
+ void Game::Run()
+ {
+   if (!InitSDL())
+@@ -173,20 +202,24 @@ void Game::Run()
+ 
+   DebugUI::Init(window, renderer);
+ 
+-  bool isRunning = true;
+-  std::vector<Agent> agents;
++  isRunning = true;
++  agents.clear();
+   agents.emplace_back(Vector2{START_X, START_Y}, true);
+-
+-  bool isMouseDown = false;
+-  bool isDragging = false;
+-
++  isMouseDown = false;
++  isDragging = false;
++
++#ifdef __EMSCRIPTEN__
++  // 0 fps = sync to requestAnimationFrame; simulate_infinite_loop keeps our
++  // stack frame alive so Run() "never returns" from the caller's point of
++  // view, matching the desktop while-loop's blocking behavior.
++  emscripten_set_main_loop_arg(&Game::EmscriptenStep, this, 0, 1);
++#else
+   while (isRunning)
+   {
+-    HandleInput(isRunning, agents, isMouseDown, isDragging);
+-    UpdateAgents(agents);
+-    RenderFrame(agents);
++    StepOnce();
+   }
+ 
+   DebugUI::Shutdown();
+   CleanupSDL();
++#endif
+ }
+diff --git a/src/Game.h b/src/Game.h
+index d4e14d0..aabd860 100644
+--- a/src/Game.h
++++ b/src/Game.h
+@@ -8,7 +8,19 @@ class Agent;
+ class Game
+ {
+   public:
+-    // Starts the application until the user closes the window.
++    // Declared here but defined in Game.cpp (out-of-line), where Agent.h is
++    // visible: agents is a std::vector<Agent> member below, and Agent is
++    // only forward-declared in this header. The implicit versions of both
++    // special members need Agent's complete type wherever they'd otherwise
++    // be generated (ctor for exception-safe unwind of later members, dtor to
++    // destroy elements) — declaring them here and defining them in Game.cpp
++    // defers that requirement to the one TU where Agent.h is included.
++    Game();
++    ~Game();
++
++    // Starts the application. On desktop this blocks until the user closes
++    // the window; under Emscripten it hands the loop to the browser and
++    // returns immediately (see StepOnce/EmscriptenStep).
+     void Run();
+ 
+   private:
+@@ -19,6 +31,20 @@ class Game
+     void UpdateAgents(std::vector<Agent> &agents);
+     void RenderFrame(std::vector<Agent> &agents);
+ 
++    // Runs exactly one frame (input + update + render) against the member
++    // simulation state. Shared by the desktop while-loop and the
++    // Emscripten per-frame callback below.
++    void StepOnce();
++
++#ifdef __EMSCRIPTEN__
++    static void EmscriptenStep(void *arg);
++#endif
++
+     SDL_Window *window = nullptr;
+     SDL_Renderer *renderer = nullptr;
++
++    std::vector<Agent> agents;
++    bool isRunning = true;
++    bool isMouseDown = false;
++    bool isDragging = false;
+ };

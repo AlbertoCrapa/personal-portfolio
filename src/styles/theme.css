@@ -141,6 +141,15 @@ img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Media never takes part in a text selection and never starts a native drag,
+   so pressing and dragging across it (drag-scroll carousels, the fullscreen
+   morph) doesn't leave a blue selection or a ghost image trailing the cursor. */
+img,
+video,
+canvas {
+  -webkit-user-select: none;
   user-select: none;
   -webkit-user-drag: none;
 }
