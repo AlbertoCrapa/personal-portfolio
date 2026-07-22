@@ -2,8 +2,13 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '../components/ui/Button';
 
 // Pinned to the installed @mediapipe/tasks-vision version so the JS API and
-// the wasm binary it loads never drift out of sync with each other.
-const WASM_BASE = 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.35/wasm';
+// the wasm binary it loads never drift out of sync with each other. The
+// library itself is loaded from the same pinned CDN copy at runtime rather
+// than bundled (see the import in startExperience below).
+const TASKS_VISION_VERSION = '0.10.35';
+const TASKS_VISION_CDN = `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${TASKS_VISION_VERSION}`;
+const TASKS_VISION_MODULE_URL = `${TASKS_VISION_CDN}/vision_bundle.mjs`;
+const WASM_BASE = `${TASKS_VISION_CDN}/wasm`;
 const FACE_MODEL_URL =
   'https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/latest/face_landmarker.task';
 // GestureRecognizer (not the plainer HandLandmarker) — it classifies the hand
@@ -22,9 +27,10 @@ const LABEL_HOLD_FRAMES = 3; // consecutive matching frames before switching the
 const DEFAULT_FACE_EMOJI = '🙂';
 const DEFAULT_HAND_EMOJI = '🖐';
 
-// Google's pretrained Gesture Recognizer only classifies this fixed set (plus
-// "None") — there's no "middle finger" category, and training a bespoke
-// classifier just for that one gesture isn't worth the added model/pipeline.
+// Google's pretrained Gesture Recognizer classifies this fixed set (plus
+// "None"). It's a real trained model, so it takes priority whenever it's
+// confident; CUSTOM_GESTURE_EMOJI below fills in a few more from raw
+// landmark geometry for poses the canonical model doesn't cover.
 const GESTURE_EMOJI = {
   Closed_Fist: '✊',
   Open_Palm: '✋',
@@ -34,6 +40,56 @@ const GESTURE_EMOJI = {
   Victory: '✌️',
   ILoveYou: '🤟',
 };
+
+// Hand landmark indices (MediaPipe's 21-point hand model).
+const WRIST = 0;
+const THUMB_MCP = 2;
+const THUMB_TIP = 4;
+const INDEX_TIP = 8;
+const MIDDLE_MCP = 9;
+const MIDDLE_TIP = 12;
+const RING_TIP = 16;
+const PINKY_MCP = 17;
+const PINKY_TIP = 20;
+
+const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+
+// Distance-from-wrist comparison rather than a fixed up/down check, so it
+// still works with the hand rotated sideways or upside down in frame.
+function fingerExtended(lm, tipIdx, pipIdx) {
+  return dist(lm[tipIdx], lm[WRIST]) > dist(lm[pipIdx], lm[WRIST]) * 1.15;
+}
+
+// The thumb moves sideways rather than curling toward the wrist like the
+// other fingers, so it's checked against the pinky side of the palm instead.
+function thumbExtended(lm) {
+  return dist(lm[THUMB_TIP], lm[PINKY_MCP]) > dist(lm[THUMB_MCP], lm[PINKY_MCP]) * 1.05;
+}
+
+// Poses outside the canonical model's 7 categories, read straight off the 21
+// landmarks. Thresholds (touch distance, extension margins) are a best-effort
+// geometric estimate, not empirically tuned against a real camera in this
+// environment — nudge them if a shape reads wrong in practice.
+const CUSTOM_GESTURE_EMOJI = {
+  OK_Sign: '👌',
+  Rock_On: '🤘',
+  Call_Me: '🤙',
+  Middle_Finger: '🖕',
+};
+
+function detectCustomGesture(lm) {
+  const thumb = thumbExtended(lm);
+  const index = fingerExtended(lm, INDEX_TIP, 6);
+  const middle = fingerExtended(lm, MIDDLE_TIP, 10);
+  const ring = fingerExtended(lm, RING_TIP, 14);
+  const pinky = fingerExtended(lm, PINKY_TIP, 18);
+
+  if (dist(lm[THUMB_TIP], lm[INDEX_TIP]) < 0.06 && middle && ring && pinky) return 'OK_Sign';
+  if (!thumb && index && !middle && !ring && pinky) return 'Rock_On';
+  if (thumb && !index && !middle && !ring && pinky) return 'Call_Me';
+  if (!thumb && !index && middle && !ring && !pinky) return 'Middle_Finger';
+  return null;
+}
 
 // Ordered face-blendshape heuristics — first match wins, so put more
 // specific/extreme expressions ahead of broader ones (a big open-mouth grin
@@ -62,9 +118,27 @@ function pickFaceEmoji(categories) {
   return match ? match.emoji : DEFAULT_FACE_EMOJI;
 }
 
-function pickHandEmoji(categoryName, score) {
-  if (!categoryName || score < GESTURE_CONFIDENCE_THRESHOLD) return DEFAULT_HAND_EMOJI;
-  return GESTURE_EMOJI[categoryName] || DEFAULT_HAND_EMOJI;
+function pickHandEmoji(categoryName, score, landmarks) {
+  if (categoryName && categoryName !== 'None' && score >= GESTURE_CONFIDENCE_THRESHOLD) {
+    return GESTURE_EMOJI[categoryName] || DEFAULT_HAND_EMOJI;
+  }
+  const custom = landmarks && detectCustomGesture(landmarks);
+  return custom ? CUSTOM_GESTURE_EMOJI[custom] : DEFAULT_HAND_EMOJI;
+}
+
+// "External" (thumb toward the pinky/outer edge of the hand as shown on
+// screen) vs "internal" (thumb toward the frame's center) — flips the icon
+// glyph to match so it doesn't sit backwards relative to the real hand.
+// Hysteresis (two separate thresholds for flipping on vs off) stops the icon
+// flickering when the thumb sits right at the midline.
+const THUMB_SIDE_DEADZONE = 0.02;
+function updateHandFlip(holdState, key, lm) {
+  const entry = holdState[key] || { flipped: false };
+  const side = lm[THUMB_TIP].x - lm[MIDDLE_MCP].x;
+  if (!entry.flipped && side > THUMB_SIDE_DEADZONE) entry.flipped = true;
+  else if (entry.flipped && side < -THUMB_SIDE_DEADZONE) entry.flipped = false;
+  holdState[key] = entry;
+  return entry.flipped;
 }
 
 // Requires the same label for LABEL_HOLD_FRAMES consecutive frames before
@@ -127,6 +201,15 @@ function setIconGlyph(el, emoji) {
   if (span && span.textContent !== emoji) span.textContent = emoji;
 }
 
+// The span's default inline transform (scaleX(-1)) counters the parent
+// mirror layer so the glyph reads right-way-round; flipping it to scaleX(1)
+// instead lets it inherit that mirror, i.e. shows the glyph reversed to
+// match the thumb sitting on the opposite side of the hand.
+function setIconFlip(el, flipped) {
+  const span = el?.firstElementChild;
+  if (span) span.style.transform = flipped ? 'scaleX(1)' : 'scaleX(-1)';
+}
+
 const IconBadge = React.forwardRef(({ defaultIcon }, ref) => (
   <div
     ref={ref}
@@ -160,6 +243,7 @@ const MotionOverlayExperience = ({ onReady }) => {
   const rafRef = useRef(null);
   const smoothedRef = useRef({});
   const labelHoldRef = useRef({});
+  const flipHoldRef = useRef({});
   const mountedRef = useRef(true);
 
   const stopEverything = useCallback(() => {
@@ -214,8 +298,14 @@ const MotionOverlayExperience = ({ onReady }) => {
 
       setPhase('loading');
 
+      // webpackIgnore keeps this a native browser import of the pinned CDN
+      // build instead of a bundled chunk: the package ships a dynamic
+      // require() and a broken source-map reference, both of which webpack
+      // can only report as build warnings. Loading it at runtime also keeps
+      // the wasm glue out of the app bundle — and the wasm/model assets it
+      // pulls already come from this same CDN.
       const { FilesetResolver, FaceLandmarker, GestureRecognizer } = await import(
-        '@mediapipe/tasks-vision'
+        /* webpackIgnore: true */ TASKS_VISION_MODULE_URL
       );
       const fileset = await FilesetResolver.forVisionTasks(WASM_BASE);
       if (!mountedRef.current) return;
@@ -289,9 +379,10 @@ const MotionOverlayExperience = ({ onReady }) => {
             const label = debounceLabel(
               labelHoldRef.current,
               `hand${i}`,
-              pickHandEmoji(top?.categoryName, top?.score ?? 0),
+              pickHandEmoji(top?.categoryName, top?.score ?? 0, lm),
             );
             setIconGlyph(handIconEl, label);
+            setIconFlip(handIconEl, updateHandFlip(flipHoldRef.current, `hand${i}`, lm));
           }
         });
       };
@@ -333,7 +424,7 @@ const MotionOverlayExperience = ({ onReady }) => {
 
       {phase === 'running' && (
         <p className="absolute bottom-3 inset-x-0 z-10 text-center text-xs text-text-muted px-4 pointer-events-none">
-          ✊ fist · ✋ palm · 👍 👎 thumbs · ✌️ peace · 👆 point · 🤟 love you · 😄 😮 😉 😠 😢 expressions
+          ✊ ✋ 👍 👎 ✌️ 👆 🤟 👌 🤘 🤙 🖕 gestures · 😄 😮 😉 😠 😢 expressions
         </p>
       )}
 
