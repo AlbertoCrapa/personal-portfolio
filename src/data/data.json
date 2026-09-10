@@ -128,8 +128,8 @@
     "extras": {
       "favoriteQuotes": [
         {
-          "text": "Games are conversations between systems and players.",
-          "author": "Raph Koster"
+          "text": "Playing a game is the voluntary attempt to overcome unnecessary obstacles.",
+          "author": "Bernard Suits, The Grasshopper"
         },
         {
           "text": "Simplicity is the ultimate sophistication.",
@@ -138,6 +138,38 @@
         {
           "text": "Not all those who wander are lost.",
           "author": "J.R.R. Tolkien"
+        },
+        {
+          "text": "Sharing art is the price of making it. Exposing your vulnerability is the fee.",
+          "author": "Rick Rubin, The Creative Act"
+        },
+        {
+          "text": "Life is so short you can't waste even a day subscribing to what someone thinks you can do versus knowing what you can do.",
+          "author": "Virgil Abloh"
+        },
+        {
+          "text": "If the player isn't tricked into believing that the world is real, then there's no point in making the game.",
+          "author": "Hideo Kojima"
+        },
+        {
+          "text": "I believe that children's souls are the inheritors of historical memory from previous generations.",
+          "author": "Hayao Miyazaki, The Guardian, 2005"
+        },
+        {
+          "text": "Simple stories, complex characters.",
+          "author": "Neil Druckmann"
+        },
+        {
+          "text": "It is only afterward that a new idea seems reasonable. To begin with, it usually seems unreasonable.",
+          "author": "Isaac Asimov, How Do People Get New Ideas?"
+        },
+        {
+          "text": "Man is a mystery: if you spend your entire life trying to puzzle it out, then do not say that you have wasted your time.",
+          "author": "Fyodor Dostoevsky, letter to his brother, 1839"
+        },
+        {
+          "text": "There are more things in heaven and earth, Horatio, than are dreamt of in your philosophy.",
+          "author": "William Shakespeare, Hamlet"
         }
       ],
       "podcasts": [

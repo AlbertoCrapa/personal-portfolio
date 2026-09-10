@@ -447,10 +447,12 @@ const InterestsPanel = ({ interests = [] }) => (
   </div>
 );
 
+// Music and map are temporarily off — uncomment an entry to bring that tab
+// back. With a single entry the tab selector hides itself (see below).
 const CURIO_TABS = [
   { id: 'quotes', label: 'quotes' },
-  { id: 'listening', label: 'music' },
-  { id: 'map', label: 'map' },
+  // { id: 'listening', label: 'music' },
+  // { id: 'map', label: 'map' },
 ];
 
 const CuriosityTabs = ({ extras = {}, spotify = {} }) => {
@@ -469,24 +471,27 @@ const CuriosityTabs = ({ extras = {}, spotify = {} }) => {
 
   return (
     <div>
-      <div role="tablist" aria-label="More about me" className="flex items-center flex-wrap gap-y-1 border-b border-border pb-3">
-        {tabs.map((tab, i) => (
-          <React.Fragment key={tab.id}>
-            {i > 0 && <span className="text-text-muted text-sm select-none mx-3" aria-hidden="true">/</span>}
-            <button
-              type="button"
-              role="tab"
-              aria-selected={current === tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className="py-1 text-sm font-semibold"
-            >
-              <ShimmerText text={tab.label} active={current === tab.id} />
-            </button>
-          </React.Fragment>
-        ))}
-      </div>
+      {/* Nothing to switch between while only one panel is enabled. */}
+      {tabs.length > 1 && (
+        <div role="tablist" aria-label="More about me" className="flex items-center flex-wrap gap-y-1 border-b border-border pb-3">
+          {tabs.map((tab, i) => (
+            <React.Fragment key={tab.id}>
+              {i > 0 && <span className="text-text-muted text-sm select-none mx-3" aria-hidden="true">/</span>}
+              <button
+                type="button"
+                role="tab"
+                aria-selected={current === tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className="py-1 text-sm font-semibold"
+              >
+                <ShimmerText text={tab.label} active={current === tab.id} />
+              </button>
+            </React.Fragment>
+          ))}
+        </div>
+      )}
 
-      <div key={current} role="tabpanel" className="curio-panel pt-6 min-h-[12rem]">
+      <div key={current} role={tabs.length > 1 ? 'tabpanel' : undefined} className={`curio-panel min-h-[12rem] ${tabs.length > 1 ? 'pt-6' : ''}`}>
         {current === 'quotes' && <QuotePanel quotes={extras.favoriteQuotes} />}
         {current === 'podcasts' && <PodcastPanel podcasts={extras.podcasts} />}
         {current === 'listening' && <ListeningPanel spotify={spotify} />}
@@ -678,10 +683,10 @@ const Home = () => {
           </RevealSection>
         )}
 
-        {/* ──────────── MORE ABOUT ME — curiosities console ──────────── */}
+        {/* ──────────── QUOTES — curiosities console (music + map off for now) ──────────── */}
         <RevealSection>
           <section className="space-y-4">
-            <SectionHeader title="More About Me" />
+            <SectionHeader title="Quotes" />
             <CuriosityTabs extras={extras} spotify={spotify} />
           </section>
         </RevealSection>

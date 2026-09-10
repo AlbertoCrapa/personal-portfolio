@@ -4,6 +4,10 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 const BASEMAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
+// Star-shaped glyph used for every place I have actually visited,
+// so those pins read differently from the pulsing "home" dot.
+const VISITED_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.6l2.9 5.88 6.49.94-4.7 4.58 1.11 6.46L12 17.41l-5.8 3.05 1.1-6.46-4.69-4.58 6.49-.94L12 2.6z"/></svg>`;
+
 const DEFAULT_STOPS = [
     {
         id: 'home',
@@ -12,23 +16,19 @@ const DEFAULT_STOPS = [
         longitude: 9.19,
         latitude: 45.4642,
         type: 'home',
-    }// ,
-    // {
-    //     id: 'barcelona',
-    //     label: 'Barcelona',
-    //     note: 'Travel and inspiration stop.',
-    //     longitude: 2.1734,
-    //     latitude: 41.3851,
-    //     type: 'travel',
-    // },
-    // {
-    //     id: 'berlin',
-    //     label: 'Berlin',
-    //     note: 'Great creative and tech scene.',
-    //     longitude: 13.405,
-    //     latitude: 52.52,
-    //     type: 'travel',
-    // }
+    },
+    { id: 'dublin', label: 'Dublin', note: 'Visited.', longitude: -6.2603, latitude: 53.3498, type: 'visited' },
+    { id: 'belfast', label: 'Belfast', note: 'Visited.', longitude: -5.9301, latitude: 54.5973, type: 'visited' },
+    { id: 'vienna', label: 'Vienna', note: 'Visited.', longitude: 16.3738, latitude: 48.2082, type: 'visited' },
+    { id: 'barcelona', label: 'Barcelona', note: 'Visited.', longitude: 2.1734, latitude: 41.3851, type: 'visited' },
+    { id: 'madrid', label: 'Madrid', note: 'Visited.', longitude: -3.7038, latitude: 40.4168, type: 'visited' },
+    { id: 'palma', label: 'Palma de Mallorca', note: 'Visited.', longitude: 2.6502, latitude: 39.5696, type: 'visited' },
+    { id: 'paris', label: 'Paris', note: 'Visited.', longitude: 2.3522, latitude: 48.8566, type: 'visited' },
+    { id: 'san-teodoro', label: 'San Teodoro', note: 'Visited.', longitude: 9.6716, latitude: 40.7772, type: 'visited' },
+    { id: 'cagliari', label: 'Cagliari', note: 'Visited.', longitude: 9.1217, latitude: 39.2238, type: 'visited' },
+    { id: 'rome', label: 'Rome', note: 'Visited.', longitude: 12.4964, latitude: 41.9028, type: 'visited' },
+    { id: 'lucca', label: 'Lucca', note: 'Visited.', longitude: 10.5051, latitude: 43.8430, type: 'visited' },
+    { id: 'san-benedetto', label: 'San Benedetto del Tronto', note: 'Visited.', longitude: 13.8807, latitude: 42.9440, type: 'visited' },
 ];
 
 const TravelMapCard = ({
@@ -66,8 +66,14 @@ const TravelMapCard = ({
 
                 const el = document.createElement('button');
                 el.type = 'button';
-                el.className = `travel-map-pin ${stop.type === 'home' ? 'is-home' : 'is-travel'}`;
+                const pinVariant = stop.type === 'home'
+                    ? 'is-home'
+                    : stop.type === 'visited' ? 'is-visited' : 'is-travel';
+                el.className = `travel-map-pin ${pinVariant}`;
                 el.setAttribute('aria-label', stop.label);
+                if (stop.type === 'visited') {
+                    el.innerHTML = VISITED_ICON;
+                }
 
                 const popup = new maplibregl.Popup({
                     offset: 18,
@@ -115,7 +121,7 @@ const TravelMapCard = ({
                     <div ref={containerRef} className="travel-map-canvas" />
                 </div>
                 <p className="text-xs text-text-secondary">
-                    Pins show my base city and some places I have traveled to.
+                    Blue pin is my base city; stars are places I have visited.
                 </p>
             </div>
         );
@@ -144,7 +150,7 @@ const TravelMapCard = ({
             </div>
 
             <p className="text-xs text-text-secondary">
-                Pins show my base city and some places I have traveled to.
+                Blue pin is my base city; stars are places I have visited.
             </p>
         </article>
     );
