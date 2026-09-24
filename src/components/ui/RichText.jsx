@@ -7,7 +7,7 @@ import { useNotification } from './NotificationProvider';
  * Enhanced markdown-like parser for content
  * 
  * Supports:
- * - **bold** and __underline__
+ * - **bold**, *italic*, __underline__, ==highlight== and ~~strikethrough~~
  * - [link](url) and [link](url){hover text}
  * - > blockquotes
  * - --- horizontal rules
@@ -57,6 +57,17 @@ function parseBlocks(text) {
   let inCodeBlock = false;
   let inCallout = null;
   let calloutContent = [];
+  // Runs of list items / quote lines accumulate here, never in `currentBlock`:
+  // they are already stripped of their marker, so reusing the paragraph buffer
+  // made every item but the last one flush out as its own paragraph.
+  let runBuffer = [];
+
+  const flushParagraph = () => {
+    if (currentBlock.length > 0) {
+      blocks.push({ type: 'paragraph', content: currentBlock.join('\n') });
+      currentBlock = [];
+    }
+  };
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -136,44 +147,35 @@ function parseBlocks(text) {
       continue;
     }
 
-    // Blockquote
+    // Blockquote — a run of consecutive "> " lines collapses into one quote.
     if (line.trim().startsWith('>')) {
-      if (currentBlock.length > 0 && currentBlock[0]?.startsWith('>') === false) {
-        blocks.push({ type: 'paragraph', content: currentBlock.join('\n') });
-        currentBlock = [];
-      }
-      currentBlock.push(line.replace(/^>\s?/, ''));
+      flushParagraph();
+      runBuffer.push(line.replace(/^\s*>\s?/, ''));
       if (!lines[i + 1]?.trim().startsWith('>')) {
-        blocks.push({ type: 'blockquote', content: currentBlock.join('\n') });
-        currentBlock = [];
+        blocks.push({ type: 'blockquote', content: runBuffer.join('\n').trim() });
+        runBuffer = [];
       }
       continue;
     }
 
-    // List item (bullet)
+    // Bullet list — a run of "- " / "* " lines becomes a single <ul>.
     if (/^[-*]\s/.test(line.trim())) {
-      if (currentBlock.length > 0 && !/^[-*]\s/.test(currentBlock[0]?.trim())) {
-        blocks.push({ type: 'paragraph', content: currentBlock.join('\n') });
-        currentBlock = [];
-      }
-      currentBlock.push(line.replace(/^[-*]\s/, '').trim());
-      if (i === lines.length - 1 || !/^[-*]\s/.test(lines[i + 1]?.trim())) {
-        blocks.push({ type: 'ul', items: currentBlock });
-        currentBlock = [];
+      flushParagraph();
+      runBuffer.push(line.trim().replace(/^[-*]\s+/, ''));
+      if (!/^[-*]\s/.test(lines[i + 1]?.trim() || '')) {
+        blocks.push({ type: 'ul', items: runBuffer });
+        runBuffer = [];
       }
       continue;
     }
 
-    // List item (numbered)
+    // Numbered list — a run of "1. " lines becomes a single <ol>.
     if (/^\d+\.\s/.test(line.trim())) {
-      if (currentBlock.length > 0 && !/^\d+\.\s/.test(currentBlock[0]?.trim())) {
-        blocks.push({ type: 'paragraph', content: currentBlock.join('\n') });
-        currentBlock = [];
-      }
-      currentBlock.push(line.replace(/^\d+\.\s/, '').trim());
-      if (i === lines.length - 1 || !/^\d+\.\s/.test(lines[i + 1]?.trim())) {
-        blocks.push({ type: 'ol', items: currentBlock });
-        currentBlock = [];
+      flushParagraph();
+      runBuffer.push(line.trim().replace(/^\d+\.\s+/, ''));
+      if (!/^\d+\.\s/.test(lines[i + 1]?.trim() || '')) {
+        blocks.push({ type: 'ol', items: runBuffer });
+        runBuffer = [];
       }
       continue;
     }
@@ -240,7 +242,7 @@ function renderBlock(block, key) {
 
     case 'ul':
       return (
-        <ul key={key} className="list-disc list-inside space-y-1 text-text-secondary pl-2">
+        <ul key={key} className="list-disc list-outside space-y-2 text-text-secondary pl-5 marker:text-text-muted">
           {block.items.map((item, i) => (
             <li key={i}>{parseInline(item)}</li>
           ))}
@@ -249,7 +251,7 @@ function renderBlock(block, key) {
 
     case 'ol':
       return (
-        <ol key={key} className="list-decimal list-inside space-y-1 text-text-secondary pl-2">
+        <ol key={key} className="list-decimal list-outside space-y-2 text-text-secondary pl-5 marker:text-text-muted">
           {block.items.map((item, i) => (
             <li key={i}>{parseInline(item)}</li>
           ))}
@@ -465,6 +467,9 @@ function parseInline(text) {
     const patterns = [
       { regex: /\*\*(.+?)\*\*/, type: 'bold' },
       { regex: /__(.+?)__/, type: 'underline' },
+      { regex: /==(.+?)==/, type: 'highlight' },
+      { regex: /~~(.+?)~~/, type: 'strike' },
+      { regex: /\*([^*\n]+)\*/, type: 'italic' },
       { regex: /`([^`]+)`/, type: 'code' },
       { regex: /\[([^\]]+)\]\(([^)]+)\)(\{([^}]+)\})?/, type: 'link' },
     ];
@@ -499,7 +504,20 @@ function parseInline(text) {
         result.push(<strong key={key} className="font-semibold text-text-primary">{match[1]}</strong>);
         break;
       case 'underline':
-        result.push(<u key={key} className="underline">{match[1]}</u>);
+        result.push(<u key={key} className="underline decoration-text-muted underline-offset-4">{match[1]}</u>);
+        break;
+      case 'highlight':
+        result.push(
+          <mark key={key} className="bg-accent-orange/15 text-text-primary rounded px-1 py-0.5 box-decoration-clone">
+            {match[1]}
+          </mark>
+        );
+        break;
+      case 'strike':
+        result.push(<s key={key} className="text-text-muted">{match[1]}</s>);
+        break;
+      case 'italic':
+        result.push(<em key={key} className="italic">{match[1]}</em>);
         break;
       case 'code':
         result.push(

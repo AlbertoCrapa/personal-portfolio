@@ -5,10 +5,8 @@ import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
-import MediaFrame from '../../components/ui/MediaFrame';
-import ModelViewer from '../../components/ui/ModelViewer';
-import BeforeAfter from '../../components/ui/BeforeAfter';
-import RichText from '../../components/ui/RichText';
+import ArticleBody from '../../components/ui/ArticleBody';
+import { getArticleSummary, getTocSections, normalizeContent } from '../../components/ui/article/normalize';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
 import { ShimmerText } from '../../components/ui/NavAnimations';
@@ -62,20 +60,16 @@ const Work = ({ source = 'projects' }) => {
     const prevProject = prevCandidate && prevCandidate.slug !== slug ? prevCandidate : null;
     const nextProject = nextCandidate && nextCandidate.slug !== slug ? nextCandidate : null;
     const basePath = isPlayground ? '/playground' : '/work';
-    const contentElements = Array.isArray(project?.content) ? project.content : [];
-    const tocSections = contentElements
-        .filter((el) => el?.title && (el?.type === 'section' || !el?.type))
-        .map((el) => ({ id: toId(el.title), title: el.title }));
+    const contentBlocks = normalizeContent(project?.content);
+    const tocSections = getTocSections(contentBlocks, toId);
     const projectCover = getProjectCover(project);
     const projectVideoCover = project.previewVideo || project.videocover || projectCover;
-    const firstTextSection = contentElements.find(
-        (item) => (item?.type === 'section' || (!item?.type && item?.text)) && typeof item?.text === 'string' && item.text.trim()
-    );
+    const summary = getArticleSummary(contentBlocks, 180);
     const workSchema = project ? {
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
         name: project.title,
-        description: firstTextSection?.text?.substring(0, 180) || `${project.title} by Alberto Crapanzano`,
+        description: summary || `${project.title} by Alberto Crapanzano`,
         image: projectCover ? `https://albyeah.com${projectCover}` : 'https://albyeah.com/img/profile.jpg',
         dateCreated: project.date,
         genre: project.type || (isPlayground ? 'interactive prototype' : 'software project'),
@@ -98,7 +92,7 @@ const Work = ({ source = 'projects' }) => {
         <>
             <SEO
                 title={`${project.title} - Alberto Crapanzano | Game Developer Portfolio`}
-                description={firstTextSection?.text?.substring(0, 160) || `${project.title} by Alberto Crapanzano`}
+                description={summary || `${project.title} by Alberto Crapanzano`}
                 keywords={`${project.title}, ${project.technologies?.join(', ') || ''}, Alberto Crapanzano, Game Development`}
                 url={`${basePath}/${slug}`}
                 image={projectCover ? `https://albyeah.com${projectCover}` : undefined}
@@ -227,68 +221,8 @@ const Work = ({ source = 'projects' }) => {
 
                     {/* Content + ToC */}
                     <div className="flex gap-32 pt-8">
-                        <div className="flex-1 min-w-0 max-w-3xl space-y-8 md:space-y-10">
-                            {contentElements.map((element, idx) => {
-                                const elementType = element?.type || (element?.src ? 'media' : 'section');
-
-                                if (elementType === 'model' && element?.src) {
-                                    return (
-                                        <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
-                                            <div>
-                                                <ModelViewer
-                                                    src={element.src}
-                                                    poster={element.poster}
-                                                    alt={element.alt || element.description || `${project.title} 3D model`}
-                                                    description={element.description}
-                                                    className="w-full h-[280px] sm:h-[340px] md:h-[420px]"
-                                                />
-                                            </div>
-                                        </section>
-                                    );
-                                }
-
-                                if (elementType === 'beforeAfter' && element?.before && element?.after) {
-                                    return (
-                                        <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
-                                            <div>
-                                                <BeforeAfter
-                                                    before={element.before}
-                                                    after={element.after}
-                                                    description={element.description}
-                                                    startAt={element.startAt}
-                                                />
-                                            </div>
-                                        </section>
-                                    );
-                                }
-
-                                if (elementType === 'media' && element?.src) {
-                                    return (
-                                        <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
-                                            <MediaFrame
-                                                src={element.src}
-                                                isVideo={isVideo(element.src)}
-                                                alt={element.description || `${project.title} media`}
-                                                description={element.description}
-                                                allowFullscreen={!(element.nonFullscreen === true || element.fullscreen === false)}
-                                            />
-                                        </section>
-                                    );
-                                }
-
-                                return (
-                                    <section key={idx} className={"space-y-2 md:space-y-4 max-w-3xl"}>
-                                        {element?.title && (
-                                            <h2 id={toId(element.title)} className="text-2xl font-bold text-text-primary">
-                                                {element.title}
-                                            </h2>
-                                        )}
-                                        {element?.text && (
-                                            <RichText text={element.text} />
-                                        )}
-                                    </section>
-                                );
-                            })}
+                        <div className="flex-1 min-w-0 max-w-3xl space-y-10">
+                            <ArticleBody blocks={contentBlocks} title={project.title} />
 
                             {/* Navigation */}
                             <nav className="!mt-10 pt-8 border-t border-border">

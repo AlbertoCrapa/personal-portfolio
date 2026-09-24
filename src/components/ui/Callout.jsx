@@ -3,7 +3,8 @@ import React from 'react';
 /**
  * Callout Component
  * Info/Warning boxes for blog and project content
- * Matches the reference design with colored left border and emoji indicator
+ * Colored left border plus a translucent tint — the fill is deliberately
+ * see-through so a callout reads as an aside, not as a separate panel.
  * 
  * @param {string} type - 'info' | 'warning'
  * @param {React.ReactNode} children - Callout content
@@ -11,12 +12,12 @@ import React from 'react';
 const Callout = ({ type = 'info', children }) => {
     const styles = {
         info: {
-            bg: 'bg-info-bg',
+            bg: 'bg-info-bg/40',
             border: 'border-l-info-border',
             icon: 'ℹ️',
         },
         warning: {
-            bg: 'bg-warning-bg',
+            bg: 'bg-warning-bg/40',
             border: 'border-l-warning-border',
             icon: '⚠️',
         },

@@ -87,7 +87,7 @@ export const ShimmerText = ({
     React.useEffect(() => {
         const container = scope.current;
         if (!container) return;
-        const chars = Array.from(container.children);
+        const chars = shimmerChars(container);
 
         if (active && !prevActiveRef.current) {
             // Became active — sweep left → right
@@ -110,7 +110,7 @@ export const ShimmerText = ({
         const mouseX = e.clientX - rect.left;
         const charWidth = rect.width / (text.length || 1);
         const startIndex = Math.max(0, Math.min(text.length - 1, Math.floor(mouseX / charWidth)));
-        Array.from(container.children).forEach((el, i) =>
+        shimmerChars(container).forEach((el, i) =>
             animate(el, { color: hoverColor }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 }),
         );
     };
@@ -119,10 +119,15 @@ export const ShimmerText = ({
         const container = scope.current;
         if (!container) return;
         const resetColor = active ? activeColor : inactiveColor;
-        Array.from(container.children).forEach((el) =>
+        shimmerChars(container).forEach((el) =>
             animate(el, { color: resetColor }, { duration: 0.15 }),
         );
     };
+
+    // Characters are grouped per word so a long label wraps between words
+    // instead of mid-word: a flat list of one-character flex items has no idea
+    // where the words are. The animation still targets the characters.
+    let charIndex = 0;
 
     return (
         <span
@@ -131,14 +136,26 @@ export const ShimmerText = ({
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            {text.split('').map((char, i) => (
-                <span key={i} style={{ color: active ? activeColor : inactiveColor }}>
-                    {char === ' ' ? '\u00a0' : char}
+            {text.split(/(\s+)/).filter(Boolean).map((word, w) => (
+                <span key={w} className="inline-flex whitespace-nowrap">
+                    {word.split('').map((char, i) => (
+                        <span
+                            key={i}
+                            data-shimmer-char={charIndex++}
+                            style={{ color: active ? activeColor : inactiveColor }}
+                        >
+                            {char === ' ' ? '\u00a0' : char}
+                        </span>
+                    ))}
                 </span>
             ))}
         </span>
     );
 };
+
+/** Flat, in-order list of the character spans inside a ShimmerText. */
+const shimmerChars = (container) =>
+    Array.from(container.querySelectorAll('[data-shimmer-char]'));
 
 // ── LogoName ───────────────────────────────────────────────────────────────
 // Logo text that:

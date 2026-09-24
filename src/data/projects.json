@@ -18,105 +18,85 @@
       "teamSize": 6,
       "content": [
         {
-          "type": "section",
-          "title": "Overview",
-          "text": "Deadly Nightshade was my thesis project at IED Milano: a story about a future where nature and technology blend in really unsettling ways. You follow Alice, a young scientist, and Rusty, this little robot she secretly builds. When they escape from the lab together, they start uncovering some pretty dark truths about the company they used to trust, and along the way they form this beautiful bond that drives the whole story."
+          "h2": "Overview"
+        },
+        "Deadly Nightshade was my thesis project at IED Milano: a story about a future where nature and technology blend in really unsettling ways. You follow Alice, a young scientist, and Rusty, this little robot she secretly builds. When they escape from the lab together, they start uncovering some pretty dark truths about the company they used to trust, and along the way they form this beautiful bond that drives the whole story.",
+        {
+          "media": "/works/deadly/cover.webp",
+          "caption": "Main cover art for Deadly Nightshade."
         },
         {
-          "type": "media",
-          "src": "/works/deadly/cover.webp",
-          "description": "Main cover art for Deadly Nightshade."
+          "h2": "My Role"
+        },
+        "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools**, basically making sure the technical side and the story worked together seamlessly.",
+        {
+          "media": "/works/deadly/interaction.mp4",
+          "caption": "Gameplay interaction demo video."
         },
         {
-          "type": "section",
-          "title": "My Role",
-          "text": "I wore a lot of hats as the **Technical Designer** on this one. I jumped between **gameplay programming, AI systems, dialogue mechanics, audio integration, UI design, technical animation, and building custom tools**, basically making sure the technical side and the story worked together seamlessly."
+          "h2": "Artificial Intelligence & Enemies"
+        },
+        "Creating the **enemy AI** was really fun, I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy boss** crawls up  and can make the floor collapse during fights. I also put together this **Waves Arena Game Mode** that throws progressively harder enemies at you.",
+        {
+          "media": "/works/deadly/tree.webp",
+          "caption": "Behavior tree example for enemy AI."
         },
         {
-          "type": "media",
-          "src": "/works/deadly/interaction.mp4",
-          "description": "Gameplay interaction demo video."
+          "h2": "Dialogue & Narrative Tools"
+        },
+        "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things,  walking into areas, taking damage, interacting with objects  and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right.",
+        {
+          "media": "/works/deadly/bosscomp.mp4",
+          "caption": "Boss fight composition and effects."
         },
         {
-          "type": "section",
-          "title": "Artificial Intelligence & Enemies",
-          "text": "Creating the **enemy AI** was really fun, I gave them different senses like sight and hearing, plus they react when they take damage. I also built this **custom spawn system** that changes based on what's happening in the environment. The bosses were especially interesting to work on: the **final boss** can actually target specific spots for jump attacks, while the **slimy boss** crawls up  and can make the floor collapse during fights. I also put together this **Waves Arena Game Mode** that throws progressively harder enemies at you."
+          "h2": "Audio Integration"
+        },
+        "Getting **FMOD** working in the project was a big challenge: I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on.",
+        {
+          "media": "/works/deadly/audio.webp",
+          "caption": "Audio trigger in editor for FMOD integration."
         },
         {
-          "type": "media",
-          "src": "/works/deadly/tree.webp",
-          "description": "Behavior tree example for enemy AI."
+          "h2": "UI & Visual Design"
+        },
+        "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen**, it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes.",
+        {
+          "media": "/works/deadly/UI.webp",
+          "caption": "In game UI design."
         },
         {
-          "type": "section",
-          "title": "Dialogue & Narrative Tools",
-          "text": "I built a **custom dialogue system** that lets Alice and Rusty talk to each other naturally throughout the game. The conversations trigger from all sorts of things,  walking into areas, taking damage, interacting with objects  and they flow right into cutscenes with subtitles. Everything connects to **FMOD** for the audio side. I also helped Giulia write the script and spent time in the **voice acting sessions** to make sure everything sounded just right."
+          "h2": "Technical Animation & Physics"
+        },
+        "I handled **Rusty's procedural physics** for his arms and legs, making them more or less stiff depending on whether you're playing or watching a cutscene. I worked on the **technical animation pipeline** too, setting up state machines and custom logic for enemies, bosses, and Alice (who uses the **Advanced Locomotion System** in C++). I also created **interactive props** like rotating valves, breakable crates, security cameras, metal detectors, and hidden compartments.",
+        {
+          "media": "/works/deadly/enemies.mp4",
+          "caption": "Showcase of enemy AI and behaviors."
         },
         {
-          "type": "media",
-          "src": "/works/deadly/bosscomp.mp4",
-          "description": "Boss fight composition and effects."
+          "h2": "Level Streaming & World Building"
+        },
+        "I set up **Level Streaming** for elevators, doors, and loading different areas dynamically - this keeps performance smooth by only loading what you need. It also meant everyone on the team could work on different areas without stepping on each other's toes through **Git**. I collaborated with [Christian](https://www.christiancatenacci.com/) on **Level Design**, working on rough layouts for places like the 'General Lab' and 'Green Dome', then refining them through lots of playtesting.",
+        {
+          "media": "/works/deadly/map.webp",
+          "caption": "Map zones and level design overview."
         },
         {
-          "type": "section",
-          "title": "Audio Integration",
-          "text": "Getting **FMOD** working in the project was a big challenge: I set up dynamic systems for music, ambient sounds, interactive objects, and both 2D and 3D audio effects. I created specific nodes to control exactly how sounds behave. I also made this **Physics Material system** so you get different footstep sounds and impact effects depending on what surface you're walking on."
+          "h2": "Tools & Optimization"
+        },
+        "I wrote several **Python tools** to automate boring tasks: turning off sRGB on ARM textures in batches, finding unused meshes, spotting performance-heavy components, and automatically enabling 'Activate Only When Rendered'. These tools made a huge difference in both project performance and our workflow. I also helped get everything working properly on **Steam Deck**.",
+        {
+          "h2": "Visual Effects"
+        },
+        "I created some **VFX** myself, like the final boss stomp effect and enemy explosion effects. [Christian](https://www.christiancatenacci.com/) and I also picked and integrated other VFX throughout the project to make both the atmosphere and gameplay moments really pop.",
+        {
+          "media": "/works/deadly/vfxvideo.webm",
+          "caption": "Showcase of final boss VFX and effects."
         },
         {
-          "type": "media",
-          "src": "/works/deadly/audio.webp",
-          "description": "Audio trigger in editor for FMOD integration."
+          "h2": "Collaboration & Outcome"
         },
-        {
-          "type": "section",
-          "title": "UI & Visual Design",
-          "text": "I worked with [Christian](https://www.christiancatenacci.com/) to design UI pages in **Figma**, and I created the **game's logo** plus a bunch of graphics for both in-game and promotional stuff. One thing I'm particularly proud of is the **custom media system for Rusty's screen**, it plays video textures through the **BINK plugin** to show his emotions during gameplay and cutscenes."
-        },
-        {
-          "type": "media",
-          "src": "/works/deadly/UI.webp",
-          "description": "In game UI design."
-        },
-        {
-          "type": "section",
-          "title": "Technical Animation & Physics",
-          "text": "I handled **Rusty's procedural physics** for his arms and legs, making them more or less stiff depending on whether you're playing or watching a cutscene. I worked on the **technical animation pipeline** too, setting up state machines and custom logic for enemies, bosses, and Alice (who uses the **Advanced Locomotion System** in C++). I also created **interactive props** like rotating valves, breakable crates, security cameras, metal detectors, and hidden compartments."
-        },
-        {
-          "type": "media",
-          "src": "/works/deadly/enemies.mp4",
-          "description": "Showcase of enemy AI and behaviors."
-        },
-        {
-          "type": "section",
-          "title": "Level Streaming & World Building",
-          "text": "I set up **Level Streaming** for elevators, doors, and loading different areas dynamically - this keeps performance smooth by only loading what you need. It also meant everyone on the team could work on different areas without stepping on each other's toes through **Git**. I collaborated with [Christian](https://www.christiancatenacci.com/) on **Level Design**, working on rough layouts for places like the 'General Lab' and 'Green Dome', then refining them through lots of playtesting."
-        },
-        {
-          "type": "media",
-          "src": "/works/deadly/map.webp",
-          "description": "Map zones and level design overview."
-        },
-        {
-          "type": "section",
-          "title": "Tools & Optimization",
-          "text": "I wrote several **Python tools** to automate boring tasks: turning off sRGB on ARM textures in batches, finding unused meshes, spotting performance-heavy components, and automatically enabling 'Activate Only When Rendered'. These tools made a huge difference in both project performance and our workflow. I also helped get everything working properly on **Steam Deck**."
-        },
-        {
-          "type": "section",
-          "title": "Visual Effects",
-          "text": "I created some **VFX** myself, like the final boss stomp effect and enemy explosion effects. [Christian](https://www.christiancatenacci.com/) and I also picked and integrated other VFX throughout the project to make both the atmosphere and gameplay moments really pop."
-        },
-        {
-          "type": "media",
-          "src": "/works/deadly/vfxvideo.webm",
-          "description": "Showcase of final boss VFX and effects."
-        },
-        {
-          "type": "section",
-          "title": "Collaboration & Outcome",
-          "text": "We built Deadly Nightshade in **Unreal Engine 5.4** for our thesis, and ended up with a fully playable game with over 30 minutes of content. Beyond all the technical stuff, I also worked as **co-director and co-writer**, making sure the story, design, and systems all worked together. Finishing this in July 2025 was honestly one of the most challenging and rewarding things I've done in game development so far."
-        }
+        "We built Deadly Nightshade in **Unreal Engine 5.4** for our thesis, and ended up with a fully playable game with over 30 minutes of content. Beyond all the technical stuff, I also worked as **co-director and co-writer**, making sure the story, design, and systems all worked together. Finishing this in July 2025 was honestly one of the most challenging and rewarding things I've done in game development so far."
       ],
       "url": "https://deadlynightshade.netlify.app/",
       "projectLink": "https://deadlynightshade.netlify.app/",
@@ -148,84 +128,72 @@
       "teamSize": 2,
       "content": [
         {
-          "type": "section",
-          "title": "Overview",
-          "text": "**Juan The Game** is this quirky physics-based mobile puzzle game where you guide a horse through levels by making him fall perfectly into balconies. What started as just a fun side project with a friend turned into this full mobile experience with over **60 unique levels**  and I'm still adding new ones because it's just too much fun to stop."
+          "h2": "Overview"
+        },
+        "**Juan The Game** is this quirky physics-based mobile puzzle game where you guide a horse through levels by making him fall perfectly into balconies. What started as just a fun side project with a friend turned into this full mobile experience with over **60 unique levels**  and I'm still adding new ones because it's just too much fun to stop.",
+        {
+          "media": "/works/juan/video.webm",
+          "caption": "Juan The Game Trailer showcasing gameplay and mechanics."
         },
         {
-          "type": "media",
-          "src": "/works/juan/video.webm",
-          "description": "Juan The Game Trailer showcasing gameplay and mechanics."
+          "h2": "Technical Implementation"
+        },
+        "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse  his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky  you want it realistic enough to be believable but fun enough that it doesn't frustrate players.",
+        {
+          "media": "/works/juan/physics.webm",
+          "caption": "Physics-based gameplay demonstration across multiple levels."
         },
         {
-          "type": "section",
-          "title": "Technical Implementation",
-          "text": "I built it in **Unity** with **C#**, using Unity's physics system with custom **Rigidbody** components on different parts of the horse  his legs, tail, body segments, everything. This creates these hilarious and realistic physics interactions that make the core gameplay work. Getting the physics to feel just right was tricky  you want it realistic enough to be believable but fun enough that it doesn't frustrate players."
+          "h2": "Solo Development"
+        },
+        "I pretty much handled everything: **Programming** the gameplay mechanics and physics, **designing all 60+ levels** with careful attention to how difficulty ramps up, creating **custom horse skins** and character art, and designing the **UI/UX** to make sure mobile controls felt intuitive and players always knew what was happening.",
+        {
+          "media": "/works/juan/ngame.webp",
+          "caption": "Unity editor showing level design and horse rig."
         },
         {
-          "type": "media",
-          "src": "/works/juan/physics.webm",
-          "description": "Physics-based gameplay demonstration across multiple levels."
+          "h2": "Level Design & Player Experience"
+        },
+        "Every single level was hand-crafted to give players a unique challenge while keeping that learning curve smooth. I spent a lot of time collecting **player feedback** and learned some hard lessons about what makes challenges fun versus what just makes people want to throw their phone. That feedback loop made me redesign tons of levels, which taught me how important **iterative design** and actually listening to users really is.",
+        {
+          "media": "/works/juan/snow.webp",
+          "caption": "Juan The Game main menu showcasing custom horse character."
         },
         {
-          "type": "section",
-          "title": "Solo Development",
-          "text": "I pretty much handled everything: **Programming** the gameplay mechanics and physics, **designing all 60+ levels** with careful attention to how difficulty ramps up, creating **custom horse skins** and character art, and designing the **UI/UX** to make sure mobile controls felt intuitive and players always knew what was happening."
+          "h2": "Art & Visual Identity"
+        },
+        "Beyond all the programming, I drew all the **custom horse skins** and character designs, giving players different ways to personalize their experience. This was my chance to dive into **digital illustration** and **character design**, plus I learned how to get artwork to look good in Unity's rendering system.",
+        {
+          "media": "/works/juan/skins.mp4",
+          "caption": "Shop showing different horse skins available."
         },
         {
-          "type": "media",
-          "src": "/works/juan/ngame.webp",
-          "description": "Unity editor showing level design and horse rig."
+          "h2": "Learning Outcomes"
         },
+        "This year-long project taught me so much about **mobile game development**, **physics programming**, and especially **how to actually use player feedback** instead of just collecting it. I learned when to hold players' hands and guide them versus when to let them figure things out, and how to tell the difference between a good challenge and something that just makes people quit.",
         {
-          "type": "section",
-          "title": "Level Design & Player Experience",
-          "text": "Every single level was hand-crafted to give players a unique challenge while keeping that learning curve smooth. I spent a lot of time collecting **player feedback** and learned some hard lessons about what makes challenges fun versus what just makes people want to throw their phone. That feedback loop made me redesign tons of levels, which taught me how important **iterative design** and actually listening to users really is."
+          "h2": "Code Example"
         },
+        "Here is a simple C# snippet that shows how I clamp a custom impulse before applying it to Juan's Rigidbody:\n\n```csharp\nusing UnityEngine;\n\npublic class JuanJumpHelper : MonoBehaviour\n{\n    [SerializeField] private Rigidbody targetBody;\n    [SerializeField] private float maxImpulse = 12f;\n\n    public void AddJumpImpulse(Vector3 impulse)\n    {\n        if (targetBody == null) return;\n\n        // Keep force stable across levels and frame rates.\n        Vector3 safeImpulse = Vector3.ClampMagnitude(impulse, maxImpulse);\n        targetBody.AddForce(safeImpulse, ForceMode.Impulse);\n    }\n}\n```",
         {
-          "type": "media",
-          "src": "/works/juan/snow.webp",
-          "description": "Juan The Game main menu showcasing custom horse character."
-        },
-        {
-          "type": "section",
-          "title": "Art & Visual Identity",
-          "text": "Beyond all the programming, I drew all the **custom horse skins** and character designs, giving players different ways to personalize their experience. This was my chance to dive into **digital illustration** and **character design**, plus I learned how to get artwork to look good in Unity's rendering system."
-        },
-        {
-          "type": "media",
-          "src": "/works/juan/skins.mp4",
-          "description": "Shop showing different horse skins available."
-        },
-        {
-          "type": "section",
-          "title": "Learning Outcomes",
-          "text": "This year-long project taught me so much about **mobile game development**, **physics programming**, and especially **how to actually use player feedback** instead of just collecting it. I learned when to hold players' hands and guide them versus when to let them figure things out, and how to tell the difference between a good challenge and something that just makes people quit."
-        },
-        {
-          "type": "section",
-          "title": "Code Example",
-          "text": "Here is a simple C# snippet that shows how I clamp a custom impulse before applying it to Juan's Rigidbody:\n\n```csharp\nusing UnityEngine;\n\npublic class JuanJumpHelper : MonoBehaviour\n{\n    [SerializeField] private Rigidbody targetBody;\n    [SerializeField] private float maxImpulse = 12f;\n\n    public void AddJumpImpulse(Vector3 impulse)\n    {\n        if (targetBody == null) return;\n\n        // Keep force stable across levels and frame rates.\n        Vector3 safeImpulse = Vector3.ClampMagnitude(impulse, maxImpulse);\n        targetBody.AddForce(safeImpulse, ForceMode.Impulse);\n    }\n}\n```"
-        },
-        {
-          "type": "model",
-          "src": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+          "model": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
           "poster": "/works/juan/cover.jpg",
           "alt": "Juan The Game 3D model example",
-          "description": "Interactive 3D model example block with drag-to-rotate support."
+          "caption": "Interactive 3D model example block with drag-to-rotate support."
         },
         {
-          "type": "beforeAfter",
-          "before": {
-            "src": "https://picsum.photos/seed/juan-before/800/600",
-            "alt": "Juan The Game early prototype"
-          },
-          "after": {
-            "src": "https://picsum.photos/seed/juan-after/800/600",
-            "alt": "Juan The Game final polish"
+          "compare": {
+            "before": {
+              "src": "https://picsum.photos/seed/juan-before/800/600",
+              "alt": "Juan The Game early prototype"
+            },
+            "after": {
+              "src": "https://picsum.photos/seed/juan-after/800/600",
+              "alt": "Juan The Game final polish"
+            }
           },
           "startAt": 50,
-          "description": "Drag the handle to compare the early prototype against the final polish."
+          "caption": "Drag the handle to compare the early prototype against the final polish."
         }
       ],
       "cover": "/works/juan/cover.jpg",
@@ -254,71 +222,62 @@
       "teamSize": 2,
       "content": [
         {
-          "type": "section",
-          "title": "Game Design Innovation",
-          "text": "**Echoes** takes the classic Memory card game and adds this twist where you can actually mess with your opponents' progress. Instead of just quietly matching pairs, you can play special effect cards to shuffle things around and make it way harder for other players to complete their matches. It supports 2-4 players and creates these really tense, competitive moments."
+          "h2": "Game Design Innovation"
+        },
+        "**Echoes** takes the classic Memory card game and adds this twist where you can actually mess with your opponents' progress. Instead of just quietly matching pairs, you can play special effect cards to shuffle things around and make it way harder for other players to complete their matches. It supports 2-4 players and creates these really tense, competitive moments.",
+        {
+          "media": "/works/echoes/cardall.webp",
+          "caption": "Echoes card game box and complete component set."
         },
         {
-          "type": "media",
-          "src": "/works/echoes/cardall.webp",
-          "description": "Echoes card game box and complete component set."
+          "h2": "Core Mechanics"
+        },
+        "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to.",
+        {
+          "media": "/works/echoes/draw.webp",
+          "caption": "Drawings and sketches from the design process."
         },
         {
-          "type": "section",
-          "title": "Core Mechanics",
-          "text": "We kept the basic matching foundation that everyone knows, but added **special effect cards** that let you shuffle the field and disrupt other players. This creates this interesting balance where pure memory skills aren't enough you also need to think about timing, when to play your disruption cards, and how to read what your opponents are up to."
+          "h2": "Victory Conditions & Strategy"
+        },
+        "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are  you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment.",
+        {
+          "media": "/works/echoes/cardpaper.webp",
+          "caption": "Game in progress showing card layout and player interaction."
         },
         {
-          "type": "media",
-          "src": "/works/echoes/draw.webp",
-          "description": "Drawings and sketches from the design process."
+          "h2": "Design Process & Iteration"
+        },
+        "This was a university project I worked on with a partner, and we went through tons of design iterations. We spent a lot of time **playtesting and balancing** to make sure the disruption mechanics made the game more fun rather than just frustrating. The whole process taught me a lot about **how to playtest properly** and **iterative game design**.",
+        {
+          "media": "/works/echoes/cardcards.webp",
+          "caption": "Echoes card game box and complete component set."
         },
         {
-          "type": "section",
-          "title": "Victory Conditions & Strategy",
-          "text": "You win by being the **first to get rid of all your cards** through successful matching. But with the interference mechanics, it's not just about remembering where cards are  you need to develop **timing strategies**, learn to **assess risks**, and figure out when your opponents are close to winning so you can deploy disruption cards at the right moment."
+          "h2": "Production & Manufacturing"
+        },
+        "We actually made this into a **real physical product**, which meant figuring out **print design**, **component quality**, and **packaging**. I used **Adobe Creative Suite** for the visual design, and learned a lot about **print production workflows** and how digital designs translate when you actually print them on physical game components.",
+        {
+          "media": "/works/echoes/cardfront.webp",
+          "caption": "Box front design showcasing logo and artwork."
         },
         {
-          "type": "media",
-          "src": "/works/echoes/cardpaper.webp",
-          "description": "Game in progress showing card layout and player interaction."
+          "h2": "User Reception & Validation"
         },
+        "After we finished production, we playtested Echoes extensively and got **really positive feedback** from our peer group. The success validated our design decisions and proved that our approach to reimagining a classic game actually worked. This experience taught me how important **user feedback** is for validating game design decisions.",
         {
-          "type": "section",
-          "title": "Design Process & Iteration",
-          "text": "This was a university project I worked on with a partner, and we went through tons of design iterations. We spent a lot of time **playtesting and balancing** to make sure the disruption mechanics made the game more fun rather than just frustrating. The whole process taught me a lot about **how to playtest properly** and **iterative game design**."
-        },
-        {
-          "type": "media",
-          "src": "/works/echoes/cardcards.webp",
-          "description": "Echoes card game box and complete component set."
-        },
-        {
-          "type": "section",
-          "title": "Production & Manufacturing",
-          "text": "We actually made this into a **real physical product**, which meant figuring out **print design**, **component quality**, and **packaging**. I used **Adobe Creative Suite** for the visual design, and learned a lot about **print production workflows** and how digital designs translate when you actually print them on physical game components."
-        },
-        {
-          "type": "media",
-          "src": "/works/echoes/cardfront.webp",
-          "description": "Box front design showcasing logo and artwork."
-        },
-        {
-          "type": "section",
-          "title": "User Reception & Validation",
-          "text": "After we finished production, we playtested Echoes extensively and got **really positive feedback** from our peer group. The success validated our design decisions and proved that our approach to reimagining a classic game actually worked. This experience taught me how important **user feedback** is for validating game design decisions."
-        },
-        {
-          "type": "media",
-          "src": "/works/echoes/group.webp",
-          "description": "Developing the game in team"
+          "media": "/works/echoes/group.webp",
+          "caption": "Developing the game in team"
         }
       ],
       "cover": "/works/echoes/cover.jpg",
       "bgColor": "#8b5a3c",
       "url": "",
       "projectLink": "",
-      "technologies": ["GameDesign", "Playtesting"],
+      "technologies": [
+        "GameDesign",
+        "Playtesting"
+      ],
       "type": "boardgame"
     },
     "project6": {
@@ -332,69 +291,56 @@
       "teamSize": 3,
       "content": [
         {
-          "type": "section",
-          "title": "Project Overview",
-          "text": "**Too Poop To Go** is a platform to help people find the best public restrooms when they really need them. This was a team project with **Android and iOS mobile apps** built by my teammates, and I developed the entire **web management system** from scratch. Together it creates this complete ecosystem for crowdsourced restroom information."
+          "h2": "Project Overview"
+        },
+        "**Too Poop To Go** is a platform to help people find the best public restrooms when they really need them. This was a team project with **Android and iOS mobile apps** built by my teammates, and I developed the entire **web management system** from scratch. Together it creates this complete ecosystem for crowdsourced restroom information.",
+        {
+          "media": "/works/poop/tptgmobile.webp",
+          "caption": "Too Poop To Go web management dashboard overview."
         },
         {
-          "type": "media",
-          "src": "/works/poop/tptgmobile.webp",
-          "description": "Too Poop To Go web management dashboard overview."
+          "h2": "My Technical Role"
+        },
+        "I handled the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive interface that actually feels good to use. I also **worked on the backend** with **Django**, helping with API design, database planning, and server-side logic.",
+        {
+          "media": "/works/poop/tptgfire.webp",
+          "caption": "Poop streak feature."
         },
         {
-          "type": "section",
-          "title": "My Technical Role",
-          "text": "I handled the entire **front-end web management system** using **React** and **Tailwind CSS**, creating a responsive interface that actually feels good to use. I also **worked on the backend** with **Django**, helping with API design, database planning, and server-side logic."
+          "h2": "Web Management Features"
+        },
+        "The web system gives administrators complete control: **User management** where you can view, ban, or remove users; **Review moderation** to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user submissions; **Interactive map interface** showing all existing restrooms; and **Tag management** for organizing and categorizing restroom features.",
+        {
+          "h2": "Authentication & Security"
+        },
+        "We built a solid **user authentication system** with **OTP (One-Time Password) verification** for extra security. The system includes **secure login flows**, **session management**, and **role-based access control** so only authorized administrators can access sensitive platform data and controls.",
+        {
+          "media": "/works/poop/tptgdesktop.webp",
+          "caption": "Too Poop To Go web management dashboard overview."
         },
         {
-          "type": "media",
-          "src": "/works/poop/tptgfire.webp",
-          "description": "Poop streak feature."
+          "h2": "Map Integration"
+        },
+        "The whole platform uses **MapBox APIs**, both the mobile apps and web management system, so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently.",
+        {
+          "media": "/works/poop/tptgotp.webp",
+          "caption": "Otp Mail verification system."
         },
         {
-          "type": "section",
-          "title": "Web Management Features",
-          "text": "The web system gives administrators complete control: **User management** where you can view, ban, or remove users; **Review moderation** to view and delete inappropriate reviews across all restrooms; **Restroom approval system** for processing user submissions; **Interactive map interface** showing all existing restrooms; and **Tag management** for organizing and categorizing restroom features."
+          "h2": "Approval Workflow System"
         },
+        "One of the key features I built is the **restroom approval workflow**,  when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps.",
         {
-          "type": "section",
-          "title": "Authentication & Security",
-          "text": "We built a solid **user authentication system** with **OTP (One-Time Password) verification** for extra security. The system includes **secure login flows**, **session management**, and **role-based access control** so only authorized administrators can access sensitive platform data and controls."
+          "h2": "Team Collaboration"
         },
+        "Working with a team of three, I made sure the mobile apps and web management system integrated seamlessly through **RESTful API design** and **consistent data structures**. This meant constantly communicating with the mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms.",
         {
-          "type": "media",
-          "src": "/works/poop/tptgdesktop.webp",
-          "description": "Too Poop To Go web management dashboard overview."
+          "h2": "Technical Skills Developed"
         },
+        "This project really advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development** while working in a multi-developer environment.",
         {
-          "type": "section",
-          "title": "Map Integration",
-          "text": "The whole platform uses **MapBox APIs**, both the mobile apps and web management system, so everything works consistently and reliably. I designed the web interface to integrate map interactions smoothly, letting administrators visualize restroom locations, see geographical distribution, and manage location-based data efficiently."
-        },
-        {
-          "type": "media",
-          "src": "/works/poop/tptgotp.webp",
-          "description": "Otp Mail verification system."
-        },
-        {
-          "type": "section",
-          "title": "Approval Workflow System",
-          "text": "One of the key features I built is the **restroom approval workflow**,  when users submit new locations through the mobile apps, they show up in the admin dashboard for review. This includes **detailed submission information**, **image verification**, **location accuracy checking**, and **streamlined approval/rejection processes** with notifications back to the mobile apps."
-        },
-        {
-          "type": "section",
-          "title": "Team Collaboration",
-          "text": "Working with a team of three, I made sure the mobile apps and web management system integrated seamlessly through **RESTful API design** and **consistent data structures**. This meant constantly communicating with the mobile developers to coordinate **data formatting**, **error handling**, and **real-time synchronization** between platforms."
-        },
-        {
-          "type": "section",
-          "title": "Technical Skills Developed",
-          "text": "This project really advanced my skills in **React development**, **responsive web design**, **API integration**, **state management**, **Django backend development**, and **collaborative software development**. I gained valuable experience in **project coordination**, **version control with Git**, and **agile development** while working in a multi-developer environment."
-        },
-        {
-          "type": "media",
-          "src": "/works/poop/tptgcross.webp",
-          "description": "Cross platform simple diagram."
+          "media": "/works/poop/tptgcross.webp",
+          "caption": "Cross platform simple diagram."
         }
       ],
       "cover": "/works/poop/cover.jpg",
@@ -424,55 +370,45 @@
       "teamSize": 1,
       "content": [
         {
-          "type": "section",
-          "title": "Overview",
-          "text": "**The Friend Archive** is a shared catalogue for everything worth experiencing together: **movies, TV series, books, and video games**. You create a group with your friends, you fill it with the things you want to watch, read, or play, and everyone tracks their own progress through the same list. It solves a problem I actually had  nobody ever remembers what the group already watched, or what someone recommended three months ago. The tagline sums it up: **Track together. Remember always.**"
+          "h2": "Overview"
+        },
+        "**The Friend Archive** is a shared catalogue for everything worth experiencing together: **movies, TV series, books, and video games**. You create a group with your friends, you fill it with the things you want to watch, read, or play, and everyone tracks their own progress through the same list. It solves a problem I actually had  nobody ever remembers what the group already watched, or what someone recommended three months ago. The tagline sums it up: **Track together. Remember always.**",
+        {
+          "h2": "Architecture"
+        },
+        "It's a **Next.js 15** app on the **App Router**, written in **TypeScript** and deployed on **Vercel**, with **Supabase** (PostgreSQL) behind it. Server Components are the default and I only opt into Client Components where interactivity actually needs it. The rule I held myself to: database queries live in Server Components, Server Actions, or route handlers  never in a Client Component  and the Supabase client is only ever created in two files, one for the browser and one for the server. It sounds pedantic, but it's what keeps the data layer from leaking everywhere as the app grows.",
+        {
+          "h2": "Data Model"
+        },
+        "The schema is **nine tables** in three layers: identity (`profiles`, `subscriptions`), organisation (`groups`, `group_members`, `group_join_requests`), and content (`media_items`, `item_statuses`, `consumption_records`, `comments`). The decision I'm happiest with is that **status is per-member**: `media_items` has no status column at all, because a group's copy of **Dune** isn't watched  **you** watched it. Each member gets their own row in `item_statuses`, and a missing row just means Planned. Type-specific fields (director, author, developer, seasons) live in a **JSONB metadata** column, so adding a fifth media type doesn't mean a migration full of mostly-null columns.",
+        {
+          "h2": "Authentication & Row Level Security"
+        },
+        "Auth is **Supabase Auth** with email and password, and `middleware.ts` refreshes the session on every request through `@supabase/ssr`. The part that took the most thought was **Row Level Security**: the business rules aren't just checked in the UI, they're enforced by **RLS policies in the database**, so they hold even if someone talks to the API directly. Every write to a status row is restricted to `user_id = auth.uid()`, and an RLS policy makes `added_by` immutable after creation  you can't rewrite who added something.",
+        {
+          "media": "/works/archive/login.webp",
+          "caption": "Sign-in screen — Supabase email and password auth."
         },
         {
-          "type": "section",
-          "title": "Architecture",
-          "text": "It's a **Next.js 15** app on the **App Router**, written in **TypeScript** and deployed on **Vercel**, with **Supabase** (PostgreSQL) behind it. Server Components are the default and I only opt into Client Components where interactivity actually needs it. The rule I held myself to: database queries live in Server Components, Server Actions, or route handlers  never in a Client Component  and the Supabase client is only ever created in two files, one for the browser and one for the server. It sounds pedantic, but it's what keeps the data layer from leaking everywhere as the app grows."
+          "h2": "External Metadata Providers"
         },
+        "Nobody wants to type in a film's director by hand, so adding an item searches an external provider and fills the metadata for you. Each media type routes to a different one: **TMDB** for movies and TV series, **Open Library** for books, and **RAWG** for video games. They all normalise into a single internal shape, so the rest of the app only ever speaks one language regardless of who answered. The searches go through a **server-side route handler** that requires a session, which keeps the API keys off the client and stops the proxy being open to the world. Every provider call resolves rather than throws: if one is down, you get an empty list and fall back to typing it in yourself.",
         {
-          "type": "section",
-          "title": "Data Model",
-          "text": "The schema is **nine tables** in three layers: identity (`profiles`, `subscriptions`), organisation (`groups`, `group_members`, `group_join_requests`), and content (`media_items`, `item_statuses`, `consumption_records`, `comments`). The decision I'm happiest with is that **status is per-member**: `media_items` has no status column at all, because a group's copy of **Dune** isn't watched  **you** watched it. Each member gets their own row in `item_statuses`, and a missing row just means Planned. Type-specific fields (director, author, developer, seasons) live in a **JSONB metadata** column, so adding a fifth media type doesn't mean a migration full of mostly-null columns."
+          "h2": "Groups & Collaboration"
         },
+        "A group has an **owner** and **members**  no other roles, deliberately. Owners manage the group and its membership; members add items, edit them, and write their own notes and comments. Groups are **public or private**: public ones are discoverable and readable by anyone signed in, but non-members see them **read-only**, and joining goes through a **request and approval flow** rather than just walking in. Each item carries shared **comments** and **tags**, plus per-member notes on the consumption record  the same film gets one note from you and a different one from your friend. When every current member has completed an item, it gets a star.",
         {
-          "type": "section",
-          "title": "Authentication & Row Level Security",
-          "text": "Auth is **Supabase Auth** with email and password, and `middleware.ts` refreshes the session on every request through `@supabase/ssr`. The part that took the most thought was **Row Level Security**: the business rules aren't just checked in the UI, they're enforced by **RLS policies in the database**, so they hold even if someone talks to the API directly. Every write to a status row is restricted to `user_id = auth.uid()`, and an RLS policy makes `added_by` immutable after creation  you can't rewrite who added something."
+          "h2": "Working Inside the Free Tier"
         },
+        "The whole thing runs on free tiers, which turned out to be a useful design constraint rather than an annoyance. No `select('*')`  every query names its columns. Related data comes back through **nested selects** in one round-trip instead of an N+1 fan-out. No polling, and no Realtime subscriptions unless a feature genuinely needs live updates (so far, none do). Stable reference data gets cached client-side rather than refetched on every render. Being forced to justify each query made the app faster than it would have been with an unlimited budget.",
         {
-          "type": "media",
-          "src": "/works/archive/login.webp",
-          "description": "Sign-in screen — Supabase email and password auth."
+          "h2": "Design System"
         },
+        "The frontend runs on a token system in `globals.css`  semantic names for colour, radius, shadow, spacing, duration, easing  and no ad-hoc hex values in component files. Components are built on **Radix UI** primitives following the shadcn pattern, styled with **Tailwind CSS 4**, with **Framer Motion** for transitions that stay under ~350ms so they add spatial clarity without making you wait. Loading states use **skeletons shaped like the real layout** instead of blank flashes, and async buttons show an inline spinner and disable themselves.",
         {
-          "type": "section",
-          "title": "External Metadata Providers",
-          "text": "Nobody wants to type in a film's director by hand, so adding an item searches an external provider and fills the metadata for you. Each media type routes to a different one: **TMDB** for movies and TV series, **Open Library** for books, and **RAWG** for video games. They all normalise into a single internal shape, so the rest of the app only ever speaks one language regardless of who answered. The searches go through a **server-side route handler** that requires a session, which keeps the API keys off the client and stops the proxy being open to the world. Every provider call resolves rather than throws: if one is down, you get an empty list and fall back to typing it in yourself."
+          "h2": "Learning Outcomes"
         },
-        {
-          "type": "section",
-          "title": "Groups & Collaboration",
-          "text": "A group has an **owner** and **members**  no other roles, deliberately. Owners manage the group and its membership; members add items, edit them, and write their own notes and comments. Groups are **public or private**: public ones are discoverable and readable by anyone signed in, but non-members see them **read-only**, and joining goes through a **request and approval flow** rather than just walking in. Each item carries shared **comments** and **tags**, plus per-member notes on the consumption record  the same film gets one note from you and a different one from your friend. When every current member has completed an item, it gets a star."
-        },
-        {
-          "type": "section",
-          "title": "Working Inside the Free Tier",
-          "text": "The whole thing runs on free tiers, which turned out to be a useful design constraint rather than an annoyance. No `select('*')`  every query names its columns. Related data comes back through **nested selects** in one round-trip instead of an N+1 fan-out. No polling, and no Realtime subscriptions unless a feature genuinely needs live updates (so far, none do). Stable reference data gets cached client-side rather than refetched on every render. Being forced to justify each query made the app faster than it would have been with an unlimited budget."
-        },
-        {
-          "type": "section",
-          "title": "Design System",
-          "text": "The frontend runs on a token system in `globals.css`  semantic names for colour, radius, shadow, spacing, duration, easing  and no ad-hoc hex values in component files. Components are built on **Radix UI** primitives following the shadcn pattern, styled with **Tailwind CSS 4**, with **Framer Motion** for transitions that stay under ~350ms so they add spatial clarity without making you wait. Loading states use **skeletons shaped like the real layout** instead of blank flashes, and async buttons show an inline spinner and disable themselves."
-        },
-        {
-          "type": "section",
-          "title": "Learning Outcomes",
-          "text": "This is the project where **Postgres stopped being 'the database' and became part of the design**. Pushing rules into RLS instead of trusting the UI, modelling status per-member instead of per-item, choosing JSONB where the shape genuinely varies  those decisions shaped the app more than any component did. It's still in active development, and the schema has held up to every feature I've added since, which is the best signal I could ask for."
-        }
+        "This is the project where **Postgres stopped being 'the database' and became part of the design**. Pushing rules into RLS instead of trusting the UI, modelling status per-member instead of per-item, choosing JSONB where the shape genuinely varies  those decisions shaped the app more than any component did. It's still in active development, and the schema has held up to every feature I've added since, which is the best signal I could ask for."
       ],
       "cover": "/works/archive/cover.jpg",
       "bgColor": "#e08a1e",
@@ -503,50 +439,41 @@
       "teamSize": 1,
       "content": [
         {
-          "type": "section",
-          "title": "Overview",
-          "text": "**Sudoku NFC** turns cheap **NFC tags into playable Sudoku cards**. You create a puzzle in the app, write it to a tag, and from then on tapping your phone against that tag loads the puzzle and drops you straight into playing it. The idea was to give a digital puzzle a physical object to live on  a stack of tags on your desk becomes a stack of Sudokus you can hand to someone. It's built with **Expo** and **React Native**, and it's on **Google Play**."
+          "h2": "Overview"
+        },
+        "**Sudoku NFC** turns cheap **NFC tags into playable Sudoku cards**. You create a puzzle in the app, write it to a tag, and from then on tapping your phone against that tag loads the puzzle and drops you straight into playing it. The idea was to give a digital puzzle a physical object to live on  a stack of tags on your desk becomes a stack of Sudokus you can hand to someone. It's built with **Expo** and **React Native**, and it's on **Google Play**.",
+        {
+          "media": "/works/sudoku/play.webp",
+          "caption": "Home screen and the scan-to-play flow waiting for a tag."
         },
         {
-          "type": "media",
-          "src": "/works/sudoku/play.webp",
-          "description": "Home screen and the scan-to-play flow waiting for a tag."
+          "h2": "Getting a Sudoku Onto a Tag"
+        },
+        "This was the fun constraint. A cheap **NTAG213** tag holds about **144 bytes**, so there was no room for JSON, metadata, or anything clever. A puzzle is stored as a raw **81-character string** (digits, `0` for empty), and multiple puzzles are packed with a single comma between them  no prefixes, no wrappers. That's **81 bytes per puzzle**, 82 for each one after the first. The app does the arithmetic both ways: it can tell you how many bytes a set of puzzles needs, and how many puzzles will actually fit in a given tag's capacity, so a write fails before it starts rather than halfway through.",
+        {
+          "h2": "Writing & Reading Tags"
+        },
+        "Everything goes through **NDEF** text records with `react-native-nfc-manager`. Before any of that, the app checks whether the device even supports NFC and whether it's switched on, and offers to open the system settings if it isn't. On **Android** an intent filter for `NDEF_DISCOVERED` means the OS can hand the app a tag directly, and scans can be cancelled mid-flight instead of hanging. Reading is deliberately forgiving: every puzzle on the tag is validated on the way in, malformed ones are collected as errors instead of crashing the scan, and anything that isn't a well-formed puzzle simply doesn't load.",
+        {
+          "media": "/works/sudoku/write.webp",
+          "caption": "Three ways to create a puzzle, and the manual 9x9 grid editor."
         },
         {
-          "type": "section",
-          "title": "Getting a Sudoku Onto a Tag",
-          "text": "This was the fun constraint. A cheap **NTAG213** tag holds about **144 bytes**, so there was no room for JSON, metadata, or anything clever. A puzzle is stored as a raw **81-character string** (digits, `0` for empty), and multiple puzzles are packed with a single comma between them  no prefixes, no wrappers. That's **81 bytes per puzzle**, 82 for each one after the first. The app does the arithmetic both ways: it can tell you how many bytes a set of puzzles needs, and how many puzzles will actually fit in a given tag's capacity, so a write fails before it starts rather than halfway through."
+          "h2": "Three Ways to Make a Puzzle"
         },
+        "You can **paste an 81-character string**, **fill a 9x9 grid by hand**, or **generate one automatically**. The manual editor validates as you go and shows conflicts live, because finding out your hand-built puzzle was broken only after writing it to a tag would be miserable. Puzzles queue up in a **write buffer** so you can build several and commit them to a tag in one tap, with the capacity check deciding how many actually fit.",
         {
-          "type": "section",
-          "title": "Writing & Reading Tags",
-          "text": "Everything goes through **NDEF** text records with `react-native-nfc-manager`. Before any of that, the app checks whether the device even supports NFC and whether it's switched on, and offers to open the system settings if it isn't. On **Android** an intent filter for `NDEF_DISCOVERED` means the OS can hand the app a tag directly, and scans can be cancelled mid-flight instead of hanging. Reading is deliberately forgiving: every puzzle on the tag is validated on the way in, malformed ones are collected as errors instead of crashing the scan, and anything that isn't a well-formed puzzle simply doesn't load."
+          "h2": "The Sudoku Engine"
         },
+        "The engine is the biggest module in the project and it's plain JavaScript with no dependencies. Generation starts from a **complete solution built by backtracking**, then removes clues while checking the puzzle stays solvable. The part I'm proudest of is **difficulty**: instead of counting clues  which barely correlates with how hard a puzzle feels  it scores a puzzle by **solving it the way a person would**, using singles techniques, and grades it from the effort that takes. The score maps to **Easy, Medium, Hard, or Expert**, and a puzzle that can't be cracked that way is Expert by definition. Generation then retries until it lands in the difficulty band you asked for.",
         {
-          "type": "media",
-          "src": "/works/sudoku/write.webp",
-          "description": "Three ways to create a puzzle, and the manual 9x9 grid editor."
+          "h2": "Playing"
         },
+        "The board itself is a normal, comfortable Sudoku: a number pad, **pencil marks** for candidates, conflict highlighting, and locked cells you can't overwrite. You can **verify your solution** at any point, or reset and start the puzzle over. The helpers are optional and live in settings  **timer**, **region highlighting**, and **error checking**  so you can play with training wheels or without. There's haptic feedback on input, and puzzles you've scanned are kept locally so a tag you've already read stays playable.",
         {
-          "type": "section",
-          "title": "Three Ways to Make a Puzzle",
-          "text": "You can **paste an 81-character string**, **fill a 9x9 grid by hand**, or **generate one automatically**. The manual editor validates as you go and shows conflicts live, because finding out your hand-built puzzle was broken only after writing it to a tag would be miserable. Puzzles queue up in a **write buffer** so you can build several and commit them to a tag in one tap, with the capacity check deciding how many actually fit."
+          "h2": "Learning Outcomes"
         },
-        {
-          "type": "section",
-          "title": "The Sudoku Engine",
-          "text": "The engine is the biggest module in the project and it's plain JavaScript with no dependencies. Generation starts from a **complete solution built by backtracking**, then removes clues while checking the puzzle stays solvable. The part I'm proudest of is **difficulty**: instead of counting clues  which barely correlates with how hard a puzzle feels  it scores a puzzle by **solving it the way a person would**, using singles techniques, and grades it from the effort that takes. The score maps to **Easy, Medium, Hard, or Expert**, and a puzzle that can't be cracked that way is Expert by definition. Generation then retries until it lands in the difficulty band you asked for."
-        },
-        {
-          "type": "section",
-          "title": "Playing",
-          "text": "The board itself is a normal, comfortable Sudoku: a number pad, **pencil marks** for candidates, conflict highlighting, and locked cells you can't overwrite. You can **verify your solution** at any point, or reset and start the puzzle over. The helpers are optional and live in settings  **timer**, **region highlighting**, and **error checking**  so you can play with training wheels or without. There's haptic feedback on input, and puzzles you've scanned are kept locally so a tag you've already read stays playable."
-        },
-        {
-          "type": "section",
-          "title": "Learning Outcomes",
-          "text": "Two things stuck. First, **hardware constraints make better design**: 144 bytes killed every over-engineered format I considered and left something that's trivial to read, write, and debug. Second, **shipping is its own skill**  icons, adaptive icons, permission strings, store listing, versioning, an actual release build. Getting it onto **Google Play** taught me more about the last mile of mobile development than the code did."
-        }
+        "Two things stuck. First, **hardware constraints make better design**: 144 bytes killed every over-engineered format I considered and left something that's trivial to read, write, and debug. Second, **shipping is its own skill**  icons, adaptive icons, permission strings, store listing, versioning, an actual release build. Getting it onto **Google Play** taught me more about the last mile of mobile development than the code did."
       ],
       "cover": "/works/sudoku/cover.jpg",
       "bgColor": "#6b63f5",
@@ -575,45 +502,44 @@
       "teamSize": 4,
       "content": [
         {
-          "type": "section",
-          "title": "Overview",
-          "text": "This one is covered by an **NDA**, so I can't show the client, the artwork, or what the app is actually for. What I can talk about is the engineering: it's an **augmented reality iPad application** built in **Unity** with the **Vuforia Engine**, where you point the tablet at a real-world target and the digital content anchors onto it and stays there while you move around. Everything below is about how that was built, not about what it shows."
+          "h2": "Overview"
         },
+        "This one is covered by an **NDA**, so I can't show the client, the artwork, or what the app is actually for. What I can talk about is the engineering: it's an **augmented reality iPad application** built in **Unity** with the **Vuforia Engine**, where you point the tablet at a real-world target and the digital content anchors onto it and stays there while you move around. Everything below is about how that was built, not about what it shows.",
         {
-          "type": "section",
-          "title": "My Role",
-          "text": "I implemented the **AR experience end to end**: target tracking, object placement, the **UI**, the animations, and the overall **project architecture**. Working under NDA meant being careful about what left the repo, but internally it was a normal Unity project with all the usual constraints  and a few extra ones that come with running AR on a tablet."
+          "h2": "My Role"
         },
+        "I implemented the **AR experience end to end**: target tracking, object placement, the **UI**, the animations, and the overall **project architecture**. Working under NDA meant being careful about what left the repo, but internally it was a normal Unity project with all the usual constraints  and a few extra ones that come with running AR on a tablet.",
         {
-          "type": "section",
-          "title": "Tracking & Spatial Positioning",
-          "text": "The core challenge was making virtual objects feel like they actually belong in the room. I worked with **Vuforia's** tracking to anchor content to real-world targets, then spent a lot of time on **object positioning in AR space**  getting scale, orientation, and offsets right so things sit where you expect them to. Tracking never behaves perfectly in the real world: lighting changes, people move the tablet too fast, targets get partially covered. I handled the **recovery and re-anchoring** cases so the experience degrades gracefully instead of having objects pop or drift away."
+          "h2": "Tracking & Spatial Positioning"
         },
+        "The core challenge was making virtual objects feel like they actually belong in the room. I worked with **Vuforia's** tracking to anchor content to real-world targets, then spent a lot of time on **object positioning in AR space**  getting scale, orientation, and offsets right so things sit where you expect them to. Tracking never behaves perfectly in the real world: lighting changes, people move the tablet too fast, targets get partially covered. I handled the **recovery and re-anchoring** cases so the experience degrades gracefully instead of having objects pop or drift away.",
         {
-          "type": "section",
-          "title": "3D Assets & Render Performance",
-          "text": "I integrated the **3D assets** into the scene and got them running smoothly on **iOS** hardware, which is where most of the work went. AR is expensive: the camera feed, the tracking, and the rendering are all fighting for the same frame budget, and dropping frames in AR doesn't just look bad, it breaks the illusion that the object is really there. I worked through **draw calls, material and texture setup, mesh complexity, and lighting** to keep **real-time rendering** stable on the device rather than just in the editor."
+          "h2": "3D Assets & Render Performance"
         },
+        "I integrated the **3D assets** into the scene and got them running smoothly on **iOS** hardware, which is where most of the work went. AR is expensive: the camera feed, the tracking, and the rendering are all fighting for the same frame budget, and dropping frames in AR doesn't just look bad, it breaks the illusion that the object is really there. I worked through **draw calls, material and texture setup, mesh complexity, and lighting** to keep **real-time rendering** stable on the device rather than just in the editor.",
         {
-          "type": "section",
-          "title": "UI, Buttons & Animation",
-          "text": "I designed and implemented the **interface** on top of the AR view: the **buttons**, the states, and the **animations** that tie them together. AR UI is its own problem  the camera feed behind it is unpredictable, so contrast and placement have to hold up against whatever the user happens to be pointing at. I kept the transitions short and readable so the interface guides you without ever competing with the AR content itself."
+          "h2": "UI, Buttons & Animation"
         },
+        "I designed and implemented the **interface** on top of the AR view: the **buttons**, the states, and the **animations** that tie them together. AR UI is its own problem  the camera feed behind it is unpredictable, so contrast and placement have to hold up against whatever the user happens to be pointing at. I kept the transitions short and readable so the interface guides you without ever competing with the AR content itself.",
         {
-          "type": "section",
-          "title": "Architecture & Asset Organization",
-          "text": "I set up the **project architecture** from the start: **folder structure**, naming, prefab organization, and how **assets and resources** were managed across the project. This is the boring part that nobody sees, but on a project with a lot of incoming 3D content it's what keeps things from turning into a mess. Clean organization plus **Git** meant changes stayed reviewable and the build stayed predictable as the asset count grew."
+          "h2": "Architecture & Asset Organization"
         },
+        "I set up the **project architecture** from the start: **folder structure**, naming, prefab organization, and how **assets and resources** were managed across the project. This is the boring part that nobody sees, but on a project with a lot of incoming 3D content it's what keeps things from turning into a mess. Clean organization plus **Git** meant changes stayed reviewable and the build stayed predictable as the asset count grew.",
         {
-          "type": "section",
-          "title": "Learning Outcomes",
-          "text": "This project taught me a lot about **AR development** specifically: how different it is to debug something that only misbehaves in physical space, and how much **mobile performance** work AR really demands. It also pushed me on **architecture discipline**  when you can't share screenshots or ask the internet about your exact problem, the structure of your own project is what saves you."
-        }
+          "h2": "Learning Outcomes"
+        },
+        "This project taught me a lot about **AR development** specifically: how different it is to debug something that only misbehaves in physical space, and how much **mobile performance** work AR really demands. It also pushed me on **architecture discipline**  when you can't share screenshots or ask the internet about your exact problem, the structure of your own project is what saves you."
       ],
       "bgColor": "#5a4fcf",
       "url": "",
       "projectLink": "",
-      "technologies": ["Unity", "C#", "Vuforia Engine", "iOS", "Git"],
+      "technologies": [
+        "Unity",
+        "C#",
+        "Vuforia Engine",
+        "iOS",
+        "Git"
+      ],
       "type": "webapp"
     },
     "project8": {
@@ -629,50 +555,250 @@
       "teamSize": 2,
       "content": [
         {
-          "type": "section",
-          "title": "Overview",
-          "text": "Another **NDA** project, so no client, no screenshots, and nothing about what people actually post on it. In technical terms it's a **cross-platform mobile app** built with **Flutter** and backed by **Firebase**: users publish their own content, and other users can **rate and comment** on it. One codebase, shipping to both **iOS** and **Android**."
+          "h2": "Overview"
         },
+        "Another **NDA** project, so no client, no screenshots, and nothing about what people actually post on it. In technical terms it's a **cross-platform mobile app** built with **Flutter** and backed by **Firebase**: users publish their own content, and other users can **rate and comment** on it. One codebase, shipping to both **iOS** and **Android**.",
         {
-          "type": "section",
-          "title": "My Role",
-          "text": "I worked **full-stack** on this: the **Flutter** client, the **Firebase** backend, the **authentication**, and the **application architecture** that holds it together. Being responsible for both sides meant I could design the data model and the UI against each other instead of negotiating an API in the middle, which made a lot of decisions faster."
+          "h2": "My Role"
         },
+        "I worked **full-stack** on this: the **Flutter** client, the **Firebase** backend, the **authentication**, and the **application architecture** that holds it together. Being responsible for both sides meant I could design the data model and the UI against each other instead of negotiating an API in the middle, which made a lot of decisions faster.",
         {
-          "type": "section",
-          "title": "Application Architecture",
-          "text": "I set up the **architecture** early: how state flows through the app, where the Firebase calls live, and how the UI stays decoupled from the data layer so screens stay testable and easy to change. User-generated content means the app is basically never in a static state  things get posted, rated, and commented on while you're looking at them  so the structure had to make **reactive updates** the normal case rather than a special one."
+          "h2": "Application Architecture"
         },
+        "I set up the **architecture** early: how state flows through the app, where the Firebase calls live, and how the UI stays decoupled from the data layer so screens stay testable and easy to change. User-generated content means the app is basically never in a static state  things get posted, rated, and commented on while you're looking at them  so the structure had to make **reactive updates** the normal case rather than a special one.",
         {
-          "type": "section",
-          "title": "Firebase Backend",
-          "text": "The whole backend runs on **Firebase**. I designed the **data model** around the read patterns rather than the write ones, because a content feed reads constantly and writes rarely, and modelling it the wrong way around gets expensive fast. That covered how content, ratings, and comments relate to each other, how aggregate scores stay consistent, and **security rules** so users can only touch what's actually theirs."
+          "h2": "Firebase Backend"
         },
+        "The whole backend runs on **Firebase**. I designed the **data model** around the read patterns rather than the write ones, because a content feed reads constantly and writes rarely, and modelling it the wrong way around gets expensive fast. That covered how content, ratings, and comments relate to each other, how aggregate scores stay consistent, and **security rules** so users can only touch what's actually theirs.",
         {
-          "type": "section",
-          "title": "Authentication & Login",
-          "text": "I implemented **authentication and login**, including the account flows, session persistence across app launches, and the states around them  signed out, signing in, signed in, and all the failure cases in between. On a platform where everything is tied to a user identity, auth isn't a screen you build once and forget: it's the thing every other feature quietly depends on."
+          "h2": "Authentication & Login"
         },
+        "I implemented **authentication and login**, including the account flows, session persistence across app launches, and the states around them  signed out, signing in, signed in, and all the failure cases in between. On a platform where everything is tied to a user identity, auth isn't a screen you build once and forget: it's the thing every other feature quietly depends on.",
         {
-          "type": "section",
-          "title": "Ratings & Comments",
-          "text": "The social layer is what makes the app work: users **rate** and **comment** on what other people publish, and that feedback has to show up quickly and consistently. I built these so the interface responds immediately while the backend catches up, and so the same content looks the same whichever device you open it on."
+          "h2": "Ratings & Comments"
         },
+        "The social layer is what makes the app work: users **rate** and **comment** on what other people publish, and that feedback has to show up quickly and consistently. I built these so the interface responds immediately while the backend catches up, and so the same content looks the same whichever device you open it on.",
         {
-          "type": "section",
-          "title": "Cross-Platform Development",
-          "text": "Shipping one **Flutter** codebase to **iOS** and **Android** is a huge time saver, but it isn't free  the two platforms disagree about permissions, keyboards, navigation gestures, and plenty of small behaviours that only show up on real devices. I tested against both throughout instead of treating one as the main platform and the other as a port."
+          "h2": "Cross-Platform Development"
         },
+        "Shipping one **Flutter** codebase to **iOS** and **Android** is a huge time saver, but it isn't free  the two platforms disagree about permissions, keyboards, navigation gestures, and plenty of small behaviours that only show up on real devices. I tested against both throughout instead of treating one as the main platform and the other as a port.",
         {
-          "type": "section",
-          "title": "Learning Outcomes",
-          "text": "This project pushed my **Flutter** and **Firebase** skills a long way, especially around **data modelling** and **authentication**. The bigger lesson was about user-generated content: the moment real people can publish, rate, and comment, the edge cases stop being hypothetical, and you learn to design for them up front instead of patching them later."
-        }
+          "h2": "Learning Outcomes"
+        },
+        "This project pushed my **Flutter** and **Firebase** skills a long way, especially around **data modelling** and **authentication**. The bigger lesson was about user-generated content: the moment real people can publish, rate, and comment, the edge cases stop being hypothetical, and you learn to design for them up front instead of patching them later."
       ],
       "bgColor": "#0468d7",
       "url": "",
       "projectLink": "",
-      "technologies": ["Flutter", "Firebase", "iOS", "Android"],
+      "technologies": [
+        "Flutter",
+        "Firebase",
+        "iOS",
+        "Android"
+      ],
+      "type": "webapp"
+    },
+    "project9": {
+      "slug": "text-typo-example",
+      "title": "Text & Typography Example",
+      "shortDescription": "Reference Article • Every block type, inline mark and media element the article system supports — written as a real article rather than a component gallery",
+      "role": "Reference / Style Guide",
+      "outcome": "A working specimen of CONTENT-GUIDE.md",
+      "duration": "Living document",
+      "thumbnailImage": "/works/aidemo/code.webp",
+      "previewVideo": null,
+      "date": "2026-09",
+      "teamSize": 1,
+      "content": [
+        {
+          "lead": "Every article on this site used to be written the same way: a title, a paragraph, a title, a paragraph. It read like a form someone had filled in. This page is the fix — and it is also the reference: every block type, every inline mark, every kind of media, used the way it is meant to be used."
+        },
+        "I rebuilt the content system in an afternoon, and the code was the easy half. The hard half was working out **why** the old pages felt mechanical when the writing in them was fine. The sentences were not the problem. The *shape* was.",
+        "So before any of the components below existed, I read back through the technical writing I actually finish — postmortems, engine deep-dives, the long Medium posts people send each other — and looked for what they had in common. It turned out to be a short list, and none of it was about prose quality.",
+        {
+          "stats": [
+            {
+              "value": "9",
+              "label": "block types"
+            },
+            {
+              "value": "1",
+              "label": "renderer",
+              "hint": "projects + blog"
+            },
+            {
+              "value": "~40",
+              "label": "blocks here"
+            },
+            {
+              "value": "0",
+              "label": "custom CSS files"
+            }
+          ]
+        },
+        {
+          "h2": "The problem was rhythm, not writing"
+        },
+        "A page built out of heading-plus-paragraph pairs has exactly one texture. Every element is the same size, sits the same distance from its neighbours, and asks the reader for the same amount of attention. Your eye has nowhere to rest and nothing to skip, so after the third pair it stops reading and starts scanning — and scanning a wall of identical paragraphs finds nothing, because nothing is shaped differently from anything else.\n\nThat is a layout failure dressed up as a writing failure. The words were carrying all of the meaning and none of the emphasis.",
+        {
+          "media": "/works/aidemo/code.webp",
+          "size": "wide",
+          "caption": "A wide figure. Use this size when the detail matters more than the column — code screenshots, node graphs, anything with small labels."
+        },
+        "The fix is not more words. It is more kinds of thing.",
+        {
+          "quote": "If every element on the page is the same weight, the reader has no way to tell which one mattered.",
+          "cite": "the note I wrote myself before starting"
+        },
+        {
+          "h2": "What good long-form technical writing does"
+        },
+        "Six patterns showed up in nearly everything I looked at. None of them is a trick, and all of them are cheap to apply once the system can express them:",
+        "1. It opens with a **lead** — one oversized paragraph that says what the thing is and why it was hard, before any heading interrupts.\n2. It varies paragraph length on purpose. A five-line explanation, then a one-line verdict.\n3. It promotes one sentence per section into a **pull quote**, and lets the rest of the section stay quiet.\n4. It places a figure *inside* the argument, immediately after the sentence the figure proves.\n5. It writes captions that add information instead of repeating the alt text. Captions are the second most-read text on any page, after the title.\n6. It ends on what changed, not on a summary of what was said.",
+        {
+          "takeaways": [
+            "Delay the first heading — let two or three paragraphs run first.",
+            "Never let more than three prose blocks run without something that is not prose.",
+            "One pull quote per major section. Two reads as shouting.",
+            "A list is for genuinely parallel items, never for narrative.",
+            "If a caption could be deleted without losing anything, delete it."
+          ],
+          "title": "The rules this page follows"
+        },
+        {
+          "h3": "Delay the first heading"
+        },
+        "The three blocks above this page's first `h2` are doing the work a heading cannot: they establish stakes. A heading at line one tells the reader they have arrived at a document. Three paragraphs tell them they have arrived at a story.",
+        {
+          "h3": "Let paragraph length vary"
+        },
+        "This paragraph is deliberately long, because the point it is making needs room to land: uniform paragraph length is the single loudest signal that text was generated rather than written, and it survives even excellent sentences. Human writing breathes unevenly — a long build-up, a short landing, an aside, a longer stretch of explanation — and that unevenness is most of what \"natural\" means when we say a page reads naturally.\n\nThen a short one.",
+        {
+          "callout": "Rhythm is enforced by the renderer, not by you. A paragraph that follows a heading hugs it; two paragraphs in a row sit close together; a new section gets real air. You write the blocks — the spacing is not your problem.",
+          "variant": "info",
+          "title": "You don't hand-tune spacing"
+        },
+        "---",
+        {
+          "h2": "The block vocabulary"
+        },
+        "The whole system is one flat array. A bare string is a paragraph, an object with a single recognised key is that kind of block, and a string starting with `##` is a heading. That is the entire schema:",
+        {
+          "code": "[\n  { \"lead\": \"The opening paragraph, one size up.\" },\n\n  \"A plain paragraph. Full markdown works here.\",\n  \"## A heading — shorthand for { h2: ... }\",\n\n  { \"media\": \"/works/juan/snow.webp\", \"caption\": \"Adds information.\" },\n  { \"quote\": \"One sentence, promoted.\", \"cite\": \"optional\" },\n  { \"stats\": [{ \"value\": \"9\", \"label\": \"tables\" }] },\n  { \"takeaways\": [\"Short.\", \"Parallel.\", \"Scannable.\"] },\n  { \"callout\": \"The aside you'd otherwise put in brackets.\" },\n  { \"aside\": \"Smaller type. Skippable on purpose.\" },\n  \"---\"\n]",
+          "language": "json",
+          "filename": "src/data/projects.json",
+          "caption": "Nothing is required. A content array of nothing but strings is a valid, and perfectly readable, article."
+        },
+        {
+          "aside": "The old `{ type: \"section\", title, text }` shape still works — it normalises to a heading plus a paragraph, which is what it always rendered as. Nothing had to be rewritten in a hurry.",
+          "title": "On the old format"
+        },
+        {
+          "h2": "Media that earns its place"
+        },
+        "A figure placed at the end of a section is decoration. A figure placed immediately after the sentence it proves is an argument. The rule I use: if I can move an image somewhere else without the surrounding text getting worse, the image is not doing anything.\n\nSize is part of that. Not every figure deserves the full column — a portrait screenshot stretched to full width just looks lost, and a detail shot at full width buries the detail.",
+        {
+          "media": "/works/sudoku/write.webp",
+          "size": "inline",
+          "caption": "An inline figure — narrower than the column. For anything where the full width would add nothing."
+        },
+        "When two or three images only mean something *next to each other*, they belong in one gallery rather than stacked as separate figures. Stacking asks the reader to hold the first one in memory; a gallery lets them compare directly.",
+        {
+          "gallery": [
+            {
+              "src": "/works/sudoku/play.webp",
+              "caption": "Play"
+            },
+            {
+              "src": "/works/sudoku/write.webp",
+              "caption": "Write"
+            },
+            {
+              "src": "/works/archive/login.webp",
+              "caption": "Sign in"
+            }
+          ],
+          "caption": "Three states of the same flow. Each keeps its own caption; the group caption says what the comparison is for."
+        },
+        "And when the whole point is *what changed*, a slider beats two images side by side, because the reader controls the comparison instead of doing it from memory.",
+        {
+          "compare": {
+            "before": {
+              "src": "/works/aidemo/patrol.webp",
+              "alt": "Patrol behaviour"
+            },
+            "after": {
+              "src": "/works/aidemo/path.webp",
+              "alt": "Pathfinding behaviour"
+            }
+          },
+          "startAt": 45,
+          "caption": "Drag the handle. Before/after is the most persuasive figure in technical writing and the most over-used — save it for a real difference."
+        },
+        "Video works the same way as an image, and needs the same justification. If a still frame would say it, use the still frame.",
+        {
+          "media": "/works/juan/physics.webm",
+          "caption": "Video autoplays muted and pauses when it leaves the viewport — so a page full of clips does not turn into a page full of noise."
+        },
+        "For anything where rotation is the information, a 3D viewer says in one block what six screenshots say badly.",
+        {
+          "model": "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+          "poster": "/works/juan/cover.jpg",
+          "alt": "Example 3D model",
+          "caption": "Drag to rotate. Loads on demand, so it costs nothing until someone scrolls to it."
+        },
+        {
+          "h2": "Code, when the code is the point"
+        },
+        "A snippet should be the shortest thing that still compiles in the reader's head. Twelve lines that show one decision beat eighty lines that show a working file, and the caption should say what to look at — nobody reads a code block twice looking for the interesting line.",
+        {
+          "code": "// The whole rhythm system. The gap above a block is a function of\n// what came before it — that is the entire trick.\nfunction gapClass(prev, block) {\n    if (!prev) return '';\n\n    if (prev.kind === 'heading') {\n        // A heading and its body are one unit.\n        return block.kind === 'prose' ? TIGHT : LOOSE;\n    }\n\n    if (prev.kind === 'prose' && block.kind === 'prose') return CLOSE;\n\n    return ''; // inherit the section-level gap\n}",
+          "language": "javascript",
+          "filename": "src/components/ui/ArticleBody.jsx",
+          "caption": "Uniform spacing is the loudest \"generated\" tell. Nine lines fix it."
+        },
+        "Short snippets also work inline, inside a fenced block in a normal paragraph, which is useful when the code *is* the sentence:\n\n```bash\nnpm start\n```\n\nThe fence and the `code` block render identically — the block form just also carries a filename and a caption.",
+        {
+          "callout": "Do not paste a full file. If the snippet needs a scrollbar to read, it needs an edit or a link to the repository instead.",
+          "variant": "warning",
+          "title": "The one rule for code blocks"
+        },
+        "---",
+        {
+          "h2": "Every inline mark, in one paragraph"
+        },
+        "Inside prose you have **bold** for the load-bearing phrase, __underline__ for a term you are about to define, ==highlight== for the one clause a skimmer must not miss, ~~strikethrough~~ for the idea you tried and abandoned, `inline code` for identifiers and file names, and [links](https://albyeah.com){opens the homepage} — with hover text, if the destination is not obvious from the words.\n\nUse at most two of these per paragraph. Emphasis works by contrast: a paragraph where five phrases are bold has no emphasis at all, it just has a texture.",
+        "Ordered lists carry sequence, and only sequence:\n\n1. Write the section without any formatting.\n2. Read it and mark the one sentence that matters.\n3. Promote that sentence — bold it, or pull it out as a quote.\n4. Delete every other mark you were tempted to add.",
+        "Bullet lists carry parallel items — same grammatical shape, same weight, three to five of them:\n\n- Headings that make a claim, not headings that name a topic\n- Captions that add a fact the paragraph does not have\n- Numbers instead of adjectives, wherever a number exists",
+        "And a soft quote — the small, indented kind — is for quoting someone, including a past version of yourself:\n\n> I'll just add a title and a paragraph for each part, it'll be fine.\n\nIt is deliberately quieter than a pull quote. If it is louder than the paragraph around it, you wanted the pull quote block instead.",
+        {
+          "h2": "What I'd tell myself before writing the next one"
+        },
+        "The system stopped being the constraint the moment prose became the default block instead of a titled section. Everything else here — the stats row, the gallery, the takeaways box — is a variation that only became possible once a paragraph no longer needed a heading to exist.",
+        {
+          "takeaways": [
+            "Write the whole draft as plain strings first. Add block types only where the draft is already boring.",
+            "If a section has no figure, no list and no quote, it is probably two sections.",
+            "Read only the headings, the lead and the captions. If that alone tells the story, the page works.",
+            "Cut the summary paragraph at the end. Finish on the thing that changed."
+          ],
+          "title": "Next time"
+        },
+        {
+          "quote": "A page reads naturally when it was shaped, not when it was filled in.",
+          "cite": "the actual conclusion"
+        }
+      ],
+      "cover": "/works/aidemo/code.webp",
+      "bgColor": "#4285f4",
+      "url": null,
+      "projectLink": null,
+      "technologies": [
+        "Typography",
+        "Content Design",
+        "React",
+        "Markdown"
+      ],
       "type": "webapp"
     }
   }

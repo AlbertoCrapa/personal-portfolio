@@ -5,10 +5,13 @@ import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
-import MediaFrame from '../../components/ui/MediaFrame';
-import ModelViewer from '../../components/ui/ModelViewer';
-import BeforeAfter from '../../components/ui/BeforeAfter';
-import RichText from '../../components/ui/RichText';
+import ArticleBody from '../../components/ui/ArticleBody';
+import {
+    getArticleSummary,
+    getFirstMediaSrc,
+    getTocSections,
+    normalizeContent,
+} from '../../components/ui/article/normalize';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
 import { ShimmerText } from '../../components/ui/NavAnimations';
@@ -24,14 +27,9 @@ const BlogPage = () => {
     const currentIndex = blogs.findIndex((b) => b.slug === slug);
     const blog = blogs[currentIndex];
 
-    const blogElements = Array.isArray(blog?.content) ? blog.content : [];
-    const tocSections = blogElements
-        .filter((el) => el?.title && (el?.type === 'section' || !el?.type))
-        .map((el) => ({ id: toId(el.title), title: el.title }));
-    const firstMediaIndex = blogElements.findIndex((item) => {
-        const itemType = item?.type || (item?.src ? 'media' : 'section');
-        return itemType === 'media' && item?.src;
-    });
+    const contentBlocks = normalizeContent(blog?.content);
+    const tocSections = getTocSections(contentBlocks, toId);
+    const summary = getArticleSummary(contentBlocks, 160);
 
     // Check if media is video
     const isVideo = (src) => {
@@ -39,7 +37,7 @@ const BlogPage = () => {
         return /\.(mp4|webm|mov)$/i.test(src);
     };
 
-    const coverSrc = blog?.cover || (firstMediaIndex >= 0 ? blogElements[firstMediaIndex]?.src : null);
+    const coverSrc = blog?.cover || getFirstMediaSrc(contentBlocks);
     const coverPoster = blog?.cover && !isVideo(blog?.cover) ? blog.cover : undefined;
     const blogSchema = blog ? {
         '@context': 'https://schema.org',
@@ -58,7 +56,7 @@ const BlogPage = () => {
             name: 'Alberto Crapanzano',
             url: 'https://albyeah.com',
         },
-        description: blog.excerpt || blogElements?.[0]?.text?.substring(0, 160),
+        description: blog.excerpt || summary,
         mainEntityOfPage: `https://albyeah.com/blog/${slug}`,
     } : null;
 
@@ -99,7 +97,7 @@ const BlogPage = () => {
         <>
             <SEO
                 title={`${blog.title} - Alberto Crapanzano Blog`}
-                description={blog.excerpt || blogElements?.[0]?.text?.substring(0, 160)}
+                description={blog.excerpt || summary}
                 keywords={`${blog.title}, ${blog.tags?.join(', ') || ''}, Alberto Crapanzano, Game Development`}
                 url={`/blog/${slug}`}
                 image={coverSrc ? `https://albyeah.com${coverSrc}` : undefined}
@@ -171,76 +169,12 @@ const BlogPage = () => {
 
                     {/* Content + ToC */}
                     <div className="flex gap-16 pt-8">
-                        <div className="flex-1 min-w-0 max-w-3xl space-y-8 md:space-y-10">
-                            {blogElements.map((element, idx) => {
-                                const elementType = element?.type || (element?.src ? 'media' : 'section');
-
-                                // Avoid rendering the same first media twice when it's used as cover.
-                                if (elementType === 'media' && idx === firstMediaIndex && element?.src === coverSrc) {
-                                    return null;
-                                }
-
-                                if (elementType === 'model' && element?.src) {
-                                    return (
-                                        <section key={idx} className="space-y-2 md:space-y-4 max-w-3xl">
-                                            <div>
-                                                <ModelViewer
-                                                    src={element.src}
-                                                    poster={element.poster}
-                                                    alt={element.alt || element.description || `${blog.title} 3D model`}
-                                                    description={element.description}
-                                                    className="w-full h-[280px] sm:h-[340px] md:h-[420px]"
-                                                />
-                                            </div>
-                                        </section>
-                                    );
-                                }
-
-                                if (elementType === 'beforeAfter' && element?.before && element?.after) {
-                                    return (
-                                        <section key={idx} className="space-y-2 md:space-y-4 max-w-3xl">
-                                            <div>
-                                                <BeforeAfter
-                                                    before={element.before}
-                                                    after={element.after}
-                                                    description={element.description}
-                                                    startAt={element.startAt}
-                                                />
-                                            </div>
-                                        </section>
-                                    );
-                                }
-
-                                if (elementType === 'media' && element?.src) {
-                                    return (
-                                        <section key={idx} className="space-y-2 md:space-y-4 max-w-3xl">
-                                            <MediaFrame
-                                                src={element.src}
-                                                isVideo={isVideo(element.src)}
-                                                alt={element.description || `${blog.title} media`}
-                                                description={element.description}
-                                                allowFullscreen={!(element.nonFullscreen === true || element.fullscreen === false)}
-                                            />
-                                        </section>
-                                    );
-                                }
-
-                                return (
-                                    <section key={idx} className="space-y-2 md:space-y-4 max-w-3xl">
-                                        {/* Section Title */}
-                                        {element?.title && (
-                                            <h2 id={toId(element.title)} className="text-2xl font-bold text-text-primary">
-                                                {element.title}
-                                            </h2>
-                                        )}
-
-                                        {/* Section Text */}
-                                        {element?.text && (
-                                            <RichText text={element.text} />
-                                        )}
-                                    </section>
-                                );
-                            })}
+                        <div className="flex-1 min-w-0 max-w-3xl space-y-10">
+                            <ArticleBody
+                                blocks={contentBlocks}
+                                title={blog.title}
+                                skipMediaSrc={coverSrc}
+                            />
 
                             {/* Navigation */}
                             <nav className="!mt-10 pt-8 border-t border-border">

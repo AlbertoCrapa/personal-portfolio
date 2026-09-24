@@ -8,33 +8,33 @@
       "teamSize": 1,
       "content": [
         {
-          "title": "Project Philosophy",
-          "text": "**Enemy AI Prototype** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable if someone else (or future me ahahah) looks at this, they should be able to understand what's happening."
+          "h2": "Project Philosophy"
         },
+        "**Enemy AI Prototype** is my personal playground for exploring AI programming with **C++**, **SDL2**, and **CMake**. It's both a **learning lab** where I experiment with different AI behaviors and a **showcase** of what I've figured out so far. I'm really focused on keeping the code clean and readable if someone else (or future me ahahah) looks at this, they should be able to understand what's happening.",
         {
-          "title": "Pathfinding Implementation",
-          "text": "The heart of the project is a **custom A* pathfinding algorithm** that I built from scratch. I studied the theory and then adapted it to work exactly how I needed it to. The pathfinding lets entities navigate complex environments efficiently, and building it taught me a lot about **graph theory**, **heuristic algorithms**, and how to optimize things for real-time applications."
+          "h2": "Pathfinding Implementation"
         },
+        "The heart of the project is a **custom A* pathfinding algorithm** that I built from scratch. I studied the theory and then adapted it to work exactly how I needed it to. The pathfinding lets entities navigate complex environments efficiently, and building it taught me a lot about **graph theory**, **heuristic algorithms**, and how to optimize things for real-time applications.",
         {
-          "title": "AI Behavior Systems",
-          "text": "I've implemented several different AI behaviors that feel natural: **Wander behavior** makes entities move around randomly but in a way that looks organic rather than robotic; **Patrol systems** let them follow specific routes with smooth transitions between waypoints; **Seek behavior** makes entities chase targets (like your mouse cursor) with realistic acceleration and deceleration."
+          "h2": "AI Behavior Systems"
         },
+        "I've implemented several different AI behaviors that feel natural: **Wander behavior** makes entities move around randomly but in a way that looks organic rather than robotic; **Patrol systems** let them follow specific routes with smooth transitions between waypoints; **Seek behavior** makes entities chase targets (like your mouse cursor) with realistic acceleration and deceleration.",
         {
-          "title": "Technical Architecture",
-          "text": "I'm using **SDL2** for graphics and input handling, and the whole thing demonstrates what I've learned about modern **C++ programming** - **object-oriented design**, **memory management**, and building things in a modular way. Using **CMake** means it builds cleanly on different platforms, which is something you really need to know for professional C++ work."
+          "h2": "Technical Architecture"
         },
+        "I'm using **SDL2** for graphics and input handling, and the whole thing demonstrates what I've learned about modern **C++ programming** - **object-oriented design**, **memory management**, and building things in a modular way. Using **CMake** means it builds cleanly on different platforms, which is something you really need to know for professional C++ work.",
         {
-          "title": "Continuous Development",
-          "text": "This project keeps **evolving** as I learn new AI concepts and improve my existing code. Each time I come back to it, I focus on making the **code better**, **performance faster**, and **adding new features**. This iterative approach has taught me a lot about **maintaining software**, **using version control properly**, and how to improve things incrementally rather than trying to rebuild everything from scratch."
+          "h2": "Continuous Development"
         },
+        "This project keeps **evolving** as I learn new AI concepts and improve my existing code. Each time I come back to it, I focus on making the **code better**, **performance faster**, and **adding new features**. This iterative approach has taught me a lot about **maintaining software**, **using version control properly**, and how to improve things incrementally rather than trying to rebuild everything from scratch.",
         {
-          "title": "Code Quality Standards",
-          "text": "One thing I really care about is keeping the **code clean, readable, and well-documented**. I want to write code that doesn't just work, but that someone else could look at and learn from. This focus on quality has really improved my **software engineering practices** and how I communicate technical ideas."
+          "h2": "Code Quality Standards"
         },
+        "One thing I really care about is keeping the **code clean, readable, and well-documented**. I want to write code that doesn't just work, but that someone else could look at and learn from. This focus on quality has really improved my **software engineering practices** and how I communicate technical ideas.",
         {
-          "title": "Future Plans",
-          "text": "The modular design makes it easy to add new AI behaviors and systems. I'm planning to add **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination**. This forward-thinking approach is part of my commitment to **continuous learning** and developing my AI skills."
-        }
+          "h2": "Future Plans"
+        },
+        "The modular design makes it easy to add new AI behaviors and systems. I'm planning to add **flocking algorithms**, **finite state machines**, **neural network integration**, and **multi-agent coordination**. This forward-thinking approach is part of my commitment to **continuous learning** and developing my AI skills."
       ],
       "media": [
         {
@@ -66,7 +66,13 @@
         "A* Algorithm",
         "Object-Oriented Design"
       ],
-      "tags": ["c++", "ai", "pathfinding", "game-dev", "experiments"],
+      "tags": [
+        "c++",
+        "ai",
+        "pathfinding",
+        "game-dev",
+        "experiments"
+      ],
       "type": "playground",
       "experience": {
         "kind": "wasm-canvas",
@@ -81,25 +87,25 @@
       "teamSize": 1,
       "content": [
         {
-          "title": "Project Philosophy",
-          "text": "**Motion Overlay** is a small on-device computer vision experiment: it tracks your face and hands through the webcam and drops an icon on top of each one, live, directly in the browser. The icon isn't static either — it reacts to what you're actually doing: **smile, wink, or look surprised** and the face icon follows; make a **fist, thumbs up, peace sign, or point** and the hand icon follows that too. No frame is ever uploaded anywhere — every bit of it runs locally as **WebAssembly**."
+          "h2": "Project Philosophy"
         },
+        "**Motion Overlay** is a small on-device computer vision experiment: it tracks your face and hands through the webcam and drops an icon on top of each one, live, directly in the browser. The icon isn't static either — it reacts to what you're actually doing: **smile, wink, or look surprised** and the face icon follows; make a **fist, thumbs up, peace sign, or point** and the hand icon follows that too. No frame is ever uploaded anywhere — every bit of it runs locally as **WebAssembly**.",
         {
-          "title": "Why On-Device Tracking",
-          "text": "I wanted to get hands-on with **computer vision that doesn't need a server**. Streaming webcam frames to a backend for inference is the easy path, but it's slower, it costs money per user, and it means someone else's camera feed is leaving their machine. Running the models client-side with **MediaPipe Tasks Vision** answered all three: instant feedback, zero infrastructure, and the video never leaves the tab."
+          "h2": "Why On-Device Tracking"
         },
+        "I wanted to get hands-on with **computer vision that doesn't need a server**. Streaming webcam frames to a backend for inference is the easy path, but it's slower, it costs money per user, and it means someone else's camera feed is leaving their machine. Running the models client-side with **MediaPipe Tasks Vision** answered all three: instant feedback, zero infrastructure, and the video never leaves the tab.",
         {
-          "title": "Reading Expressions & Gestures",
-          "text": "Under the hood this uses MediaPipe's **FaceLandmarker** (with blendshapes turned on) and **GestureRecognizer**, two pre-trained models compiled to WebAssembly. Blendshapes are ARKit-style scores like *mouthSmileLeft* or *jawOpen* — I threshold a handful of them to pick between a smile, a laugh, a wink, surprise, a frown, or a pucker. The gesture model classifies each hand directly into a fixed set: **fist, open palm, thumbs up/down, peace sign, pointing, or \"I love you\"** — it isn't something I trained, Google ships it pre-built into the same package. On top of that I read the raw 21 hand landmarks myself to pick out a few poses the pretrained model doesn't cover — **OK sign, rock-on, call-me, and a certain single-finger gesture** — by checking which fingers are extended and how far apart specific fingertips are."
+          "h2": "Reading Expressions & Gestures"
         },
+        "Under the hood this uses MediaPipe's **FaceLandmarker** (with blendshapes turned on) and **GestureRecognizer**, two pre-trained models compiled to WebAssembly. Blendshapes are ARKit-style scores like *mouthSmileLeft* or *jawOpen* — I threshold a handful of them to pick between a smile, a laugh, a wink, surprise, a frown, or a pucker. The gesture model classifies each hand directly into a fixed set: **fist, open palm, thumbs up/down, peace sign, pointing, or \"I love you\"** — it isn't something I trained, Google ships it pre-built into the same package. On top of that I read the raw 21 hand landmarks myself to pick out a few poses the pretrained model doesn't cover — **OK sign, rock-on, call-me, and a certain single-finger gesture** — by checking which fingers are extended and how far apart specific fingertips are.",
         {
-          "title": "Making It Feel Alive",
-          "text": "Raw landmark coordinates jitter a lot frame-to-frame, so each icon's position is **smoothed with an exponential lerp** rather than snapping straight to the detection, and a recognized expression or gesture has to **hold for a few consecutive frames** before the icon actually switches — otherwise a single misread frame makes it flicker. The video and the icons are mirrored together as a single unit for a natural selfie view, while the icon glyphs themselves are counter-flipped so they never render backwards. The hand icons go a step further: I read whether the **thumb sits toward the inner or outer edge of the hand** and mirror the glyph itself to match, so it doesn't look backwards relative to how the hand is actually turned."
+          "h2": "Making It Feel Alive"
         },
+        "Raw landmark coordinates jitter a lot frame-to-frame, so each icon's position is **smoothed with an exponential lerp** rather than snapping straight to the detection, and a recognized expression or gesture has to **hold for a few consecutive frames** before the icon actually switches — otherwise a single misread frame makes it flicker. The video and the icons are mirrored together as a single unit for a natural selfie view, while the icon glyphs themselves are counter-flipped so they never render backwards. The hand icons go a step further: I read whether the **thumb sits toward the inner or outer edge of the hand** and mirror the glyph itself to match, so it doesn't look backwards relative to how the hand is actually turned.",
         {
-          "title": "Respecting the Camera",
-          "text": "Camera access is never requested automatically. The experience opens on a plain **\"Enable camera\"** step with a short explanation of what happens to the feed (nothing — it never leaves the browser), so the permission prompt is always a direct result of an explicit choice, not something sprung on you the moment the page loads."
-        }
+          "h2": "Respecting the Camera"
+        },
+        "Camera access is never requested automatically. The experience opens on a plain **\"Enable camera\"** step with a short explanation of what happens to the feed (nothing — it never leaves the browser), so the permission prompt is always a direct result of an explicit choice, not something sprung on you the moment the page loads."
       ],
       "cover": "/img/motion-overlay-cover.svg",
       "bgColor": "#9b84e7",
@@ -110,7 +116,12 @@
         "Computer Vision",
         "React"
       ],
-      "tags": ["ai", "computer-vision", "webcam", "experiments"],
+      "tags": [
+        "ai",
+        "computer-vision",
+        "webcam",
+        "experiments"
+      ],
       "type": "playground",
       "experience": {
         "kind": "webcam-overlay",
