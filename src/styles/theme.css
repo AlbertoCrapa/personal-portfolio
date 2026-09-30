@@ -11,47 +11,98 @@
      verifies contrast; do not hand-pick values between steps.
      Radix gray dark: 1 #111111 · 2 #191919 · 3 #222222 · 4 #2a2a2a
                       5 #313131 · 6 #3a3a3a · 11 #b4b4b4 · 12 #eeeeee */
-  --color-bg: #111111;
-  --color-surface: #222222;
-  --color-surface-hover: #2a2a2a;
-  --color-border: #313131;
+  /* Every colour is stored as bare RGB channels so Tailwind can compose an
+     alpha on top of it (`bg-surface/60`) and a theme can be swapped by
+     redefining only these lines. The --color-* aliases below keep the plain
+     CSS in this file readable and let a theme switch propagate for free. */
+  --rgb-bg: 17 17 17;
+  --rgb-surface: 34 34 34;
+  --rgb-surface-hover: 42 42 42;
+  --rgb-border: 49 49 49;
+  /* Border one step up the scale — the hover/emphasis edge. Replaces the
+     hand-picked #444 / #4a4a4a / #555 that used to be scattered inline. */
+  --rgb-border-strong: 74 74 74;
 
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #a0a0a0;
-  --color-text-muted: #6b6b6b;
+  --rgb-text-primary: 255 255 255;
+  --rgb-text-secondary: 160 160 160;
+  --rgb-text-muted: 107 107 107;
 
-  --color-accent-blue: #4285f4;
-  --color-accent-orange: #ff9800;
-  --color-accent-green: #4caf50;
-  --color-accent-purple: #9b84e7;
+  --rgb-accent-blue: 66 133 244;
+  --rgb-accent-orange: 255 152 0;
+  --rgb-accent-green: 76 175 80;
+  --rgb-accent-purple: 155 132 231;
 
-  /* Selection */
-  --color-selection-bg: #ffffff;
-  --color-selection-text: #111111;
+  --rgb-selection-bg: 255 255 255;
+  --rgb-selection-text: 17 17 17;
 
-  /* Tinted surfaces track the canvas: each dropped by the same OKLab lightness
-     the canvas did (ΔL 0.040), so hue and chroma are unchanged. */
+  --rgb-github: 179 154 248;
+  --rgb-github-dim: 145 118 212;
+  --rgb-github-bg: 22 17 36;
+  --rgb-github-border: 51 36 95;
 
-  /* Platform accent colors */
-  --color-github: #b39af8;
-  --color-github-dim: #9176d4;
-  --color-github-bg: #161124;
-  --color-github-border: #33245f;
+  --rgb-spotify: 29 185 84;
+  --rgb-spotify-dim: 87 217 132;
+  --rgb-spotify-bg: 8 31 17;
+  --rgb-spotify-border: 31 84 50;
 
-  --color-spotify: #1db954;
-  --color-spotify-dim: #57d984;
-  --color-spotify-bg: #081f11;
-  --color-spotify-border: #1f5432;
+  --rgb-leetcode: 255 161 22;
+  --rgb-leetcode-dim: 255 207 135;
+  --rgb-leetcode-bg: 37 28 13;
+  --rgb-leetcode-border: 79 58 21;
 
-  --color-leetcode: #ffa116;
-  --color-leetcode-dim: #ffcf87;
-  --color-leetcode-bg: #251c0d;
-  --color-leetcode-border: #4f3a15;
+  --rgb-info-bg: 20 47 83;
+  --rgb-info-border: 66 133 244;
+  --rgb-warning-bg: 51 36 0;
+  --rgb-warning-border: 255 152 0;
 
-  --color-info-bg: #142f53;
-  --color-info-border: #4285f4;
-  --color-warning-bg: #332400;
-  --color-warning-border: #ff9800;
+  /* Surfaces that float above the page (dropdowns, toasts, sticky bars).
+     Semi-transparent so the blur behind them reads. */
+  --overlay-surface: rgb(30 30 30 / 0.94);
+  --overlay-shadow: 0 18px 48px rgb(0 0 0 / 0.45);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3);
+  --card-shadow-hover: 0 18px 40px -18px rgb(0 0 0 / 0.75);
+  --glare-color: 255 255 255;
+  --glare-opacity: 0.02;
+  color-scheme: dark;
+
+  /* Aliases — use these in plain CSS; use the Tailwind tokens in JSX. */
+  --color-bg: rgb(var(--rgb-bg));
+  --color-surface: rgb(var(--rgb-surface));
+  --color-surface-hover: rgb(var(--rgb-surface-hover));
+  --color-border: rgb(var(--rgb-border));
+  --color-border-strong: rgb(var(--rgb-border-strong));
+
+  --color-text-primary: rgb(var(--rgb-text-primary));
+  --color-text-secondary: rgb(var(--rgb-text-secondary));
+  --color-text-muted: rgb(var(--rgb-text-muted));
+
+  --color-accent-blue: rgb(var(--rgb-accent-blue));
+  --color-accent-orange: rgb(var(--rgb-accent-orange));
+  --color-accent-green: rgb(var(--rgb-accent-green));
+  --color-accent-purple: rgb(var(--rgb-accent-purple));
+
+  --color-selection-bg: rgb(var(--rgb-selection-bg));
+  --color-selection-text: rgb(var(--rgb-selection-text));
+
+  --color-github: rgb(var(--rgb-github));
+  --color-github-dim: rgb(var(--rgb-github-dim));
+  --color-github-bg: rgb(var(--rgb-github-bg));
+  --color-github-border: rgb(var(--rgb-github-border));
+
+  --color-spotify: rgb(var(--rgb-spotify));
+  --color-spotify-dim: rgb(var(--rgb-spotify-dim));
+  --color-spotify-bg: rgb(var(--rgb-spotify-bg));
+  --color-spotify-border: rgb(var(--rgb-spotify-border));
+
+  --color-leetcode: rgb(var(--rgb-leetcode));
+  --color-leetcode-dim: rgb(var(--rgb-leetcode-dim));
+  --color-leetcode-bg: rgb(var(--rgb-leetcode-bg));
+  --color-leetcode-border: rgb(var(--rgb-leetcode-border));
+
+  --color-info-bg: rgb(var(--rgb-info-bg));
+  --color-info-border: rgb(var(--rgb-info-border));
+  --color-warning-bg: rgb(var(--rgb-warning-bg));
+  --color-warning-border: rgb(var(--rgb-warning-border));
 
   /* Spacing */
   --sidebar-width: 320px;
@@ -88,6 +139,102 @@
   --transition-fast: 150ms ease;
   --transition-base: 200ms ease;
   --transition-slow: 300ms ease;
+}
+
+/* =====================================================
+   LIGHT THEME
+   Only the channel variables are redefined — every --color-*
+   alias, every Tailwind token and every rule below inherits
+   the swap for free. Radix Colors "gray" light scale, same
+   step assignment as the dark scale above:
+   1 #fcfcfc · 2 #f9f9f9 · 3 #f0f0f0 · 4 #e8e8e8
+   5 #e0e0e0 · 6 #d9d9d9 · 10 #8d8d8d · 11 #646464 · 12 #202020
+   ===================================================== */
+
+:root[data-theme="light"] {
+  --rgb-bg: 252 252 252;
+  --rgb-surface: 244 244 244;
+  --rgb-surface-hover: 232 232 232;
+  --rgb-border: 223 223 223;
+  --rgb-border-strong: 190 190 190;
+
+  --rgb-text-primary: 24 24 24;
+  --rgb-text-secondary: 90 90 90;
+  --rgb-text-muted: 133 133 133;
+
+  /* Accents darkened until they clear 4.5:1 on the light canvas. */
+  --rgb-accent-blue: 21 101 214;
+  --rgb-accent-orange: 166 98 0;
+  --rgb-accent-green: 34 122 45;
+  --rgb-accent-purple: 104 74 205;
+
+  --rgb-selection-bg: 24 24 24;
+  --rgb-selection-text: 252 252 252;
+
+  --rgb-github: 104 74 205;
+  --rgb-github-dim: 88 60 184;
+  --rgb-github-bg: 243 239 253;
+  --rgb-github-border: 218 205 250;
+
+  --rgb-spotify: 17 122 57;
+  --rgb-spotify-dim: 13 102 47;
+  --rgb-spotify-bg: 233 247 238;
+  --rgb-spotify-border: 183 230 200;
+
+  --rgb-leetcode: 166 98 0;
+  --rgb-leetcode-dim: 138 82 0;
+  --rgb-leetcode-bg: 253 243 226;
+  --rgb-leetcode-border: 242 220 179;
+
+  --rgb-info-bg: 232 240 254;
+  --rgb-info-border: 21 101 214;
+  --rgb-warning-bg: 253 243 226;
+  --rgb-warning-border: 166 98 0;
+
+  --overlay-surface: rgb(255 255 255 / 0.92);
+  --overlay-shadow: 0 18px 48px rgb(15 15 15 / 0.14);
+  --card-shadow: 0 1px 2px rgb(15 15 15 / 0.06);
+  --card-shadow-hover: 0 18px 40px -18px rgb(15 15 15 / 0.28);
+  --glare-color: 255 255 255;
+  --glare-opacity: 0.08;
+  color-scheme: light;
+}
+
+/* =====================================================
+   THEME SWITCH — rectangle view transition
+   The new theme is painted underneath and wiped in from the
+   edge the toggle points at. View transitions animate in CSS,
+   not in springs, so the easing here is the CSS twin of EASE_OUT.
+   ===================================================== */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-wipe 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes theme-wipe {
+  from {
+    clip-path: var(--theme-wipe-from, inset(0 0 100% 0));
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 /* =====================================================
@@ -265,6 +412,41 @@ canvas {
 }
 
 /* =====================================================
+   PAGE SHELL
+   The one horizontal frame every page sits in — the top
+   bar included, so the logo and the page content can
+   never drift onto different left edges again.
+
+   The gutter is fluid rather than stepped at breakpoints,
+   so it reads as deliberate at every size instead of
+   jumping at 640/1024/1280. 8vw puts a 13" laptop at
+   ~115px (it used to get 32px) and a 1024 tablet at ~82px,
+   while the clamp keeps a phone at a thumb-friendly 29px
+   and stops the gutter running away on ultrawide.
+   ===================================================== */
+
+:root {
+  --page-gutter: clamp(1.5rem, 8vw, 9.5rem);
+}
+
+.page-shell {
+  width: 100%;
+  /* Raised from 1400 because the fluid gutter and a tight cap were fighting:
+     the content column peaked around 1430px of viewport and then got *narrower*
+     as the screen grew. At 1600 the gutter does the work up to that width and
+     the cap only takes over on ultrawide. */
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+/* Cancels the shell's gutter for sections that must run edge to edge (the
+   video hero). Tied to the same variable, so the two can't drift. */
+.page-bleed {
+  margin-inline: calc(-1 * var(--page-gutter));
+}
+
+/* =====================================================
    MODULE CARDS — Shared patterns
    ===================================================== */
 
@@ -279,8 +461,8 @@ canvas {
 }
 
 .module-card:hover {
-  border-color: #444;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+  border-color: var(--color-border-strong);
+  box-shadow: var(--card-shadow-hover);
 }
 
 /* Platform-specific card accents (subtle top glow on hover) */
@@ -343,7 +525,7 @@ canvas {
 
 .skill-chip:hover {
   color: var(--color-text-primary);
-  border-color: #555;
+  border-color: var(--color-border-strong);
   background: var(--color-surface-hover);
 }
 
@@ -380,8 +562,8 @@ canvas {
   padding: 0.7rem 0.75rem;
   border-radius: 0.8rem;
   border: 1px solid var(--color-border);
-  background: rgba(30, 30, 30, 0.94);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  background: var(--overlay-surface);
+  box-shadow: var(--overlay-shadow);
   backdrop-filter: blur(6px);
   pointer-events: auto;
   animation: toast-in 170ms ease-out;
@@ -535,7 +717,7 @@ canvas {
 }
 
 .extras-card:hover {
-  border-color: #444;
+  border-color: var(--color-border-strong);
 }
 
 /* =====================================================
@@ -647,7 +829,7 @@ canvas {
 
 .travel-map-popup .maplibregl-popup-content {
   background: rgba(20, 20, 20, 0.95);
-  border: 1px solid #333;
+  border: 1px solid var(--color-border-strong);
   border-radius: 10px;
   color: #fff;
   padding: 0.6rem 0.7rem;

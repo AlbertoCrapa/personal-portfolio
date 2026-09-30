@@ -6,6 +6,7 @@ import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
 import ArticleBody from '../../components/ui/ArticleBody';
+import MetaStrip from '../../components/ui/MetaStrip';
 import { getArticleSummary, getTocSections, normalizeContent } from '../../components/ui/article/normalize';
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
@@ -13,6 +14,13 @@ import { ShimmerText } from '../../components/ui/NavAnimations';
 import { getProjectCover } from '../../utils/utils';
 import projectData from '../../data/projects.json';
 import playgroundData from '../../data/playground.json';
+
+const PROJECT_TYPE_LABELS = {
+    videogame: 'Video game',
+    boardgame: 'Board game',
+    webapp: 'Web app',
+    playground: 'Experiment',
+};
 
 /**
  * Work/Project Detail Page
@@ -65,6 +73,15 @@ const Work = ({ source = 'projects' }) => {
     const projectCover = getProjectCover(project);
     const projectVideoCover = project.previewVideo || project.videocover || projectCover;
     const summary = getArticleSummary(contentBlocks, 180);
+    // "2024-05" formats as a month; "2024-ongoing" and friends are left alone.
+    const projectDate = (() => {
+        if (!project.date) return null;
+        const parsed = new Date(`${project.date}-01`);
+        return Number.isNaN(parsed.getTime())
+            ? project.date
+            : parsed.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    })();
+    const typeLabel = PROJECT_TYPE_LABELS[project.type] || project.type;
     const workSchema = project ? {
         '@context': 'https://schema.org',
         '@type': 'CreativeWork',
@@ -133,94 +150,57 @@ const Work = ({ source = 'projects' }) => {
                     )}
 
                     {/* Project Header - AFTER cover */}
-                    <header className="space-y-4 pt-2">
-                        <h1 className="text-4xl md:text-5xl font-bold text-text-primary">
-                            {project.title}
-                        </h1>
+                    <header className="space-y-5 pt-4">
+                        <div className="space-y-2.5">
+                            <p className="flex flex-wrap items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                                <span>{isPlayground ? 'Playground' : 'Project'}</span>
+                                {typeLabel && (
+                                    <>
+                                        <span aria-hidden="true" className="opacity-50">/</span>
+                                        <span>{typeLabel}</span>
+                                    </>
+                                )}
+                            </p>
 
-                        {/* Subtitle/Type */}
-                        {project.subtitle && (
-                            <p className="text-lg text-text-secondary">{project.subtitle}</p>
-                        )}
+                            <h1 className="font-display text-3xl font-bold leading-tight tracking-tight text-text-primary md:text-5xl">
+                                {project.title}
+                            </h1>
+
+                            {project.subtitle && (
+                                <p className="max-w-2xl text-lg text-text-secondary">{project.subtitle}</p>
+                            )}
+                        </div>
 
                         {/* Playable experience CTA */}
                         {project.experience && (
-                            <Button to={`${basePath}/${slug}/play`} variant="primary">
-                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                            <Button to={`${basePath}/${slug}/play`} variant="quiet">
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
                                     <path d="M8 5.14v13.72a1 1 0 0 0 1.5.87l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
                                 </svg>
                                 Start Experience
                             </Button>
                         )}
 
-                        {/* Project Metadata */}
-                        <div className="flex flex-wrap gap-4 text-sm text-text-muted">
-                            {project.date && (
-                                <span>
-                                    {(() => {
-                                        // Some entries use a "YYYY-ongoing" placeholder instead of a
-                                        // real "YYYY-MM" month, which isn't parseable as a date.
-                                        const parsed = new Date(`${project.date}-01`);
-                                        return Number.isNaN(parsed.getTime())
-                                            ? project.date
-                                            : parsed.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-                                    })()}
-                                </span>
-                            )}
-                            {project.teamSize && (
-                                <span>Team of {project.teamSize}</span>
-                            )}
-                            {project.role && (
-                                <span>Role: {project.role}</span>
-                            )}
-                            {project.nda && (
-                                <span>Under NDA</span>
-                            )}
-                        </div>
-
-                        {project.outcome && (
-                            <p className="text-sm text-text-secondary bg-surface border border-border rounded-lg px-3 py-2 inline-block">
-                                Outcome: {project.outcome}
-                            </p>
-                        )}
-
-                        {/* Technology Tags */}
-                        {project.technologies && project.technologies.length > 0 && (
-                            <div className="flex flex-wrap gap-2">
-                                {project.technologies.map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="tag-capsule"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-
-                        {/* External Links */}
-                        {project.links && project.links.length > 0 && (
-                            <div className="space-y-1">
-                                <p className="text-sm text-text-muted">External links:</p>
-                                <div className="flex flex-wrap gap-3">
-                                    {project.links.map((link, i) => (
-                                        <a
-                                            key={i}
-                                            href={link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="text-accent-blue hover:underline font-medium"
-                                        >
-                                            {link.label || 'Link'}
-                                        </a>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                        {/* The facts, as a labelled spec sheet rather than a run-on
+                            line of unlabelled fragments. */}
+                        <MetaStrip
+                            facts={[
+                                { label: 'Role', value: project.role },
+                                { label: 'Timeline', value: projectDate },
+                                { label: 'Team', value: project.teamSize ? `${project.teamSize} people` : null },
+                                { label: 'Duration', value: project.duration },
+                                { label: 'Access', value: project.nda ? 'Under NDA' : null },
+                            ]}
+                            highlight={project.outcome ? { label: 'Outcome', value: project.outcome } : null}
+                            tags={project.technologies || []}
+                            tagsLabel="Stack"
+                            tagTo={(tag) => `${isPlayground ? '/playground' : '/projects'}?tag=${encodeURIComponent(tag)}`}
+                            links={project.links || []}
+                        />
                     </header>
 
                     {/* Content + ToC */}
-                    <div className="flex gap-32 pt-8">
+                    <div className="flex gap-10 pt-8 xl:gap-24">
                         <div className="flex-1 min-w-0 max-w-3xl space-y-10">
                             <ArticleBody blocks={contentBlocks} title={project.title} />
 
@@ -236,7 +216,7 @@ const Work = ({ source = 'projects' }) => {
                                                 ← Previous
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">
-                                                <ShimmerText text={prevProject.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
+                                                <ShimmerText text={prevProject.title} inactiveColor="var(--color-text-primary)" hoverColor="var(--color-text-secondary)" />
                                             </span>
                                         </Link>
                                     ) : (
@@ -251,7 +231,7 @@ const Work = ({ source = 'projects' }) => {
                                                 Next →
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">
-                                                <ShimmerText text={nextProject.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
+                                                <ShimmerText text={nextProject.title} inactiveColor="var(--color-text-primary)" hoverColor="var(--color-text-secondary)" />
                                             </span>
                                         </Link>
                                     ) : (

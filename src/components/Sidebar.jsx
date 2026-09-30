@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import data from '../data/data.json';
 import { useNotification } from './ui/NotificationProvider';
 import { ShimmerNavLabel, LogoName, useNavName, NAV_FULL_NAME } from './ui/NavAnimations';
+import SocialDock from './ui/motion/SocialDock';
 
 /**
  * TopNav Component
@@ -40,7 +41,7 @@ const Sidebar = () => {
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-bg border-b border-border shadow-[0_7px_22px_rgba(0,0,0,0.36)]">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-6">
+            <div className="page-shell h-14 flex items-center justify-between gap-6">
                 {/* Logo / Name */}
                 <Link to="/" className="shrink-0">
                     <span
@@ -78,20 +79,7 @@ const Sidebar = () => {
 
                 {/* Desktop right: socials + CV */}
                 <div className="hidden lg:flex ml-20 items-center gap-4 shrink-0">
-                    {socialLinks.slice(0, 4).map((link) => (
-                        <a
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={link.label}
-                            className={`text-text-secondary ${link.hoverColor} transition-all duration-300`}
-                            onMouseEnter={(e) => { e.currentTarget.style.filter = `drop-shadow(0 0 6px ${link.glowColor})`; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.filter = 'none'; }}
-                        >
-                            {link.icon}
-                        </a>
-                    ))}
+                    <SocialDock links={socialLinks.slice(0, 4)} />
                     {/* TODO: need to change the cv file download
                     {contact?.cv && (
                         <a

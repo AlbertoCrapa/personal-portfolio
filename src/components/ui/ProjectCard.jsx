@@ -1,209 +1,181 @@
-import React, { useRef, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
+import MediaCard from './motion/MediaCard';
+import MediaRow from './motion/MediaRow';
+import { SPRING_PRESS, TAP_SCALE, useReducedMotion } from '../../utils/motion';
 import { getProjectCover } from '../../utils/utils';
 
-const PlayIcon = ({ className = 'w-3.5 h-3.5' }) => (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-        <path d="M8 5.14v13.72a1 1 0 0 0 1.5.87l11-6.86a1 1 0 0 0 0-1.72l-11-6.86A1 1 0 0 0 8 5.14z" />
-    </svg>
-);
-
 /**
- * ProjectCard Component
- * Card for displaying projects in grid layout
+ * ProjectCard — projects and playground entries, in card or row form.
+ *
+ * All the layout and motion lives in MediaCard / MediaRow; this file's only
+ * job is turning a project record into the card's vocabulary, which is where
+ * the readability fix actually happens:
+ *
+ *   role + timeframe  → the eyebrow, so "Technical Designer · 2024" leads
+ *   stack             → one dotted footer line, overflow collapsed into "+n"
+ *
+ * instead of four same-weight blocks fighting under the cover.
  *
  * @param {Object} project - Project data
  * @param {string} size - 'large' | 'medium' | 'small' | 'list'
  * @param {string} basePath - Base path for links (default: '/work')
  */
+
+const PlayIcon = ({ className = 'h-3.5 w-3.5' }) => (
+    // Centroid sits on the viewBox centre, so the glyph needs no nudge to
+    // look centred inside a round button.
+    <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" className={className} aria-hidden="true">
+        <path d="M8 5.5v13l12-6.5z" />
+    </svg>
+);
+
+/**
+ * "2024-05" → "May 2024". Open-ended entries are written "2024-ongoing" in the
+ * data, which is not a parseable date — those become "2024 — ongoing" rather
+ * than leaking the raw hyphenated token into the card.
+ */
+export const formatProjectDate = (value) => {
+    if (!value) return '';
+    const parsed = new Date(`${value}-01`);
+    if (!Number.isNaN(parsed.getTime())) {
+        return parsed.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    }
+    const [year, rest] = String(value).split('-');
+    return rest ? `${year} — ${rest}` : value;
+};
+
+/**
+ * Drop a role prefix the card's eyebrow is already showing.
+ *
+ * Most `shortDescription` values open with "Technical Designer • …" because
+ * they predate the card having a role line of its own; printing both makes the
+ * blurb read as a stutter.
+ */
+const stripRolePrefix = (description, role) => {
+    if (!description || !role) return description;
+    const trimmed = description.trim();
+    if (!trimmed.toLowerCase().startsWith(role.trim().toLowerCase())) return description;
+    const rest = trimmed.slice(role.trim().length).replace(/^\s*[•·\-–—:]\s*/, '');
+    return rest || description;
+};
+
 const ProjectCard = ({ project, size = 'medium', basePath = '/work' }) => {
-    const [isHovered, setIsHovered] = useState(false);
-    const [canPlayVideo, setCanPlayVideo] = useState(false);
-    const videoRef = useRef(null);
     const navigate = useNavigate();
+    const reduce = useReducedMotion();
 
     if (!project) return null;
 
-    const thumbnailImage = getProjectCover(project);
+    const cover = getProjectCover(project);
     const previewVideo = project.previewVideo || project.videocover;
-    const shortDescription = project.shortDescription || project.description;
-    const projectDuration = project.duration;
+    const description = stripRolePrefix(project.shortDescription || project.description, project.role);
     const projectLink = project.projectLink || project.url;
-    const techPreview = Array.isArray(project.technologies) ? project.technologies.slice(0, 3) : [];
+    const technologies = Array.isArray(project.technologies) ? project.technologies : [];
     const isPlayable = Boolean(project.experience);
-    const playPath = `${basePath}/${project.slug}/play`;
-    const goToExperience = (e) => {
-        // ProjectCard is itself a <Link>; nesting an inner Link/anchor would be
-        // invalid HTML, so this stays a plain button and navigates imperatively
-        // after stopping the outer Link's navigation.
-        e.preventDefault();
-        e.stopPropagation();
+    const detailPath = `${basePath}/${project.slug}`;
+    const playPath = `${detailPath}/play`;
+
+    // The card is a link; an inner <a> would be invalid HTML, so the playable
+    // shortcut stays a button and routes imperatively after cancelling the
+    // outer navigation.
+    const goToExperience = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
         navigate(playPath);
     };
 
-    const sizeClasses = {
-        large: 'col-span-2 row-span-2',
-        medium: 'col-span-1 row-span-1',
-        small: 'col-span-1 row-span-1',
-        list: 'flex items-center gap-4',
+    const openExternal = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        window.open(projectLink, '_blank', 'noopener,noreferrer');
     };
 
-    const imageHeights = {
-        large: 'h-64 md:h-72',
-        medium: 'h-44 md:h-52',
-        small: 'h-32 md:h-40',
-        list: 'w-32 h-20 md:w-40 md:h-24',
-    };
+    const eyebrow = [project.role, project.duration || formatProjectDate(project.date)];
+    const isCompact = size === 'small';
 
-    // List view for mobile projects page
     if (size === 'list') {
         return (
-            <Link
-                to={`${basePath}/${project.slug}`}
-                className="flex items-center gap-4 group py-3 hover:bg-surface/50 rounded-lg transition-colors -mx-2 px-2"
-            >
-                <div className="flex-shrink-0 w-32 md:w-40 rounded-lg overflow-hidden">
-                    <img
-                        src={thumbnailImage}
-                        alt={project.title}
-                        loading="lazy"
-                        className="w-full h-20 md:h-24 object-cover group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}
-                    />
-                </div>
-                <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2">
-                        <h3 className="text-base md:text-lg font-semibold text-text-primary truncate">
-                            {project.title}
-                        </h3>
-                        {isPlayable && (
-                            <button
-                                type="button"
-                                onClick={goToExperience}
-                                className="flex-shrink-0 inline-flex items-center justify-center w-7 h-7 rounded-full bg-accent-blue text-white hover:bg-accent-blue/90 transition-colors"
-                                aria-label={`Start ${project.title}`}
-                                title="Start experience"
-                            >
-                                <PlayIcon className="w-3 h-3 ml-0.5" />
-                            </button>
-                        )}
-                    </div>
-                    {shortDescription && (
-                        <p className="text-sm text-text-muted line-clamp-2 mt-1">{shortDescription}</p>
-                    )}
-                </div>
-            </Link>
+            <MediaRow
+                to={detailPath}
+                thumb={cover}
+                title={project.title}
+                eyebrow={eyebrow}
+                description={description}
+                trailing={
+                    isPlayable ? (
+                        <motion.button
+                            type="button"
+                            onClick={goToExperience}
+                            whileTap={reduce ? undefined : { scale: TAP_SCALE }}
+                            transition={SPRING_PRESS}
+                            className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-accent-blue text-white"
+                            aria-label={`Start ${project.title}`}
+                            title="Start experience"
+                        >
+                            <PlayIcon className="h-3 w-3" />
+                        </motion.button>
+                    ) : null
+                }
+            />
         );
     }
 
     return (
-        <Link
-            to={`${basePath}/${project.slug}`}
-            className={`block group ${sizeClasses[size]}`}
-            onMouseEnter={() => {
-                setIsHovered(true);
-                if (previewVideo && videoRef.current) {
-                    videoRef.current.play().catch(() => {
-                        setCanPlayVideo(false);
-                    });
-                }
-            }}
-            onMouseLeave={() => {
-                setIsHovered(false);
-                if (videoRef.current) {
-                    videoRef.current.pause();
-                    videoRef.current.currentTime = 0;
-                }
-            }}
-        >
-            <article className="relative rounded-xl overflow-hidden bg-surface border border-border hover:border-[#4a4a4a] transition-colors h-full">
-                <div className={`${imageHeights[size]} overflow-hidden relative`}>
-                    <img
-                        src={thumbnailImage}
-                        alt={project.title}
-                        loading="lazy"
-                        className={`w-full h-full object-cover transition-all duration-500 ${previewVideo && isHovered ? 'scale-[1.02] opacity-0' : 'scale-100 opacity-100 group-hover:scale-[1.03]'
-                            }`}
-                        onError={(e) => { e.target.src = 'https://placehold.co/400x300'; }}
-                    />
-
-                    {previewVideo && (
-                        <video
-                            ref={videoRef}
-                            src={previewVideo}
-                            muted
-                            loop
-                            playsInline
-                            preload="metadata"
-                            onCanPlay={() => setCanPlayVideo(true)}
-                            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered && canPlayVideo ? 'opacity-100' : 'opacity-0'
-                                }`}
-                        />
-                    )}
-
-                    {isPlayable && (
-                        <button
-                            type="button"
-                            onClick={goToExperience}
-                            className="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 bg-bg/90 backdrop-blur-sm pl-2.5 pr-3 py-1.5 rounded-full text-xs font-medium text-text-primary hover:bg-accent-blue transition-colors"
-                            aria-label={`Start ${project.title}`}
-                            title="Start experience"
-                        >
-                            <PlayIcon />
-                            Start
-                        </button>
-                    )}
-                </div>
-
-                <div className="p-4 space-y-3">
-                    <div className="flex items-start justify-between gap-3">
-                        <h3 className={`font-bold text-text-primary leading-tight ${size === 'large' ? 'text-xl md:text-2xl' : 'text-base md:text-lg'}`}>
-                            {project.title}
-                        </h3>
-                        {projectLink && (
-                            <button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    window.open(projectLink, '_blank', 'noopener,noreferrer');
-                                }}
-                                className="mt-0.5 text-text-secondary hover:text-text-primary transition-colors"
-                                aria-label={`Open ${project.title}`}
+        <MediaCard
+            to={detailPath}
+            cover={cover}
+            video={previewVideo}
+            title={project.title}
+            eyebrow={eyebrow}
+            description={description}
+            footer={technologies.slice(0, 3)}
+            footerMore={Math.max(0, technologies.length - 3)}
+            accent={project.bgColor}
+            size={size}
+            badge={
+                (isPlayable || (projectLink && !isCompact)) ? (
+                    <div className="flex items-center gap-2">
+                        {isPlayable && (
+                            <motion.button
+                                type="button"
+                                onClick={goToExperience}
+                                whileTap={reduce ? undefined : { scale: TAP_SCALE }}
+                                whileHover={reduce ? undefined : { scale: 1.06 }}
+                                transition={SPRING_PRESS}
+                                className={`inline-flex items-center justify-center rounded-full bg-accent-blue font-semibold text-white shadow-[var(--card-shadow)] ${isCompact ? 'h-8 w-8 shrink-0 ring-1 ring-white/25' : 'gap-1.5 py-1.5 pl-2.5 pr-3 text-xs'
+                                    }`}
+                                aria-label={`Start ${project.title}`}
+                                title="Start experience"
                             >
-                                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                                    <path d="M14 4h6v6" />
-                                    <path d="M10 14 20 4" />
-                                    <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5" />
+                                <PlayIcon />
+                                {/* A small card has no room for a label without
+                                    covering the artwork it sits on. */}
+                                {!isCompact && 'Start'}
+                            </motion.button>
+                        )}
+                        {projectLink && !isCompact && (
+                            <motion.button
+                                type="button"
+                                onClick={openExternal}
+                                whileTap={reduce ? undefined : { scale: TAP_SCALE }}
+                                whileHover={reduce ? undefined : { scale: 1.06 }}
+                                transition={SPRING_PRESS}
+                                className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-border-strong bg-bg/80 text-text-secondary backdrop-blur-sm hover:text-text-primary"
+                                aria-label={`Open ${project.title} in a new tab`}
+                                title="Open project"
+                            >
+                                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M14 4h6v6M10 14 20 4M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5" />
                                 </svg>
-                            </button>
+                            </motion.button>
                         )}
                     </div>
-
-                    {shortDescription && (
-                        <p className="text-sm text-text-secondary line-clamp-2">
-                            {shortDescription}
-                        </p>
-                    )}
-
-                    {techPreview.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                            {techPreview.map((tech) => (
-                                <span key={`${project.slug}-${tech}`} className="tag-capsule">
-                                    {tech}
-                                </span>
-                            ))}
-                        </div>
-                    )}
-
-                    {projectDuration && (
-                        <p className="text-xs uppercase tracking-wide text-text-muted">
-                            {projectDuration}
-                        </p>
-                    )}
-                </div>
-            </article>
-        </Link>
+                ) : null
+            }
+        />
     );
 };
 
-export default ProjectCard;
+export default React.memo(ProjectCard);

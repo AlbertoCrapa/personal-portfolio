@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+import AvatarFace from './motion/AvatarFace';
+import { useMediaQuery } from '../../utils/motion';
+
 /**
  * VideoHero
  * Full-viewport landing section with a blurred background reel video.
@@ -12,11 +15,26 @@ import { motion } from 'framer-motion';
  * parent page to cancel the Layout's horizontal padding and top padding.
  *
  * Props:
+ * The hero stays dark in both themes: it is a full-bleed video surface, and
+ * light-theme text over arbitrary video frames is a losing bet. Only the
+ * bottom of the gradient and the scroll-out overlay follow the page canvas,
+ * so the section hands off to a light page without a hard edge.
+ *
+ * Props:
  *   reel    – { video: string, poster?: string }
  *   contact – { email?: string }
  *   hero    – { eyebrow?: string, description?: string }
  */
+
+// Fixed light values for text painted over the reel, independent of theme.
+const ON_REEL = '#ffffff';
+const ON_REEL_DIM = 'rgba(255, 255, 255, 0.72)';
+// ponytail: avatar hidden for now — flip to true to bring him back.
+const SHOW_AVATAR = false;
 const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
+    // On a phone the name already fills the line; wedging him between the two
+    // words there costs a line break. He gets his own row above it instead.
+    const narrow = useMediaQuery('(max-width: 639px)');
     const [scrollFade, setScrollFade] = React.useState(0);
     const [videoReady, setVideoReady] = React.useState(false);
 
@@ -37,7 +55,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                 width: 'calc(100vw - var(--scrollbar-width, 0px))',
                 height: 'calc(100svh - 56px)',
                 overflow: 'hidden',
-                background: 'var(--color-bg)',
+                background: '#111111',
             }}
         >
             {/* ── Video — only fades in once it's ready to play ── */}
@@ -68,7 +86,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     position: 'absolute',
                     inset: 0,
                     background:
-                        'linear-gradient(to bottom, rgba(17,17,17,1) 0%, rgba(17,17,17,0.35) 55%, rgba(17,17,17,1) 100%)',
+                        'linear-gradient(to bottom, rgba(17,17,17,1) 0%, rgba(17,17,17,0.35) 55%, var(--color-bg) 100%)',
                     pointerEvents: 'none',
                 }}
             />
@@ -109,12 +127,20 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                         fontSize: '0.68rem',
                         letterSpacing: '0.22em',
                         textTransform: 'uppercase',
-                        color: 'var(--color-text-muted)',
+                        color: ON_REEL_DIM,
                         fontWeight: 600,
                     }}
                 >
                     {hero.eyebrow || 'Creative Developer'}
                 </motion.p>
+
+                {SHOW_AVATAR && narrow && (
+                    <AvatarFace
+                        size="3.2rem"
+                        delay={0.3}
+                        style={{ display: 'block', margin: '0 auto -0.15rem' }}
+                    />
+                )}
 
                 {/* Name */}
                 <motion.h1
@@ -125,13 +151,21 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                         fontSize: 'clamp(2.8rem, 7vw, 7rem)',
                         fontWeight: 700,
                         letterSpacing: '-0.03em',
-                        color: '#ffffff',
+                        color: ON_REEL,
                         lineHeight: 1.0,
                         fontFamily: 'var(--font-family-display)',
                         margin: 0,
                     }}
+                    /* The avatar inside is a real control, so the heading is
+                       named explicitly — otherwise its button label leaks into
+                       the h1's accessible name. */
+                    aria-label="alberto crapanzano"
                 >
-                    alberto crapanzano
+                    {!SHOW_AVATAR || narrow ? 'alberto crapanzano' : (
+                        <>
+                            alberto<AvatarFace />crapanzano
+                        </>
+                    )}
                 </motion.h1>
 
                 {/* Subtitle */}
@@ -140,7 +174,7 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.35 }}
                     style={{
-                        color: 'var(--color-text-secondary)',
+                        color: ON_REEL_DIM,
                         fontSize: '0.9rem',
                         maxWidth: '28rem',
                         lineHeight: 1.65,

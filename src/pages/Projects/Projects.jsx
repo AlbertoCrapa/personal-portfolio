@@ -4,33 +4,47 @@ import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
 import RevealSection from '../../components/ui/RevealSection';
+import PageHeader from '../../components/ui/PageHeader';
+import FilterBar from '../../components/ui/FilterBar';
+import ResultsGrid from '../../components/ui/ResultsGrid';
+import { useCollectionFilter } from '../../hooks/useCollectionFilter';
 import projectData from '../../data/projects.json';
 
 /**
- * Projects List Page — modern portfolio grid layout
- * Grouped by category, responsive grid
+ * Projects List Page
+ *
+ * The old page grouped by `project.type` against a label map that no longer
+ * matched the data (`game`/`freelance`/`personal` vs the actual `videogame`/
+ * `boardgame`/`webapp`), so every project silently fell through to a single
+ * ungrouped grid. Categories are now a filter the visitor drives instead of a
+ * fixed outline the page imposes — which is what a portfolio of nine-plus
+ * projects with overlapping stacks actually needs.
  */
+
+const TYPE_LABELS = {
+    videogame: 'Games',
+    boardgame: 'Board games',
+    webapp: 'Web & apps',
+};
+
 const Projects = () => {
-    const projects = Object.values(projectData.projects);
+    const projects = React.useMemo(() => Object.values(projectData.projects), []);
 
-    // Group projects by type/category
-    const groupedProjects = projects.reduce((acc, project) => {
-        const category = project.type || 'other';
-        if (!acc[category]) acc[category] = [];
-        acc[category].push(project);
-        return acc;
-    }, {});
-
-    const categoryLabels = {
-        game: 'Games and Game Jams',
-        freelance: 'Freelance Work',
-        personal: 'Personal Projects',
-        other: 'Other Work',
-    };
-
-    const orderedCategories = ['game', 'freelance', 'personal', 'other'].filter(
-        (cat) => groupedProjects[cat]?.length > 0
-    );
+    const filter = useCollectionFilter(projects, {
+        searchFields: (project) => [
+            project.title,
+            project.shortDescription,
+            project.role,
+            project.outcome,
+            ...(project.technologies || []),
+        ],
+        facetField: (project) => project.technologies || [],
+        groupField: (project) => project.type,
+        groupLabels: TYPE_LABELS,
+        dateField: (project) => project.date,
+        titleField: (project) => project.title,
+        highlightField: (project) => project.important || project.favourite,
+    });
 
     return (
         <>
@@ -42,7 +56,7 @@ const Projects = () => {
             />
 
             <RevealSection>
-                <div className="space-y-10">
+                <div className="space-y-8">
                     <Breadcrumb
                         items={[
                             { label: 'home', path: '/' },
@@ -50,39 +64,33 @@ const Projects = () => {
                         ]}
                     />
 
-                    <header>
-                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2 lowercase">
-                            <span className="text-text-muted mr-2">/</span>
-                            projects
-                        </h1>
-                        <p className="text-text-secondary max-w-2xl">
-                            Selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes.
-                        </p>
-                    </header>
+                    <PageHeader
+                        title="projects"
+                        subtitle="Selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes."
+                    />
 
-                    {/* Projects by Category */}
-                    {orderedCategories.map((category) => (
-                        <section key={category} className="space-y-5">
-                            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider border-b border-border pb-2">
-                                {categoryLabels[category] || category}
-                            </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                {groupedProjects[category].map((project) => (
-                                    <ProjectCard key={project.slug} project={project} size="medium" />
-                                ))}
-                            </div>
-                        </section>
-                    ))}
+                    <FilterBar
+                        filter={filter}
+                        facetLabel="Stack"
+                        facetPlaceholder="Filter by technology"
+                        searchPlaceholder="Search projects, roles, tech…"
+                        highlightLabel="Featured"
+                        noun="project"
+                    />
 
-                    {orderedCategories.length === 0 && projects.length > 0 && (
-                        <section>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                {projects.map((project) => (
-                                    <ProjectCard key={project.slug} project={project} size="medium" />
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                    <ResultsGrid
+                        items={filter.results}
+                        view={filter.view}
+                        emptyTitle="Nothing matches those filters"
+                        emptyBody="Try a broader stack selection, or clear the search."
+                        onReset={filter.reset}
+                        renderCard={(project) => (
+                            <ProjectCard project={project} size="medium" />
+                        )}
+                        renderRow={(project) => (
+                            <ProjectCard project={project} size="list" />
+                        )}
+                    />
                 </div>
             </RevealSection>
         </>

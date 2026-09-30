@@ -1,6 +1,8 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
+import { useTheme } from './ui/ThemeProvider';
+
 const SEO = ({
   title = "Alberto Crapanzano - Creative Developer & Technical Designer",
   description = "Alberto Crapanzano (Albyeah) is a Creative Developer based near Milan, specializing in game Technical Design and Programming for video games. Combining strong programming skills with artistic vision to create innovative digital experiences.",
@@ -14,6 +16,7 @@ const SEO = ({
   isHomepage = false,
   structuredData
 }) => {
+  const { theme } = useTheme();
   // Ensure URL is absolute
   const absoluteUrl = url.startsWith('http') ? url : `https://albyeah.com${url}`;
   const canonicalUrl = canonical || absoluteUrl;
@@ -95,7 +98,10 @@ const SEO = ({
 
       {/* Additional Meta */}
       <meta name="language" content="English" />
-      <meta name="theme-color" content="#000000" />
+      {/* Follows the active palette: ThemeProvider keeps the tag in
+          public/index.html in sync, and Helmet must not stomp it back to a
+          fixed colour on every route change. */}
+      <meta name="theme-color" content={theme === "light" ? "#fcfcfc" : "#111111"} />
 
       {/* Schema.org Structured Data */}
       {isHomepage && personSchema && (

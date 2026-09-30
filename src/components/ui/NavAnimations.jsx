@@ -1,6 +1,8 @@
 import React from 'react';
 import { useAnimate } from 'framer-motion';
 
+import { useTheme } from './ThemeProvider';
+
 // ── Constants ─────────────────────────────────────────────────────────────
 const SCRAMBLE_CHARS = 'abcdefghijklmnopqrstuvwxyz#@!?$%';
 export const NAV_SHORT_NAME = 'albyeah';
@@ -8,10 +10,20 @@ export const NAV_FULL_NAME = 'alberto crapanzano';
 const SCROLL_THRESHOLD = 500;
 
 // ── Helpers ───────────────────────────────────────────────────────────────
-const randGray = () => {
-    const v = Math.floor(Math.random() * 60) + 150; // 150–209
+// Scramble glyphs sit a little off the final colour so the reveal is visible.
+// On a light canvas that means darker than the text, not lighter.
+const randGray = (isDark = true) => {
+    const v = isDark
+        ? Math.floor(Math.random() * 60) + 150 // 150–209 on near-black
+        : Math.floor(Math.random() * 60) + 110; // 110–169 on near-white
     return `rgb(${v},${v},${v})`;
 };
+
+// Palette tokens rather than hex, so the nav follows the theme without any of
+// its timing or layout changing.
+const TEXT_PRIMARY = 'var(--color-text-primary)';
+const TEXT_SECONDARY = 'var(--color-text-secondary)';
+const TEXT_MUTED = 'var(--color-text-muted)';
 
 // ── useNavName ─────────────────────────────────────────────────────────────
 // Returns NAV_SHORT_NAME on the home page while at the top,
@@ -38,6 +50,16 @@ export const useNavName = (pathname) => {
 //   active – whether this link is the current route
 export const ShimmerNavLabel = ({ label, active }) => {
     const [scope, animate] = useAnimate();
+    const { theme } = useTheme();
+
+    // A character animated by the sweep keeps the literal colour Motion
+    // resolved for it, so a theme swap has to hand the rest state back.
+    React.useEffect(() => {
+        const container = scope.current;
+        if (!container) return;
+        const resetColor = active ? TEXT_PRIMARY : TEXT_SECONDARY;
+        Array.from(container.children).forEach((el) => { el.style.color = resetColor; });
+    }, [theme, active, scope]);
 
     const handleMouseEnter = (e) => {
         const container = scope.current;
@@ -47,14 +69,14 @@ export const ShimmerNavLabel = ({ label, active }) => {
         const charWidth = rect.width / label.length;
         const startIndex = Math.max(0, Math.min(label.length - 1, Math.floor(mouseX / charWidth)));
         Array.from(container.children).forEach((el, i) => {
-            animate(el, { color: '#ffffff' }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
+            animate(el, { color: TEXT_PRIMARY }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
         });
     };
 
     const handleMouseLeave = () => {
         const container = scope.current;
         if (!container) return;
-        const resetColor = active ? '#ffffff' : '#a0a0a0';
+        const resetColor = active ? TEXT_PRIMARY : TEXT_SECONDARY;
         Array.from(container.children).forEach((el) => {
             animate(el, { color: resetColor }, { duration: 0.15 });
         });
@@ -63,7 +85,7 @@ export const ShimmerNavLabel = ({ label, active }) => {
     return (
         <span ref={scope} className="flex" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             {label.split('').map((char, i) => (
-                <span key={i} style={{ color: active ? '#ffffff' : '#a0a0a0' }}>{char}</span>
+                <span key={i} style={{ color: active ? TEXT_PRIMARY : TEXT_SECONDARY }}>{char}</span>
             ))}
         </span>
     );
@@ -77,12 +99,20 @@ export const ShimmerNavLabel = ({ label, active }) => {
 export const ShimmerText = ({
     text,
     active,
-    activeColor = '#ffffff',
-    hoverColor = '#c0c0c0',
-    inactiveColor = '#6b6b6b',
+    activeColor = TEXT_PRIMARY,
+    hoverColor = TEXT_SECONDARY,
+    inactiveColor = TEXT_MUTED,
 }) => {
     const [scope, animate] = useAnimate();
+    const { theme } = useTheme();
     const prevActiveRef = React.useRef(active);
+
+    React.useEffect(() => {
+        const container = scope.current;
+        if (!container) return;
+        const resetColor = active ? activeColor : inactiveColor;
+        shimmerChars(container).forEach((el) => { el.style.color = resetColor; });
+    }, [theme, active, activeColor, inactiveColor, scope]);
 
     React.useEffect(() => {
         const container = scope.current;
@@ -165,10 +195,18 @@ const shimmerChars = (container) =>
 //   text – the resolved name string (from useNavName)
 export const LogoName = ({ text }) => {
     const [scope, animate] = useAnimate();
+    const { theme } = useTheme();
+    const isDark = theme !== 'light';
     const [display, setDisplay] = React.useState(() =>
-        text.split('').map(c => ({ char: c === ' ' ? '\u00A0' : c, color: '#ffffff' }))
+        text.split('').map(c => ({ char: c === ' ' ? '\u00A0' : c, color: TEXT_PRIMARY }))
     );
     const prevRef = React.useRef(text);
+
+    React.useEffect(() => {
+        const container = scope.current;
+        if (!container) return;
+        Array.from(container.children).forEach((el) => { el.style.color = TEXT_PRIMARY; });
+    }, [theme, scope]);
 
     // Scramble on text change
     React.useEffect(() => {
@@ -183,21 +221,21 @@ export const LogoName = ({ text }) => {
                 const revealed = Math.floor((step / steps) * text.length);
                 setDisplay(
                     Array.from({ length: text.length }, (_, i) => {
-                        if (text[i] === ' ') return { char: '\u00A0', color: '#ffffff' };
-                        if (i < revealed) return { char: text[i], color: '#ffffff' };
+                        if (text[i] === ' ') return { char: '\u00A0', color: TEXT_PRIMARY };
+                        if (i < revealed) return { char: text[i], color: TEXT_PRIMARY };
                         return {
                             char: SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)],
-                            color: randGray(),
+                            color: randGray(isDark),
                         };
                     })
                 );
                 await new Promise(r => setTimeout(r, stepMs));
             }
             if (!cancelled)
-                setDisplay(text.split('').map(c => ({ char: c === ' ' ? '\u00A0' : c, color: '#ffffff' })));
+                setDisplay(text.split('').map(c => ({ char: c === ' ' ? '\u00A0' : c, color: TEXT_PRIMARY })));
         })();
         return () => { cancelled = true; };
-    }, [text]);
+    }, [text, isDark]);
 
     // Hover: dims to menu-item gray from cursor outward
     const handleMouseEnter = (e) => {
@@ -209,7 +247,7 @@ export const LogoName = ({ text }) => {
         const charWidth = rect.width / count;
         const startIndex = Math.max(0, Math.min(count - 1, Math.floor(mouseX / charWidth)));
         Array.from(container.children).forEach((el, i) => {
-            animate(el, { color: '#a0a0a0' }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
+            animate(el, { color: TEXT_SECONDARY }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
         });
     };
 
@@ -217,7 +255,7 @@ export const LogoName = ({ text }) => {
         const container = scope.current;
         if (!container) return;
         Array.from(container.children).forEach((el) => {
-            animate(el, { color: '#ffffff' }, { duration: 0.15 });
+            animate(el, { color: TEXT_PRIMARY }, { duration: 0.15 });
         });
     };
 
@@ -232,7 +270,7 @@ export const LogoName = ({ text }) => {
                 return (
                     <span
                         key={i}
-                        style={{ position: 'relative', display: 'inline-block', color: d ? d.color : '#ffffff' }}
+                        style={{ position: 'relative', display: 'inline-block', color: d ? d.color : TEXT_PRIMARY }}
                     >
                         <span aria-hidden="true" style={{ visibility: 'hidden' }}>{finalChar}</span>
                         <span style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)' }}>

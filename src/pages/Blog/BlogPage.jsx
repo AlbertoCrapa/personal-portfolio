@@ -6,6 +6,7 @@ import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import VideoPlayer from '../../components/ui/VideoPlayer';
 import ArticleBody from '../../components/ui/ArticleBody';
+import MetaStrip from '../../components/ui/MetaStrip';
 import {
     getArticleSummary,
     getFirstMediaSrc,
@@ -15,6 +16,7 @@ import {
 import RevealSection from '../../components/ui/RevealSection';
 import TableOfContents, { toId } from '../../components/ui/TableOfContents';
 import { ShimmerText } from '../../components/ui/NavAnimations';
+import { estimateReadTime, formatDate } from '../../utils/utils';
 import blogData from '../../data/blog.json';
 
 /**
@@ -84,15 +86,6 @@ const BlogPage = () => {
     const prevBlog = currentIndex > 0 ? blogs[currentIndex - 1] : null;
     const nextBlog = currentIndex < blogs.length - 1 ? blogs[currentIndex + 1] : null;
 
-    // Format date
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-        }).replace(/\//g, '-');
-    };
-
     return (
         <>
             <SEO
@@ -138,37 +131,47 @@ const BlogPage = () => {
                     )}
 
                     {/* Header */}
-                    <header className="space-y-4  pt-2">
-                        <h1 className="text-2xl md:text-4xl font-bold text-text-primary leading-tight">
-                            {blog.title}
-                        </h1>
+                    <header className="space-y-5 pt-4">
+                        <div className="space-y-2.5">
+                            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                                Article
+                            </p>
 
-                        {/* Meta */}
-                        <div className="flex flex-wrap items-center gap-2 text-sm text-text-muted">
-                            <span>Last update: {formatDate(blog.date)}</span>
-                            <span className="text-text-muted">|</span>
-                            <a href="/feed.json" className="text-accent-blue hover:underline">
-                                RSS feed
-                            </a>
+                            <h1 className="font-display text-3xl font-bold leading-tight tracking-tight text-text-primary md:text-4xl">
+                                {blog.title}
+                            </h1>
+
+                            {blog.excerpt && (
+                                <p className="max-w-2xl text-lg leading-relaxed text-text-secondary">
+                                    {blog.excerpt}
+                                </p>
+                            )}
                         </div>
 
-                        {/* Tags */}
-                        {blog.tags && blog.tags.length > 0 && (
-                            <div className="flex flex-wrap gap-2">
-                                {blog.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="tag-capsule"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
+                        {/* Same labelled spec sheet the project pages use, so the
+                            two article types read identically below the title. */}
+                        <MetaStrip
+                            facts={[
+                                { label: 'Published', value: formatDate(blog.date, 'long') },
+                                { label: 'Reading time', value: `${estimateReadTime(blog)} min` },
+                                { label: 'Author', value: blog.author },
+                            ]}
+                            tags={blog.tags || []}
+                            tagsLabel="Topics"
+                            tagTo={(tag) => `/blog?tag=${encodeURIComponent(tag)}`}
+                            aside={
+                                <a
+                                    href="/feed.json"
+                                    className="ml-auto flex-shrink-0 text-xs font-semibold text-text-muted underline-offset-4 hover:text-text-primary hover:underline"
+                                >
+                                    RSS feed
+                                </a>
+                            }
+                        />
                     </header>
 
                     {/* Content + ToC */}
-                    <div className="flex gap-16 pt-8">
+                    <div className="flex gap-10 pt-8 xl:gap-24">
                         <div className="flex-1 min-w-0 max-w-3xl space-y-10">
                             <ArticleBody
                                 blocks={contentBlocks}
@@ -188,7 +191,7 @@ const BlogPage = () => {
                                                 ← Previous
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">
-                                                <ShimmerText text={prevBlog.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
+                                                <ShimmerText text={prevBlog.title} inactiveColor="var(--color-text-primary)" hoverColor="var(--color-text-secondary)" />
                                             </span>
                                         </Link>
                                     ) : <div className="flex-1" />}
@@ -201,7 +204,7 @@ const BlogPage = () => {
                                                 Next →
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">
-                                                <ShimmerText text={nextBlog.title} inactiveColor="#ffffff" hoverColor="#a0a0a0" />
+                                                <ShimmerText text={nextBlog.title} inactiveColor="var(--color-text-primary)" hoverColor="var(--color-text-secondary)" />
                                             </span>
                                         </Link>
                                     ) : <div className="flex-1" />}

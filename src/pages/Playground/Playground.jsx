@@ -1,23 +1,49 @@
 import React, { useEffect } from 'react';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
 
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
 import RevealSection from '../../components/ui/RevealSection';
+import PageHeader from '../../components/ui/PageHeader';
+import FilterBar from '../../components/ui/FilterBar';
+import ResultsGrid from '../../components/ui/ResultsGrid';
+import { useMediaQuery } from '../../hooks/useMediaQuery';
+import { useCollectionFilter } from '../../hooks/useCollectionFilter';
 import playgroundData from '../../data/playground.json';
 
 /**
  * Playground Page
- * Displays experimental projects and demos
+ * Experimental projects, demos and prototypes.
+ *
+ * Same engine as /projects, but the toolbar only appears once there are
+ * enough experiments for filtering to beat scanning — a search box above four
+ * cards is furniture, not a feature.
  */
+
+const FILTER_THRESHOLD = 4;
+
 const Playground = () => {
     const isMobile = useMediaQuery('(max-width: 768px)');
-    const items = playgroundData.playground || [];
+    const items = React.useMemo(() => playgroundData.playground || [], []);
+
+    const filter = useCollectionFilter(items, {
+        searchFields: (item) => [
+            item.title,
+            item.shortDescription,
+            ...(item.technologies || []),
+            ...(item.tags || []),
+        ],
+        facetField: (item) => item.technologies || [],
+        dateField: (item) => item.date,
+        titleField: (item) => item.title,
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const showFilters = items.length >= FILTER_THRESHOLD;
+    const view = isMobile ? 'list' : filter.view;
 
     return (
         <>
@@ -29,8 +55,7 @@ const Playground = () => {
             />
 
             <RevealSection>
-                <div className="space-y-6">
-                    {/* Breadcrumb */}
+                <div className="space-y-8">
                     <Breadcrumb
                         items={[
                             { label: 'home', path: '/' },
@@ -38,40 +63,34 @@ const Playground = () => {
                         ]}
                     />
 
-                    {/* Header */}
-                    <header className="mb-8">
-                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2 lowercase">
-                            <span className="text-text-muted mr-2">/</span>
-                            playground
-                        </h1>
-                        <p className="text-text-secondary">
-                            Experimental projects, demos, and technical explorations.
-                        </p>
-                    </header>
+                    <PageHeader
+                        title="playground"
+                        subtitle="Experimental projects, demos, and technical explorations."
+                    />
 
-                    {/* Playground Items */}
-                    {items.length > 0 ? (
-                        isMobile ? (
-                            <div className="space-y-2">
-                                {items.map((item) => (
-                                    <ProjectCard key={item.slug} project={item} size="list" basePath="/playground" />
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {items.map((item) => (
-                                    <ProjectCard key={item.slug} project={item} size="medium" basePath="/playground" />
-                                ))}
-                            </div>
-                        )
-                    ) : (
-                        <div className="text-center py-16 bg-surface rounded-xl">
-                            <p className="text-text-muted text-lg mb-2">🧪</p>
-                            <p className="text-text-secondary">
-                                Experiments coming soon. Check back later!
-                            </p>
-                        </div>
+                    {showFilters && (
+                        <FilterBar
+                            filter={filter}
+                            facetLabel="Stack"
+                            facetPlaceholder="Filter by technology"
+                            searchPlaceholder="Search experiments…"
+                            noun="experiment"
+                        />
                     )}
+
+                    <ResultsGrid
+                        items={filter.results}
+                        view={view}
+                        emptyTitle="Experiments coming soon"
+                        emptyBody="Nothing matches yet — check back later, or clear the filters."
+                        onReset={filter.isFiltered ? filter.reset : undefined}
+                        renderCard={(item) => (
+                            <ProjectCard project={item} size="medium" basePath="/playground" />
+                        )}
+                        renderRow={(item) => (
+                            <ProjectCard project={item} size="list" basePath="/playground" />
+                        )}
+                    />
                 </div>
             </RevealSection>
         </>

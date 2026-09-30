@@ -8,45 +8,47 @@ module.exports = {
         display: ["Space Grotesk", "DM Sans", "sans-serif"],
       },
       colors: {
-        // Base colors — Radix Colors "gray" dark, steps 1 / 3 / 4 / 5.
-        // Keep in sync with src/styles/theme.css.
-        bg: "#111111",
-        surface: "#222222",
-        "surface-hover": "#2a2a2a",
-        border: "#313131",
+        // Single source of truth is src/styles/theme.css: every token reads the
+        // bare RGB channels stored there, so `bg-surface/60` still composes an
+        // alpha and a `data-theme` swap repaints the whole site for free.
+        bg: "rgb(var(--rgb-bg) / <alpha-value>)",
+        surface: "rgb(var(--rgb-surface) / <alpha-value>)",
+        "surface-hover": "rgb(var(--rgb-surface-hover) / <alpha-value>)",
+        border: "rgb(var(--rgb-border) / <alpha-value>)",
+        "border-strong": "rgb(var(--rgb-border-strong) / <alpha-value>)",
 
         // Text colors
-        "text-primary": "#ffffff",
-        "text-secondary": "#a0a0a0",
-        "text-muted": "#6b6b6b",
+        "text-primary": "rgb(var(--rgb-text-primary) / <alpha-value>)",
+        "text-secondary": "rgb(var(--rgb-text-secondary) / <alpha-value>)",
+        "text-muted": "rgb(var(--rgb-text-muted) / <alpha-value>)",
 
         // Accent colors
-        "accent-blue": "#4285f4",
-        "accent-orange": "#ff9800",
-        "accent-green": "#4caf50",
-        "accent-purple": "#9b84e7",
+        "accent-blue": "rgb(var(--rgb-accent-blue) / <alpha-value>)",
+        "accent-orange": "rgb(var(--rgb-accent-orange) / <alpha-value>)",
+        "accent-green": "rgb(var(--rgb-accent-green) / <alpha-value>)",
+        "accent-purple": "rgb(var(--rgb-accent-purple) / <alpha-value>)",
 
         // Platform accent colors
-        github: "#b39af8",
-        "github-dim": "#9176d4",
-        "github-bg": "#161124",
-        "github-border": "#33245f",
+        github: "rgb(var(--rgb-github) / <alpha-value>)",
+        "github-dim": "rgb(var(--rgb-github-dim) / <alpha-value>)",
+        "github-bg": "rgb(var(--rgb-github-bg) / <alpha-value>)",
+        "github-border": "rgb(var(--rgb-github-border) / <alpha-value>)",
 
-        spotify: "#1db954",
-        "spotify-dim": "#57d984",
-        "spotify-bg": "#081f11",
-        "spotify-border": "#1f5432",
+        spotify: "rgb(var(--rgb-spotify) / <alpha-value>)",
+        "spotify-dim": "rgb(var(--rgb-spotify-dim) / <alpha-value>)",
+        "spotify-bg": "rgb(var(--rgb-spotify-bg) / <alpha-value>)",
+        "spotify-border": "rgb(var(--rgb-spotify-border) / <alpha-value>)",
 
-        leetcode: "#ffa116",
-        "leetcode-dim": "#ffcf87",
-        "leetcode-bg": "#251c0d",
-        "leetcode-border": "#4f3a15",
+        leetcode: "rgb(var(--rgb-leetcode) / <alpha-value>)",
+        "leetcode-dim": "rgb(var(--rgb-leetcode-dim) / <alpha-value>)",
+        "leetcode-bg": "rgb(var(--rgb-leetcode-bg) / <alpha-value>)",
+        "leetcode-border": "rgb(var(--rgb-leetcode-border) / <alpha-value>)",
 
         // Callout backgrounds
-        "info-bg": "#142f53",
-        "info-border": "#4285f4",
-        "warning-bg": "#332400",
-        "warning-border": "#ff9800",
+        "info-bg": "rgb(var(--rgb-info-bg) / <alpha-value>)",
+        "info-border": "rgb(var(--rgb-info-border) / <alpha-value>)",
+        "warning-bg": "rgb(var(--rgb-warning-bg) / <alpha-value>)",
+        "warning-border": "rgb(var(--rgb-warning-border) / <alpha-value>)",
       },
       spacing: {
         sidebar: "320px",

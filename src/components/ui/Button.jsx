@@ -1,11 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+import { HOVER_SCALE, SPRING_PRESS, useHoverCapable, useReducedMotion } from '../../utils/motion';
 
 /**
- * Button Component
- * Multi-variant button for actions and navigation
- * 
- * @param {string} variant - 'primary' | 'secondary' | 'ghost'
+ * Button
+ * Multi-variant button for actions and navigation.
+ *
+ * The press is a spring, not a CSS transition: the button overshoots back to
+ * rest, which is what makes a click feel answered rather than merely styled.
+ * Hover lift only runs on devices that actually hover — a phone would
+ * otherwise leave the button stuck in its hover state after a tap.
+ *
+ * @param {string} variant - 'primary' | 'secondary' | 'ghost' | 'quiet'
  * @param {string} size - 'sm' | 'md' | 'lg'
  * @param {string} href - External link (renders as <a>)
  * @param {string} to - Internal link (renders as <Link>)
@@ -15,6 +23,24 @@ import { Link } from 'react-router-dom';
  * @param {function} onClick - Click handler
  * @param {React.ReactNode} children - Button content
  */
+
+// motion.create() — motion() as a factory is deprecated in framer-motion 11.
+const MotionLink = motion.create(Link);
+
+const VARIANTS = {
+    primary: 'bg-accent-blue text-white hover:bg-accent-blue/90',
+    secondary: 'bg-surface text-text-primary border border-border hover:border-border-strong hover:bg-surface-hover',
+    ghost: 'text-text-secondary hover:text-text-primary hover:bg-surface/60',
+    // Inverted — the highest-contrast call to action on a dark canvas.
+    quiet: 'bg-text-primary text-bg hover:bg-text-primary/90',
+};
+
+const SIZES = {
+    sm: 'px-3 py-1.5 text-sm gap-1.5',
+    md: 'px-4 py-2 text-base gap-2',
+    lg: 'px-6 py-3 text-lg gap-2.5',
+};
+
 const Button = ({
     variant = 'primary',
     size = 'md',
@@ -27,64 +53,47 @@ const Button = ({
     children,
     ...props
 }) => {
-    const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-blue focus:ring-offset-2 focus:ring-offset-bg';
+    const reduce = useReducedMotion();
+    const canHover = useHoverCapable();
 
-    const variants = {
-        primary: 'bg-accent-blue text-white hover:bg-accent-blue/90 active:scale-98',
-        secondary: 'bg-surface text-text-primary border border-border hover:bg-surface-hover active:scale-98',
-        ghost: 'text-text-secondary hover:text-text-primary hover:bg-surface/50',
+    const classes = [
+        'inline-flex items-center justify-center font-semibold rounded-lg outline-offset-2 transition-colors duration-200',
+        VARIANTS[variant] || VARIANTS.primary,
+        SIZES[size] || SIZES.md,
+        fullWidth ? 'w-full' : '',
+        disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '',
+        className,
+    ]
+        .filter(Boolean)
+        .join(' ');
+
+    const motionProps = {
+        className: classes,
+        whileHover: reduce || !canHover || disabled ? undefined : { scale: HOVER_SCALE },
+        whileTap: reduce || disabled ? undefined : { scale: 0.96 },
+        transition: SPRING_PRESS,
     };
 
-    const sizes = {
-        sm: 'px-3 py-1.5 text-sm gap-1.5',
-        md: 'px-4 py-2 text-base gap-2',
-        lg: 'px-6 py-3 text-lg gap-2.5',
-    };
-
-    const classes = `
-    ${baseClasses}
-    ${variants[variant]}
-    ${sizes[size]}
-    ${fullWidth ? 'w-full' : ''}
-    ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}
-    ${className}
-  `.trim();
-
-    // External link
     if (href) {
         return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes}
-                {...props}
-            >
+            <motion.a href={href} target="_blank" rel="noopener noreferrer" {...motionProps} {...props}>
                 {children}
-            </a>
+            </motion.a>
         );
     }
 
-    // Internal link
     if (to) {
         return (
-            <Link to={to} className={classes} {...props}>
+            <MotionLink to={to} {...motionProps} {...props}>
                 {children}
-            </Link>
+            </MotionLink>
         );
     }
 
-    // Button
     return (
-        <button
-            type="button"
-            onClick={onClick}
-            disabled={disabled}
-            className={classes}
-            {...props}
-        >
+        <motion.button type="button" onClick={onClick} disabled={disabled} {...motionProps} {...props}>
             {children}
-        </button>
+        </motion.button>
     );
 };
 

@@ -189,12 +189,12 @@
         { "name": "The Changelog", "url": "https://changelog.com/podcast" }
       ],
       "interests": [
-        { "label": "Interactive storytelling", "emoji": "📖" },
-        { "label": "AI gameplay systems", "emoji": "🤖" },
-        { "label": "Tooling automation", "emoji": "⚙️" },
-        { "label": "Sound-driven interactions", "emoji": "🎧" },
-        { "label": "Creative coding", "emoji": "✨" },
-        { "label": "Game jams", "emoji": "🎮" }
+        { "label": "Interactive storytelling", "icon": "book" },
+        { "label": "AI gameplay systems", "icon": "chip" },
+        { "label": "Tooling automation", "icon": "sliders" },
+        { "label": "Sound-driven interactions", "icon": "headphones" },
+        { "label": "Creative coding", "icon": "sparkle" },
+        { "label": "Game jams", "icon": "gamepad" }
       ]
     }
   }

@@ -233,6 +233,28 @@
         }
       }
     </script>
+
+    <!-- Theme bootstrap. Runs before first paint so a light-theme visitor
+         never sees a frame of the dark canvas (and vice versa). Keep the
+         storage key in sync with src/components/ui/ThemeProvider.jsx. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("albyeah-theme");
+          var theme =
+            stored === "light" || stored === "dark"
+              ? stored
+              : stored === "system"
+                ? window.matchMedia("(prefers-color-scheme: light)").matches
+                  ? "light"
+                  : "dark"
+                : "dark";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "dark");
+        }
+      })();
+    </script>
   </head>
   <body>
     <noscript>

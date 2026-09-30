@@ -1,128 +1,169 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import RevealSection from '../../components/ui/RevealSection';
+import PageHeader from '../../components/ui/PageHeader';
+import BlogCard from '../../components/ui/BlogCard';
+import FilterBar from '../../components/ui/FilterBar';
+import ResultsGrid from '../../components/ui/ResultsGrid';
+import TiltSurface from '../../components/ui/motion/TiltSurface';
+import Tag from '../../components/ui/motion/Tag';
+import { useCollectionFilter } from '../../hooks/useCollectionFilter';
+import {
+    CARD_TAP_SCALE,
+    EASE_OUT,
+    SPRING_PRESS,
+    SPRING_SWAP,
+    useHoverCapable,
+    useReducedMotion,
+} from '../../utils/motion';
+import { estimateReadTime, formatDate } from '../../utils/utils';
 import blogData from '../../data/blog.json';
 
 /**
- * Blog List Page — modern editorial layout
- * Featured post hero + article grid
+ * Blog List Page — editorial layout.
+ *
+ * The newest post gets a wide split hero (cover beside the copy) so it reads
+ * as the lead article rather than "the same card, bigger"; everything else
+ * runs through the shared filtered grid. The hero steps aside as soon as a
+ * filter is active — a lead article that ignores your search is noise.
  */
 
-const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-};
+/* ── Lead article ───────────────────────────────────────────────────────── */
 
-const estimateReadTime = (blog) => {
-    const words = (blog.content || [])
-        .filter((c) => c.type === 'section' && c.text)
-        .reduce((acc, c) => acc + c.text.split(/\s+/).length, 0);
-    return Math.max(1, Math.ceil(words / 200));
-};
+const FeaturedPost = ({ blog }) => {
+    const reduce = useReducedMotion();
+    const canHover = useHoverCapable();
+    const [hovered, setHovered] = React.useState(false);
 
-/* ── Featured hero card ─────────────────────────────── */
-const FeaturedCard = ({ blog }) => {
     const cover = blog.cover || blog.media?.[0]?.src;
-    const readTime = estimateReadTime(blog);
+    const tags = (blog.tags || []).slice(0, 3);
 
     return (
-        <Link to={`/blog/${blog.slug}`} className="group block">
-            <article className="relative rounded-2xl overflow-hidden bg-surface border border-border hover:border-[#4a4a4a] transition-colors">
-                {cover && (
-                    <div className="h-64 sm:h-80 lg:h-96 overflow-hidden">
-                        <img
-                            src={cover}
-                            alt={blog.title}
-                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                            onError={(e) => { e.target.src = 'https://placehold.co/1200x500'; }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-bg/90 via-bg/30 to-transparent" />
-                    </div>
-                )}
-                <div className={`${cover ? 'absolute bottom-0 left-0 right-0 p-6 sm:p-8' : 'p-6 sm:p-8'}`}>
-                    {blog.tags && blog.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-3">
-                            {blog.tags.slice(0, 3).map((tag) => (
-                                <span key={tag} className="tag-capsule">{tag}</span>
-                            ))}
+        <motion.div
+            onHoverStart={() => setHovered(true)}
+            onHoverEnd={() => setHovered(false)}
+            whileHover={reduce || !canHover ? undefined : { y: -4 }}
+            whileTap={reduce ? undefined : { scale: CARD_TAP_SCALE }}
+            transition={SPRING_PRESS}
+        >
+            <Link
+                to={`/blog/${blog.slug}`}
+                onFocus={() => setHovered(true)}
+                onBlur={() => setHovered(false)}
+                className="block rounded-2xl outline-offset-4"
+            >
+                <TiltSurface
+                    max={3}
+                    className="relative grid overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--card-shadow)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]"
+                >
+                    {cover && (
+                        <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:h-full">
+                            <motion.img
+                                src={cover}
+                                alt={blog.title}
+                                animate={{ scale: hovered && canHover ? 1.04 : 1 }}
+                                transition={{ duration: 0.7, ease: EASE_OUT }}
+                                className="h-full w-full object-cover"
+                                onError={(event) => {
+                                    event.currentTarget.src = 'https://placehold.co/1200x700/222222/6b6b6b?text=+';
+                                }}
+                            />
+                            {/* Fades the cover into the copy panel on wide screens,
+                                and into the copy *below* it on narrow ones. */}
+                            <div
+                                aria-hidden="true"
+                                className="absolute inset-0"
+                                style={{
+                                    background:
+                                        'linear-gradient(to top, rgb(var(--rgb-surface) / 0.9), transparent 45%)',
+                                }}
+                            />
+                            <div
+                                aria-hidden="true"
+                                className="absolute inset-0 hidden lg:block"
+                                style={{
+                                    background:
+                                        'linear-gradient(to right, transparent 55%, rgb(var(--rgb-surface) / 0.95))',
+                                }}
+                            />
                         </div>
                     )}
-                    <h2 className="text-2xl sm:text-3xl font-bold text-text-primary leading-tight mb-3 transition-colors">
-                        {blog.title}
-                    </h2>
-                    {blog.excerpt && (
-                        <p className="text-text-secondary text-sm sm:text-base line-clamp-2 mb-4 max-w-2xl">
-                            {blog.excerpt}
+
+                    <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-10">
+                        <p className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-green" aria-hidden="true" />
+                            Latest
                         </p>
-                    )}
-                    <div className="flex items-center gap-3 text-xs text-text-muted">
-                        {blog.author && <span>{blog.author}</span>}
-                        <span>·</span>
-                        <time dateTime={blog.date}>{formatDate(blog.date)}</time>
-                        <span>·</span>
-                        <span>{readTime} min read</span>
+
+                        <h2 className="font-display text-2xl font-bold leading-tight tracking-tight text-text-primary sm:text-3xl lg:text-4xl">
+                            {blog.title}
+                        </h2>
+
+                        {blog.excerpt && (
+                            <p className="max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
+                                {blog.excerpt}
+                            </p>
+                        )}
+
+                        {tags.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5">
+                                {tags.map((tag, i) => (
+                                    <Tag key={tag} index={i}>{tag}</Tag>
+                                ))}
+                            </div>
+                        )}
+
+                        <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-muted">
+                            {blog.author && <span>{blog.author}</span>}
+                            {blog.author && <span aria-hidden="true">·</span>}
+                            <time dateTime={blog.date}>{formatDate(blog.date, 'long')}</time>
+                            <span aria-hidden="true">·</span>
+                            <span>{estimateReadTime(blog)} min read</span>
+                        </div>
+
+                        <motion.span
+                            className="mt-1 inline-flex items-center gap-2 text-sm font-semibold text-text-primary"
+                            animate={reduce ? undefined : { x: hovered ? 3 : 0 }}
+                            transition={SPRING_SWAP}
+                        >
+                            Read article
+                            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M5 12h13M13 6l6 6-6 6" />
+                            </svg>
+                        </motion.span>
                     </div>
-                </div>
-            </article>
-        </Link>
+                </TiltSurface>
+            </Link>
+        </motion.div>
     );
 };
 
-/* ── Article card (grid) ────────────────────────────── */
-const ArticleCard = ({ blog }) => {
-    const cover = blog.cover || blog.media?.[0]?.src;
-    const readTime = estimateReadTime(blog);
+/* ── Page ───────────────────────────────────────────────────────────────── */
 
-    return (
-        <Link to={`/blog/${blog.slug}`} className="group block h-full">
-            <article className="flex flex-col h-full rounded-xl overflow-hidden bg-surface border border-border hover:border-[#4a4a4a] transition-colors">
-                {cover && (
-                    <div className="h-44 overflow-hidden flex-shrink-0">
-                        <img
-                            src={cover}
-                            alt={blog.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                            onError={(e) => { e.target.src = 'https://placehold.co/600x300'; }}
-                        />
-                    </div>
-                )}
-                <div className="flex flex-col flex-1 p-4 space-y-2">
-                    {blog.tags && blog.tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5">
-                            {blog.tags.slice(0, 2).map((tag) => (
-                                <span key={tag} className="tag-capsule">{tag}</span>
-                            ))}
-                        </div>
-                    )}
-                    <h3 className="text-base font-bold text-text-primary leading-snug transition-colors line-clamp-2">
-                        {blog.title}
-                    </h3>
-                    {blog.excerpt && (
-                        <p className="text-sm text-text-secondary line-clamp-2 flex-1">
-                            {blog.excerpt}
-                        </p>
-                    )}
-                    <div className="flex items-center gap-2 text-xs text-text-muted pt-1">
-                        <time dateTime={blog.date}>{formatDate(blog.date)}</time>
-                        <span>·</span>
-                        <span>{readTime} min read</span>
-                    </div>
-                </div>
-            </article>
-        </Link>
-    );
-};
-
-/* ── Page ───────────────────────────────────────────── */
 const BlogList = () => {
-    const blogs = blogData.blogs;
-    const [featured, ...rest] = blogs;
+    const blogs = React.useMemo(() => blogData.blogs || [], []);
+
+    const filter = useCollectionFilter(blogs, {
+        searchFields: (blog) => [blog.title, blog.excerpt, blog.author, ...(blog.tags || [])],
+        facetField: (blog) => blog.tags || [],
+        dateField: (blog) => blog.date,
+        titleField: (blog) => blog.title,
+    });
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    // Unfiltered, the newest post is the hero and the grid holds the rest.
+    // Filtered, the hero steps aside and the grid answers the query in full.
+    const featured = filter.isFiltered ? null : blogs[0];
+    const gridItems = featured
+        ? filter.results.filter((blog) => blog.slug !== featured.slug)
+        : filter.results;
 
     return (
         <>
@@ -134,7 +175,7 @@ const BlogList = () => {
             />
 
             <RevealSection>
-                <div className="space-y-10">
+                <div className="space-y-8">
                     <Breadcrumb
                         items={[
                             { label: 'home', path: '/' },
@@ -142,37 +183,52 @@ const BlogList = () => {
                         ]}
                     />
 
-                    <header>
-                        <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-2 lowercase">
-                            <span className="text-text-muted mr-2">/</span>
-                            blog
-                        </h1>
-                        <p className="text-text-secondary">
-                            Insights, tutorials, and lessons learned from game development.
-                        </p>
-                    </header>
+                    <PageHeader
+                        title="blog"
+                        subtitle="Insights, tutorials, and lessons learned from game development."
+                    />
 
-                    {/* Featured article */}
-                    {featured && <FeaturedCard blog={featured} />}
+                    <AnimatePresence initial={false} mode="popLayout">
+                        {featured && (
+                            <motion.div
+                                key="featured"
+                                layout
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.4, ease: EASE_OUT }}
+                            >
+                                <FeaturedPost blog={featured} />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
 
-                    {/* Article grid */}
-                    {rest.length > 0 && (
-                        <section>
-                            <h2 className="text-xs font-semibold text-text-muted uppercase tracking-wider mb-5">
-                                More articles
-                            </h2>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {rest.map((blog) => (
-                                    <ArticleCard key={blog.slug} blog={blog} />
-                                ))}
-                            </div>
-                        </section>
+                    {blogs.length > 1 && (
+                        <FilterBar
+                            filter={filter}
+                            facetLabel="Topics"
+                            facetPlaceholder="Filter by topic"
+                            searchPlaceholder="Search posts, topics…"
+                            noun="post"
+                        />
                     )}
 
-                    {blogs.length === 0 && (
-                        <div className="text-center py-12">
-                            <p className="text-text-muted">No blog posts yet. Check back soon!</p>
-                        </div>
+                    {/* With a single post the hero *is* the listing — an empty
+                        grid underneath it would read as a missing section. */}
+                    {(gridItems.length > 0 || filter.isFiltered || !featured) && (
+                        <ResultsGrid
+                            items={gridItems}
+                            view={filter.view}
+                            emptyTitle={blogs.length ? 'No posts match those filters' : 'No posts yet'}
+                            emptyBody={
+                                blogs.length
+                                    ? 'Try a different topic, or clear the search.'
+                                    : 'Writing is on the way — check back soon.'
+                            }
+                            onReset={filter.isFiltered ? filter.reset : undefined}
+                            renderCard={(blog) => <BlogCard blog={blog} size="medium" />}
+                            renderRow={(blog) => <BlogCard blog={blog} size="list" />}
+                        />
                     )}
                 </div>
             </RevealSection>

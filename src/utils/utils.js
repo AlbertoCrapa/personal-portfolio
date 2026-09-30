@@ -146,3 +146,35 @@ export const deviceDetection = {
     };
   },
 };
+
+/**
+ * Format an ISO-ish date for reading surfaces (cards, meta strips).
+ * @param {string} value - ISO date string
+ * @param {'short'|'long'} style - "May 2, 2024" vs "May 2, 2024" with full month
+ */
+export function formatDate(value, style = "short") {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", {
+    month: style === "long" ? "long" : "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+/**
+ * Rough reading time for an article, in minutes.
+ * Counts the prose blocks only — captions and code are skimmed, not read —
+ * at the usual 200 wpm, floored at 1 so nothing reads "0 min".
+ * @param {Object} entry - Blog or project record with a `content` array
+ */
+export function estimateReadTime(entry) {
+  const words = (entry?.content || []).reduce((total, block) => {
+    if (typeof block === "string") return total + block.split(/\s+/).length;
+    if (block && typeof block.text === "string")
+      return total + block.text.split(/\s+/).length;
+    return total;
+  }, 0);
+  return Math.max(1, Math.ceil(words / 200));
+}

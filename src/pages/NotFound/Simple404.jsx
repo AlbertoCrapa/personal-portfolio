@@ -1,7 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import SEO from '../../components/SEO';
+import Button from '../../components/ui/Button';
 
 const Simple404 = () => {
     return (
@@ -12,16 +12,18 @@ const Simple404 = () => {
                 url="/404"
                 noindex={true}
             />
-            <div className="min-h-[60svh] flex flex-col items-center justify-center text-center">
-                <h1 className="text-8xl font-bold text-text-muted mb-4">404</h1>
-                <h2 className="text-2xl font-bold text-text-primary mb-2">Page Not Found</h2>
-                <p className="text-text-secondary mb-8">The page you're looking for doesn't exist.</p>
-                <Link
-                    to="/"
-                    className="bg-accent-blue text-white rounded-lg px-6 py-3 font-semibold hover:bg-accent-blue/90 transition-colors"
-                >
-                    ← Go Home
-                </Link>
+            <div className="flex min-h-[60svh] flex-col items-center justify-center text-center">
+                <p className="font-display text-8xl font-bold text-text-muted">404</p>
+                <h1 className="mt-4 font-display text-2xl font-bold tracking-tight text-text-primary">
+                    Page Not Found
+                </h1>
+                <p className="mt-2 text-text-secondary">
+                    The page you&apos;re looking for doesn&apos;t exist.
+                </p>
+                <div className="mt-8 flex flex-wrap justify-center gap-3">
+                    <Button to="/" variant="quiet">← Go Home</Button>
+                    <Button to="/projects" variant="secondary">Browse projects</Button>
+                </div>
             </div>
         </>
     );
