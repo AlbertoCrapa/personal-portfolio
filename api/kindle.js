@@ -1,7 +1,6 @@
 // GET /api/kindle.json — feed for the e-ink Kindle dashboard.
-// Every source is optional: a broken one becomes null, the response stays 200.
-const ical = require('node-ical');
-const { getServer } = require('./_lib/store');
+// Weather + quote of the day. A broken source becomes null, the response stays 200.
+// No secrets or storage needed: works straight from a git push.
 const quotes = require('../src/data/data.json').homepage.extras.favoriteQuotes;
 
 const TZ = 'Europe/Rome';
@@ -78,8 +77,8 @@ const describe = (code, isDay = 1) => {
 };
 
 const getWeather = (location) => cached('weather', 15 * 60e3, async () => {
-    const lat = process.env.KINDLE_LAT || '45.4642';
-    const lon = process.env.KINDLE_LON || '9.19';
+    const lat = '45.4642';
+    const lon = '9.19';
     const url = 'https://api.open-meteo.com/v1/forecast'
         + `?latitude=${lat}&longitude=${lon}&timezone=${encodeURIComponent(TZ)}&forecast_days=3`
         + '&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,is_day'
@@ -104,68 +103,12 @@ const getWeather = (location) => cached('weather', 15 * 60e3, async () => {
     };
 });
 
-/* ── Calendar (private Google iCal URL) ────────────────────────────────── */
-
-// All-day dates carry their TZID when present; otherwise node-ical parses
-// them as midnight in the *server's* zone, so read them back the same way.
-const dateOnlyDay = (d) => (d.tz
-    ? localDay(d, d.tz)
-    : `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`);
-const text = (v) => (typeof v === 'string' ? v : v?.val || '');
-const shorten = (s) => (s.length > 60 ? `${s.slice(0, 59).trimEnd()}…` : s);
-
-const getCalendar = () => cached('calendar', 5 * 60e3, async () => {
-    const url = process.env.GCAL_ICS_URL;
-    if (!url) return null;
-    const parsed = await ical.async.parseICS(await (await fetchWithTimeout(url)).text());
-
-    // Today 00:00 in Rome → +5 days. Offset taken from "now"; good enough
-    // for a 5-day window, the DST edge only blurs the boundary by an hour.
-    const today = localDay(new Date());
-    const from = new Date(`${today}T00:00:00${localIso(new Date()).slice(19)}`);
-    const to = new Date(from.getTime() + 5 * 24 * 3600e3);
-
-    const events = Object.values(parsed)
-        .filter((e) => e.type === 'VEVENT' && e.status !== 'CANCELLED')
-        .flatMap((e) => ical.expandRecurringEvent(e, { from, to, expandOngoing: true }))
-        .map((i) => (i.isFullDay
-            ? {
-                start: dateOnlyDay(i.start),
-                end: dateOnlyDay(i.end || i.start),
-                title: shorten(text(i.summary)),
-                all_day: true,
-            }
-            : {
-                start: localIso(i.start),
-                end: localIso(i.end || i.start),
-                title: shorten(text(i.summary)),
-                all_day: false,
-                _t: i.start.getTime(),
-            }))
-        .map((e) => ({ ...e, _t: e._t ?? new Date(`${e.start}T00:00:00Z`).getTime() }))
-        .sort((a, b) => a._t - b._t || Number(b.all_day) - Number(a.all_day))
-        .slice(0, 30)
-        .map(({ _t, ...e }) => e);
-
-    return { source: 'Google Calendar', events };
-});
-
 /* ── Quote of the day (reuses the homepage list) ───────────────────────── */
 
 const getQuote = () => {
     const days = Math.floor(new Date(`${localDay(new Date())}T00:00:00Z`).getTime() / 86400e3);
     const q = quotes[days % quotes.length];
     return { text: q.text, author: q.author || '' };
-};
-
-/* ── Home server (pushed by the ThinkCentre, see api/kindle/server.js) ── */
-
-const STALE_MS = 15 * 60e3;
-const getServerBlock = async () => {
-    const s = await getServer();
-    if (!s) return null;
-    const { received_at: at, ...rest } = s;
-    return Date.now() - at > STALE_MS ? { ...rest, status: 'stale' } : rest;
 };
 
 /* ── Handler ───────────────────────────────────────────────────────────── */
@@ -177,23 +120,17 @@ module.exports = async (req, res) => {
     if (req.method === 'OPTIONS') return res.status(204).end();
     if (req.method !== 'GET' && req.method !== 'HEAD') return res.status(405).end();
 
-    const location = process.env.KINDLE_LOCATION || 'Milano';
-    const [weather, calendar, server] = await Promise.all([
-        safe('weather', () => getWeather(location)),
-        safe('calendar', getCalendar),
-        safe('server', getServerBlock),
-    ]);
+    const location = 'Milano';
+    const weather = await safe('weather', () => getWeather(location));
 
     const body = {
         version: 1,
         updated: localIso(new Date()),
         refresh_seconds: 300,
         location,
-        note: process.env.KINDLE_NOTE || 'albyeah.com',
+        note: 'albyeah.com',
         weather,
         quote: await safe('quote', async () => getQuote()),
-        calendar,
-        server,
     };
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
