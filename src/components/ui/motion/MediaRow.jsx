@@ -61,7 +61,7 @@ const MediaRow = ({ to, thumb, title, eyebrow = [], description, trailing, class
 
                 <span className="relative z-10 min-w-0 flex-1">
                     {parts.length > 0 && (
-                        <span className="mb-0.5 block truncate text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
+                        <span className="mb-0.5 block truncate text-xs font-semibold lowercase text-text-muted">
                             <span className="text-text-primary">{parts[0]}</span>
                             {parts.length > 1 && <span className="font-medium">{`  ·  ${parts.slice(1).join('  ·  ')}`}</span>}
                         </span>

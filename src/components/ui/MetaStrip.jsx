@@ -45,7 +45,7 @@ const FACT_ICONS = {
 };
 
 const RowLabel = ({ children }) => (
-    <span className="mt-1 flex-shrink-0 text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+    <span className="mt-1 flex-shrink-0 text-xs font-semibold lowercase text-text-muted">
         {children}
     </span>
 );

@@ -70,7 +70,7 @@ const Eyebrow = ({ parts = [] }) => {
     const items = parts.filter(Boolean);
     if (!items.length) return null;
     return (
-        <p className="flex flex-wrap items-center gap-x-2 text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-text-muted">
+        <p className="flex flex-wrap items-center gap-x-2 text-xs font-semibold lowercase text-text-muted">
             {items.map((part, i) => (
                 <React.Fragment key={`${part}-${i}`}>
                     {i > 0 && <span aria-hidden="true" className="h-3 w-px bg-border-strong" />}
@@ -85,6 +85,11 @@ const Eyebrow = ({ parts = [] }) => {
 
 /* ── Cover ─────────────────────────────────────────────────────────────── */
 
+// Hover-out: hold the video briefly, then cross-fade back to the image while
+// it keeps playing; rewind only once it is fully hidden.
+const LEAVE_DELAY = 0.15;
+const LEAVE_FADE = 0.6;
+
 const Cover = ({ cover, video, alt, hovered, aspect, badge, accent, size }) => {
     const videoRef = React.useRef(null);
     const [videoReady, setVideoReady] = React.useState(false);
@@ -96,10 +101,13 @@ const Cover = ({ cover, video, alt, hovered, aspect, badge, accent, size }) => {
             // A preview that refuses to play (autoplay policy, decode error)
             // must not blank the cover, so the image stays underneath.
             el.play().catch(() => setVideoReady(false));
-        } else {
+            return undefined;
+        }
+        const id = setTimeout(() => {
             el.pause();
             el.currentTime = 0;
-        }
+        }, (LEAVE_DELAY + LEAVE_FADE) * 1000 + 50);
+        return () => clearTimeout(id);
     }, [hovered]);
 
     if (!cover && !video) return null;
@@ -115,7 +123,11 @@ const Cover = ({ cover, video, alt, hovered, aspect, badge, accent, size }) => {
                     scale: hovered ? 1.05 : 1,
                     opacity: video && hovered && videoReady ? 0 : 1,
                 }}
-                transition={{ duration: 0.6, ease: EASE_OUT }}
+                transition={{
+                    duration: hovered ? 0.6 : LEAVE_FADE,
+                    delay: hovered ? 0 : LEAVE_DELAY,
+                    ease: EASE_OUT,
+                }}
                 className="h-full w-full object-cover"
                 onError={(event) => {
                     event.currentTarget.src = 'https://placehold.co/800x500/222222/6b6b6b?text=+';
@@ -132,7 +144,11 @@ const Cover = ({ cover, video, alt, hovered, aspect, badge, accent, size }) => {
                     preload="metadata"
                     onCanPlay={() => setVideoReady(true)}
                     animate={{ opacity: hovered && videoReady ? 1 : 0 }}
-                    transition={{ duration: 0.4, ease: EASE_OUT }}
+                    transition={{
+                        duration: hovered ? 0.4 : LEAVE_FADE,
+                        delay: hovered ? 0 : LEAVE_DELAY,
+                        ease: EASE_OUT,
+                    }}
                     className="absolute inset-0 h-full w-full object-cover"
                 />
             )}

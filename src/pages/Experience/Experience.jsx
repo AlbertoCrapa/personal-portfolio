@@ -23,7 +23,7 @@ const Experience = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
 
-  const items = playgroundData.playground || [];
+  const items = (playgroundData.playground || []).filter((item) => !item.hidden);
   const project = items.find((p) => p.slug === slug);
 
   const [ready, setReady] = useState(false);

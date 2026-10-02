@@ -130,7 +130,7 @@ const MultiSelect = ({
     return (
         <div ref={rootRef} className={`relative ${className}`}>
             {label && (
-                <span className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                <span className="mb-1.5 block text-xs font-semibold lowercase text-text-muted">
                     {label}
                 </span>
             )}
@@ -216,7 +216,7 @@ const MultiSelect = ({
                             onChange?.([]);
                             setQuery('');
                         }}
-                        className="ml-auto rounded-md px-1.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wider text-text-muted hover:text-text-primary"
+                        className="ml-auto rounded-md px-1.5 py-0.5 text-xs font-semibold lowercase text-text-muted hover:text-text-primary"
                     >
                         Clear
                     </motion.button>

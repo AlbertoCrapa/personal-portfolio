@@ -96,7 +96,7 @@ const BeforeAfter = ({ before, after, description, startAt = 50 }) => {
                         style={{ width: containerWidth ? `${containerWidth}px` : '100%' }}
                         onError={(e) => { e.target.src = 'https://placehold.co/800x600'; }}
                     />
-                    <span className="absolute top-2 left-2 rounded-md bg-black/60 px-2 py-0.5 text-xs font-medium uppercase tracking-wider text-white">
+                    <span className="absolute top-2 left-2 rounded-md bg-black/60 px-2 py-0.5 text-xs font-medium lowercase text-white">
                         Before
                     </span>
                 </div>
@@ -106,7 +106,7 @@ const BeforeAfter = ({ before, after, description, startAt = 50 }) => {
                     className="absolute inset-y-0 right-0 overflow-hidden pointer-events-none"
                     style={{ width: `${100 - position}%` }}
                 >
-                    <span className="absolute top-2 right-2 rounded-md bg-black/60 px-2 py-0.5 text-xs font-medium uppercase tracking-wider text-white">
+                    <span className="absolute top-2 right-2 rounded-md bg-black/60 px-2 py-0.5 text-xs font-medium lowercase text-white">
                         After
                     </span>
                 </div>

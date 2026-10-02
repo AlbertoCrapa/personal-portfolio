@@ -81,6 +81,7 @@
     },
     {
       "slug": "motion-overlay",
+      "hidden": true,
       "title": "Motion Overlay",
       "shortDescription": "Personal Experiment • Webcam face & hand tracking with an icon overlay that reacts to your expression and gesture, entirely on-device with MediaPipe",
       "date": "2026-ongoing",

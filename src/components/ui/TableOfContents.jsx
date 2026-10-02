@@ -66,7 +66,7 @@ const TableOfContents = ({ sections = [] }) => {
                 className="sticky space-y-0.5"
                 style={{ top: '72px' }}
             >
-                <p className="text-xs uppercase tracking-widest text-text-muted pb-2 mb-1 border-b border-border">
+                <p className="text-xs lowercase text-text-muted pb-2 mb-1 border-b border-border">
                     On this page
                 </p>
                 {sections.map(({ id, title }) => (

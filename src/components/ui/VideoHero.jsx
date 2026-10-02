@@ -124,9 +124,9 @@ const VideoHero = ({ reel = {}, contact = {}, hero = {} }) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.35 }}
                     style={{
-                        fontSize: '0.68rem',
+                        fontSize: '0.75rem',
                         letterSpacing: '0.22em',
-                        textTransform: 'uppercase',
+                        textTransform: 'lowercase',
                         color: ON_REEL_DIM,
                         fontWeight: 600,
                     }}

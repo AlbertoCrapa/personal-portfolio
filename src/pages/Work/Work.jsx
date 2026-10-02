@@ -34,7 +34,7 @@ const Work = ({ source = 'projects' }) => {
     // Get items based on source
     const isPlayground = source === 'playground';
     const items = isPlayground
-        ? playgroundData.playground || []
+        ? (playgroundData.playground || []).filter((item) => !item.hidden)
         : Object.values(projectData.projects);
 
     const currentIndex = items.findIndex((p) => p.slug === slug);
@@ -152,7 +152,7 @@ const Work = ({ source = 'projects' }) => {
                     {/* Project Header - AFTER cover */}
                     <header className="space-y-5 pt-4">
                         <div className="space-y-2.5">
-                            <p className="flex flex-wrap items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                            <p className="flex flex-wrap items-center gap-2 text-xs font-semibold lowercase text-text-muted">
                                 <span>{isPlayground ? 'Playground' : 'Project'}</span>
                                 {typeLabel && (
                                     <>
@@ -212,7 +212,7 @@ const Work = ({ source = 'projects' }) => {
                                             to={`${basePath}/${prevProject.slug}`}
                                             className="group flex flex-col gap-1 flex-1 max-w-[46%]"
                                         >
-                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
+                                            <span className="text-xs lowercase text-text-muted group-hover:text-text-secondary transition-colors">
                                                 ← Previous
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">
@@ -227,7 +227,7 @@ const Work = ({ source = 'projects' }) => {
                                             to={`${basePath}/${nextProject.slug}`}
                                             className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
                                         >
-                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
+                                            <span className="text-xs lowercase text-text-muted group-hover:text-text-secondary transition-colors">
                                                 Next →
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">

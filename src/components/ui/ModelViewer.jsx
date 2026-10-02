@@ -109,7 +109,7 @@ const ModelViewer = ({ src, alt = '3D model', description, className = '' }) => 
                                 </svg>
                             )}
                         </span>
-                        <span className="uppercase tracking-wider font-medium">Model</span>
+                        <span className="lowercase font-medium">Model</span>
                     </button>
 
                     <button
@@ -121,7 +121,7 @@ const ModelViewer = ({ src, alt = '3D model', description, className = '' }) => 
                         <svg viewBox="0 0 24 24" fill="none" className="w-3 h-3">
                             <path d="M12 5v14M7 10l5-5 5 5M7 14l5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span className="uppercase tracking-wider font-medium">{isFastRotation ? 'Fast' : 'Normal'}</span>
+                        <span className="lowercase font-medium">{isFastRotation ? 'Fast' : 'Normal'}</span>
                     </button>
                 </div>
             </div>

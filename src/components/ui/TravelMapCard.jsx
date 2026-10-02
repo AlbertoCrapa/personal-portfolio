@@ -131,7 +131,7 @@ const TravelMapCard = ({
         <article className="extras-card map-extras-card space-y-3">
             <div className="flex items-start justify-between gap-3">
                 <div>
-                    <h3 className="text-sm uppercase tracking-wider text-text-muted flex items-center gap-2">
+                    <h3 className="text-sm lowercase text-text-muted flex items-center gap-2">
                         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                             <path d="M12 21s7-4.35 7-10a7 7 0 10-14 0c0 5.65 7 10 7 10z" />
                             <circle cx="12" cy="11" r="2.5" />
@@ -140,7 +140,7 @@ const TravelMapCard = ({
                     </h3>
                     
                 </div>
-                <span className="text-[10px] uppercase tracking-[0.16em] text-text-muted bg-bg border border-border rounded px-2 py-1">
+                <span className="text-xs lowercase text-text-muted bg-bg border border-border rounded px-2 py-1">
                     live
                 </span>
             </div>

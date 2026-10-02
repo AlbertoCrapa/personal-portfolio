@@ -10,7 +10,6 @@ import BlogCard from '../../components/ui/BlogCard';
 import FilterBar from '../../components/ui/FilterBar';
 import ResultsGrid from '../../components/ui/ResultsGrid';
 import TiltSurface from '../../components/ui/motion/TiltSurface';
-import Tag from '../../components/ui/motion/Tag';
 import { useCollectionFilter } from '../../hooks/useCollectionFilter';
 import {
     CARD_TAP_SCALE,
@@ -61,7 +60,7 @@ const FeaturedPost = ({ blog }) => {
                     className="relative grid overflow-hidden rounded-2xl border border-border bg-surface shadow-[var(--card-shadow)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]"
                 >
                     {cover && (
-                        <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:h-full">
+                        <div className="relative aspect-[21/9] overflow-hidden lg:aspect-auto lg:h-full">
                             <motion.img
                                 src={cover}
                                 alt={blog.title}
@@ -93,28 +92,29 @@ const FeaturedPost = ({ blog }) => {
                         </div>
                     )}
 
-                    <div className="flex flex-col justify-center gap-4 p-6 sm:p-8 lg:p-10">
-                        <p className="flex items-center gap-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
-                            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent-green" aria-hidden="true" />
-                            Latest
-                        </p>
-
-                        <h2 className="font-display text-2xl font-bold leading-tight tracking-tight text-text-primary sm:text-3xl lg:text-4xl">
+                    <div className="flex flex-col justify-center gap-3 p-5 sm:p-6 lg:p-7">
+                        <h2 className="font-display text-xl font-bold leading-tight tracking-tight text-text-primary sm:text-2xl lg:text-3xl">
                             {blog.title}
                         </h2>
 
                         {blog.excerpt && (
-                            <p className="max-w-xl text-sm leading-relaxed text-text-secondary sm:text-base">
+                            <p className="max-w-xl line-clamp-2 text-sm leading-relaxed text-text-secondary">
                                 {blog.excerpt}
                             </p>
                         )}
 
                         {tags.length > 0 && (
-                            <div className="flex flex-wrap gap-1.5">
-                                {tags.map((tag, i) => (
-                                    <Tag key={tag} index={i}>{tag}</Tag>
+                            <ul className="flex flex-wrap gap-1.5">
+                                {/* Same chip as the grid cards' footer (MediaCard). */}
+                                {tags.map((tag) => (
+                                    <li
+                                        key={tag}
+                                        className="inline-flex items-center whitespace-nowrap rounded-full border border-border-strong bg-bg px-2.5 py-1 text-xs leading-none text-text-primary"
+                                    >
+                                        {tag}
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         )}
 
                         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-text-muted">

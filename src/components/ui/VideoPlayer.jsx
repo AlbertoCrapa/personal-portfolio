@@ -138,7 +138,7 @@ const VideoPlayer = ({ src, poster, autoPlay = true, loop = true, className = ''
                             </svg>
                         )}
                     </span>
-                    <span className="uppercase tracking-wider font-medium">Video</span>
+                    <span className="lowercase font-medium">Video</span>
                 </button>
 
                 <button

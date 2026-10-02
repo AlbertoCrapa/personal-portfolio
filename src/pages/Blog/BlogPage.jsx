@@ -133,7 +133,7 @@ const BlogPage = () => {
                     {/* Header */}
                     <header className="space-y-5 pt-4">
                         <div className="space-y-2.5">
-                            <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                            <p className="text-xs font-semibold lowercase text-text-muted">
                                 Article
                             </p>
 
@@ -187,7 +187,7 @@ const BlogPage = () => {
                                             to={`/blog/${prevBlog.slug}`}
                                             className="group flex flex-col gap-1 flex-1 max-w-[46%]"
                                         >
-                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
+                                            <span className="text-xs lowercase text-text-muted group-hover:text-text-secondary transition-colors">
                                                 ← Previous
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">
@@ -200,7 +200,7 @@ const BlogPage = () => {
                                             to={`/blog/${nextBlog.slug}`}
                                             className="group flex flex-col gap-1 flex-1 max-w-[46%] items-end text-right"
                                         >
-                                            <span className="text-xs uppercase tracking-wider text-text-muted group-hover:text-text-secondary transition-colors">
+                                            <span className="text-xs lowercase text-text-muted group-hover:text-text-secondary transition-colors">
                                                 Next →
                                             </span>
                                             <span className="text-sm font-semibold line-clamp-2 leading-snug">

@@ -24,7 +24,7 @@ const FILTER_THRESHOLD = 4;
 
 const Playground = () => {
     const isMobile = useMediaQuery('(max-width: 768px)');
-    const items = React.useMemo(() => playgroundData.playground || [], []);
+    const items = React.useMemo(() => (playgroundData.playground || []).filter((item) => !item.hidden), []);
 
     const filter = useCollectionFilter(items, {
         searchFields: (item) => [

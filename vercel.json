@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/kindle.json", "destination": "/api/kindle" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

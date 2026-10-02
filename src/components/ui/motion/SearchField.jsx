@@ -40,7 +40,7 @@ const SearchField = ({
     return (
         <div className={className}>
             {label && (
-                <span className="mb-1.5 block text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+                <span className="mb-1.5 block text-xs font-semibold lowercase text-text-muted">
                     {label}
                 </span>
             )}

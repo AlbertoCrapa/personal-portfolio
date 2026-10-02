@@ -621,8 +621,7 @@ canvas {
 .notification-toast__meta-label {
   color: var(--color-text-secondary);
   font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  text-transform: lowercase;
 }
 
 .notification-toast__meta-dot {

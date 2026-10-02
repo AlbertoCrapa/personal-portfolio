@@ -190,7 +190,7 @@ const PostRow = ({ blog }) => {
                     transition={{ duration: 0.22, ease: EASE_OUT }}
                 />
 
-                <span className="relative text-xs uppercase leading-snug tracking-wider text-text-muted">
+                <span className="relative text-xs lowercase leading-snug text-text-muted">
                     {formatDate(blog.date)}
                 </span>
 
@@ -395,7 +395,7 @@ const QuotePanel = ({ quotes = [] }) => {
                         <span className="text-text-muted">/</span> {quote.author}
                     </p>
                 )}
-                <p className="text-xs uppercase tracking-wider text-text-muted">tap for next</p>
+                <p className="text-xs lowercase text-text-muted">tap for next</p>
             </div>
         </div>
     );
@@ -437,7 +437,7 @@ const TrackRow = ({ index, kind, title, meta, url, playing = false }) => {
                 {meta && <span className="block truncate text-xs text-text-muted">{meta}</span>}
             </span>
 
-            <span className="flex-shrink-0 text-[0.6rem] uppercase tracking-[0.16em] text-text-muted">
+            <span className="flex-shrink-0 text-xs lowercase text-text-muted">
                 {kind}
             </span>
 
@@ -581,7 +581,7 @@ const AvailabilityCard = ({ contact = {}, about = {} }) => {
             transition={SPRING_PRESS}
             className="rounded-2xl border border-border bg-surface p-5 shadow-[var(--card-shadow)] lg:p-6"
         >
-            <p className="mb-3 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-text-muted">
+            <p className="mb-3 text-xs font-semibold lowercase text-text-muted">
                 Currently
             </p>
 
@@ -622,7 +622,7 @@ const Home = () => {
     const contact = data.contact;
     const homeConfig = data.homepage || {};
     const projects = Object.values(projectData.projects);
-    const playgroundItems = playgroundData.playground || [];
+    const playgroundItems = (playgroundData.playground || []).filter((item) => !item.hidden);
     const blogs = blogData.blogs;
     const hero = homeConfig.hero || {};
     const reel = homeConfig.reel || {};
@@ -825,7 +825,7 @@ const Home = () => {
                         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
                             <div className="space-y-8 lg:col-span-5">
                                 <div>
-                                    <p className="mb-2 text-xs uppercase tracking-wider text-text-muted">Write me directly</p>
+                                    <p className="mb-2 text-xs lowercase text-text-muted">Write me directly</p>
                                     <a href={`mailto:${contact?.email || 'hello@albyeah.com'}`} className="inline-block break-all font-display text-lg font-semibold md:text-xl">
                                         <ShimmerText
                                             text={contact?.email || 'hello@albyeah.com'}
@@ -837,7 +837,7 @@ const Home = () => {
 
                                 {socialLinks.length > 0 && (
                                     <div>
-                                        <p className="mb-2 text-xs uppercase tracking-wider text-text-muted">Elsewhere</p>
+                                        <p className="mb-2 text-xs lowercase text-text-muted">Elsewhere</p>
                                         <ul className="space-y-1">
                                             {socialLinks.map((link) => (
                                                 <li key={link.label}>
