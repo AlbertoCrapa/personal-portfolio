@@ -17,6 +17,7 @@ import {
     Stats,
 } from './article/blocks';
 import { normalizeContent } from './article/normalize';
+import styles from './article/article.module.css';
 
 /**
  * ArticleBody — the single renderer behind /work/:slug, /playground/:slug and
@@ -34,56 +35,48 @@ import { normalizeContent } from './article/normalize';
  *     heading, consecutive paragraphs sit close, a new section gets air.
  */
 
-/** Reading measure. The whole column is one line away from a narrower one:
- *  '48rem' is today's width (~95 characters); 'max-w-[68ch]' would land in the
- *  65–75 character range typographers recommend for long-form reading. Changing
- *  it here changes every project and post at once — see CONTENT-GUIDE.md. */
-const MEASURE = 'max-w-3xl';
-
-/** Figure widths. `wide` breaks the column on large screens without ever
- *  reaching the table of contents; the smaller sizes are for portrait shots
- *  and diagrams that look silly stretched to full width. */
+/** Figure widths. Every block shares one 48rem column; `wide` breaks it on
+ *  large screens without reaching the table of contents, the smaller sizes
+ *  are for portrait shots and diagrams that look silly stretched. */
 const SIZE_CLASS = {
-    full: MEASURE,
-    wide: `${MEASURE} lg:max-w-none lg:-mx-8`,
-    inline: 'max-w-md mx-auto',
-    small: 'max-w-sm mx-auto',
+    wide: styles.sizeWide,
+    inline: styles.sizeInline,
+    small: styles.sizeSmall,
 };
 
 /** Gap above a block, as a function of (previous kind, this kind).
- *  '' means "inherit the container's space-y", i.e. the section-level gap. */
-const TIGHT = '!mt-2 md:!mt-4';   // heading -> its own body
-const CLOSE = '!mt-4';            // paragraph -> paragraph
-const STEP = '!mt-6 md:!mt-8';    // sub-heading -> new beat inside a section
-const WIDE = '!mt-10 md:!mt-12';  // around a scene break
-
+ *  '' keeps the section-level gap. */
 function gapClass(prev, block) {
     if (!prev) return '';
     const from = prev.kind;
     const to = block.kind;
 
-    if (from === 'divider' || to === 'divider') return WIDE;
+    if (from === 'divider' || to === 'divider') return styles.wideGap;
 
     if (from === 'heading') {
         // A heading and the text under it are one unit; anything else that
         // follows a heading (a figure, a stat row) still opens the section.
-        return to === 'prose' || to === 'lead' || to === 'aside' ? TIGHT : '!mt-4 md:!mt-6';
+        return to === 'prose' || to === 'lead' || to === 'aside' ? styles.tight : styles.afterHeading;
     }
 
-    if (to === 'heading') return block.level >= 3 ? STEP : '';
+    if (to === 'heading') return block.level >= 3 ? styles.step : '';
 
-    if (from === 'prose' && to === 'prose') return CLOSE;
-    if (from === 'lead' && to === 'prose') return CLOSE;
-    if (to === 'aside' || from === 'aside') return '!mt-5 md:!mt-6';
+    if (from === 'prose' && to === 'prose') return styles.close;
+    if (from === 'lead' && to === 'prose') return styles.close;
+    if (to === 'aside' || from === 'aside') return styles.aroundAside;
 
     return '';
 }
 
 const HEADING_CLASS = {
-    2: 'text-2xl font-bold text-text-primary',
-    3: 'text-lg md:text-xl font-semibold text-text-primary',
-    4: 'text-base md:text-lg font-semibold text-text-secondary',
+    2: `${styles.heading} ${styles.heading2}`,
+    3: `${styles.heading} ${styles.heading3}`,
+    4: `${styles.heading} ${styles.heading4}`,
 };
+
+/** Media blocks predate Arc and must render exactly as they always have, so
+ *  they sit in a legacy zone that restores their type, ink and focus rings. */
+const MEDIA_KINDS = new Set(['media', 'gallery', 'model', 'compare']);
 
 const isVideoSrc = (src) => (src ? /\.(mp4|webm|mov)$/i.test(src) : false);
 
@@ -211,12 +204,14 @@ const ArticleBody = ({ content, blocks, title = '', skipMediaSrc = null, classNa
     });
 
     return (
-        <div className={`space-y-8 md:space-y-10 ${className}`}>
+        <div className={`${styles.body} ${className}`.trim()}>
             {visible.map((block, idx) => {
                 const prev = visible[idx - 1];
-                const width = SIZE_CLASS[block.size] || MEASURE;
+                const classes = [styles.block, SIZE_CLASS[block.size], gapClass(prev, block), MEDIA_KINDS.has(block.kind) && 'legacy-zone']
+                    .filter(Boolean)
+                    .join(' ');
                 return (
-                    <div key={idx} className={`${width} ${gapClass(prev, block)}`.trim()}>
+                    <div key={idx} className={classes}>
                         {renderBlock(block, idx, { title })}
                     </div>
                 );

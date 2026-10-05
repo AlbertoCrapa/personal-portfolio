@@ -1,0 +1,406 @@
+/* Landing rhythm: sections breathe (64px on phones, 120px on wide screens)
+   inside the one page container; nothing here adds its own gutter. */
+.page {
+  display: grid;
+  gap: clamp(var(--space-16), 9vw, 120px);
+  min-width: 0;
+}
+
+.page > * {
+  min-width: 0;
+}
+
+.section {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+  scroll-margin-top: 80px;
+}
+
+.section > * {
+  min-width: 0;
+}
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+
+.hero {
+  display: grid;
+  gap: var(--space-12);
+  padding-top: clamp(var(--space-4), 4vw, var(--space-12));
+}
+
+.heroText {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-5);
+  text-align: center;
+}
+
+.heroTitle {
+  margin: 0;
+  /* The name is a wordmark with a hover effect, not text to select. */
+  cursor: default;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: clamp(3.25rem, 8.5vw, 8.5rem);
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: 1;
+  text-wrap: balance;
+}
+
+/* Words never break inside the per-letter spans of the hover sweep. */
+.heroWord {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* The hover band probe: an empty inline-block sits on the baseline, so 1ex
+   tall it spans exactly baseline to x-height. Zero width, no layout cost. */
+.heroBand {
+  display: inline-block;
+  width: 0;
+  height: 1ex;
+}
+
+.heroDescription {
+  max-width: 54ch;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: clamp(var(--text-lg), 1.3vw, var(--text-xl));
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.reel {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+/* The product shot: one surface, Arc's largest radius, a border and no
+   shadow. The media fills it edge to edge, so it takes the same radius. */
+.reelFrame {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-surface);
+  background: var(--surface-muted);
+}
+
+.reelFrame video,
+.reelFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reelCaption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-1) var(--space-3);
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+/* ── Shared bits ───────────────────────────────────────────────────────── */
+
+.inlineLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.inlineLink:hover,
+.inlineLink:focus-visible {
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.muted {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.strong {
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.plainList {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-secondary);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ── Selected work and writing ─────────────────────────────────────────── */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  /* Every row as tall as the tallest card, so all cards share one height. */
+  grid-auto-rows: 1fr;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards > li {
+  min-width: 0;
+}
+
+.rows {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+
+.rows > li + li {
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ── Live prototype ────────────────────────────────────────────────────── */
+
+.prototype {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-surface);
+  background: var(--surface);
+}
+
+@media (min-width: 800px) {
+  .prototype {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+
+.prototypeMedia {
+  min-height: 220px;
+  background: var(--surface-muted);
+}
+
+.prototypeMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prototypeText {
+  display: grid;
+  align-content: center;
+  gap: var(--space-4);
+  padding: clamp(var(--space-6), 4vw, var(--space-10));
+}
+
+.prototypeTitle {
+  margin: 0;
+  color: var(--foreground);
+  font-size: var(--text-2xl);
+  font-weight: 500;
+  letter-spacing: var(--tracking-body);
+  line-height: 1.2;
+}
+
+.prototypeDescription {
+  max-width: 48ch;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.prototypeActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* ── About ─────────────────────────────────────────────────────────────── */
+
+.about {
+  display: grid;
+  gap: var(--space-8);
+}
+
+@media (min-width: 900px) {
+  .about {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: var(--space-16);
+  }
+}
+
+.aboutText {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+}
+
+.aboutLead {
+  max-width: 48ch;
+  margin: 0;
+  color: var(--foreground);
+  font-size: var(--text-xl);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.aboutMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.listen {
+  display: grid;
+  gap: var(--space-3);
+  color: var(--text-secondary);
+}
+
+.listen p {
+  margin: 0;
+}
+
+/* ── Quotes ────────────────────────────────────────────────────────────── */
+
+.quotePanel {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: clamp(var(--space-6), 5vw, var(--space-12));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-surface);
+  background: var(--surface);
+}
+
+.quoteText {
+  max-width: 32ch;
+  margin: 0;
+  color: var(--foreground);
+  font-family: var(--font-display);
+  font-size: clamp(var(--text-2xl), 4vw, var(--text-4xl));
+  font-weight: 500;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.15;
+  text-wrap: balance;
+  animation: quoteIn var(--duration-standard) var(--ease-enter);
+}
+
+@keyframes quoteIn {
+  from { opacity: 0; transform: translateY(4px); filter: blur(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quoteText { animation: none; }
+}
+
+.quoteFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.quoteAuthor {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.quoteNav {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Contact ───────────────────────────────────────────────────────────── */
+
+.contact {
+  display: grid;
+  gap: var(--space-10);
+}
+
+@media (min-width: 900px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: var(--space-16);
+  }
+}
+
+.channels {
+  display: grid;
+  align-content: start;
+  gap: var(--space-6);
+}
+
+.email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--foreground);
+  font-size: var(--text-xl);
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.email:hover,
+.email:focus-visible {
+  color: var(--accent);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.formRow {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .formRow {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.formFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}

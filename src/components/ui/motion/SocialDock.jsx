@@ -8,18 +8,19 @@ import { SPRING_SWAP, useHoverCapable, useReducedMotion } from '../../../utils/m
  *
  * Each icon's scale is a function of its distance from the cursor, so the row
  * swells around the pointer instead of the icon under it popping alone: the
- * neighbours tell you where you are before you arrive. The per-platform glow
- * the bar already used is kept exactly as it was.
+ * neighbours tell you where you are before you arrive. Each icon sits in an
+ * Arc ghost-button box: muted ink at rest, foreground ink on a muted surface
+ * on hover. No brand colours or glow, so the bar stays monochrome.
  *
  * Falls back to a plain row on touch devices and under reduced motion, where
  * there is no cursor to magnify toward.
  *
  * Props:
- *   links – [{ label, url, icon, hoverColor, glowColor }]
+ *   links – [{ label, url, icon }]
  */
 
 const MAGNIFY_RANGE = 90; // px of cursor travel over which an icon grows
-const MAX_SCALE = 1.5;
+const MAX_SCALE = 1.2; // modest: the glyph grows inside its fixed hover box
 
 const DockIcon = ({ link, mouseX, active }) => {
     const ref = React.useRef(null);
@@ -51,17 +52,11 @@ const DockIcon = ({ link, mouseX, active }) => {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={link.label}
-            onMouseEnter={(event) => {
-                setHovered(true);
-                event.currentTarget.style.filter = `drop-shadow(0 0 6px ${link.glowColor})`;
-            }}
-            onMouseLeave={(event) => {
-                setHovered(false);
-                event.currentTarget.style.filter = 'none';
-            }}
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
             onFocus={() => setHovered(true)}
             onBlur={() => setHovered(false)}
-            className={`relative block text-text-secondary transition-colors duration-300 ${link.hoverColor}`}
+            className="relative grid h-8 w-8 place-items-center rounded-[var(--radius-control)] text-[var(--text-secondary)] transition-colors duration-150 hover:bg-[var(--surface-muted)] hover:text-[var(--foreground)] focus-visible:bg-[var(--surface-muted)] focus-visible:text-[var(--foreground)]"
         >
             {/* Only the glyph scales. The anchor keeps its box, so the hit area
                 stays put, the row never reflows, and the measurement the
@@ -97,7 +92,7 @@ const SocialDock = ({ links = [], className = '' }) => {
 
     return (
         <div
-            className={`flex items-center gap-4 ${className}`}
+            className={`flex items-center gap-1 ${className}`}
             onMouseMove={(event) => active && mouseX.set(event.clientX)}
             onMouseLeave={() => mouseX.set(null)}
         >

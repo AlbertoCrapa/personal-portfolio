@@ -2,52 +2,41 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Sidebar from '../components/Sidebar';
-import ThemeToggle from '../components/ui/ThemeToggle';
-// import PixelReveal from '../components/ui/PixelReveal';  // temporarily disabled
+import ThemeControl from '../components/ui/ThemeControl';
+import CuttingMat from '../components/ui/CuttingMat';
 import data from '../data/data.json';
+import styles from './Layout.module.css';
 
 /**
- * Main Layout Component
- * Fixed top nav bar, scrollable content below.
+ * Layout — the fixed top bar, the one page container, and the footer.
  *
- * The theme switch lives here rather than in the top bar: it's a one-time
- * setting, not navigation, and the wipe reads better starting from the bottom
- * of the page than from a fixed bar that never moves.
+ * `.page-shell` (theme.css) is the only container on the site: it owns the
+ * max width and the gutters, and the top bar uses it too so the logo and the
+ * page content share one left edge. Pages fill it and never add their own.
+ *
+ * The top bar predates Arc and must render exactly as it always has, so it
+ * sits in a `.legacy-zone`, which restores its type, ink and focus rings.
  */
 const Layout = ({ children }) => {
     const fullname = data?.fullname || 'Alberto Crapanzano';
 
     return (
-        <div className="min-h-svh">
-            {/* Full-viewport pixel background — ambient only, no explosion */}
-            {/* <PixelReveal explode={false} />  temporarily disabled */}
-            <a href="#main-content" className="skip-link">Skip to main content</a>
-            {/* Top navigation bar */}
-            <Sidebar />
-            {/* Main Content Area — offset by nav height (h-14 = 56px) */}
-            <main id="main-content" className="pt-14 min-h-svh overflow-x-clip" style={{ position: 'relative', zIndex: 1 }} tabIndex="-1">
-                {/* .page-shell is shared with the top bar, so the logo and the
-                    page content always share one left edge. See theme.css. */}
-                <div className="page-shell py-8 lg:py-10">
+        <div className={styles.app}>
+            <a href="#main-content" className="skip-link">Skip to content</a>
+            <CuttingMat />
+            <div className="legacy-zone legacy-zone--contents">
+                <Sidebar />
+            </div>
+            <main id="main-content" className={styles.main} tabIndex="-1">
+                <div className={`page-shell ${styles.page}`}>
                     {children}
 
-                    <footer className="mt-16 border-t border-border pt-8">
-                        <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:justify-between">
-                            <p className="order-3 text-xs text-text-muted sm:order-1">
-                                © {new Date().getFullYear()} {fullname}. All rights reserved.
-                            </p>
-
-                            <Link
-                                to="/privacy"
-                                className="order-2 text-sm text-text-muted underline-offset-4 transition-colors hover:text-text-primary hover:underline"
-                            >
-                                Privacy Policy
-                            </Link>
-
-                            <div className="order-1 sm:order-3">
-                                <ThemeToggle origin="bottom" />
-                            </div>
-                        </div>
+                    <footer className={styles.footer}>
+                        <p className={styles.copyright}>
+                            © {new Date().getFullYear()} {fullname}
+                        </p>
+                        <Link to="/privacy" className={styles.footerLink}>Privacy policy</Link>
+                        <ThemeControl />
                     </footer>
                 </div>
             </main>

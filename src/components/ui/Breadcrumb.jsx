@@ -1,40 +1,38 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import { Breadcrumb as ArcBreadcrumb } from '../arc/breadcrumb/breadcrumb';
+import styles from './Breadcrumb.module.css';
 
 /**
- * Breadcrumb Component
- * Navigation breadcrumb trail (home / projects / project-name /)
- * 
- * @param {Array} items - Array of { label, path } objects
+ * Breadcrumb — Arc's breadcrumb with the site's `{ label, path }` items, shown
+ * on phones only (where the top bar collapses into a menu); on larger screens
+ * the top bar already says where you are. The last item is the current page.
+ *
+ * Arc's breadcrumb never truncates, so long labels (post titles) are cut to
+ * their first words here. Arc renders `next/link`; src/next/link.jsx turns
+ * that into a router link.
  */
-const Breadcrumb = ({ items }) => {
-    return (
-        <nav className="mb-6 md:hidden" aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-1 text-sm">
-                {items.map((item, index) => {
-                    const isLast = index === items.length - 1;
+const MAX_LABEL = 24;
 
-                    return (
-                        <li key={item.path} className="flex items-center">
-                            {item.path && !isLast ? (
-                                <Link
-                                    to={item.path}
-                                    className="text-text-muted hover:text-text-primary transition-colors"
-                                >
-                                    {item.label}
-                                </Link>
-                            ) : (
-                                <span className={isLast ? "text-text-primary font-semibold" : "text-text-muted"}>
-                                    {item.label}
-                                </span>
-                            )}
-                            <span className="mx-2 text-text-muted">/</span>
-                        </li>
-                    );
-                })}
-            </ol>
-        </nav>
-    );
+export const shortLabel = (label) => {
+    if (label.length <= MAX_LABEL) return label;
+    let short = '';
+    for (const word of label.split(/\s+/)) {
+        if ((short ? `${short} ${word}` : word).length > MAX_LABEL - 1) break;
+        short = short ? `${short} ${word}` : word;
+    }
+    return `${(short || label.slice(0, MAX_LABEL - 1)).replace(/[\s,:;.]+$/, '')}…`;
 };
+
+const Breadcrumb = ({ items = [] }) => (
+    <div className={styles.mobileOnly}>
+        <ArcBreadcrumb
+            items={items.map((item, index) => {
+                const label = shortLabel(item.label);
+                return index === items.length - 1 ? { label } : { label, href: item.path };
+            })}
+        />
+    </div>
+);
 
 export default Breadcrumb;

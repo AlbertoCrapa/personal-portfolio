@@ -1,0 +1,71 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--space-3) var(--space-4);
+  color: inherit;
+  transition: background-color var(--duration-fast) var(--ease-standard);
+}
+
+.row:hover,
+.row:focus-visible {
+  color: inherit;
+  background: var(--surface-muted);
+}
+
+/* Inner corner = row padding inside a 26px group would be 14px; the thumb sits
+   in from the row edge, so it takes the control radius minus that inset. */
+.thumb {
+  flex: none;
+  width: 96px;
+  aspect-ratio: 3 / 2;
+  border: 1px solid var(--border-subtle);
+  border-radius: calc(var(--radius-control) - var(--space-2));
+  object-fit: cover;
+}
+
+.text {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.title {
+  overflow: hidden;
+  color: var(--foreground);
+  font-size: var(--text-base);
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description {
+  overflow: hidden;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.meta {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.trailing {
+  flex: none;
+}
+
+@media (max-width: 560px) {
+  .thumb {
+    width: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+}

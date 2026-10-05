@@ -1,14 +1,18 @@
 import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { useParams, useNavigate, Navigate } from 'react-router-dom';
 
+import { ArrowLeft, RotateCw } from 'lucide-react';
+
 import SEO from '../../components/SEO';
 import Breadcrumb from '../../components/ui/Breadcrumb';
-import RevealSection from '../../components/ui/RevealSection';
+import { Alert } from '../../components/arc/alert/alert';
+import { Button } from '../../components/arc/button/button';
 import playgroundData from '../../data/playground.json';
 import { getExperienceComponent } from '../../experiences';
+import styles from './Experience.module.css';
 
-const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
-const EXIT_MS = 320;
+// Leaving fades the stage out on Arc's exit timing before the route changes.
+const EXIT_MS = 180;
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -53,79 +57,65 @@ const Experience = () => {
 
   return (
     <>
-      <SEO title={`${project.title} — Playing | Alberto Crapanzano`} noindex />
+      <SEO title={`${project.title} (playing) | Alberto Crapanzano`} noindex />
 
-      <RevealSection>
-        <div className="space-y-4">
-          <Breadcrumb
-            items={[
-              { label: 'home', path: '/' },
-              { label: 'playground', path: '/playground' },
-              { label: project.title, path: `/playground/${slug}` },
-              { label: 'play', path: `/playground/${slug}/play` },
-            ]}
-          />
+      <div className={styles.page}>
+        <Breadcrumb
+          items={[
+            { label: 'home', path: '/' },
+            { label: 'playground', path: '/playground' },
+            { label: project.title, path: `/playground/${slug}` },
+            { label: 'play', path: `/playground/${slug}/play` },
+          ]}
+        />
 
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h1 className="text-2xl md:text-3xl font-bold text-text-primary">{project.title}</h1>
-            <button
-              type="button"
-              onClick={goToDetails}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-text-secondary hover:text-text-primary bg-surface hover:bg-surface-hover border border-border rounded-full px-4 py-2 transition-colors"
-            >
-              <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4">
-                <path d="M15 18l-6-6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Back to details
-            </button>
-          </div>
+        <header className={styles.header}>
+          <h1 className={styles.title}>{project.title}</h1>
+          <Button variant="secondary" onClick={goToDetails}>
+            <ArrowLeft size={16} strokeWidth={1.75} aria-hidden="true" />
+            Back to details
+          </Button>
+        </header>
 
-          {project.experience.instructions && (
-            <p className="text-sm text-text-secondary max-w-2xl">{project.experience.instructions}</p>
+        {project.experience.instructions && (
+          <p className={styles.instructions}>{project.experience.instructions}</p>
+        )}
+
+        <div
+          className={styles.stage}
+          data-leaving={leaving || undefined}
+          aria-busy={!ready && !loadError ? 'true' : undefined}
+        >
+          {!ready && !loadError && (
+            <div className={styles.loading} role="status">
+              <span className={styles.pulse} aria-hidden="true" />
+              Loading the experience
+            </div>
           )}
 
-          <div
-            className="relative w-full h-[60vh] sm:h-[65vh] md:h-[70vh] max-h-[720px] rounded-xl border border-border bg-surface overflow-hidden flex items-center justify-center"
-            style={{
-              opacity: leaving ? 0 : 1,
-              transform: leaving ? 'scale(0.98)' : 'scale(1)',
-              transition: prefersReducedMotion() ? 'none' : `opacity ${EXIT_MS}ms ${EASE}, transform ${EXIT_MS}ms ${EASE}`,
-            }}
-          >
-            {!ready && !loadError && (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-surface">
-                <div className="w-8 h-8 rounded-full border-2 border-border border-t-accent-blue animate-spin" />
-                <p className="text-sm text-text-muted">Loading experience…</p>
-              </div>
-            )}
+          {loadError && (
+            <div className={styles.error}>
+              <Alert tone="danger" title="The experience didn't load">
+                Your browser may have blocked it, or the download was interrupted.
+              </Alert>
+              <Button variant="secondary" onClick={() => window.location.reload()}>
+                <RotateCw size={16} strokeWidth={1.75} aria-hidden="true" />
+                Reload the experience
+              </Button>
+            </div>
+          )}
 
-            {loadError && (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 text-center px-6 bg-surface">
-                <p className="text-text-primary font-semibold">Couldn't load this experience</p>
-                <p className="text-sm text-text-secondary">Please refresh the page and try again.</p>
-              </div>
-            )}
-
-            {ExperienceComponent ? (
-              <div
-                className="w-full h-full flex items-center justify-center"
-                style={{
-                  opacity: ready ? 1 : 0,
-                  transition: prefersReducedMotion() ? 'none' : `opacity 400ms ${EASE}`,
-                }}
-              >
-                <Suspense fallback={null}>
-                  <ExperienceComponent onReady={() => setReady(true)} onError={(err) => setLoadError(err)} />
-                </Suspense>
-              </div>
-            ) : (
-              !loadError && (
-                <p className="text-sm text-text-muted">This experience isn't available yet.</p>
-              )
-            )}
-          </div>
+          {ExperienceComponent ? (
+            <div className={styles.canvas} data-ready={ready || undefined}>
+              <Suspense fallback={null}>
+                <ExperienceComponent onReady={() => setReady(true)} onError={(err) => setLoadError(err)} />
+              </Suspense>
+            </div>
+          ) : (
+            !loadError && <p className={styles.unavailable}>This experience isn't available yet.</p>
+          )}
         </div>
-      </RevealSection>
+      </div>
     </>
   );
 };

@@ -1,0 +1,21 @@
+/* Shared page rhythm. The page container lives in Layout; these only stack
+   regions inside it: 32px between the regions of a listing, 24px inside one. */
+.stack {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.stack > * {
+  min-width: 0;
+}
+
+.tight {
+  display: grid;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.tight > * {
+  min-width: 0;
+}

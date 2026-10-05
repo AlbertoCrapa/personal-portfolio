@@ -1,8 +1,8 @@
 /* Smoke tests for the shared UI system.
  *
  * A production build only proves the code parses. These render every page and
- * drive the new interactive pieces (filter, combobox, accordion, theme switch),
- * failing on any console.error — which is what catches hook-order mistakes,
+ * drive the interactive pieces (filters, tag links, theme control, contact form),
+ * failing on any console.error, which is what catches hook-order mistakes,
  * bad props and missing exports. */
 import React from "react";
 import { render, screen, fireEvent, act, waitFor } from "@testing-library/react";
@@ -85,28 +85,31 @@ const renderPage = async (Component, route, props = {}) => {
   return utils;
 };
 
-test("home renders", async () => {
+test("home renders every section", async () => {
   const Home = require("./pages/Home/Home").default;
   await renderPage(Home, "/");
-  expect(screen.getByText(/Featured Projects/i)).toBeTruthy();
-  expect(screen.getByText(/More about me/i)).toBeTruthy();
+  expect(screen.getByRole("heading", { level: 1 }).textContent).toMatch(/alberto crapanzano/i);
+  [/selected work/, /try it in your browser/, /writing/, /about me/, /let.s build something/].forEach((title) =>
+    expect(screen.getByRole("heading", { name: title })).toBeTruthy(),
+  );
 });
 
-test("projects page filters", async () => {
+test("projects page filters and recovers from an empty result", async () => {
   const Projects = require("./pages/Projects/Projects").default;
   await renderPage(Projects, "/projects");
-  expect(screen.getByText(/Selected work with clear role/i)).toBeTruthy();
 
-  const search = screen.getByPlaceholderText(/Search projects/i);
+  const search = screen.getByLabelText(/Search projects/i);
   await act(async () => {
     fireEvent.change(search, { target: { value: "zzzzzz-no-match" } });
   });
-  expect(screen.getByText(/Nothing matches those filters/i)).toBeTruthy();
+  expect(screen.getByText(/No projects match these filters/i)).toBeTruthy();
 
+  // The empty state's one next step clears everything.
+  const clear = screen.getAllByRole("button", { name: /Clear filters/i });
   await act(async () => {
-    fireEvent.change(search, { target: { value: "" } });
+    fireEvent.click(clear[clear.length - 1]);
   });
-  expect(screen.queryByText(/Nothing matches those filters/i)).toBeNull();
+  expect(screen.queryByText(/No projects match these filters/i)).toBeNull();
 });
 
 test("?tag= in the url pre-applies the facet", async () => {
@@ -119,25 +122,61 @@ test("?tag= in the url pre-applies the facet", async () => {
   await renderPage(Projects, `/projects?tag=${encodeURIComponent(tag)}`);
   const shown = screen
     .getAllByRole("link")
-    .filter((a) => /\/work\//.test(a.getAttribute("href") || ""));
+    .filter((a) => /^\/work\/[^/]+$/.test(a.getAttribute("href") || ""));
   expect(shown).toHaveLength(expected);
   expect(expected).toBeLessThan(projects.length);
-  expect(screen.getByText(/Clear filters/i)).toBeTruthy();
+  expect(screen.getAllByText(tag).length).toBeGreaterThan(0);
+  expect(screen.getByText(new RegExp(`${expected} of ${projects.length} projects`))).toBeTruthy();
+});
+
+test("the tag picker finds a tag by typing, adds it and removes it", async () => {
+  const Projects = require("./pages/Projects/Projects").default;
+  const projects = Object.values(require("./data/projects.json").projects);
+  await renderPage(Projects, "/projects");
+  const workLinks = () => screen.getAllByRole("link").filter((a) => /^\/work\/[^/]+$/.test(a.getAttribute("href") || ""));
+  expect(workLinks()).toHaveLength(projects.length);
+
+  const field = screen.getByLabelText("Stack");
+  await act(async () => {
+    fireEvent.focus(field);
+    fireEvent.change(field, { target: { value: "unit" } });
+  });
+  const unity = screen.getAllByRole("option").find((o) => /^Unity \(\d+\)$/.test(o.textContent.trim()));
+  await act(async () => {
+    fireEvent.click(unity);
+  });
+  await waitFor(() => expect(workLinks().length).toBeLessThan(projects.length));
+  expect(field.value).toBe("");
+
+  await act(async () => {
+    fireEvent.click(screen.getByRole("button", { name: "Remove Unity" }));
+  });
+  await waitFor(() => expect(workLinks()).toHaveLength(projects.length));
+});
+
+test("a tag inside a card links to the filtered listing", async () => {
+  const Projects = require("./pages/Projects/Projects").default;
+  await renderPage(Projects, "/projects");
+  const tagLinks = screen.getAllByRole("link").filter((a) => /^\/projects\?tag=/.test(a.getAttribute("href") || ""));
+  expect(tagLinks.length).toBeGreaterThan(0);
 });
 
 test("playground renders", async () => {
   const Playground = require("./pages/Playground/Playground").default;
   await renderPage(Playground, "/playground");
-  expect(screen.getByText(/Experimental projects, demos/i)).toBeTruthy();
+  expect(screen.getByRole("heading", { level: 1, name: "playground" })).toBeTruthy();
 });
 
-test("blog list renders", async () => {
+test("blog list renders and reads ?tag=", async () => {
   const BlogList = require("./pages/Blog/BlogList").default;
-  await renderPage(BlogList, "/blog");
-  expect(screen.getByText(/Latest/i)).toBeTruthy();
+  const { blogs } = require("./data/blog.json");
+  const tag = blogs[0].tags[0];
+  await renderPage(BlogList, `/blog?tag=${encodeURIComponent(tag)}`);
+  expect(screen.getByRole("heading", { level: 1, name: "blog" })).toBeTruthy();
+  expect(screen.getByText(new RegExp(`of ${blogs.length} posts`))).toBeTruthy();
 });
 
-test("blog post renders with meta strip", async () => {
+test("blog post renders with meta strip and topic links", async () => {
   const BlogPage = require("./pages/Blog/BlogPage").default;
   const { blogs } = require("./data/blog.json");
   const { Routes, Route } = require("react-router-dom");
@@ -154,9 +193,12 @@ test("blog post renders with meta strip", async () => {
   if (real.length) throw new Error(real.slice(0, 3).join("\n---\n"));
   expect(screen.getByText(/Reading time/i)).toBeTruthy();
   expect(screen.getByText(/Published/i)).toBeTruthy();
+  expect(
+    screen.getAllByRole("link").some((a) => /^\/blog\?tag=/.test(a.getAttribute("href") || "")),
+  ).toBe(true);
 });
 
-test("project page renders with meta strip", async () => {
+test("project page renders with meta strip and stack links", async () => {
   const Work = require("./pages/Work/Work").default;
   const projectData = require("./data/projects.json");
   const slug = Object.values(projectData.projects)[0].slug;
@@ -174,69 +216,62 @@ test("project page renders with meta strip", async () => {
   if (real.length) throw new Error(real.slice(0, 3).join("\n---\n"));
   expect(screen.getByText(/^Role$/i)).toBeTruthy();
   expect(screen.getByText(/^Stack$/i)).toBeTruthy();
-  // Stack chips link to the listing, already narrowed to that tag.
+  // Stack tags are real links to the listing, already narrowed to that tag.
   expect(
-    screen.getAllByRole("link").some((a) => /\/projects\?tag=/.test(a.getAttribute("href") || "")),
+    screen.getAllByRole("link").some((a) => /^\/projects\?tag=/.test(a.getAttribute("href") || "")),
   ).toBe(true);
 });
 
-test("theme toggle switches data-theme", async () => {
-  const ThemeToggle = require("./components/ui/ThemeToggle").default;
-  await renderPage(ThemeToggle, "/");
+test("missing project shows a way back to the list", async () => {
+  const Work = require("./pages/Work/Work").default;
+  const { Routes, Route } = require("react-router-dom");
   await act(async () => {
-    fireEvent.click(screen.getByLabelText(/Light theme/i));
+    render(
+      <Wrap route="/work/does-not-exist">
+        <Routes>
+          <Route path="/work/:slug" element={<Work />} />
+        </Routes>
+      </Wrap>,
+    );
+  });
+  expect(screen.getByRole("heading", { level: 1, name: /Project not found/i })).toBeTruthy();
+  expect(screen.getByRole("link", { name: /Browse projects/i }).getAttribute("href")).toBe("/projects");
+});
+
+test("theme control switches data-theme", async () => {
+  const ThemeControl = require("./components/ui/ThemeControl").default;
+  await renderPage(ThemeControl, "/");
+  await act(async () => {
+    fireEvent.click(screen.getByRole("button", { name: "Light" }));
   });
   expect(document.documentElement.getAttribute("data-theme")).toBe("light");
   await act(async () => {
-    fireEvent.click(screen.getByLabelText(/Dark theme/i));
+    fireEvent.click(screen.getByRole("button", { name: "Dark" }));
   });
   expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
 });
 
-test("multi select adds and removes a facet chip", async () => {
-  const Projects = require("./pages/Projects/Projects").default;
-  await renderPage(Projects, "/projects");
-
-  const combobox = screen.getByRole("combobox", { name: /stack/i });
-  await act(async () => {
-    fireEvent.focus(combobox);
-  });
-
-  const options = screen.getAllByRole("option");
-  const firstLabel = options[0].textContent.replace(/\d+$/, "").trim();
-  await act(async () => {
-    fireEvent.click(options[0]);
-  });
-  const chipName = new RegExp(`Remove ${firstLabel}`, "i");
-  expect(screen.getByRole("button", { name: chipName })).toBeTruthy();
-
-  await act(async () => {
-    fireEvent.click(screen.getByRole("button", { name: chipName }));
-  });
-  // The chip leaves through an exit animation, so it lingers in the DOM for a
-  // few frames — waiting also proves AnimatePresence actually unmounts it.
-  await waitFor(() => expect(screen.queryByRole("button", { name: chipName })).toBeNull(), {
-    timeout: 4000,
-  });
-});
-
-test("bouncy accordion toggles a row", async () => {
+test("contact form validates inline, then confirms in place", async () => {
   const Home = require("./pages/Home/Home").default;
   await renderPage(Home, "/");
-
-  const row = screen.getByRole("button", { name: /who i am/i });
-  expect(row.getAttribute("aria-expanded")).toBe("true"); // first row opens by default
-
+  const submit = screen.getByRole("button", { name: /Send message/i });
   await act(async () => {
-    fireEvent.click(row);
+    fireEvent.click(submit);
   });
-  expect(row.getAttribute("aria-expanded")).toBe("false");
+  expect(screen.getAllByText(/Enter your email so I can reply/i).length).toBeGreaterThan(0);
 
-  const interests = screen.getByRole("button", { name: /what i/i });
+  delete window.location;
+  window.location = { href: "" };
   await act(async () => {
-    fireEvent.click(interests);
+    fireEvent.change(screen.getByLabelText(/Your email/i), { target: { value: "me@studio.com" } });
+    fireEvent.change(screen.getByLabelText(/^Subject/i), { target: { value: "Role" } });
+    fireEvent.change(screen.getByLabelText(/^Message/i), { target: { value: "Hello there" } });
   });
-  expect(interests.getAttribute("aria-expanded")).toBe("true");
+  await act(async () => {
+    fireEvent.click(submit);
+  });
+  expect(window.location.href).toMatch(/^mailto:/);
+  expect(screen.getAllByText(/Your mail app is open/i).length).toBeGreaterThan(0);
 });
 
 test("avatar face poses stay morphable and react to clicks", async () => {

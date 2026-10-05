@@ -25,6 +25,24 @@ const TEXT_PRIMARY = 'var(--color-text-primary)';
 const TEXT_SECONDARY = 'var(--color-text-secondary)';
 const TEXT_MUTED = 'var(--color-text-muted)';
 
+// ── radialDelays ───────────────────────────────────────────────────────────
+// Per-character delays for the hover sweep, from each glyph's on-screen
+// distance to the pointer. Measured live, so a label that wraps onto two lines
+// ripples out in a circle across both, and a reflow (narrower window, other
+// font) changes the ripple with it. One step per average glyph width keeps a
+// single line timed exactly as the old index-based sweep.
+const SWEEP_STEP = 0.03; // seconds per glyph width
+export const radialDelays = (chars, event) => {
+    const boxes = chars.map((el) => el.getBoundingClientRect());
+    const unit = boxes.reduce((sum, box) => sum + box.width, 0) / (boxes.length || 1) || 1;
+    const distances = boxes.map((box) => Math.hypot(
+        box.left + box.width / 2 - event.clientX,
+        box.top + box.height / 2 - event.clientY,
+    ));
+    const nearest = Math.min(...distances);
+    return distances.map((d) => ((d - nearest) / unit) * SWEEP_STEP);
+};
+
 // ── useNavName ─────────────────────────────────────────────────────────────
 // Returns NAV_SHORT_NAME on the home page while at the top,
 // NAV_FULL_NAME on any other page or when scrolled past SCROLL_THRESHOLD.
@@ -44,7 +62,8 @@ export const useNavName = (pathname) => {
 };
 
 // ── ShimmerNavLabel ────────────────────────────────────────────────────────
-// Nav-link label that sweeps white from the cursor position outward on hover.
+// Nav-link label that sweeps white from the cursor position outward on hover
+// (radially, see radialDelays).
 // Props:
 //   label  – string to display
 //   active – whether this link is the current route
@@ -64,12 +83,10 @@ export const ShimmerNavLabel = ({ label, active }) => {
     const handleMouseEnter = (e) => {
         const container = scope.current;
         if (!container) return;
-        const rect = container.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const charWidth = rect.width / label.length;
-        const startIndex = Math.max(0, Math.min(label.length - 1, Math.floor(mouseX / charWidth)));
-        Array.from(container.children).forEach((el, i) => {
-            animate(el, { color: TEXT_PRIMARY }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
+        const chars = Array.from(container.children);
+        const delays = radialDelays(chars, e);
+        chars.forEach((el, i) => {
+            animate(el, { color: TEXT_PRIMARY }, { duration: 0.04, delay: delays[i] });
         });
     };
 
@@ -136,12 +153,10 @@ export const ShimmerText = ({
     const handleMouseEnter = (e) => {
         const container = scope.current;
         if (!container) return;
-        const rect = container.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const charWidth = rect.width / (text.length || 1);
-        const startIndex = Math.max(0, Math.min(text.length - 1, Math.floor(mouseX / charWidth)));
-        shimmerChars(container).forEach((el, i) =>
-            animate(el, { color: hoverColor }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 }),
+        const chars = shimmerChars(container);
+        const delays = radialDelays(chars, e);
+        chars.forEach((el, i) =>
+            animate(el, { color: hoverColor }, { duration: 0.04, delay: delays[i] }),
         );
     };
 
@@ -241,13 +256,10 @@ export const LogoName = ({ text }) => {
     const handleMouseEnter = (e) => {
         const container = scope.current;
         if (!container) return;
-        const rect = container.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const count = container.children.length;
-        const charWidth = rect.width / count;
-        const startIndex = Math.max(0, Math.min(count - 1, Math.floor(mouseX / charWidth)));
-        Array.from(container.children).forEach((el, i) => {
-            animate(el, { color: TEXT_SECONDARY }, { duration: 0.04, delay: Math.abs(i - startIndex) * 0.03 });
+        const chars = Array.from(container.children);
+        const delays = radialDelays(chars, e);
+        chars.forEach((el, i) => {
+            animate(el, { color: TEXT_SECONDARY }, { duration: 0.04, delay: delays[i] });
         });
     };
 

@@ -1,22 +1,22 @@
 import React from 'react';
 
+import styles from './PageHeader.module.css';
+
 /**
- * PageHeader — the "/title + subtitle" block every listing page opens with.
+ * PageHeader — the "/title" of a listing page and its one line of context.
  *
- * Extracted verbatim from the pages that had each written their own copy of
- * it, so the type scale, the muted slash and the measure stay identical across
- * /projects, /playground and /blog. Deliberately unanimated beyond the section
- * reveal its parent already provides: this is the page's anchor, and an anchor
- * that moves isn't one.
+ * The muted slash and the lowercase title are the site's own voice: the same
+ * words as the top bar's lowercase links (projects, playground, blog), so the
+ * page you land on answers the label you pressed. On phones the breadcrumb
+ * takes the title's place, as it always has; the h1 stays for screen readers.
  */
-const PageHeader = ({ title, subtitle, children, className = '' }) => (
-    <header className={className}>
-        {/* sr-only on mobile: hidden visually, kept for screen readers and SEO. */}
-        <h1 className="sr-only mb-2 text-3xl font-bold lowercase text-text-primary md:not-sr-only md:mb-2 md:text-4xl">
-            <span className="mr-2 text-text-muted">/</span>
+const PageHeader = ({ title, subtitle, children }) => (
+    <header className={styles.header}>
+        <h1 className={styles.title}>
+            <span className={styles.slash} aria-hidden="true">/</span>
             {title}
         </h1>
-        {subtitle && <p className="max-w-2xl text-text-secondary">{subtitle}</p>}
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         {children}
     </header>
 );

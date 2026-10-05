@@ -1,0 +1,22 @@
+.tag {
+  position: relative;
+  display: inline-flex;
+  min-width: 0;
+  border-radius: var(--radius-pill);
+}
+
+/* The badge's tone sets its colour variables on its own root, so they are set
+   there too (doubled class for precedence). Only its theming variables change;
+   nothing inside the badge is restyled. */
+.tag.tag > * {
+  --badge-background: var(--background);
+  --badge-border: var(--border-strong);
+  --badge-foreground: var(--foreground);
+}
+
+/* Keyboard position shows with the same fill as hover; no focus rings. */
+.link.link:hover > *,
+.link.link:focus-visible > * {
+  --badge-background: var(--surface-muted);
+  --badge-border: var(--foreground);
+}

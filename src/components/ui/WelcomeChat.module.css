@@ -1,0 +1,54 @@
+/* A floating Arc surface in the bottom-right corner; full width minus the
+   gutter on phones. The thread inside sizes to its messages. */
+.panel {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 120;
+  width: min(22rem, calc(100vw - 2 * var(--space-4)));
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  box-shadow: var(--shadow-floating);
+  transform-origin: bottom right;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) 0 var(--space-5);
+}
+
+.name {
+  margin: 0;
+  color: var(--foreground);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.close {
+  display: grid;
+  width: var(--control-height-sm);
+  height: var(--control-height-sm);
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+}
+
+.close:hover,
+.close:focus-visible {
+  color: var(--foreground);
+  background: var(--surface-muted);
+  outline: none;
+}
+
+.thread {
+  height: auto;
+}

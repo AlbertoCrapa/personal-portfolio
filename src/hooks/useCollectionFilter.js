@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 /**
@@ -19,8 +19,10 @@ import { useSearchParams } from "react-router-dom";
  *   highlightField  – truthy for items the "featured" toggle keeps
  *   defaultSort     – 'newest' | 'oldest' | 'az'
  *
- * `?tag=X&tag=Y` in the URL seeds the facet selection, so a tag chip on a
- * detail page can link straight to the listing already narrowed to it.
+ * `?tag=X&tag=Y` in the URL seeds the facet selection, so a tag on a detail
+ * page or a card can link straight to the listing already narrowed to it. It
+ * is re-read whenever the URL's tags change, so a tag link followed while the
+ * listing is already open (a card's tag, the back button) applies too.
  */
 
 const NOOP_ARRAY = [];
@@ -45,6 +47,11 @@ export const useCollectionFilter = (
   const [sort, setSort] = useState(defaultSort);
   const [onlyHighlighted, setOnlyHighlighted] = useState(false);
   const [view, setView] = useState("grid");
+
+  const urlTags = params.getAll("tag").join("\u0000");
+  useEffect(() => {
+    setFacets(urlTags ? urlTags.split("\u0000") : NOOP_ARRAY);
+  }, [urlTags]);
 
   /**
    * Facet options carry the count of items that *would* match if they were

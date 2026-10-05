@@ -1,0 +1,3 @@
+# Vendored Arc registry code (installed by the shadcn CLI). Linted upstream; CRA's older
+# react-hooks plugin does not know the rule names its disable comments reference.
+src/components/arc/

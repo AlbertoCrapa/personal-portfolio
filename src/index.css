@@ -4,7 +4,7 @@
 
 html,
 body {
-  background: var(--color-bg);
+  background: var(--background);
 }
 
 html {
@@ -34,28 +34,24 @@ html {
 
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -48px;
   left: 16px;
   z-index: 200;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: #111;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  transition: top 0.2s ease;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--foreground);
+  color: var(--background);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  transition: transform var(--duration-spring) var(--ease-spring);
 }
 
 .skip-link:focus {
-  top: 12px;
+  transform: translateY(60px);
 }
 
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible,
-[role="button"]:focus-visible {
-  outline: 2px solid #7dd3fc;
-  outline-offset: 2px;
+@media (prefers-reduced-motion: reduce) {
+  .skip-link {
+    transition: none;
+  }
 }

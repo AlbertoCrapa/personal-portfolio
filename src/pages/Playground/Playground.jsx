@@ -1,29 +1,24 @@
 import React, { useEffect } from 'react';
 
 import SEO from '../../components/SEO';
-import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
-import RevealSection from '../../components/ui/RevealSection';
+import Breadcrumb from '../../components/ui/Breadcrumb';
 import PageHeader from '../../components/ui/PageHeader';
 import FilterBar from '../../components/ui/FilterBar';
 import ResultsGrid from '../../components/ui/ResultsGrid';
-import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { useCollectionFilter } from '../../hooks/useCollectionFilter';
 import playgroundData from '../../data/playground.json';
+import styles from '../pages.module.css';
 
 /**
- * Playground Page
- * Experimental projects, demos and prototypes.
+ * Playground — experiments and prototypes, most of them playable here.
  *
- * Same engine as /projects, but the toolbar only appears once there are
- * enough experiments for filtering to beat scanning — a search box above four
- * cards is furniture, not a feature.
+ * Same engine as /projects. The filters only appear once there are enough
+ * experiments for filtering to beat scanning; `?tag=` still applies either way.
  */
-
 const FILTER_THRESHOLD = 4;
 
 const Playground = () => {
-    const isMobile = useMediaQuery('(max-width: 768px)');
     const items = React.useMemo(() => (playgroundData.playground || []).filter((item) => !item.hidden), []);
 
     const filter = useCollectionFilter(items, {
@@ -43,7 +38,6 @@ const Playground = () => {
     }, []);
 
     const showFilters = items.length >= FILTER_THRESHOLD;
-    const view = isMobile ? 'list' : filter.view;
 
     return (
         <>
@@ -54,45 +48,35 @@ const Playground = () => {
                 url="/playground"
             />
 
-            <RevealSection>
-                <div className="space-y-8">
-                    <Breadcrumb
-                        items={[
-                            { label: 'home', path: '/' },
-                            { label: 'playground', path: '/playground' },
-                        ]}
-                    />
+            <div className={styles.stack}>
+                <Breadcrumb items={[{ label: 'home', path: '/' }, { label: 'playground', path: '/playground' }]} />
 
-                    <PageHeader
-                        title="playground"
-                        subtitle="Experimental projects, demos, and technical explorations."
-                    />
+                <PageHeader
+                    title="playground"
+                    subtitle="Prototypes and experiments. Most of them run right here in the browser."
+                />
 
-                    {showFilters && (
-                        <FilterBar
-                            filter={filter}
-                            facetLabel="Stack"
-                            facetPlaceholder="Filter by technology"
-                            searchPlaceholder="Search experiments…"
-                            noun="experiment"
-                        />
-                    )}
-
-                    <ResultsGrid
-                        items={filter.results}
-                        view={view}
-                        emptyTitle="Experiments coming soon"
-                        emptyBody="Nothing matches yet — check back later, or clear the filters."
-                        onReset={filter.isFiltered ? filter.reset : undefined}
-                        renderCard={(item) => (
-                            <ProjectCard project={item} size="medium" basePath="/playground" />
-                        )}
-                        renderRow={(item) => (
-                            <ProjectCard project={item} size="list" basePath="/playground" />
-                        )}
+                {showFilters && (
+                    <FilterBar
+                        filter={filter}
+                        searchLabel="Search experiments"
+                        searchPlaceholder="Title or technology"
+                        facetLabel="Stack"
+                        noun="experiment"
                     />
-                </div>
-            </RevealSection>
+                )}
+
+                <ResultsGrid
+                    items={filter.results}
+                    view={showFilters ? filter.view : 'grid'}
+                    empty={filter.isFiltered
+                        ? { title: 'No experiments match these filters', description: 'Remove a technology or shorten the search to see more.' }
+                        : { title: 'No experiments yet', description: 'New prototypes land here as soon as they run in the browser.' }}
+                    onReset={filter.isFiltered ? filter.reset : undefined}
+                    renderCard={(item) => <ProjectCard project={item} basePath="/playground" />}
+                    renderRow={(item) => <ProjectCard project={item} size="list" basePath="/playground" />}
+                />
+            </div>
         </>
     );
 };

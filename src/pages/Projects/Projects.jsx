@@ -1,30 +1,23 @@
 import React from 'react';
 
 import SEO from '../../components/SEO';
-import Breadcrumb from '../../components/ui/Breadcrumb';
 import ProjectCard from '../../components/ui/ProjectCard';
-import RevealSection from '../../components/ui/RevealSection';
+import Breadcrumb from '../../components/ui/Breadcrumb';
 import PageHeader from '../../components/ui/PageHeader';
 import FilterBar from '../../components/ui/FilterBar';
 import ResultsGrid from '../../components/ui/ResultsGrid';
 import { useCollectionFilter } from '../../hooks/useCollectionFilter';
 import projectData from '../../data/projects.json';
+import styles from '../pages.module.css';
 
 /**
- * Projects List Page
- *
- * The old page grouped by `project.type` against a label map that no longer
- * matched the data (`game`/`freelance`/`personal` vs the actual `videogame`/
- * `boardgame`/`webapp`), so every project silently fell through to a single
- * ungrouped grid. Categories are now a filter the visitor drives instead of a
- * fixed outline the page imposes — which is what a portfolio of nine-plus
- * projects with overlapping stacks actually needs.
+ * Projects — find a project by stack or category and open it.
+ * `?tag=` (from a tag on a project page) arrives already applied.
  */
-
 const TYPE_LABELS = {
     videogame: 'Games',
     boardgame: 'Board games',
-    webapp: 'Web & apps',
+    webapp: 'Web and apps',
 };
 
 const Projects = () => {
@@ -55,44 +48,34 @@ const Projects = () => {
                 url="/projects"
             />
 
-            <RevealSection>
-                <div className="space-y-8">
-                    <Breadcrumb
-                        items={[
-                            { label: 'home', path: '/' },
-                            { label: 'projects', path: '/projects' },
-                        ]}
-                    />
+            <div className={styles.stack}>
+                <Breadcrumb items={[{ label: 'home', path: '/' }, { label: 'projects', path: '/projects' }]} />
 
-                    <PageHeader
-                        title="projects"
-                        subtitle="Selected work with clear role, stack, and impact. Open any project for technical details, media, and implementation notes."
-                    />
+                <PageHeader
+                    title="projects"
+                    subtitle="Games, apps and client work, each with my role, the stack and what shipped."
+                />
 
-                    <FilterBar
-                        filter={filter}
-                        facetLabel="Stack"
-                        facetPlaceholder="Filter by technology"
-                        searchPlaceholder="Search projects, roles, tech…"
-                        highlightLabel="Featured"
-                        noun="project"
-                    />
+                <FilterBar
+                    filter={filter}
+                    searchLabel="Search projects"
+                    searchPlaceholder="Title, role or technology"
+                    facetLabel="Stack"
+                    noun="project"
+                />
 
-                    <ResultsGrid
-                        items={filter.results}
-                        view={filter.view}
-                        emptyTitle="Nothing matches those filters"
-                        emptyBody="Try a broader stack selection, or clear the search."
-                        onReset={filter.reset}
-                        renderCard={(project) => (
-                            <ProjectCard project={project} size="medium" />
-                        )}
-                        renderRow={(project) => (
-                            <ProjectCard project={project} size="list" />
-                        )}
-                    />
-                </div>
-            </RevealSection>
+                <ResultsGrid
+                    items={filter.results}
+                    view={filter.view}
+                    empty={{
+                        title: 'No projects match these filters',
+                        description: 'Remove a technology or shorten the search to see more.',
+                    }}
+                    onReset={filter.reset}
+                    renderCard={(project) => <ProjectCard project={project} />}
+                    renderRow={(project) => <ProjectCard project={project} size="list" />}
+                />
+            </div>
         </>
     );
 };

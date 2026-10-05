@@ -25,19 +25,21 @@
   },
   "homepage": {
     "hero": {
-      "eyebrow": "Creative Developer",
-      "title": "I build interactive software, playful systems, and digital experiences.",
-      "description": "Frontend Designer + Game Developer with a creative developer mindset. I ship products that balance technical and design.",
-      "ctaLabel": "View Featured Projects",
+      "title": "alberto crapanzano",
+      "description": "Technical designer and creative developer near Milan. I build gameplay systems, enemy AI and the interfaces around them, in Unreal, Unity and React.",
+      "ctaLabel": "See my work",
       "ctaLink": "/projects"
     },
+    "featured": ["deadly-nightshade", "juan-game", "sudoku-nfc"],
     "notifications": {
       "sessionWelcome": {
         "enabled": true,
         "delayMs": 7000,
         "durationMs": 16500,
-        "title": "Hey, welcome!",
-        "message": "Explore the projects, peek into the blog, and enjoy the experiments."
+        "messages": [
+          "Ciao! 👋",
+          "I'm Alberto. Have a look around: the projects, a prototype you can play right here, and some notes on how it was all built."
+        ]
       }
     },
     "reel": {

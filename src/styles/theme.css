@@ -252,13 +252,49 @@ html {
   scroll-behavior: smooth;
 }
 
+/* The page runs on Arc (components/arc/foundation.css) : DM Sans for display
+   and body copy, Arc's canvas and ink. The areas that predate Arc and must render exactly as
+   before (top bar, table of contents, media, article chrome) sit inside
+   .legacy-zone, which restores the old type and ink for everything below it. */
+:root {
+  --font-geist: "DM Sans";
+  --font-inter: "DM Sans";
+}
+
 body {
-  font-family: var(--font-family);
-  background-color: var(--color-bg);
-  color: var(--color-text-primary);
-  line-height: 1.6;
+  font-family: var(--font-body);
+  letter-spacing: var(--tracking-body);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Line height is 1.5, not body's old 1.6: Tailwind's preflight makes body
+   inherit html's 1.5, and that is what these areas actually rendered with. */
+.legacy-zone {
+  font-family: var(--font-family);
+  letter-spacing: normal;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+}
+
+/* `display: contents` keeps the wrapper out of layout (the top bar is fixed,
+   the ToC is a flex child) while it still passes inherited type down. */
+.legacy-zone--contents {
+  display: contents;
+}
+
+/* Arc removes every outline with `outline: none !important`. The legacy areas
+   keep the focus rings they shipped with; the higher specificity wins. */
+.legacy-zone :focus-visible {
+  outline: 2px solid var(--color-accent-blue) !important;
+  outline-offset: 2px;
+}
+
+.legacy-zone :is(a, button, input, textarea, select, [role="button"]):focus-visible {
+  outline: 2px solid #7dd3fc !important;
 }
 
 /* Selection */
@@ -341,69 +377,6 @@ canvas {
   display: none;
 }
 
-/* Focus states */
-:focus-visible {
-  outline: 2px solid var(--color-accent-blue);
-  outline-offset: 2px;
-}
-
-/* =====================================================
-   LAYOUT
-   ===================================================== */
-
-.layout {
-  display: flex;
-  min-height: 100svh;
-}
-
-.layout__sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: var(--sidebar-width);
-  max-width: var(--sidebar-max-width);
-  height: 100svh;
-  padding: var(--spacing-xl);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  z-index: 100;
-}
-
-.layout__content {
-  flex: 1;
-  margin-left: var(--sidebar-width);
-  min-height: 100svh;
-  padding: var(--spacing-xl);
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .layout {
-    flex-direction: column;
-  }
-
-  .layout__sidebar {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    padding: var(--spacing-lg);
-  }
-
-  .layout__content {
-    margin-left: 0;
-    padding: var(--spacing-lg);
-  }
-}
-
-@media (max-width: 640px) {
-  .layout__sidebar,
-  .layout__content {
-    padding: var(--spacing-md);
-  }
-}
-
 /* Large screens */
 @media (min-width: 1800px) {
   :root {
@@ -444,101 +417,6 @@ canvas {
    video hero). Tied to the same variable, so the two can't drift. */
 .page-bleed {
   margin-inline: calc(-1 * var(--page-gutter));
-}
-
-/* =====================================================
-   MODULE CARDS — Shared patterns
-   ===================================================== */
-
-.module-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  padding: 1.25rem;
-  transition:
-    border-color var(--transition-slow),
-    box-shadow var(--transition-slow);
-}
-
-.module-card:hover {
-  border-color: var(--color-border-strong);
-  box-shadow: var(--card-shadow-hover);
-}
-
-/* Platform-specific card accents (subtle top glow on hover) */
-.module-card--github:hover {
-  border-color: var(--color-github-border);
-  box-shadow: 0 -1px 12px rgba(155, 132, 231, 0.06);
-}
-
-.module-card--spotify:hover {
-  border-color: var(--color-spotify-border);
-  box-shadow: 0 -1px 12px rgba(29, 185, 84, 0.06);
-}
-
-.module-card--leetcode:hover {
-  border-color: var(--color-leetcode-border);
-  box-shadow: 0 -1px 12px rgba(255, 161, 22, 0.06);
-}
-
-/* =====================================================
-   GITHUB CONTRIBUTION GRID
-   ===================================================== */
-
-.gh-grid {
-  display: grid;
-  grid-template-columns: repeat(14, 1fr);
-  gap: 4px;
-}
-
-.gh-cell {
-  aspect-ratio: 1;
-  border-radius: 3px;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.gh-cell:hover {
-  transform: scale(1.25);
-  box-shadow: 0 0 6px rgba(155, 132, 231, 0.25);
-}
-
-/* =====================================================
-   SKILL STRIP
-   ===================================================== */
-
-.skill-chip {
-  padding: 0.375rem 0.875rem;
-  font-size: 0.8125rem;
-  border-radius: 9999px;
-  border: 1px solid var(--color-border);
-  background: var(--color-bg);
-  color: var(--color-text-secondary);
-  white-space: nowrap;
-  transition:
-    color var(--transition-fast),
-    border-color var(--transition-fast),
-    background var(--transition-fast);
-  user-select: none;
-}
-
-.skill-chip:hover {
-  color: var(--color-text-primary);
-  border-color: var(--color-border-strong);
-  background: var(--color-surface-hover);
-}
-
-.tag-capsule {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.75rem;
-  line-height: 1;
-  padding: 0.25rem 0.625rem;
-  border-radius: 9999px;
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  color: var(--color-text-secondary);
 }
 
 .notification-stack {
@@ -685,22 +563,6 @@ canvas {
     max-width: 100%;
     min-width: 0;
   }
-}
-
-/* =====================================================
-   TESTIMONIAL QUOTE DECORATION
-   ===================================================== */
-
-.testimonial-quote::before {
-  content: "\201C";
-  position: absolute;
-  top: -0.25rem;
-  left: -0.15rem;
-  font-size: 2.5rem;
-  line-height: 1;
-  color: var(--color-border);
-  font-family: Georgia, serif;
-  pointer-events: none;
 }
 
 /* =====================================================
@@ -873,26 +735,6 @@ canvas {
   }
 }
 
-/* =====================================================
-   HOME — CURIOSITIES CONSOLE / CONTACT
-   ===================================================== */
-
-/* Tab panel entrance — same curve as .homepage-reveal */
-.curio-panel {
-  animation: curio-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@keyframes curio-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* Full-width map when rendered inside the curiosities panel */
 .travel-map-shell--panel .travel-map-canvas {
   height: 16rem;
@@ -901,115 +743,6 @@ canvas {
 @media (max-width: 768px) {
   .travel-map-shell--panel .travel-map-canvas {
     height: 13rem;
-  }
-}
-
-/* Equalizer bars for the listening panel */
-.eq-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 26px;
-  flex-shrink: 0;
-}
-
-.eq-bars span {
-  width: 4px;
-  height: 100%;
-  border-radius: 2px;
-  background: var(--color-spotify-dim);
-  transform-origin: bottom;
-  transform: scaleY(0.3);
-  animation: eq-bounce 1.15s ease-in-out infinite;
-}
-
-.eq-bars span:nth-child(2) {
-  animation-delay: 0.18s;
-  animation-duration: 0.95s;
-}
-
-.eq-bars span:nth-child(3) {
-  animation-delay: 0.32s;
-  animation-duration: 1.3s;
-}
-
-.eq-bars span:nth-child(4) {
-  animation-delay: 0.08s;
-  animation-duration: 1.05s;
-}
-
-@keyframes eq-bounce {
-  0%,
-  100% {
-    transform: scaleY(0.25);
-  }
-  40% {
-    transform: scaleY(1);
-  }
-  70% {
-    transform: scaleY(0.5);
-  }
-}
-
-/* Availability pill — dot pulses like the travel-map home pin */
-.status-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-text-secondary);
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
-  border-radius: 9999px;
-  padding: 0.3rem 0.75rem;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 9999px;
-  background: var(--color-accent-green);
-  position: relative;
-  isolation: isolate;
-}
-
-.status-dot::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  background: rgba(76, 175, 80, 0.4);
-  transform: scale(1);
-  z-index: -1;
-  animation: status-ping 2.4s cubic-bezier(0.3, 0, 0, 1) infinite;
-}
-
-@keyframes status-ping {
-  0% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-  70%,
-  100% {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .curio-panel {
-    animation: none;
-  }
-
-  .eq-bars span {
-    animation: none;
-    transform: scaleY(0.55);
-  }
-
-  .status-dot::before {
-    animation: none;
-    opacity: 0;
   }
 }
 
@@ -1033,4 +766,69 @@ canvas {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-text-muted);
+}
+
+/* PageReveal (components/ui/PageReveal.jsx): a 6px rise out of a 4px blur.
+   Blocks are the page root's children, stepping into sections, headers and
+   lists (two levels deep) so headings and cards arrive one by one. Each level
+   adds its position to the delay, so the cascade reads top to bottom, capped
+   so a long page never waits. `both` holds the first frame through the delay;
+   the class comes off afterwards, leaving no transform or filter behind. */
+.page-reveal > * > * { --reveal-a: 0; }
+.page-reveal > * > :nth-child(2) { --reveal-a: 1; }
+.page-reveal > * > :nth-child(3) { --reveal-a: 2; }
+.page-reveal > * > :nth-child(4) { --reveal-a: 3; }
+.page-reveal > * > :nth-child(n + 5) { --reveal-a: 4; }
+.page-reveal > * > * > * { --reveal-b: 0; }
+.page-reveal > * > * > :nth-child(2) { --reveal-b: 1; }
+.page-reveal > * > * > :nth-child(3) { --reveal-b: 2; }
+.page-reveal > * > * > :nth-child(n + 4) { --reveal-b: 3; }
+.page-reveal > * > * > * > * { --reveal-c: 0; }
+.page-reveal > * > * > * > :nth-child(2) { --reveal-c: 1; }
+.page-reveal > * > * > * > :nth-child(n + 3) { --reveal-c: 2; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .page-reveal > * > :not(section, header, ul, ol),
+  .page-reveal > * > :is(section, header, ul, ol) > :not(section, header, ul, ol),
+  .page-reveal > * > :is(section, header, ul, ol) > :is(section, header, ul, ol) > * {
+    animation: reveal-in 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: calc(
+      min(var(--reveal-a, 0) + var(--reveal-b, 0) + var(--reveal-c, 0), 7) * 45ms
+    );
+  }
+}
+
+/* Long blocks (an article's body column) skip the blur: costly on a surface
+   that tall and invisible on it anyway. */
+.page-reveal [data-reveal="flat"] {
+  animation-name: reveal-in-flat;
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(6px); filter: blur(4px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+@keyframes reveal-in-flat {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* CuttingMat (components/ui/CuttingMat.jsx). Its strength and the trace left
+   under the content follow how busy the screen is; the long ease keeps the
+   change below notice. --mat-trace is registered so the mask gradient that
+   reads it can interpolate instead of jumping. */
+@property --mat-trace {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.2;
+}
+
+.cutting-mat {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--mat-level, 1);
+  transition: opacity 3.2s ease-in-out, --mat-trace 3.2s ease-in-out;
 }

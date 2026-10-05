@@ -10,6 +10,7 @@ import SocialDock from './ui/motion/SocialDock';
  * Fixed horizontal top navigation bar
  * Desktop: full nav with links and socials
  * Mobile: name + hamburger
+ * Slides up out of view while scrolling down, back in on any scroll up.
  */
 
 const allNavLinks = [
@@ -24,8 +25,35 @@ const isActive = (path, pathname) => {
     return pathname === path || pathname.startsWith(path + '/');
 };
 
+// Direction is read once per frame and ignores jitter under 6px, so trackpad
+// noise and iOS overscroll never flicker the bar. Always shown near the top.
+const useHideOnScroll = () => {
+    const [hidden, setHidden] = React.useState(false);
+    React.useEffect(() => {
+        let last = Math.max(0, window.scrollY);
+        let frame = 0;
+        const onScroll = () => {
+            if (frame) return;
+            frame = requestAnimationFrame(() => {
+                frame = 0;
+                const y = Math.max(0, window.scrollY);
+                if (Math.abs(y - last) < 6) return;
+                setHidden(y > last && y > 80);
+                last = y;
+            });
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            cancelAnimationFrame(frame);
+        };
+    }, []);
+    return hidden;
+};
+
 const Sidebar = () => {
     const location = useLocation();
+    const hidden = useHideOnScroll();
     const navName = useNavName(location.pathname);
     const { contact } = data;
     const { notify } = useNotification();
@@ -39,13 +67,15 @@ const Sidebar = () => {
         contact?.linkedin && { label: 'LinkedIn', url: contact.linkedin, hoverColor: 'hover:text-[#7DD3FC]', glowColor: '#0a66c22e', icon: <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg> },
     ].filter(Boolean);
 
+    // Transform only, so the slide stays on the compositor. The extra 24px
+    // carries the shadow out of view too; keyboard focus inside pins it.
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-bg border-b border-border shadow-[0_7px_22px_rgba(0,0,0,0.36)]">
+        <header className={`fixed top-0 left-0 right-0 z-50 bg-[color-mix(in_oklab,var(--background)_65%,rgb(var(--rgb-bg)))] border-b border-border shadow-[0_4px_16px_rgba(0,0,0,0.07)] will-change-transform transition-transform duration-[400ms] ease-[cubic-bezier(.16,1,.3,1)] motion-reduce:transition-none has-[:focus-visible]:translate-y-0 ${hidden ? '-translate-y-[calc(100%+24px)]' : ''}`}>
             <div className="page-shell h-14 flex items-center justify-between gap-6">
                 {/* Logo / Name */}
                 <Link to="/" className="shrink-0">
                     <span
-                        className="text-base font-bold leading-none"
+                        className="text-lg font-bold leading-none"
                         style={{ display: 'inline-block', position: 'relative' }}
                     >
                         {/* invisible anchor — always reserves the full-name width + height */}
@@ -66,10 +96,10 @@ const Sidebar = () => {
                 <nav className="hidden md:flex items-center" aria-label="Main navigation">
                     {allNavLinks.map((link, i) => (
                         <React.Fragment key={link.path}>
-                            <span className="text-text-muted text-sm select-none mx-3.5">/</span>
+                            <span className="text-text-muted text-[15px] select-none mx-3.5">/</span>
                             <Link
                                 to={link.path}
-                                className="py-1.5 text-sm font-semibold"
+                                className="py-1.5 text-[15px] font-semibold"
                             >
                                 <ShimmerNavLabel label={link.label} active={isActive(link.path, location.pathname)} />
                             </Link>

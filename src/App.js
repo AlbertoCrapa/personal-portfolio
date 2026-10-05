@@ -5,23 +5,37 @@
  */
 
 import { Suspense, lazy, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import data from "./data/data.json";
-import { useNotification } from "./components/ui/NotificationProvider";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Layout from "./layouts/Layout";
+import PageReveal from "./components/ui/PageReveal";
+import WelcomeChat from "./components/ui/WelcomeChat";
 
-const Home = lazy(() => import("./pages/Home/Home"));
-const Projects = lazy(() => import("./pages/Projects/Projects"));
-const Playground = lazy(() => import("./pages/Playground/Playground"));
-const Experience = lazy(() => import("./pages/Experience/Experience"));
-const Work = lazy(() => import("./pages/Work/Work"));
-const BlogList = lazy(() => import("./pages/Blog/BlogList"));
-const BlogPage = lazy(() => import("./pages/Blog/BlogPage"));
-const Privacy = lazy(() => import("./pages/Privacy/Privacy"));
-const Simple404 = lazy(() => import("./pages/NotFound/Simple404"));
+// Loaders kept apart from lazy() so they can also be warmed up after the
+// first page settles: the next navigation then rarely waits on the network.
+const pages = {
+  Home: () => import("./pages/Home/Home"),
+  Projects: () => import("./pages/Projects/Projects"),
+  Playground: () => import("./pages/Playground/Playground"),
+  Experience: () => import("./pages/Experience/Experience"),
+  Work: () => import("./pages/Work/Work"),
+  BlogList: () => import("./pages/Blog/BlogList"),
+  BlogPage: () => import("./pages/Blog/BlogPage"),
+  Privacy: () => import("./pages/Privacy/Privacy"),
+  Simple404: () => import("./pages/NotFound/Simple404"),
+};
+
+const Home = lazy(pages.Home);
+const Projects = lazy(pages.Projects);
+const Playground = lazy(pages.Playground);
+const Experience = lazy(pages.Experience);
+const Work = lazy(pages.Work);
+const BlogList = lazy(pages.BlogList);
+const BlogPage = lazy(pages.BlogPage);
+const Privacy = lazy(pages.Privacy);
+const Simple404 = lazy(pages.Simple404);
 
 function App() {
-  const { notify } = useNotification();
+  const { pathname } = useLocation();
 
   // Expose the real scrollbar width as a CSS var so full-bleed (100vw) elements
   // can subtract it and never overflow when the scrollbar appears/disappears.
@@ -49,6 +63,13 @@ function App() {
   // `-webkit-user-drag: none` (theme.css) covers Chromium and Safari; Firefox
   // ignores it, so block the native drag of any media element here too.
   useEffect(() => {
+    const id = window.setTimeout(() => {
+      Object.values(pages).forEach((load) => load().catch(() => {}));
+    }, 2500);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
     const blockMediaDrag = (e) => {
       const el = e.target;
       if (el instanceof Element && el.matches("img, video, canvas")) {
@@ -59,62 +80,31 @@ function App() {
     return () => document.removeEventListener("dragstart", blockMediaDrag);
   }, []);
 
-  useEffect(() => {
-    const sessionKey = "albyeah-session-welcome-shown";
-    if (typeof window === "undefined") return;
-    if (window.sessionStorage.getItem(sessionKey)) return;
-
-    const config = data?.homepage?.notifications?.sessionWelcome || {};
-    if (config.enabled === false) return;
-
-    const delay = Number.isFinite(config.delayMs) ? config.delayMs : 6500;
-    const timeoutId = window.setTimeout(
-      () => {
-        notify({
-          type: "message",
-          title: config.title || "Welcome to my portfolio",
-          message:
-            config.message ||
-            "Take a look around and have fun exploring projects, experiments, and dev stories.",
-          duration: Number.isFinite(config.durationMs)
-            ? config.durationMs
-            : 7000,
-        });
-        window.sessionStorage.setItem(sessionKey, "1");
-      },
-      Math.max(800, delay),
-    );
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, [notify]);
-
   return (
     <Layout>
-      <Suspense
-        fallback={
-          <div className="min-h-[60svh] text-text-secondary flex items-center justify-center px-4">
-            Loading page...
-          </div>
-        }
-      >
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/playground" element={<Playground />} />
-          <Route path="/playground/:slug/play" element={<Experience />} />
-          <Route
-            path="/playground/:slug"
-            element={<Work source="playground" />}
-          />
-          <Route path="/work/:slug" element={<Work />} />
-          <Route path="/blog" element={<BlogList />} />
-          <Route path="/blog/:slug" element={<BlogPage />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="*" element={<Simple404 />} />
-        </Routes>
+      {/* No skeleton: navigations run in a transition (index.js), so the
+          current page stays until the next one is ready and makes its own
+          entrance. Only the very first load shows the empty canvas. */}
+      <Suspense fallback={null}>
+        <PageReveal key={pathname}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/playground" element={<Playground />} />
+            <Route path="/playground/:slug/play" element={<Experience />} />
+            <Route
+              path="/playground/:slug"
+              element={<Work source="playground" />}
+            />
+            <Route path="/work/:slug" element={<Work />} />
+            <Route path="/blog" element={<BlogList />} />
+            <Route path="/blog/:slug" element={<BlogPage />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="*" element={<Simple404 />} />
+          </Routes>
+        </PageReveal>
       </Suspense>
+      <WelcomeChat />
     </Layout>
   );
 }

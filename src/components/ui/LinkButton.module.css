@@ -1,0 +1,76 @@
+.link {
+  display: inline-flex;
+  min-height: var(--control-height-md);
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-4);
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  transition: transform var(--duration-spring) var(--ease-spring), background-color var(--duration-fast) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard);
+}
+
+.link svg {
+  flex: none;
+}
+
+.link:active {
+  transform: scale(.97);
+}
+
+.primary,
+.primary:hover {
+  color: var(--background);
+  background: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.secondary,
+.secondary:hover {
+  color: var(--foreground);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.ghost,
+.ghost:hover {
+  color: var(--text-secondary);
+  background: transparent;
+}
+
+/* Keyboard position shows with the same fill as hover; no focus rings. */
+.primary:hover,
+.primary:focus-visible {
+  opacity: .91;
+}
+
+.secondary:hover,
+.secondary:focus-visible,
+.ghost:hover,
+.ghost:focus-visible {
+  color: var(--foreground);
+  background: var(--surface-muted);
+}
+
+.sm {
+  min-height: var(--control-height-sm);
+  padding-inline: var(--space-3);
+}
+
+.lg {
+  min-height: var(--control-height-lg);
+  padding-inline: var(--space-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .link {
+    transition: none;
+  }
+
+  .link:active {
+    transform: none;
+  }
+}

@@ -33,12 +33,16 @@ export function cn(...inputs) {
 export const NDA_COVER = "/img/nda-cover.svg";
 
 /**
- * Resolve a project's cover image, falling back to the NDA placeholder.
+ * Resolve a project's cover image: its own cover, else its first screenshot,
+ * else the NDA placeholder.
  * @param {Object} project - Project or playground item
  * @returns {string}
  */
 export function getProjectCover(project) {
-  return project?.thumbnailImage || project?.cover || NDA_COVER;
+  const firstImage = (project?.media || []).find(
+    (item) => item?.src && !/\.(mp4|webm|mov)$/i.test(item.src),
+  )?.src;
+  return project?.thumbnailImage || project?.cover || firstImage || NDA_COVER;
 }
 
 /**
@@ -160,6 +164,9 @@ export function formatDate(value, style = "short") {
     month: style === "long" ? "long" : "short",
     day: "numeric",
     year: "numeric",
+    // Data dates are calendar days ("2025-07-30" parses as UTC midnight), so
+    // format in UTC or a visitor west of Greenwich sees the day before.
+    timeZone: "UTC",
   });
 }
 

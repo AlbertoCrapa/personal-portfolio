@@ -1,0 +1,9 @@
+.mobileOnly {
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .mobileOnly {
+    display: none;
+  }
+}

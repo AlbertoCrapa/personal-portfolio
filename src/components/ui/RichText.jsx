@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Callout from './Callout';
 import { useNotification } from './NotificationProvider';
+import styles from './article/article.module.css';
 
 /**
  * RichText Component
@@ -25,7 +26,7 @@ const RichText = ({ text, className = '' }) => {
   const blocks = parseBlocks(normalizedText);
 
   return (
-    <div className={`rich-text space-y-4 ${className}`}>
+    <div className={`${styles.richText} ${className}`.trim()}>
       {blocks.map((block, idx) => renderBlock(block, idx))}
     </div>
   );
@@ -212,37 +213,29 @@ function renderBlock(block, key) {
   switch (block.type) {
     case 'heading':
       const HeadingTag = `h${block.level}`;
-      const headingSizes = {
-        1: 'text-3xl md:text-4xl font-bold',
-        2: 'text-2xl md:text-3xl font-bold',
-        3: 'text-xl md:text-2xl font-semibold',
-        4: 'text-lg md:text-xl font-semibold',
-        5: 'text-base md:text-lg font-medium',
-        6: 'text-sm md:text-base font-medium',
-      };
       return (
-        <HeadingTag key={key} className={`${headingSizes[block.level]} text-text-primary mt-6 mb-3`}>
+        <HeadingTag key={key} className={styles[`h${block.level}`]}>
           {parseInline(block.content)}
         </HeadingTag>
       );
 
     case 'paragraph':
       return (
-        <p key={key} className="text-text-secondary leading-relaxed">
+        <p key={key} className={styles.paragraph}>
           {parseInline(block.content)}
         </p>
       );
 
     case 'blockquote':
       return (
-        <blockquote key={key} className="border-l-4 border-border pl-4 py-2 my-4 text-text-muted italic">
+        <blockquote key={key} className={styles.blockquote}>
           {parseInline(block.content)}
         </blockquote>
       );
 
     case 'ul':
       return (
-        <ul key={key} className="list-disc list-outside space-y-2 text-text-secondary pl-5 marker:text-text-muted">
+        <ul key={key} className={styles.ul}>
           {block.items.map((item, i) => (
             <li key={i}>{parseInline(item)}</li>
           ))}
@@ -251,7 +244,7 @@ function renderBlock(block, key) {
 
     case 'ol':
       return (
-        <ol key={key} className="list-decimal list-outside space-y-2 text-text-secondary pl-5 marker:text-text-muted">
+        <ol key={key} className={styles.ol}>
           {block.items.map((item, i) => (
             <li key={i}>{parseInline(item)}</li>
           ))}
@@ -259,7 +252,7 @@ function renderBlock(block, key) {
       );
 
     case 'hr':
-      return <hr key={key} className="border-t border-border my-8" />;
+      return <hr key={key} className={styles.hr} />;
 
     case 'code':
       return <CodeBlock key={key} content={block.content} language={block.language} />;
@@ -415,10 +408,10 @@ function CodeBlock({ content, language }) {
   };
 
   return (
-    <div className="my-4 w-full max-w-3xl rounded-2xl border border-border bg-bg/60 overflow-y-auto max-h-[34rem]">
-      <div className="sticky top-0 z-20 flex items-center justify-between px-4 py-2 border-b border-border bg-bg/90 backdrop-blur-sm">
-        <span className="inline-flex items-center gap-2 text-text-primary text-xs font-semibold lowercase">
-          <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 md:w-5 md:h-5 text-text-primary">
+    <div className={styles.codeBlock}>
+      <div className={styles.codeBar}>
+        <span className={styles.codeLanguage}>
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
             <path d="M8 8 4 12l4 4M16 8l4 4-4 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <span>{formatLanguageLabel(language)}</span>
@@ -426,23 +419,23 @@ function CodeBlock({ content, language }) {
         <button
           type="button"
           onClick={handleCopy}
-          className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border text-text-secondary hover:text-text-primary hover:bg-bg transition-colors"
+          className={styles.copyButton}
           aria-label="Copy code"
           title={copied ? 'Copied' : 'Copy code'}
         >
           {copied ? (
-            <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
               <path d="m5 13 4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           ) : (
-            <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
               <rect x="9" y="3" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
               <rect x="3" y="9" width="12" height="12" rx="3" stroke="currentColor" strokeWidth="2" />
             </svg>
           )}
         </button>
       </div>
-      <pre className="overflow-x-auto p-4 md:p-5 text-sm leading-relaxed">
+      <pre className={styles.pre}>
         <code
           className="hljs !bg-transparent font-mono"
           dangerouslySetInnerHTML={{ __html: highlightedHtml || escapeHtml(content || '') }}
@@ -501,27 +494,27 @@ function parseInline(text) {
 
     switch (pattern.type) {
       case 'bold':
-        result.push(<strong key={key} className="font-semibold text-text-primary">{match[1]}</strong>);
+        result.push(<strong key={key} className={styles.strong}>{match[1]}</strong>);
         break;
       case 'underline':
-        result.push(<u key={key} className="underline decoration-text-muted underline-offset-4">{match[1]}</u>);
+        result.push(<u key={key} className={styles.underline}>{match[1]}</u>);
         break;
       case 'highlight':
         result.push(
-          <mark key={key} className="bg-accent-orange/15 text-text-primary rounded px-1 py-0.5 box-decoration-clone">
+          <mark key={key} className={styles.mark}>
             {match[1]}
           </mark>
         );
         break;
       case 'strike':
-        result.push(<s key={key} className="text-text-muted">{match[1]}</s>);
+        result.push(<s key={key} className={styles.strike}>{match[1]}</s>);
         break;
       case 'italic':
-        result.push(<em key={key} className="italic">{match[1]}</em>);
+        result.push(<em key={key} className={styles.em}>{match[1]}</em>);
         break;
       case 'code':
         result.push(
-          <code key={key} className="bg-surface px-1.5 py-0.5 rounded text-sm font-mono text-accent-blue">
+          <code key={key} className={styles.inlineCode}>
             {match[1]}
           </code>
         );
@@ -533,7 +526,7 @@ function parseInline(text) {
             href={match[2]}
             target={match[2].startsWith('http') ? '_blank' : undefined}
             rel={match[2].startsWith('http') ? 'noopener noreferrer' : undefined}
-            className="text-accent-blue hover:underline"
+            className={styles.link}
             title={match[4] || undefined}
           >
             {match[1]}

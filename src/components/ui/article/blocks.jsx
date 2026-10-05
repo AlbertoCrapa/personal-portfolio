@@ -3,6 +3,7 @@ import React from 'react';
 import Callout from '../Callout';
 import MediaFrame from '../MediaFrame';
 import RichText from '../RichText';
+import styles from './article.module.css';
 
 /**
  * The small presentational blocks an article can use besides prose and media.
@@ -16,26 +17,17 @@ import RichText from '../RichText';
 /* ── Lead ──────────────────────────────────────────────────────────────────
    The opening paragraph, one size up. Says what the thing is and why it was
    hard, before any heading has had a chance to interrupt. */
-export const Lead = ({ text }) => (
-    <RichText
-        text={text}
-        className="[&>p]:text-lg md:[&>p]:text-xl [&>p]:leading-relaxed [&>p]:text-text-primary/85"
-    />
-);
+export const Lead = ({ text }) => <RichText text={text} className={styles.lead} />;
 
 /* ── Pull quote ────────────────────────────────────────────────────────────
    One sentence, promoted. Use it for the claim a reader should leave with,
    not for a quote from somebody else (that is what `cite` is for). */
 export const PullQuote = ({ text, cite }) => (
-    <figure className="border-l-2 border-accent-orange pl-5 md:pl-7">
-        <blockquote className="font-display text-xl md:text-2xl leading-snug text-text-primary">
+    <figure className={styles.pullQuote}>
+        <blockquote className={styles.pullQuoteText}>
             {inline(text)}
         </blockquote>
-        {cite && (
-            <figcaption className="mt-3 text-sm text-text-muted">
-                <span className="mr-1">—</span>{inline(cite)}
-            </figcaption>
-        )}
+        {cite && <figcaption className={styles.pullQuoteCite}>{inline(cite)}</figcaption>}
     </figure>
 );
 
@@ -43,14 +35,12 @@ export const PullQuote = ({ text, cite }) => (
    A boxed, scannable list: "what this covers" near the top, or "what I'd do
    differently" at the end. Deliberately capped at a handful of lines. */
 export const KeyPoints = ({ title, items }) => (
-    <aside className="rounded-xl border border-border bg-surface/40 p-5 md:p-6">
-        {title && (
-            <p className="text-sm font-medium text-text-secondary mb-3">{title}</p>
-        )}
-        <ul className="space-y-2.5">
+    <aside className={styles.keyPoints}>
+        {title && <p className={styles.keyPointsTitle}>{title}</p>}
+        <ul className={styles.keyPointsList}>
             {items.map((item, i) => (
-                <li key={i} className="flex gap-3 text-text-secondary leading-relaxed">
-                    <svg viewBox="0 0 24 24" fill="none" className="w-4 h-4 mt-1 flex-shrink-0 text-white">
+                <li key={i} className={styles.keyPoint}>
+                    <svg viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
                         <path d="m5 13 4 4L19 7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <span>{inline(item)}</span>
@@ -64,16 +54,12 @@ export const KeyPoints = ({ title, items }) => (
    Concrete numbers are the cheapest credibility in technical writing, and a
    row of them gives the eye somewhere to land between two blocks of prose. */
 export const Stats = ({ items }) => (
-    <div className="grid grid-cols-2 sm:grid-cols-[repeat(auto-fit,minmax(9rem,1fr))] gap-px bg-border rounded-xl overflow-hidden border border-border">
+    <div className={styles.stats}>
         {items.map((stat, i) => (
-            <div key={i} className="bg-bg px-4 py-4 md:py-5">
-                <p className="font-display text-2xl md:text-3xl text-text-primary leading-none">
-                    {stat.value}
-                </p>
-                {stat.label && (
-                    <p className="mt-1.5 text-sm text-text-muted">{stat.label}</p>
-                )}
-                {stat.hint && <p className="mt-1 text-xs text-text-muted/80">{stat.hint}</p>}
+            <div key={i} className={styles.stat}>
+                <p className={styles.statValue}>{stat.value}</p>
+                {stat.label && <p className={styles.statLabel}>{stat.label}</p>}
+                {stat.hint && <p className={styles.statHint}>{stat.hint}</p>}
             </div>
         ))}
     </div>
@@ -83,12 +69,9 @@ export const Stats = ({ items }) => (
    The remark you would otherwise bury in parentheses. Smaller type marks it
    as skippable, which is exactly what makes the main line easier to follow. */
 export const Aside = ({ title, text }) => (
-    <aside className="border-l border-border pl-4 md:pl-5 text-sm">
-        {title && <p className="text-text-primary font-medium mb-1">{title}</p>}
-        <RichText
-            text={text}
-            className="[&>p]:text-sm [&>p]:text-text-muted [&>ul]:text-sm [&>ol]:text-sm"
-        />
+    <aside className={styles.aside}>
+        {title && <p className={styles.asideTitle}>{title}</p>}
+        <RichText text={text} />
     </aside>
 );
 
@@ -97,8 +80,8 @@ export const Aside = ({ title, text }) => (
    can carry a title and be dropped between two paragraphs. */
 export const CalloutBlock = ({ text, variant, title }) => (
     <Callout type={variant === 'warning' ? 'warning' : 'info'}>
-        {title && <p className="font-semibold text-text-primary mb-1">{title}</p>}
-        <RichText text={text} className="space-y-2 [&>p]:text-sm [&>p]:text-text-primary/90" />
+        {title && <p className={styles.calloutTitle}>{title}</p>}
+        <RichText text={text} />
     </Callout>
 );
 
@@ -106,10 +89,8 @@ export const CalloutBlock = ({ text, variant, title }) => (
    A scene break, not a section break. Three dots read as "time passes";
    a full rule reads as "new document". */
 export const Divider = () => (
-    <div className="flex items-center justify-center gap-2 py-2" role="separator" aria-hidden="true">
-        {[0, 1, 2].map((i) => (
-            <span key={i} className="w-1 h-1 rounded-full bg-text-muted/60" />
-        ))}
+    <div className={styles.divider} role="separator" aria-hidden="true">
+        {[0, 1, 2].map((i) => <span key={i} />)}
     </div>
 );
 
@@ -143,12 +124,10 @@ export const Gallery = ({ items, columns = 2, caption, allowFullscreen = true, i
    Delegates to RichText's fenced-code renderer (highlighting + copy button)
    and adds the caption that explains why the snippet is worth reading. */
 export const CodeFigure = ({ code, language = 'text', caption, filename }) => (
-    <figure className="space-y-2">
-        {filename && (
-            <p className="text-xs font-mono text-text-muted">{filename}</p>
-        )}
-        <RichText text={`\`\`\`${language}\n${code}\n\`\`\``} className="!space-y-0 [&>div]:!my-0" />
-        {caption && <figcaption className="text-sm text-text-muted">{caption}</figcaption>}
+    <figure className={styles.codeFigure}>
+        {filename && <p className={styles.filename}>{filename}</p>}
+        <RichText text={`\`\`\`${language}\n${code}\n\`\`\``} />
+        {caption && <figcaption className={styles.caption}>{caption}</figcaption>}
     </figure>
 );
 
@@ -160,9 +139,6 @@ export const CodeFigure = ({ code, language = 'text', caption, filename }) => (
  */
 function inline(text) {
     return (
-        <RichText
-            text={text}
-            className="!inline !space-y-0 [&>p]:!inline [&>p]:!text-inherit [&>p]:!leading-[inherit] [&>p]:!m-0"
-        />
+        <RichText text={text} className={styles.inline} />
     );
 }

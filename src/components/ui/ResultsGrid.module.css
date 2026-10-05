@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  /* Every row as tall as the tallest card, so all cards share one height. */
+  grid-auto-rows: 1fr;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* One bordered group with hairline dividers; rows are not cards. */
+.list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+
+.list > .item + .item {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.item {
+  min-width: 0;
+}
