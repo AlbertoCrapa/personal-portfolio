@@ -154,26 +154,13 @@
 :root[data-theme="dark"][data-accent="coral"] { --control-on: #ec6a60; --control-thumb-on: #fff; --control-glyph: #fff; --control-fill: #ec6a60; }
 :root[data-theme="dark"][data-accent="rose"] { --control-on: #e457a0; --control-thumb-on: #fff; --control-glyph: #fff; --control-fill: #e457a0; }
 
-/* Chart series palette, shared by every chart. Series 1 is the accent itself; series 2 to 4 rotate its hue at lightness steps
+/* Chart series palette, shared by every chart. Static set: the accent-derived oklch(from ...) version broke the CRA build
+   (postcss-calc in the CSS minimizer cannot parse relative color). Original notes: series 2 to 4 rotate its hue at lightness steps
    around it, so they stay distinct for every accent. A neutral accent falls back to a blue. Validated with the dataviz script
    across all eight accents in both themes: every pair (not only neighbours) clears CVD ΔE 9 and normal vision ΔE 17. Browsers
    without relative color get the neutral set. Override --series-1 to --series-4 on any element to rebrand a chart. */
 :root { --series-1: #1f7dcf; --series-2: #7128a5; --series-3: #e58f00; --series-4: #009e84; }
 :root[data-theme="dark"] { --series-1: #55adff; --series-2: #9c37be; --series-3: #e66e00; --series-4: #00a861; }
-@supports (color: oklch(from red clamp(.4, l * sign(max(c - .02, 0)) + .5, .8) c h)) {
-  :root {
-    --series-1: oklch(from var(--accent) calc(l * sign(max(c - .02, 0)) + .58 * (1 - sign(max(c - .02, 0)))) calc(c * sign(max(c - .02, 0)) + .15 * (1 - sign(max(c - .02, 0)))) calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0)))));
-    --series-2: oklch(from var(--accent) clamp(.45, l * sign(max(c - .02, 0)) + .58 * (1 - sign(max(c - .02, 0))) - 0.25, .76) .19 calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0))) + 57));
-    --series-3: oklch(from var(--accent) clamp(.45, l * sign(max(c - .02, 0)) + .58 * (1 - sign(max(c - .02, 0))) + 0.14, .76) .18 calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0))) + 184));
-    --series-4: oklch(from var(--accent) clamp(.45, l * sign(max(c - .02, 0)) + .58 * (1 - sign(max(c - .02, 0))), .76) .21 calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0))) + 292));
-  }
-  :root[data-theme="dark"] {
-    --series-1: oklch(from var(--accent) calc(l * sign(max(c - .02, 0)) + .73 * (1 - sign(max(c - .02, 0)))) calc(c * sign(max(c - .02, 0)) + .15 * (1 - sign(max(c - .02, 0)))) calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0)))));
-    --series-2: oklch(from var(--accent) clamp(.485, l * sign(max(c - .02, 0)) + .73 * (1 - sign(max(c - .02, 0))) - 0.19, .665) .21 calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0))) + 66));
-    --series-3: oklch(from var(--accent) clamp(.485, l * sign(max(c - .02, 0)) + .73 * (1 - sign(max(c - .02, 0))) + 0.02, .665) .21 calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0))) + 175));
-    --series-4: oklch(from var(--accent) clamp(.485, l * sign(max(c - .02, 0)) + .73 * (1 - sign(max(c - .02, 0))) - 0.1, .665) .18 calc(h * sign(max(c - .02, 0)) + 250 * (1 - sign(max(c - .02, 0))) + 270));
-  }
-}
 
 /* No focus rings or outlines for any input method (product decision). */
 :is(*:focus, *:focus-visible, *:focus-within) { outline: none !important; }
