@@ -1,11 +1,7 @@
-/* A floating Arc surface in the bottom-right corner; full width minus the
-   gutter on phones. The thread inside sizes to its messages. */
+/* A floating Arc surface at the foot of the notification stack, which places
+   it in the bottom-right corner. The thread inside sizes to its messages. */
 .panel {
-  position: fixed;
-  right: var(--space-4);
-  bottom: var(--space-4);
-  z-index: 120;
-  width: min(22rem, calc(100vw - 2 * var(--space-4)));
+  width: 100%;
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: var(--radius-panel);

@@ -1,0 +1,114 @@
+/* Bottom-right column. Bubbles hug their text and align to the right edge,
+   like messages sent from this side of a chat. Phones: full width minus the gutter. */
+.stack {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  z-index: 120;
+  display: flex;
+  width: min(22rem, calc(100vw - 2 * var(--space-4)));
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  pointer-events: none;
+  font-family: var(--font-body);
+  letter-spacing: var(--tracking-body);
+}
+
+.list {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.host {
+  display: contents;
+}
+
+.host > * {
+  pointer-events: auto;
+}
+
+/* Same bubble shape as the Arc chat thread: a run of bubbles shares a tight
+   corner on the right, so the stack reads as one voice. */
+.bubble {
+  --r: 18px;
+  --tight: 6px;
+  display: grid;
+  max-width: 100%;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  gap: var(--space-2);
+  padding: 9px 6px 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-raised);
+  color: var(--foreground);
+  pointer-events: auto;
+  transform-origin: bottom right;
+}
+
+.bubble:not(:first-child) { border-top-right-radius: var(--tight); }
+.bubble:not(:last-child) { border-bottom-right-radius: var(--tight); }
+
+.icon {
+  margin-top: 2px;
+  color: var(--accent);
+}
+
+.bubble[data-type="success"] .icon { color: var(--success); }
+.bubble[data-type="error"] .icon { color: var(--danger); }
+
+/* Site-wide notices (work in progress): the warning token nudged from amber
+   to yellow, as a soft wash. Browsers without relative color keep amber. */
+.bubble[data-type="warning"] {
+  --tone: var(--warning);
+  --tone: oklch(from var(--warning) l c 92);
+  border-color: color-mix(in oklab, var(--tone) 40%, var(--border));
+  background: color-mix(in oklab, var(--tone) 16%, var(--surface-raised));
+}
+.bubble[data-type="warning"] .icon { color: var(--tone); }
+
+.body {
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: var(--leading-body);
+}
+
+.message {
+  margin: 2px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  overflow-wrap: anywhere;
+}
+
+.close {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  margin-top: -4px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+}
+
+.close:hover {
+  color: var(--foreground);
+  background: color-mix(in oklab, var(--foreground) 7%, transparent);
+}

@@ -80,7 +80,7 @@ const Work = ({ source = 'projects' }) => {
         '@type': 'CreativeWork',
         name: project.title,
         description: summary || `${project.title} by Alberto Crapanzano`,
-        image: projectCover ? `https://albyeah.com${projectCover}` : 'https://albyeah.com/img/profile.jpg',
+        image: projectCover ? `https://albyeah.com${projectCover}` : 'https://albyeah.com/img/og-image.jpg',
         dateCreated: project.date,
         genre: project.type || (isPlayground ? 'interactive prototype' : 'software project'),
         creator: {

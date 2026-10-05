@@ -1,9 +1,11 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { X } from 'lucide-react';
 
 import { ChatThread } from '../arc/chat-thread/chat-thread';
 import { motionTokens } from '../arc/lib/motion-tokens';
+import { useNotification } from './NotificationProvider';
 import data from '../../data/data.json';
 import styles from './WelcomeChat.module.css';
 
@@ -34,6 +36,7 @@ const WelcomeChat = () => {
     const config = data?.homepage?.notifications?.sessionWelcome || {};
     const lines = config.messages || [];
     const reduce = useReducedMotion();
+    const { host } = useNotification();
     const [open, setOpen] = React.useState(false);
     const [messages, setMessages] = React.useState([]);
     const [typing, setTyping] = React.useState(false);
@@ -68,7 +71,9 @@ const WelcomeChat = () => {
         return () => window.clearTimeout(id);
     }, [open, done, held, config.durationMs]);
 
-    return (
+    // Rendered into the notification stack so the corner never holds two overlapping surfaces.
+    if (!host) return null;
+    return createPortal(
         <AnimatePresence>
             {open && (
                 <motion.aside
@@ -100,7 +105,8 @@ const WelcomeChat = () => {
                     />
                 </motion.aside>
             )}
-        </AnimatePresence>
+        </AnimatePresence>,
+        host
     );
 };
 

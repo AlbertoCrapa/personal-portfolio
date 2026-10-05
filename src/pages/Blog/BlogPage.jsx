@@ -39,7 +39,7 @@ const BlogPage = () => {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
         headline: blog.title,
-        image: coverSrc ? `https://albyeah.com${coverSrc}` : 'https://albyeah.com/img/profile.jpg',
+        image: coverSrc ? `https://albyeah.com${coverSrc}` : 'https://albyeah.com/img/og-image.jpg',
         datePublished: blog.date,
         dateModified: blog.date,
         author: {

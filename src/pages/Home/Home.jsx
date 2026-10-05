@@ -444,7 +444,7 @@ const Home = () => {
     return (
         <>
             <SEO
-                title="Alberto Crapanzano - Game Technical Designer & Creative Developer"
+                title="Alberto Crapanzano - Technical Designer & Creative Developer"
                 description="Alberto Crapanzano (Albyeah) is a Creative Developer specializing in game Technical Design and Programming. Expert in Unity, Unreal Engine, and digital experiences."
                 keywords="Alberto Crapanzano, Albyeah, Game Developer, Technical Designer, Creative Developer, Unity, Unreal Engine"
                 url="/"
